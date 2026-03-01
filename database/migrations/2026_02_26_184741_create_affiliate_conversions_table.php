@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('affiliate_conversions');
         Schema::create('affiliate_conversions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('affiliate_id')->constrained()->cascadeOnDelete();
