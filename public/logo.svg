@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <!-- Main gradient: blue to indigo -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4f46e5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+    </linearGradient>
+    <!-- Shine overlay -->
+    <linearGradient id="shineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.18" />
+      <stop offset="60%" style="stop-color:#ffffff;stop-opacity:0.04" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0.12" />
+    </linearGradient>
+    <!-- Glow filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Drop shadow -->
+    <filter id="shadow" x="-15%" y="-10%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#4f46e5" flood-opacity="0.35"/>
+    </filter>
+    <!-- Inner shadow for depth -->
+    <filter id="innerGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <!-- Letter A gradient -->
+    <linearGradient id="letterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e0e7ff;stop-opacity:0.9" />
+    </linearGradient>
+    <!-- Accent gradient for crossbar -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:1" />
+    </linearGradient>
+    <!-- Decorative dots gradient -->
+    <radialGradient id="dotGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#93c5fd;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Outer shadow background -->
+  <rect x="20" y="20" width="360" height="360" rx="80" fill="#4f46e5" opacity="0.15" filter="url(#shadow)"/>
+
+  <!-- Main background square -->
+  <rect x="20" y="20" width="360" height="360" rx="80" fill="url(#bgGrad)" filter="url(#shadow)"/>
+
+  <!-- Shine overlay -->
+  <rect x="20" y="20" width="360" height="360" rx="80" fill="url(#shineGrad)"/>
+
+  <!-- Decorative grid pattern (subtle) -->
+  <g opacity="0.07" stroke="#ffffff" stroke-width="1" fill="none">
+    <line x1="100" y1="20" x2="100" y2="380"/>
+    <line x1="200" y1="20" x2="200" y2="380"/>
+    <line x1="300" y1="20" x2="300" y2="380"/>
+    <line x1="20" y1="120" x2="380" y2="120"/>
+    <line x1="20" y1="200" x2="380" y2="200"/>
+    <line x1="20" y1="280" x2="380" y2="280"/>
+  </g>
+
+  <!-- Decorative circles (top-left accent) -->
+  <circle cx="60" cy="60" r="40" fill="url(#dotGrad)" opacity="0.4"/>
+  <circle cx="340" cy="340" r="55" fill="url(#dotGrad)" opacity="0.3"/>
+
+  <!-- Small decorative dots -->
+  <circle cx="350" cy="55" r="5" fill="#93c5fd" opacity="0.5"/>
+  <circle cx="340" cy="75" r="3" fill="#a78bfa" opacity="0.4"/>
+  <circle cx="55" cy="345" r="4" fill="#38bdf8" opacity="0.5"/>
+  <circle cx="75" cy="360" r="2.5" fill="#818cf8" opacity="0.4"/>
+
+  <!-- ══ LETTER A — Main mark ══ -->
+  <!-- Left leg -->
+  <path d="M200 90 L128 310 L162 310 L200 188 L238 310 L272 310 Z"
+        fill="url(#letterGrad)"
+        filter="url(#innerGlow)"/>
+
+  <!-- Inner cutout (hollow middle) -->
+  <path d="M200 90 L162 310 L238 310 Z" fill="url(#bgGrad)" opacity="0.7"/>
+
+  <!-- Crossbar — gradient accent -->
+  <rect x="153" y="228" width="94" height="22" rx="11" fill="url(#accentGrad)"/>
+
+  <!-- Small apex dot (diamond-ish) -->
+  <polygon points="200,78 210,95 200,105 190,95" fill="#7dd3fc" opacity="0.9"/>
+
+  <!-- Bottom-left serif accent -->
+  <rect x="122" y="304" width="46" height="12" rx="6" fill="url(#letterGrad)" opacity="0.7"/>
+  <!-- Bottom-right serif accent -->
+  <rect x="232" y="304" width="46" height="12" rx="6" fill="url(#letterGrad)" opacity="0.7"/>
+
+  <!-- ══ Border ring (subtle) ══ -->
+  <rect x="20" y="20" width="360" height="360" rx="80" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.15"/>
+</svg>

@@ -1,0 +1,224 @@
+import AppLayout from "@/Layouts/AppLayout";
+import { Head, Link, router } from "@inertiajs/react";
+import { useState } from "react";
+import PageHeader from "@/Components/PageHeader";
+import Pagination from "@/Components/Pagination";
+import Badge from "@/Components/Badge";
+import SearchFilter from "@/Components/SearchFilter";
+import { Plus, Eye, Pencil, Trash2, Send, X } from "lucide-react";
+import ExportButtons from "@/Components/ExportButtons";
+import { fmtDate } from "@/utils/date";
+import { useDialog } from "@/hooks/useDialog";
+
+const STATUS_COLOR = {
+    draft: "slate",
+    sent: "blue",
+    partial: "amber",
+    paid: "green",
+    overdue: "red",
+    cancelled: "slate",
+};
+
+export default function InvoicesIndex({ invoices, filters }) {
+    const [search, setSearch] = useState(filters?.search ?? "");
+    const [status, setStatus] = useState(filters?.status ?? "");
+
+    const apply = (s, st) =>
+        router.get(
+            route("sales.invoices.index"),
+            { search: s, status: st },
+            { preserveState: true, replace: true },
+        );
+    const { confirm: dlgConfirm } = useDialog();
+    const del = async (id) => {
+        if (
+            await dlgConfirm("This invoice will be permanently removed.", {
+                title: "Delete Invoice?",
+                confirmLabel: "Delete",
+                intent: "danger",
+            })
+        )
+            router.delete(route("sales.invoices.destroy", id));
+    };
+
+    return (
+        <AppLayout title="Invoices">
+            <Head title="Invoices" />
+            <PageHeader
+                title="Invoices"
+                subtitle={`${invoices.total} total invoices`}
+                actions={
+                    <Link
+                        href={route("sales.invoices.create")}
+                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
+                    >
+                        <Plus size={16} /> New Invoice
+                    </Link>
+                }
+            />
+
+            <div className="bg-white rounded-xl border border-slate-200 mb-4 p-4 flex flex-wrap gap-3">
+                <SearchFilter
+                    value={search}
+                    onChange={(v) => {
+                        setSearch(v);
+                        apply(v, status);
+                    }}
+                    placeholder="Search invoice #, customer…"
+                />
+                <select
+                    value={status}
+                    onChange={(e) => {
+                        setStatus(e.target.value);
+                        apply(search, e.target.value);
+                    }}
+                    className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                    <option value="">All Status</option>
+                    {[
+                        "draft",
+                        "sent",
+                        "partial",
+                        "paid",
+                        "overdue",
+                        "cancelled",
+                    ].map((s) => (
+                        <option key={s} value={s}>
+                            {s.charAt(0).toUpperCase() + s.slice(1)}
+                        </option>
+                    ))}
+                </select>
+                <ExportButtons
+                    tableId="export-table"
+                    filename="invoices"
+                    title="Invoices"
+                />
+            </div>
+
+            <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-sm" id="export-table">
+                        <thead className="bg-slate-50 border-b border-slate-200">
+                            <tr>
+                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                    Invoice #
+                                </th>
+                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                    Customer
+                                </th>
+                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                    Date
+                                </th>
+                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                    Due
+                                </th>
+                                <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                    Amount
+                                </th>
+                                <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                    Paid
+                                </th>
+                                <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                    Status
+                                </th>
+                                <th className="px-6 py-3"></th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                            {invoices.data.length === 0 && (
+                                <tr>
+                                    <td
+                                        colSpan={8}
+                                        className="px-6 py-12 text-center text-slate-400"
+                                    >
+                                        No invoices found.
+                                    </td>
+                                </tr>
+                            )}
+                            {invoices.data.map((inv) => (
+                                <tr
+                                    key={inv.id}
+                                    className="hover:bg-slate-50 transition-colors"
+                                >
+                                    <td className="px-6 py-4 font-mono font-medium text-blue-600">
+                                        <Link
+                                            href={route(
+                                                "sales.invoices.show",
+                                                inv.id,
+                                            )}
+                                            className="hover:underline"
+                                        >
+                                            {inv.invoice_number}
+                                        </Link>
+                                    </td>
+                                    <td className="px-6 py-4 text-slate-700">
+                                        {inv.customer?.name}
+                                    </td>
+                                    <td className="px-6 py-4 text-slate-600">
+                                        {fmtDate(inv.invoice_date)}
+                                    </td>
+                                    <td className="px-6 py-4 text-slate-600">
+                                        {fmtDate(inv.due_date)}
+                                    </td>
+                                    <td className="px-6 py-4 text-right font-mono font-medium text-slate-800">
+                                        ৳
+                                        {Number(
+                                            inv.total_amount,
+                                        ).toLocaleString()}
+                                    </td>
+                                    <td className="px-6 py-4 text-right font-mono text-emerald-600">
+                                        ৳
+                                        {Number(
+                                            inv.paid_amount,
+                                        ).toLocaleString()}
+                                    </td>
+                                    <td className="px-6 py-4 text-center">
+                                        <Badge
+                                            color={
+                                                STATUS_COLOR[inv.status] ??
+                                                "slate"
+                                            }
+                                        >
+                                            {inv.status}
+                                        </Badge>
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <div className="flex items-center justify-end gap-1">
+                                            <Link
+                                                href={route(
+                                                    "sales.invoices.show",
+                                                    inv.id,
+                                                )}
+                                                className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded"
+                                            >
+                                                <Eye size={15} />
+                                            </Link>
+                                            {inv.status === "draft" && (
+                                                <Link
+                                                    href={route(
+                                                        "sales.invoices.edit",
+                                                        inv.id,
+                                                    )}
+                                                    className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-50 rounded"
+                                                >
+                                                    <Pencil size={15} />
+                                                </Link>
+                                            )}
+                                            <button
+                                                onClick={() => del(inv.id)}
+                                                className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded"
+                                            >
+                                                <Trash2 size={15} />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <Pagination links={invoices.links} />
+            </div>
+        </AppLayout>
+    );
+}

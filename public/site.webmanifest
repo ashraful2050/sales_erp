@@ -1,0 +1,20 @@
+{
+  "name": "AccounTech BD",
+  "short_name": "AccounTech",
+  "description": "Complete ERP for Bangladesh Businesses",
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
