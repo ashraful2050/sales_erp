@@ -25,6 +25,7 @@ class Permissions
         'tasks'          => ['view', 'create', 'edit', 'delete'],
         'support'        => ['view', 'create', 'edit', 'delete'],
         'analytics'      => ['view'],
+        'ie'             => ['view'],
     ];
 
     /**
@@ -127,6 +128,18 @@ class Permissions
             'fiscal_years'     => 'Fiscal Years',
             'units'            => 'Units of Measure',
         ],
+        'ie' => [
+            'process_optimization'   => 'Process Optimization',
+            'workload_balancing'     => 'Workload Balancing',
+            'kpi_analytics'          => 'KPI & Performance Analytics',
+            'demand_forecasting'     => 'Demand Forecasting',
+            'order_fulfillment'      => 'Order Fulfillment',
+            'standardization'        => 'Standardization & Automation',
+            'waste_dashboard'        => 'Waste Dashboard (Lean)',
+            'cost_to_serve'          => 'Cost-to-Serve Analysis',
+            'simulation'             => 'Simulation & What-If',
+            'continuous_improvement' => 'Continuous Improvement',
+        ],
     ];
 
     /** Return flat list of every permission key (modules + features) */
@@ -214,6 +227,7 @@ class Permissions
             'tasks'      => 'Task Management',
             'support'    => 'Customer Support',
             'analytics'  => 'Analytics & AI',
+            'ie'         => 'Industrial Engineering',
         ];
     }
 
@@ -241,6 +255,7 @@ class Permissions
             'tasks'      => '✅',
             'support'    => '🎧',
             'analytics'  => '🧠',
+            'ie'         => '🏭',
         ];
     }
 }

@@ -44,6 +44,7 @@ import {
     Tag,
     Award,
     DollarSign,
+    Cpu,
 } from "lucide-react";
 
 const nav = [
@@ -465,13 +466,13 @@ const nav = [
                 label: "Users",
                 href: "settings.users.index",
                 route: "settings.users.index",
-                superAdminOnly: true,
+                adminOrSuperAdmin: true,
             },
             {
                 label: "Roles & Permissions",
                 href: "settings.roles.index",
                 route: "settings.roles.index",
-                superAdminOnly: true,
+                adminOrSuperAdmin: true,
             },
             {
                 label: "Audit Logs",
@@ -563,6 +564,63 @@ const nav = [
                 label: "Customer Feedback",
                 href: "analytics.feedback",
                 route: "analytics.feedback",
+            },
+        ],
+    },
+    {
+        label: "Industrial Engineering",
+        icon: Cpu,
+        perm: "ie.view",
+        children: [
+            {
+                label: "Process Optimization",
+                href: "ie.process-optimization",
+                route: "ie.process-optimization",
+            },
+            {
+                label: "Workload Balancing",
+                href: "ie.workload-balancing",
+                route: "ie.workload-balancing",
+            },
+            {
+                label: "KPI & Performance Analytics",
+                href: "ie.kpi-analytics",
+                route: "ie.kpi-analytics",
+            },
+            {
+                label: "Demand Forecasting",
+                href: "ie.demand-forecasting",
+                route: "ie.demand-forecasting",
+            },
+            {
+                label: "Order Fulfillment",
+                href: "ie.order-fulfillment",
+                route: "ie.order-fulfillment",
+            },
+            {
+                label: "Standardization & Automation",
+                href: "ie.standardization",
+                route: "ie.standardization",
+            },
+            {
+                label: "Waste Dashboard (Lean)",
+                href: "ie.waste-dashboard",
+                route: "ie.waste-dashboard",
+            },
+            {
+                label: "Cost-to-Serve Analysis",
+                href: "ie.cost-to-serve",
+                route: "ie.cost-to-serve",
+            },
+            {
+                label: "Simulation & What-If",
+                href: "ie.simulation",
+                route: "ie.simulation",
+            },
+            {
+                label: "Continuous Improvement",
+                href: "ie.continuous-improvement",
+                route: "ie.continuous-improvement",
             },
         ],
     },
@@ -676,7 +734,7 @@ function NavItem({ item, collapsed }) {
 }
 
 function AppLayoutDark({ children, title }) {
-    const { auth, isSuperAdmin, flash } = usePage().props;
+    const { auth, isSuperAdmin, isAdmin, flash } = usePage().props;
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -775,7 +833,11 @@ function AppLayoutDark({ children, title }) {
                             ? {
                                   ...item,
                                   children: item.children.filter(
-                                      (c) => !c.superAdminOnly || isSuperAdmin,
+                                      (c) =>
+                                          (!c.superAdminOnly || isSuperAdmin) &&
+                                          (!c.adminOrSuperAdmin ||
+                                              isSuperAdmin ||
+                                              isAdmin),
                                   ),
                               }
                             : item;

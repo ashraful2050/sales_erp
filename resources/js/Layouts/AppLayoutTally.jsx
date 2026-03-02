@@ -93,7 +93,7 @@ function GatewayTile({ item, isSuperAdmin, permissions, onSelect, selected }) {
 }
 
 // ── Sub-menu panel (right of gateway) ────────────────────────────────────────
-function SubMenuPanel({ item, isSuperAdmin }) {
+function SubMenuPanel({ item, isSuperAdmin, isAdmin }) {
     if (!item?.children) return null;
     return (
         <div
@@ -112,7 +112,11 @@ function SubMenuPanel({ item, isSuperAdmin }) {
             </div>
             <div className="flex-1 overflow-y-auto py-1">
                 {item.children
-                    .filter((c) => !c.superAdminOnly || isSuperAdmin)
+                    .filter(
+                        (c) =>
+                            (!c.superAdminOnly || isSuperAdmin) &&
+                            (!c.adminOrSuperAdmin || isSuperAdmin || isAdmin),
+                    )
                     .map((child) => {
                         const active = isActive(child.route);
                         return (
@@ -139,7 +143,13 @@ function SubMenuPanel({ item, isSuperAdmin }) {
 
 // ── Tally Layout ──────────────────────────────────────────────────────────────
 export default function AppLayoutTally({ children, title }) {
-    const { auth, isSuperAdmin, flash, permissions = {} } = usePage().props;
+    const {
+        auth,
+        isSuperAdmin,
+        isAdmin,
+        flash,
+        permissions = {},
+    } = usePage().props;
     const [selectedModule, setSelectedModule] = useState(null);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const [flashMsg, setFlashMsg] = useState(null);
@@ -368,6 +378,7 @@ export default function AppLayoutTally({ children, title }) {
                     <SubMenuPanel
                         item={selectedItem}
                         isSuperAdmin={isSuperAdmin}
+                        isAdmin={isAdmin}
                     />
                 )}
 

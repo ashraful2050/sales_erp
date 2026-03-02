@@ -4,7 +4,7 @@ import PageHeader from "@/Components/PageHeader";
 import { Plus, Pencil, Trash2, ShieldCheck, Users } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
 
-export default function RolesIndex({ roles }) {
+export default function RolesIndex({ roles, isAdminMode }) {
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id, name) => {
         if (
@@ -22,11 +22,19 @@ export default function RolesIndex({ roles }) {
     };
 
     return (
-        <AppLayout title="Roles & Permissions">
-            <Head title="Roles & Permissions" />
+        <AppLayout
+            title={isAdminMode ? "Moderator Roles" : "Roles & Permissions"}
+        >
+            <Head
+                title={isAdminMode ? "Moderator Roles" : "Roles & Permissions"}
+            />
             <PageHeader
-                title="Roles & Permissions"
-                subtitle="Define roles and control what each role can do"
+                title={isAdminMode ? "Moderator Roles" : "Roles & Permissions"}
+                subtitle={
+                    isAdminMode
+                        ? "Create roles for moderators — limited to your own granted permissions"
+                        : "Define roles and control what each role can do"
+                }
                 actions={
                     <Link
                         href={route("settings.roles.create")}

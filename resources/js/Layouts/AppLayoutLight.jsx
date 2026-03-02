@@ -31,7 +31,7 @@ function isRouteActive(routeName) {
 }
 
 // ── Light NavItem ─────────────────────────────────────────────────────────────
-function NavItem({ item, permissions, isSuperAdmin }) {
+function NavItem({ item, permissions, isSuperAdmin, isAdmin }) {
     const hasAccess = !item.perm || permissions?.[item.perm] || isSuperAdmin;
     if (!hasAccess) return null;
 
@@ -98,7 +98,13 @@ function NavItem({ item, permissions, isSuperAdmin }) {
             {open && (
                 <ul className="mt-0.5 ml-6 border-l border-slate-200 pl-3 space-y-0.5">
                     {item.children
-                        .filter((c) => !c.superAdminOnly || isSuperAdmin)
+                        .filter(
+                            (c) =>
+                                (!c.superAdminOnly || isSuperAdmin) &&
+                                (!c.adminOrSuperAdmin ||
+                                    isSuperAdmin ||
+                                    isAdmin),
+                        )
                         .map((child) => {
                             const childActive2 = isRouteActive(child.route);
                             return (
@@ -124,7 +130,13 @@ function NavItem({ item, permissions, isSuperAdmin }) {
 
 // ── Light Layout ──────────────────────────────────────────────────────────────
 export default function AppLayoutLight({ children, title }) {
-    const { auth, isSuperAdmin, flash, permissions = {} } = usePage().props;
+    const {
+        auth,
+        isSuperAdmin,
+        isAdmin,
+        flash,
+        permissions = {},
+    } = usePage().props;
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const [flashMsg, setFlashMsg] = useState(null);
@@ -199,6 +211,7 @@ export default function AppLayoutLight({ children, title }) {
                                 item={item}
                                 permissions={permissions}
                                 isSuperAdmin={isSuperAdmin}
+                                isAdmin={isAdmin}
                             />
                         ))}
                     </ul>

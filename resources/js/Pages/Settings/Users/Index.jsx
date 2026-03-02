@@ -12,7 +12,7 @@ const roleBadge = {
     user: "bg-slate-100 text-slate-600",
 };
 
-export default function UsersIndex({ users }) {
+export default function UsersIndex({ users, isAdminMode }) {
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id, name) => {
         if (
@@ -27,11 +27,19 @@ export default function UsersIndex({ users }) {
     };
 
     return (
-        <AppLayout title="User Management">
-            <Head title="User Management" />
+        <AppLayout
+            title={isAdminMode ? "Moderator Management" : "User Management"}
+        >
+            <Head
+                title={isAdminMode ? "Moderator Management" : "User Management"}
+            />
             <PageHeader
-                title="User Management"
-                subtitle="Manage team members and their roles"
+                title={isAdminMode ? "Moderator Management" : "User Management"}
+                subtitle={
+                    isAdminMode
+                        ? "Create moderators and assign permissions from your own granted permissions"
+                        : "Manage team members and their roles"
+                }
                 actions={
                     <Link
                         href={route("settings.users.create")}

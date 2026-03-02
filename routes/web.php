@@ -69,6 +69,7 @@ use App\Http\Controllers\Sales\DirectSaleController;
 use App\Http\Controllers\Purchase\DirectPurchaseController;
 use App\Http\Controllers\Support\TicketController;
 use App\Http\Controllers\Analytics\SalesAnalyticsController;
+use App\Http\Controllers\IndustrialEngineering\IEController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -394,6 +395,20 @@ Route::middleware(['auth', 'verified', 'tenant.active'])->group(function () {
         Route::get('sales',                      [SalesAnalyticsController::class, 'index'])->name('sales');
         Route::get('feedback',                   [SalesAnalyticsController::class, 'customerFeedback'])->name('feedback');
         Route::post('feedback',                  [SalesAnalyticsController::class, 'storeFeedback'])->name('feedback.store');
+    });
+
+    // ── Industrial Engineering ────────────────────────────────────────────────
+    Route::prefix('ie')->name('ie.')->middleware('perm:ie.view')->group(function () {
+        Route::get('process-optimization',   [IEController::class, 'processOptimization'])->name('process-optimization');
+        Route::get('workload-balancing',     [IEController::class, 'workloadBalancing'])->name('workload-balancing');
+        Route::get('kpi-analytics',          [IEController::class, 'kpiAnalytics'])->name('kpi-analytics');
+        Route::get('demand-forecasting',     [IEController::class, 'demandForecasting'])->name('demand-forecasting');
+        Route::get('order-fulfillment',      [IEController::class, 'orderFulfillment'])->name('order-fulfillment');
+        Route::get('standardization',        [IEController::class, 'standardization'])->name('standardization');
+        Route::get('waste-dashboard',        [IEController::class, 'wasteDashboard'])->name('waste-dashboard');
+        Route::get('cost-to-serve',          [IEController::class, 'costToServe'])->name('cost-to-serve');
+        Route::get('simulation',             [IEController::class, 'simulation'])->name('simulation');
+        Route::get('continuous-improvement', [IEController::class, 'continuousImprovement'])->name('continuous-improvement');
     });
 });
 
