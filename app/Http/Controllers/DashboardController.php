@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Employee;
+use App\Models\Expense;
 use App\Models\Invoice;
 use App\Models\Payment;
+use App\Models\PayrollPeriod;
+use App\Models\PayrollRecord;
 use App\Models\Product;
 use App\Models\PurchaseOrder;
 use App\Models\Vendor;
+use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -16,7 +20,7 @@ use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Super admins have no company — redirect them to the super admin panel
         if (auth()->user()->isSuperAdmin()) {
@@ -119,6 +123,44 @@ class DashboardController extends Controller
             ->take(5)
             ->values();
 
+        // ── Expense Statement (donut chart) ──────────────────────────────────
+        // Accepts ?expense_month=2026-03 (YYYY-MM); defaults to current month
+        $monthInput  = $request->query('expense_month', now()->format('Y-m'));
+        [$esYear, $esMonth] = array_pad(explode('-', $monthInput), 2, now()->format('m'));
+        $esYear  = (int) $esYear;
+        $esMonth = (int) $esMonth;
+
+        $expenseTotalSale = Invoice::where('company_id', $companyId)
+            ->where('type', 'sales')
+            ->whereYear('invoice_date', $esYear)
+            ->whereMonth('invoice_date', $esMonth)
+            ->sum('total_amount');
+
+        $expenseTotalPurchase = PurchaseOrder::where('company_id', $companyId)
+            ->whereYear('po_date', $esYear)
+            ->whereMonth('po_date', $esMonth)
+            ->sum('total_amount');
+
+        $expenseTotalExpense = Expense::where('company_id', $companyId)
+            ->whereYear('expense_date', $esYear)
+            ->whereMonth('expense_date', $esMonth)
+            ->sum('amount');
+
+        // Employee salary: sum net_salary from payroll records whose period falls in the month
+        $expenseEmployeeSalary = PayrollRecord::where('payroll_records.company_id', $companyId)
+            ->join('payroll_periods', 'payroll_records.payroll_period_id', '=', 'payroll_periods.id')
+            ->whereYear('payroll_periods.payment_date', $esYear)
+            ->whereMonth('payroll_periods.payment_date', $esMonth)
+            ->sum('payroll_records.net_salary');
+
+        // Service: approved debit vouchers for the month
+        $expenseService = Voucher::where('company_id', $companyId)
+            ->where('voucher_type', 'debit')
+            ->where('status', 'approved')
+            ->whereYear('voucher_date', $esYear)
+            ->whereMonth('voucher_date', $esMonth)
+            ->sum('amount');
+
         return Inertia::render('Dashboard', [
             'stats' => [
                 'totalRevenue' => (float) $totalRevenue,
@@ -136,6 +178,14 @@ class DashboardController extends Controller
             'lowStockProducts' => $lowStockProducts,
             'todaySaleDue' => $todaySaleDue,
             'todayPurchaseDue' => $todayPurchaseDue,
+            'expenseStatement' => [
+                'month'           => $monthInput,
+                'totalSale'       => (float) $expenseTotalSale,
+                'totalPurchase'   => (float) $expenseTotalPurchase,
+                'totalExpense'    => (float) $expenseTotalExpense,
+                'employeeSalary'  => (float) $expenseEmployeeSalary,
+                'service'         => (float) $expenseService,
+            ],
         ]);
     }
 }
