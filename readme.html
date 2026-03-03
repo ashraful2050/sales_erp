@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sales ERP — Documentation</title>
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    Helvetica, Arial, sans-serif;
+                color: #1a202c;
+                background: #f7fafc;
+                line-height: 1.6;
+            }
+            a {
+                color: #3182ce;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+
+            /* Layout */
+            .wrapper {
+                display: flex;
+                min-height: 100vh;
+            }
+            nav {
+                width: 260px;
+                min-width: 260px;
+                background: #1a202c;
+                color: #e2e8f0;
+                padding: 24px 0;
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+            }
+            nav h2 {
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #718096;
+                padding: 0 24px 8px;
+                margin-top: 20px;
+            }
+            nav h2:first-child {
+                margin-top: 0;
+            }
+            nav a {
+                display: block;
+                padding: 6px 24px;
+                color: #cbd5e0;
+                font-size: 14px;
+            }
+            nav a:hover {
+                color: #fff;
+                background: #2d3748;
+                text-decoration: none;
+            }
+            main {
+                flex: 1;
+                max-width: 860px;
+                padding: 48px 56px;
+            }
+
+            /* Typography */
+            h1 {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #1a202c;
+                margin-bottom: 8px;
+            }
+            .subtitle {
+                color: #718096;
+                font-size: 1.05rem;
+                margin-bottom: 32px;
+            }
+            h2 {
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: #2d3748;
+                margin: 40px 0 12px;
+                padding-bottom: 6px;
+                border-bottom: 2px solid #e2e8f0;
+            }
+            h3 {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: #2d3748;
+                margin: 24px 0 8px;
+            }
+            p {
+                margin-bottom: 12px;
+            }
+            ul,
+            ol {
+                padding-left: 24px;
+                margin-bottom: 12px;
+            }
+            li {
+                margin-bottom: 4px;
+            }
+
+            /* Badges */
+            .badges {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-bottom: 28px;
+            }
+            .badge {
+                background: #ebf4ff;
+                color: #2b6cb0;
+                border-radius: 9999px;
+                padding: 3px 12px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+            .badge.green {
+                background: #f0fff4;
+                color: #276749;
+            }
+            .badge.purple {
+                background: #faf5ff;
+                color: #553c9a;
+            }
+
+            /* Tables */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+                font-size: 14px;
+            }
+            th {
+                background: #edf2f7;
+                text-align: left;
+                padding: 8px 12px;
+                font-weight: 600;
+                border: 1px solid #e2e8f0;
+            }
+            td {
+                padding: 8px 12px;
+                border: 1px solid #e2e8f0;
+                vertical-align: top;
+            }
+            tr:nth-child(even) td {
+                background: #f7fafc;
+            }
+
+            /* Code */
+            pre {
+                background: #1a202c;
+                color: #e2e8f0;
+                border-radius: 6px;
+                padding: 16px 20px;
+                overflow-x: auto;
+                margin: 12px 0 20px;
+                font-size: 13px;
+                line-height: 1.5;
+            }
+            code {
+                font-family:
+                    "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+                    monospace;
+            }
+            p code,
+            li code,
+            td code {
+                background: #edf2f7;
+                padding: 2px 6px;
+                border-radius: 4px;
+                font-size: 13px;
+                color: #744210;
+            }
+
+            /* Callouts */
+            .note {
+                background: #ebf8ff;
+                border-left: 4px solid #3182ce;
+                padding: 12px 16px;
+                border-radius: 0 6px 6px 0;
+                margin: 16px 0;
+                font-size: 14px;
+            }
+            .warn {
+                background: #fffbeb;
+                border-left: 4px solid #d69e2e;
+                padding: 12px 16px;
+                border-radius: 0 6px 6px 0;
+                margin: 16px 0;
+                font-size: 14px;
+            }
+            .success {
+                background: #f0fff4;
+                border-left: 4px solid #38a169;
+                padding: 12px 16px;
+                border-radius: 0 6px 6px 0;
+                margin: 16px 0;
+                font-size: 14px;
+            }
+
+            /* Steps */
+            .steps {
+                counter-reset: step;
+                list-style: none;
+                padding: 0;
+            }
+            .steps li {
+                counter-increment: step;
+                padding: 12px 12px 12px 52px;
+                position: relative;
+                border-left: 2px solid #e2e8f0;
+                margin-left: 16px;
+                margin-bottom: 8px;
+            }
+            .steps li::before {
+                content: counter(step);
+                position: absolute;
+                left: -18px;
+                top: 10px;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background: #3182ce;
+                color: #fff;
+                font-weight: 700;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Section anchors */
+            section {
+                scroll-margin-top: 20px;
+            }
+
+            @media (max-width: 768px) {
+                nav {
+                    display: none;
+                }
+                main {
+                    padding: 24px 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <!-- ───────────── Sidebar ───────────── -->
+            <nav>
+                <h2>Getting Started</h2>
+                <a href="#overview">Overview</a>
+                <a href="#features">Features</a>
+                <a href="#requirements">Requirements</a>
+                <a href="#installation">Installation</a>
+
+                <h2>Configuration</h2>
+                <a href="#env">Environment (.env)</a>
+                <a href="#webserver">Web Server</a>
+                <a href="#queue">Queue Worker</a>
+                <a href="#mail">Mail Setup</a>
+
+                <h2>Usage</h2>
+                <a href="#login">First Login</a>
+                <a href="#multitenancy">Multi-tenancy</a>
+                <a href="#roles">Roles & Permissions</a>
+                <a href="#modules">Modules Guide</a>
+
+                <h2>Reference</h2>
+                <a href="#dev">Local Development</a>
+                <a href="#upgrade">Upgrading</a>
+                <a href="#troubleshooting">Troubleshooting</a>
+                <a href="#changelog">Changelog</a>
+                <a href="#support">Support</a>
+            </nav>
+
+            <!-- ───────────── Main Content ───────────── -->
+            <main>
+                <h1>Sales ERP</h1>
+                <p class="subtitle">
+                    Laravel 12 · React 18 · Inertia.js · Tailwind CSS ·
+                    Multi-tenant SaaS
+                </p>
+
+                <div class="badges">
+                    <span class="badge">Laravel 12</span>
+                    <span class="badge">React 18</span>
+                    <span class="badge">Inertia.js 2</span>
+                    <span class="badge green">Multi-tenant</span>
+                    <span class="badge purple">Version 1.0.0</span>
+                </div>
+
+                <!-- ─── Overview ─── -->
+                <section id="overview">
+                    <h2>Overview</h2>
+                    <p>
+                        <strong>Sales ERP</strong> is a comprehensive,
+                        multi-tenant enterprise resource planning system
+                        designed for small to medium businesses. It covers the
+                        full order-to-cash lifecycle including Sales, CRM,
+                        Purchasing, Inventory, Accounting, HR &amp; Payroll,
+                        Fixed Assets, POS, and advanced Industrial Engineering
+                        analytics — all in a single, modern web application.
+                    </p>
+                    <p>
+                        The frontend is built with <strong>React 18</strong> and
+                        <strong>Inertia.js</strong>, providing a SPA-like
+                        experience without a separate API. The backend is
+                        <strong>Laravel 12</strong> with full multi-tenancy:
+                        each company's data is isolated. Permissions are
+                        controlled through a flexible SuperAdmin → Admin → Role
+                        hierarchy.
+                    </p>
+                </section>
+
+                <!-- ─── Features ─── -->
+                <section id="features">
+                    <h2>Features</h2>
+                    <table>
+                        <tr>
+                            <th>Module</th>
+                            <th>Key Capabilities</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Accounting</strong></td>
+                            <td>
+                                Chart of Accounts, Account Groups, Journal
+                                Entries, Debit/Credit/Contra Vouchers, Opening
+                                Balances, Payment Methods, Cash Adjustments
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sales</strong></td>
+                            <td>
+                                Invoices, Quotations, Credit Notes, Delivery
+                                Notes, Pricing Rules, Discount Rules &amp;
+                                Coupons, Loyalty Programs, Commissions, Sales
+                                Channels
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>CRM</strong></td>
+                            <td>
+                                Leads, Pipeline Stages, Activities, Customer
+                                Segments
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Purchase</strong></td>
+                            <td>
+                                Purchase Orders, Vendors, Goods Receipts (GRN),
+                                Debit Notes
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Inventory</strong></td>
+                            <td>
+                                Products, Warehouses, Categories, Units of
+                                Measure, Stock Movements
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Finance</strong></td>
+                            <td>
+                                Payments (AR/AP), Bank Accounts, Expenses,
+                                Expense Categories
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>HR &amp; Payroll</strong></td>
+                            <td>
+                                Employees, Departments, Designations, Salary
+                                Structures, Payroll Runs, Leaves
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Assets</strong></td>
+                            <td>
+                                Fixed Asset Register, Depreciation Schedules
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>POS</strong></td>
+                            <td>
+                                POS Terminal, Daily Reports, Session Management
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reports</strong></td>
+                            <td>
+                                Trial Balance, P&amp;L, Balance Sheet, Cash
+                                Flow, General Ledger, Aged AR/AP, Sales, Tax,
+                                Payroll, Stock, Asset Register
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Analytics &amp; AI</strong></td>
+                            <td>
+                                Sales Dashboard, Customer Feedback, Sales
+                                Forecasts
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Industrial Engineering</strong></td>
+                            <td>
+                                Process Optimization, KPI Analytics, Demand
+                                Forecasting, Workload Balancing, Order
+                                Fulfillment, Cost-to-Serve, Simulation &amp;
+                                What-If, Lean Waste Dashboard, Continuous
+                                Improvement
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tasks &amp; Support</strong></td>
+                            <td>
+                                Task Management, Task Comments, Support Tickets,
+                                Ticket Replies
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Users &amp; Roles</strong></td>
+                            <td>
+                                SuperAdmin, Tenant Admin, Sub-users, Granular
+                                Permissions, Audit Logs, Login History
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Multi-tenancy &amp; SaaS</strong></td>
+                            <td>
+                                Company Isolation, Plans, Subscriptions,
+                                Affiliate &amp; Conversion Tracking
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>FAQ / KB</strong></td>
+                            <td>
+                                FAQ Categories, Articles, Self-service Search
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Settings</strong></td>
+                            <td>
+                                Company Info, Tax Rates, Currencies, Fiscal
+                                Years, Units
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <!-- ─── Requirements ─── -->
+                <section id="requirements">
+                    <h2>Server Requirements</h2>
+                    <table>
+                        <tr>
+                            <th>Component</th>
+                            <th>Minimum Version</th>
+                            <th>Notes</th>
+                        </tr>
+                        <tr>
+                            <td>PHP</td>
+                            <td>8.2</td>
+                            <td>
+                                With BCMath, Ctype, Fileinfo, JSON, Mbstring,
+                                OpenSSL, PDO, Tokenizer, XML
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Composer</td>
+                            <td>2.x</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>Node.js</td>
+                            <td>18.x</td>
+                            <td>Required for building frontend assets</td>
+                        </tr>
+                        <tr>
+                            <td>npm</td>
+                            <td>9.x</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>MySQL</td>
+                            <td>8.0</td>
+                            <td>
+                                MariaDB 10.6+ also supported. SQLite for dev
+                                only.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Web Server</td>
+                            <td>Apache 2.4 / Nginx 1.18</td>
+                            <td>Apache needs mod_rewrite</td>
+                        </tr>
+                    </table>
+                </section>
+
+                <!-- ─── Installation ─── -->
+                <section id="installation">
+                    <h2>Installation</h2>
+
+                    <ol class="steps">
+                        <li>
+                            <h3>Upload files</h3>
+                            <p>
+                                Extract the ZIP and upload all files to your
+                                server. The web server root must point to the
+                                <code>public/</code> sub-directory,
+                                <strong>not</strong> the project root.
+                            </p>
+                        </li>
+                        <li>
+                            <h3>Create the database</h3>
+                            <p>
+                                Create a new MySQL database (e.g.,
+                                <code>sales_erp</code>) and note the
+                                credentials.
+                            </p>
+                        </li>
+                        <li>
+                            <h3>Configure environment</h3>
+                            <p>
+                                Copy <code>.env.example</code> to
+                                <code>.env</code> and fill in your values:
+                            </p>
+                            <pre><code>cp .env.example .env</code></pre>
+                            <p>Key settings to update in <code>.env</code>:</p>
+                            <pre><code>APP_NAME="Sales ERP"
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://your-domain.com
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sales_erp
+DB_USERNAME=db_user
+DB_PASSWORD=db_password</code></pre>
+                        </li>
+                        <li>
+                            <h3>Install PHP dependencies</h3>
+                            <pre><code>composer install --optimize-autoloader --no-dev</code></pre>
+                        </li>
+                        <li>
+                            <h3>Generate application key</h3>
+                            <pre><code>php artisan key:generate</code></pre>
+                        </li>
+                        <li>
+                            <h3>Run migrations &amp; seeders</h3>
+                            <pre><code>php artisan migrate --seed</code></pre>
+                            <div class="success">
+                                <strong>Default Login:</strong> Email:
+                                <code>admin@example.com</code> &nbsp;|&nbsp;
+                                Password: <code>Admin@1234</code><br />
+                                Change these immediately after first login.
+                            </div>
+                        </li>
+                        <li>
+                            <h3>Build frontend assets</h3>
+                            <pre><code>npm install
+npm run build</code></pre>
+                        </li>
+                        <li>
+                            <h3>Set directory permissions</h3>
+                            <pre><code>chmod -R 775 storage bootstrap/cache
+php artisan storage:link</code></pre>
+                        </li>
+                        <li>
+                            <h3>Optimize for production</h3>
+                            <pre><code>php artisan config:cache
+php artisan route:cache
+php artisan view:cache</code></pre>
+                        </li>
+                    </ol>
+                </section>
+
+                <!-- ─── Environment ─── -->
+                <section id="env">
+                    <h2>Environment (.env) Reference</h2>
+                    <table>
+                        <tr>
+                            <th>Key</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td><code>APP_NAME</code></td>
+                            <td>Application name shown in emails and UI</td>
+                        </tr>
+                        <tr>
+                            <td><code>APP_ENV</code></td>
+                            <td>
+                                Set to <code>production</code> on live servers
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code>APP_DEBUG</code></td>
+                            <td>Always <code>false</code> in production</td>
+                        </tr>
+                        <tr>
+                            <td><code>APP_URL</code></td>
+                            <td>Full URL of your site, including https</td>
+                        </tr>
+                        <tr>
+                            <td><code>DB_*</code></td>
+                            <td>Database connection settings</td>
+                        </tr>
+                        <tr>
+                            <td><code>MAIL_*</code></td>
+                            <td>SMTP credentials for outgoing email</td>
+                        </tr>
+                        <tr>
+                            <td><code>QUEUE_CONNECTION</code></td>
+                            <td>
+                                <code>database</code> (default) or
+                                <code>redis</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code>SESSION_DRIVER</code></td>
+                            <td>
+                                <code>database</code> recommended for
+                                multi-server
+                            </td>
+                        </tr>
+                    </table>
+                </section>
+
+                <!-- ─── Web Server ─── -->
+                <section id="webserver">
+                    <h2>Web Server Configuration</h2>
+                    <h3>Apache</h3>
+                    <pre><code>&lt;VirtualHost *:80&gt;
+    ServerName your-domain.com
+    DocumentRoot /var/www/sales_erp/public
+
+    &lt;Directory /var/www/sales_erp/public&gt;
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</code></pre>
+                    <p>
+                        Enable mod_rewrite:
+                        <code
+                            >a2enmod rewrite &amp;&amp; systemctl reload
+                            apache2</code
+                        >
+                    </p>
+
+                    <h3>Nginx</h3>
+                    <pre><code>server {
+    listen 80;
+    server_name your-domain.com;
+    root /var/www/sales_erp/public;
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}</code></pre>
+                </section>
+
+                <!-- ─── Queue ─── -->
+                <section id="queue">
+                    <h2>Queue Worker</h2>
+                    <p>
+                        Email notifications and background tasks run through
+                        Laravel Queues. Start a worker:
+                    </p>
+                    <pre><code>php artisan queue:work --queue=default --tries=3 --sleep=3</code></pre>
+                    <p>
+                        For production, manage it with
+                        <strong>Supervisor</strong>:
+                    </p>
+                    <pre><code>[program:sales_erp_queue]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/sales_erp/artisan queue:work --tries=3
+autostart=true
+autorestart=true
+numprocs=2
+user=www-data
+redirect_stderr=true
+stdout_logfile=/var/log/sales_erp_queue.log</code></pre>
+                </section>
+
+                <!-- ─── Mail ─── -->
+                <section id="mail">
+                    <h2>Mail Setup</h2>
+                    <p>Configure your SMTP credentials in <code>.env</code>:</p>
+                    <pre><code>MAIL_MAILER=smtp
+MAIL_HOST=smtp.yourprovider.com
+MAIL_PORT=587
+MAIL_USERNAME=your@email.com
+MAIL_PASSWORD=yourpassword
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="noreply@your-domain.com"
+MAIL_FROM_NAME="${APP_NAME}"</code></pre>
+                    <div class="note">
+                        Popular options: <strong>Mailgun</strong>,
+                        <strong>Amazon SES</strong>, <strong>SendGrid</strong>,
+                        <strong>Mailtrap</strong> (for testing).
+                    </div>
+                </section>
+
+                <!-- ─── First Login ─── -->
+                <section id="login">
+                    <h2>First Login</h2>
+                    <p>
+                        After running <code>php artisan migrate --seed</code>,
+                        log in at <code>https://your-domain.com/login</code>:
+                    </p>
+                    <table>
+                        <tr>
+                            <th>Field</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><code>admin@example.com</code></td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td><code>Admin@1234</code></td>
+                        </tr>
+                    </table>
+                    <div class="warn">
+                        <strong>Important:</strong> Change the default password
+                        immediately after first login via Profile &rarr; Change
+                        Password.
+                    </div>
+                    <p>From the SuperAdmin panel you can:</p>
+                    <ul>
+                        <li>Update company name and settings</li>
+                        <li>Create tenant Admin users and assign plans</li>
+                        <li>Manage subscription plans and features</li>
+                    </ul>
+                </section>
+
+                <!-- ─── Multi-tenancy ─── -->
+                <section id="multitenancy">
+                    <h2>Multi-tenancy</h2>
+                    <p>
+                        Sales ERP uses a
+                        <strong>shared database, shared schema</strong>
+                        multi-tenancy model. Each company (tenant) is identified
+                        by a <code>company_id</code> foreign key on all data
+                        tables. All queries are automatically scoped to the
+                        authenticated user's company.
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>SuperAdmin</strong> — system owner; manages
+                            all companies and plans.
+                        </li>
+                        <li>
+                            <strong>Admin</strong> — tenant owner; manages their
+                            company's users and data.
+                        </li>
+                        <li>
+                            <strong>Sub-users</strong> — created by Admin with
+                            specific role-based permissions.
+                        </li>
+                    </ul>
+                    <p>
+                        The <strong>Plans &amp; Subscriptions</strong> module
+                        lets you gate features per plan tier.
+                    </p>
+                </section>
+
+                <!-- ─── Roles ─── -->
+                <section id="roles">
+                    <h2>Roles &amp; Permissions</h2>
+                    <p>
+                        Permissions are defined per module and feature. The
+                        delegation chain is:
+                    </p>
+                    <pre><code>SuperAdmin  →  defines base permissions per tenant
+   └── Admin    →  creates roles and can only grant own permissions
+         └── Sub-users  →  assigned roles, access is strictly scoped</code></pre>
+                    <p>
+                        Manage roles at:
+                        <strong>Settings &rarr; Roles &amp; Permissions</strong>
+                    </p>
+                    <div class="note">
+                        A tenant Admin cannot create or modify other Admin or
+                        SuperAdmin accounts.
+                    </div>
+                </section>
+
+                <!-- ─── Modules ─── -->
+                <section id="modules">
+                    <h2>Modules Guide</h2>
+                    <p>
+                        See the included
+                        <code>docs/system-features-and-processes.md</code> for a
+                        detailed description of every module, its processes, and
+                        cross-module interactions. Key navigation paths in the
+                        UI:
+                    </p>
+                    <table>
+                        <tr>
+                            <th>Area</th>
+                            <th>Menu Path</th>
+                        </tr>
+                        <tr>
+                            <td>Sales invoices</td>
+                            <td>Sales &rarr; Invoices</td>
+                        </tr>
+                        <tr>
+                            <td>Chart of Accounts</td>
+                            <td>Accounting &rarr; Chart of Accounts</td>
+                        </tr>
+                        <tr>
+                            <td>Payroll run</td>
+                            <td>HR &rarr; Payroll</td>
+                        </tr>
+                        <tr>
+                            <td>Reports</td>
+                            <td>Reports &rarr; [Report Name]</td>
+                        </tr>
+                        <tr>
+                            <td>IE Analytics</td>
+                            <td>Industrial Engineering &rarr; [Feature]</td>
+                        </tr>
+                        <tr>
+                            <td>User management</td>
+                            <td>Settings &rarr; Users</td>
+                        </tr>
+                        <tr>
+                            <td>Tenant management</td>
+                            <td>SuperAdmin &rarr; Companies</td>
+                        </tr>
+                    </table>
+                </section>
+
+                <!-- ─── Dev ─── -->
+                <section id="dev">
+                    <h2>Local Development</h2>
+                    <p>Run all services concurrently:</p>
+                    <pre><code>composer run dev</code></pre>
+                    <p>Or start individually:</p>
+                    <pre><code>php artisan serve      # http://localhost:8000
+npm run dev            # Vite HMR
+php artisan queue:listen</code></pre>
+                    <p>Run tests:</p>
+                    <pre><code>php artisan test</code></pre>
+                </section>
+
+                <!-- ─── Upgrade ─── -->
+                <section id="upgrade">
+                    <h2>Upgrading</h2>
+                    <ol>
+                        <li>
+                            Back up your database and <code>.env</code> file.
+                        </li>
+                        <li>
+                            Replace all project files (keep your
+                            <code>.env</code>).
+                        </li>
+                        <li>
+                            Run:
+                            <code
+                                >composer install --optimize-autoloader
+                                --no-dev</code
+                            >
+                        </li>
+                        <li>Run: <code>php artisan migrate</code></li>
+                        <li>
+                            Run:
+                            <code>npm install &amp;&amp; npm run build</code>
+                        </li>
+                        <li>
+                            Run:
+                            <code
+                                >php artisan config:cache &amp;&amp; php artisan
+                                route:cache &amp;&amp; php artisan
+                                view:cache</code
+                            >
+                        </li>
+                    </ol>
+                </section>
+
+                <!-- ─── Troubleshooting ─── -->
+                <section id="troubleshooting">
+                    <h2>Troubleshooting</h2>
+                    <table>
+                        <tr>
+                            <th>Problem</th>
+                            <th>Solution</th>
+                        </tr>
+                        <tr>
+                            <td>White/blank page after install</td>
+                            <td>
+                                Check <code>APP_DEBUG=true</code> temporarily,
+                                check <code>storage/logs/laravel.log</code>.
+                                Usually a missing <code>APP_KEY</code> or wrong
+                                DB credentials.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>500 error on API calls</td>
+                            <td>
+                                Ensure <code>storage/</code> and
+                                <code>bootstrap/cache/</code> are writable
+                                (<code>chmod -R 775</code>).
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Assets not loading (404 on /build/...)</td>
+                            <td>
+                                Run <code>npm run build</code> — the
+                                <code>public/build/</code> folder must exist.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Emails not sending</td>
+                            <td>
+                                Verify MAIL_* settings and that a queue worker
+                                is running for non-sync mailers.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Migrations fail</td>
+                            <td>
+                                Make sure DB user has CREATE/ALTER privileges.
+                                Check DB_DATABASE exists.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Session / login loop</td>
+                            <td>
+                                Set <code>SESSION_DOMAIN</code> to your domain
+                                (without http), ensure cookies are not blocked.
+                            </td>
+                        </tr>
+                    </table>
+                    <p>
+                        Always check <code>storage/logs/laravel.log</code> for
+                        detailed error messages.
+                    </p>
+                </section>
+
+                <!-- ─── Changelog ─── -->
+                <section id="changelog">
+                    <h2>Changelog</h2>
+                    <h3>v1.0.0 — March 2026</h3>
+                    <ul>
+                        <li>Initial public release.</li>
+                        <li>
+                            Full multi-tenant SaaS architecture with Plans &amp;
+                            Subscriptions.
+                        </li>
+                        <li>
+                            19 functional modules: Accounting, Sales, CRM,
+                            Purchase, Inventory, Finance, HR, Assets, POS,
+                            Reports, Analytics, IE, Tasks, Support, Users, FAQ,
+                            Settings, SuperAdmin, Affiliates.
+                        </li>
+                        <li>
+                            React 18 + Inertia.js SPA frontend with Tailwind
+                            CSS.
+                        </li>
+                        <li>
+                            Role-based access control with granular permissions
+                            and full audit logging.
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- ─── Support ─── -->
+                <section id="support">
+                    <h2>Support</h2>
+                    <p>
+                        Support is provided via the
+                        <strong>Comments</strong> tab on the CodeCanyon item
+                        page. Before posting, please check the
+                        <a href="#troubleshooting">Troubleshooting</a> section
+                        above.
+                    </p>
+                    <div class="note">
+                        Support covers bugs and installation help for the item
+                        as sold. Customization and new feature development are
+                        outside the scope of item support.
+                    </div>
+                    <p>Response time: typically within 1–2 business days.</p>
+                </section>
+
+                <hr
+                    style="
+                        margin: 48px 0;
+                        border: none;
+                        border-top: 1px solid #e2e8f0;
+                    "
+                />
+                <p style="color: #a0aec0; font-size: 13px">
+                    Sales ERP v1.0.0 &mdash; &copy; 2026. All rights reserved.
+                    Licensed under the Envato Regular License.
+                </p>
+            </main>
+        </div>
+    </body>
+</html>

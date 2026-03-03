@@ -15,14 +15,14 @@ class AdminSeeder extends Seeder
         $company = Company::first();
         if (! $company) {
             $company = Company::create([
-                'name'          => 'AccounTech BD',
-                'currency_code' => 'BDT',
+                'name'          => 'My Company',
+                'currency_code' => 'USD',
             ]);
         }
 
         // Create or update the superadmin
         User::updateOrCreate(
-            ['email' => 'admin@accountechbd.com'],
+            ['email' => 'admin@example.com'],
             [
                 'name'              => 'Super Admin',
                 'password'          => Hash::make('Admin@1234'),
@@ -34,6 +34,6 @@ class AdminSeeder extends Seeder
             ]
         );
 
-        $this->command->info('Superadmin created: admin@accountechbd.com / Admin@1234');
+        $this->command->info('Superadmin created: admin@example.com / Admin@1234');
     }
 }

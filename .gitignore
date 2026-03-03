@@ -12,11 +12,9 @@
 /.vscode
 /.zed
 /auth.json
-docs
 node_modules
-# /public/build
-# /public/hot
-# public/storage
+/public/hot
+public/storage
 /storage/*.key
 /storage/pail
 vendor

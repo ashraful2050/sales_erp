@@ -1,10 +1,20 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "sales-erp/sales-erp",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
-    "license": "MIT",
+    "description": "Sales ERP – A full-featured multi-tenant sales management system built with Laravel 12, React 18, and Inertia.js.",
+    "keywords": [
+        "laravel",
+        "react",
+        "inertia",
+        "erp",
+        "sales",
+        "crm",
+        "saas",
+        "multi-tenant"
+    ],
+    "license": "Envato Regular License",
+    "version": "1.0.0",
     "require": {
         "php": "^8.2",
         "inertiajs/inertia-laravel": "^2.0",
