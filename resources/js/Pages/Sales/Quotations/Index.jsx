@@ -9,6 +9,7 @@ import { Plus, Eye, Pencil, Trash2, FileText } from "lucide-react";
 import ExportButtons from "@/Components/ExportButtons";
 import { fmtDate } from "@/utils/date";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const STATUS_COLOR = { draft: "slate", sent: "blue", cancelled: "slate" };
 const TYPE_COLOR = { quotation: "blue", proforma: "amber" };
@@ -16,6 +17,7 @@ const fmt = (v) =>
     Number(v || 0).toLocaleString("en-BD", { minimumFractionDigits: 2 });
 
 export default function QuotationsIndex({ quotes, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [type, setType] = useState(filters?.type ?? "");
 
@@ -28,9 +30,9 @@ export default function QuotationsIndex({ quotes, filters }) {
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
-            await dlgConfirm("This quotation will be permanently removed.", {
-                title: "Delete Quotation?",
-                confirmLabel: "Delete",
+            await dlgConfirm(t("This quotation will be permanently removed."), {
+                title: t("Delete Quotation?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -41,8 +43,8 @@ export default function QuotationsIndex({ quotes, filters }) {
             await dlgConfirm(
                 "A new sales invoice will be created from this quotation.",
                 {
-                    title: "Convert to Invoice?",
-                    confirmLabel: "Convert",
+                    title: t("Convert to Invoice?"),
+                    confirmLabel: t("Convert"),
                     intent: "info",
                 },
             )
@@ -51,17 +53,17 @@ export default function QuotationsIndex({ quotes, filters }) {
     };
 
     return (
-        <AppLayout title="Quotations">
-            <Head title="Quotations" />
+        <AppLayout title={t("Quotations")}>
+            <Head title={t("Quotations")} />
             <PageHeader
-                title="Quotations &amp; Proforma Invoices"
-                subtitle={`${quotes.total} total`}
+                title={t("Quotations &amp; Proforma Invoices")}
+                subtitle={`${quotes.total} ${t("total")}`}
                 actions={
                     <Link
                         href={route("sales.quotations.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Quotation
+                        <Plus size={16} /> {t("New Quotation")}
                     </Link>
                 }
             />
@@ -72,7 +74,7 @@ export default function QuotationsIndex({ quotes, filters }) {
                         setSearch(v);
                         apply(v, type);
                     }}
-                    placeholder="Search by #, customer…"
+                    placeholder={t("Search by #, customer…")}
                 />
                 <select
                     value={type}
@@ -82,9 +84,9 @@ export default function QuotationsIndex({ quotes, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Types</option>
-                    <option value="quotation">Quotation</option>
-                    <option value="proforma">Proforma Invoice</option>
+                    <option value="">{t("All Types")}</option>
+                    <option value="quotation">{t("Quotation")}</option>
+                    <option value="proforma">{t("Proforma Invoice")}</option>
                 </select>
                 <ExportButtons
                     tableId="export-table"
@@ -97,22 +99,22 @@ export default function QuotationsIndex({ quotes, filters }) {
                     <thead className="bg-slate-50 border-b border-slate-200">
                         <tr>
                             <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                #
+                                {t("#")}
                             </th>
                             <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Type
+                                {t("Type")}
                             </th>
                             <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Date
+                                {t("Date")}
                             </th>
                             <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Customer
+                                {t("Customer")}
                             </th>
                             <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Amount
+                                {t("Amount")}
                             </th>
                             <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Status
+                                {t("Status")}
                             </th>
                             <th className="px-6 py-3 w-36"></th>
                         </tr>
@@ -124,7 +126,7 @@ export default function QuotationsIndex({ quotes, filters }) {
                                     colSpan={7}
                                     className="px-6 py-12 text-center text-slate-400"
                                 >
-                                    No quotations found.
+                                    {t("No quotations found.")}
                                 </td>
                             </tr>
                         )}

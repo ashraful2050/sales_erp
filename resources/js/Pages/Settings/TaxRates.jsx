@@ -5,6 +5,7 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function TaxForm({ initial, onSave, onCancel }) {
     const { data, setData, post, put, processing, errors, reset } = useForm({
@@ -33,7 +34,7 @@ function TaxForm({ initial, onSave, onCancel }) {
         >
             <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">
-                    Name
+                    {t("Name")}
                 </label>
                 <input
                     value={data.name}
@@ -57,17 +58,17 @@ function TaxForm({ initial, onSave, onCancel }) {
             </div>
             <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">
-                    Type
+                    {t("Type")}
                 </label>
                 <select
                     value={data.type}
                     onChange={(e) => setData("type", e.target.value)}
                     className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="vat">VAT</option>
-                    <option value="income_tax">Income Tax</option>
-                    <option value="withholding">Withholding</option>
-                    <option value="other">Other</option>
+                    <option value="vat">{t("VAT")}</option>
+                    <option value="income_tax">{t("Income Tax")}</option>
+                    <option value="withholding">{t("Withholding")}</option>
+                    <option value="other">{t("Other")}</option>
                 </select>
             </div>
             <div className="flex gap-2">
@@ -91,14 +92,15 @@ function TaxForm({ initial, onSave, onCancel }) {
 }
 
 export default function TaxRatesIndex({ taxRates }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const [showForm, setShowForm] = useState(false);
     const [editing, setEditing] = useState(null);
     const del = async (id) => {
         if (
-            await dlgConfirm("Delete this tax rate? This cannot be undone.", {
-                title: "Delete Tax Rate",
-                confirmLabel: "Delete",
+            await dlgConfirm(t("Delete this tax rate? This cannot be undone."), {
+                title: t("Delete Tax Rate"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -106,11 +108,11 @@ export default function TaxRatesIndex({ taxRates }) {
     };
 
     return (
-        <AppLayout title="Tax Rates">
-            <Head title="Tax Rates" />
+        <AppLayout title={t("Tax Rates")}>
+            <Head title={t("Tax Rates")} />
             <PageHeader
-                title="Tax Rates"
-                subtitle="Manage VAT and tax rate configurations"
+                title={t("Tax Rates")}
+                subtitle={t("Manage VAT and tax rate configurations")}
                 actions={
                     <button
                         onClick={() => {
@@ -119,7 +121,7 @@ export default function TaxRatesIndex({ taxRates }) {
                         }}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> Add Tax Rate
+                        <Plus size={16} /> {t("Add Tax Rate")}
                     </button>
                 }
             />
@@ -136,16 +138,16 @@ export default function TaxRatesIndex({ taxRates }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Name
+                                    {t("Name")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Rate
+                                    {t("Rate")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Type
+                                    {t("Type")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -157,7 +159,7 @@ export default function TaxRatesIndex({ taxRates }) {
                                         colSpan={5}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No tax rates defined.
+                                        {t("No tax rates defined.")}
                                     </td>
                                 </tr>
                             )}

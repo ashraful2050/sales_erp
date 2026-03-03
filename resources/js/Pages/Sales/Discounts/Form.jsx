@@ -2,8 +2,10 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function DiscountForm({ rule }) {
+    const { t } = useTranslation();
     const isEdit = !!rule;
     const { data, setData, post, put, processing, errors } = useForm({
         name: "",
@@ -63,7 +65,7 @@ export default function DiscountForm({ rule }) {
                         href={route("sales.discount-rules.index")}
                         className="flex items-center gap-2 text-sm text-slate-600"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -98,8 +100,8 @@ export default function DiscountForm({ rule }) {
                                 <option value="percentage">
                                     Percentage (%)
                                 </option>
-                                <option value="fixed">Fixed Amount</option>
-                                <option value="buy_x_get_y">Buy X Get Y</option>
+                                <option value="fixed">{t("Fixed Amount")}</option>
+                                <option value="buy_x_get_y">{t("Buy X Get Y")}</option>
                             </select>
                         </div>
                         <div>
@@ -164,7 +166,7 @@ export default function DiscountForm({ rule }) {
                     <div className="flex items-center gap-2">
                         {inp("requires_approval", "checkbox")}
                         <span className="text-sm text-slate-700">
-                            Requires Approval before activation
+                            {t("Requires Approval before activation")}
                         </span>
                     </div>
                 </div>

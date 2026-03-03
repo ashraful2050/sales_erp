@@ -3,6 +3,7 @@ import { Head, useForm, router } from "@inertiajs/react";
 import { useState } from "react";
 import { Plus, Edit, Trash2, Package, Check, X } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const FEATURES = [
     { key: "accounting", label: "Accounting / GL" },
@@ -33,6 +34,7 @@ const emptyForm = {
 };
 
 export default function PlansIndex({ plans }) {
+    const { t } = useTranslation();
     const [modal, setModal] = useState(null); // null | 'create' | { plan }
     const { data, setData, post, put, processing, errors, reset } =
         useForm(emptyForm);
@@ -81,7 +83,7 @@ export default function PlansIndex({ plans }) {
                 `All tenants on this plan will lose access to its features.`,
                 {
                     title: `Delete Plan "${plan.name}"?`,
-                    confirmLabel: "Delete",
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -92,7 +94,7 @@ export default function PlansIndex({ plans }) {
 
     return (
         <SuperAdminLayout title="Plans">
-            <Head title="Plans — Super Admin" />
+            <Head title={t("Plans — Super Admin")} />
 
             <div className="flex items-center justify-between mb-6">
                 <div>
@@ -100,14 +102,14 @@ export default function PlansIndex({ plans }) {
                         Subscription Plans
                     </h2>
                     <p className="text-slate-400 text-sm mt-0.5">
-                        Manage SaaS plans offered to tenants
+                        {t("Manage SaaS plans offered to tenants")}
                     </p>
                 </div>
                 <button
                     onClick={openCreate}
                     className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                 >
-                    <Plus size={16} /> New Plan
+                    <Plus size={16} /> {t("New Plan")}
                 </button>
             </div>
 
@@ -130,7 +132,7 @@ export default function PlansIndex({ plans }) {
                                     </h3>
                                     {!plan.is_active && (
                                         <span className="text-xs text-slate-500 bg-slate-700 px-2 py-0.5 rounded-full">
-                                            Inactive
+                                            {t("Inactive")}
                                         </span>
                                     )}
                                 </div>
@@ -273,7 +275,7 @@ export default function PlansIndex({ plans }) {
                                 </div>
                                 <div>
                                     <label className="block text-slate-400 text-xs mb-1">
-                                        Sort Order
+                                        {t("Sort Order")}
                                     </label>
                                     <input
                                         type="number"
@@ -291,7 +293,7 @@ export default function PlansIndex({ plans }) {
 
                             <div>
                                 <label className="block text-slate-400 text-xs mb-1">
-                                    Description
+                                    {t("Description")}
                                 </label>
                                 <input
                                     value={data.description}
@@ -383,7 +385,7 @@ export default function PlansIndex({ plans }) {
                                             }
                                             className="accent-violet-600"
                                         />
-                                        Active
+                                        {t("Active")}
                                     </label>
                                 </div>
                             </div>
@@ -391,7 +393,7 @@ export default function PlansIndex({ plans }) {
                             {/* Features */}
                             <div>
                                 <label className="block text-slate-400 text-xs mb-2">
-                                    Included Features
+                                    {t("Included Features")}
                                 </label>
                                 <div className="grid grid-cols-2 gap-2">
                                     {FEATURES.map((feat) => {
@@ -429,7 +431,7 @@ export default function PlansIndex({ plans }) {
                                     onClick={() => setModal(null)}
                                     className="px-4 py-2 text-sm text-slate-300 bg-slate-700 hover:bg-slate-600 rounded-lg"
                                 >
-                                    Cancel
+                                    {t("Cancel")}
                                 </button>
                                 <button
                                     type="submit"

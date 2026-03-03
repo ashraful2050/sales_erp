@@ -4,8 +4,10 @@ import PageHeader from "@/Components/PageHeader";
 import { Plus, Pencil, Trash2, ArrowLeft, Save } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function ExpenseCategories({ categories }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const [editing, setEditing] = useState(null);
     const add = useForm({ name: "", description: "" });
@@ -16,8 +18,8 @@ export default function ExpenseCategories({ categories }) {
             await dlgConfirm(
                 "Delete this expense category? This cannot be undone.",
                 {
-                    title: "Delete Category",
-                    confirmLabel: "Delete",
+                    title: t("Delete Category"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -35,17 +37,17 @@ export default function ExpenseCategories({ categories }) {
     };
 
     return (
-        <AppLayout title="Expense Categories">
-            <Head title="Expense Categories" />
+        <AppLayout title={t("Expense Categories")}>
+            <Head title={t("Expense Categories")} />
             <PageHeader
-                title="Expense Categories"
-                subtitle="Organise expenses by type"
+                title={t("Expense Categories")}
+                subtitle={t("Organise expenses by type")}
                 actions={
                     <Link
                         href={route("finance.expenses.index")}
                         className="flex items-center gap-2 text-slate-600 text-sm"
                     >
-                        <ArrowLeft size={16} /> Back to Expenses
+                        <ArrowLeft size={16} /> {t("Back to Expenses")}
                     </Link>
                 }
             />
@@ -70,7 +72,7 @@ export default function ExpenseCategories({ categories }) {
                             onChange={(e) =>
                                 add.setData("name", e.target.value)
                             }
-                            placeholder="Category name *"
+                            placeholder={t("Category name *")}
                             className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                         />
@@ -79,7 +81,7 @@ export default function ExpenseCategories({ categories }) {
                             onChange={(e) =>
                                 add.setData("description", e.target.value)
                             }
-                            placeholder="Description (optional)"
+                            placeholder={t("Description (optional)")}
                             className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         <button
@@ -87,7 +89,7 @@ export default function ExpenseCategories({ categories }) {
                             disabled={add.processing}
                             className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-50"
                         >
-                            <Plus size={15} /> Add
+                            <Plus size={15} /> {t("Add")}
                         </button>
                     </form>
                     {add.errors.name && (
@@ -121,7 +123,7 @@ export default function ExpenseCategories({ categories }) {
                                         colSpan={4}
                                         className="text-center py-10 text-slate-400"
                                     >
-                                        No categories yet.
+                                        {t("No categories yet.")}
                                     </td>
                                 </tr>
                             )}
@@ -195,7 +197,7 @@ export default function ExpenseCategories({ categories }) {
                                                     }
                                                     className="text-slate-400 hover:text-slate-600 text-xs"
                                                 >
-                                                    Cancel
+                                                    {t("Cancel")}
                                                 </button>
                                             </td>
                                         </>

@@ -3,6 +3,7 @@ import { Head, useForm, Link } from "@inertiajs/react";
 import { useState } from "react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft, Plus, Trash2 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Select = ({ error, children, ...props }) => (
     <select
@@ -52,6 +53,7 @@ export default function DirectSaleForm({
     taxRates,
     warehouses,
 }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors } = useForm({
         customer_id: "",
         sale_date: new Date().toISOString().slice(0, 10),
@@ -127,17 +129,17 @@ export default function DirectSaleForm({
     };
 
     return (
-        <AppLayout title="New Direct Sale">
-            <Head title="New Direct Sale" />
+        <AppLayout title={t("New Direct Sale")}>
+            <Head title={t("New Direct Sale")} />
             <PageHeader
-                title="New Direct Sale"
-                subtitle="Immediate cash/card sale — invoice + payment recorded at once"
+                title={t("New Direct Sale")}
+                subtitle={t("Immediate cash/card sale — invoice + payment recorded at once")}
                 actions={
                     <Link
                         href={route("sales.direct-sales.index")}
                         className="flex items-center gap-2 text-slate-600 text-sm font-medium"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -227,7 +229,7 @@ export default function DirectSaleForm({
                             onClick={addLine}
                             className="flex items-center gap-1 text-blue-600 text-xs font-medium hover:text-blue-700"
                         >
-                            <Plus size={13} /> Add Line
+                            <Plus size={13} /> {t("Add Line")}
                         </button>
                     </div>
                     <div className="overflow-x-auto">
@@ -235,28 +237,28 @@ export default function DirectSaleForm({
                             <thead className="bg-slate-50 border-b border-slate-100">
                                 <tr>
                                     <th className="text-left py-2.5 px-3 text-xs font-semibold text-slate-500 w-36">
-                                        Product
+                                        {t("Product")}
                                     </th>
                                     <th className="text-left py-2.5 px-3 text-xs font-semibold text-slate-500">
-                                        Description
+                                        {t("Description")}
                                     </th>
                                     <th className="text-left py-2.5 px-3 text-xs font-semibold text-slate-500 w-16">
-                                        Unit
+                                        {t("Unit")}
                                     </th>
                                     <th className="text-right py-2.5 px-3 text-xs font-semibold text-slate-500 w-20">
-                                        Qty
+                                        {t("Qty")}
                                     </th>
                                     <th className="text-right py-2.5 px-3 text-xs font-semibold text-slate-500 w-28">
-                                        Unit Price
+                                        {t("Unit Price")}
                                     </th>
                                     <th className="text-right py-2.5 px-3 text-xs font-semibold text-slate-500 w-20">
-                                        Disc %
+                                        {t("Disc %")}
                                     </th>
                                     <th className="text-left py-2.5 px-3 text-xs font-semibold text-slate-500 w-28">
-                                        Tax
+                                        {t("Tax")}
                                     </th>
                                     <th className="text-right py-2.5 px-3 text-xs font-semibold text-slate-500 w-28">
-                                        Total
+                                        {t("Total")}
                                     </th>
                                     <th className="w-8"></th>
                                 </tr>
@@ -297,7 +299,7 @@ export default function DirectSaleForm({
                                                     )
                                                 }
                                                 className="w-full border border-slate-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-400"
-                                                placeholder="Description"
+                                                placeholder={t("Description")}
                                             />
                                         </td>
                                         <td className="px-3 py-2">
@@ -374,7 +376,7 @@ export default function DirectSaleForm({
                                                 }
                                                 className="w-full border border-slate-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-400"
                                             >
-                                                <option value="">No Tax</option>
+                                                <option value="">{t("No Tax")}</option>
                                                 {taxRates?.map((t) => (
                                                     <option
                                                         key={t.id}
@@ -414,32 +416,32 @@ export default function DirectSaleForm({
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div>
                         <label className="block text-xs font-semibold text-slate-600 mb-1">
-                            Notes
+                            {t("Notes")}
                         </label>
                         <textarea
                             value={data.notes}
                             onChange={(e) => setData("notes", e.target.value)}
                             rows={3}
                             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                            placeholder="Optional notes..."
+                            placeholder={t("Optional notes...")}
                         />
                     </div>
                     <div className="bg-white rounded-xl border border-slate-200 p-5 space-y-3 text-sm">
                         <div className="flex justify-between text-slate-500">
-                            <span>Subtotal</span>
+                            <span>{t("Subtotal")}</span>
                             <span className="font-medium text-slate-700">
                                 {subtotal.toFixed(2)}
                             </span>
                         </div>
                         <div className="flex justify-between text-slate-500">
-                            <span>Tax</span>
+                            <span>{t("Tax")}</span>
                             <span className="font-medium text-slate-700">
                                 {taxTotal.toFixed(2)}
                             </span>
                         </div>
                         <div className="flex items-center justify-between gap-4">
                             <span className="text-slate-500 shrink-0">
-                                Discount
+                                {t("Discount")}
                             </span>
                             <input
                                 type="number"
@@ -453,7 +455,7 @@ export default function DirectSaleForm({
                             />
                         </div>
                         <div className="flex justify-between font-bold text-base border-t border-slate-200 pt-3">
-                            <span>Grand Total</span>
+                            <span>{t("Grand Total")}</span>
                             <span className="text-blue-700">
                                 {data.currency_code} {grandTotal.toFixed(2)}
                             </span>

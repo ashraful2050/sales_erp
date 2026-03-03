@@ -17,6 +17,7 @@ import {
     Clock,
 } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const emptyForm = {
     name: "",
@@ -70,6 +71,7 @@ function CopyBtn({ text }) {
 }
 
 export default function AffiliatesIndex({ affiliates, stats }) {
+    const { t } = useTranslation();
     const [modal, setModal] = useState(null);
     const { data, setData, post, put, processing, errors, reset } =
         useForm(emptyForm);
@@ -106,8 +108,8 @@ export default function AffiliatesIndex({ affiliates, stats }) {
             await dlgConfirm(
                 `This will permanently delete "${aff.name}". Affiliates with conversions cannot be deleted.`,
                 {
-                    title: "Delete Affiliate?",
-                    confirmLabel: "Delete",
+                    title: t("Delete Affiliate?"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -121,8 +123,8 @@ export default function AffiliatesIndex({ affiliates, stats }) {
             await dlgConfirm(
                 `Mark all pending commissions for "${aff.name}" as paid and reset balance to $0?`,
                 {
-                    title: "Mark as Paid?",
-                    confirmLabel: "Mark Paid",
+                    title: t("Mark as Paid?"),
+                    confirmLabel: t("Mark Paid"),
                     intent: "primary",
                 },
             )
@@ -136,8 +138,8 @@ export default function AffiliatesIndex({ affiliates, stats }) {
             await dlgConfirm(
                 `The old affiliate link for "${aff.name}" will stop working. Are you sure?`,
                 {
-                    title: "Regenerate Affiliate Code?",
-                    confirmLabel: "Regenerate",
+                    title: t("Regenerate Affiliate Code?"),
+                    confirmLabel: t("Regenerate"),
                     intent: "danger",
                 },
             )
@@ -154,7 +156,7 @@ export default function AffiliatesIndex({ affiliates, stats }) {
 
     return (
         <SuperAdminLayout title="Affiliates">
-            <Head title="Affiliates — Super Admin" />
+            <Head title={t("Affiliates — Super Admin")} />
 
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
@@ -169,7 +171,7 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                     onClick={openCreate}
                     className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                 >
-                    <Plus size={16} /> Add Affiliate
+                    <Plus size={16} /> {t("Add Affiliate")}
                 </button>
             </div>
 
@@ -208,25 +210,25 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                         <thead>
                             <tr className="border-b border-slate-700">
                                 <th className="text-left text-slate-400 font-medium px-4 py-3">
-                                    Name
+                                    {t("Name")}
                                 </th>
                                 <th className="text-left text-slate-400 font-medium px-4 py-3">
-                                    Affiliate Code / Link
+                                    {t("Affiliate Code / Link")}
                                 </th>
                                 <th className="text-center text-slate-400 font-medium px-4 py-3">
-                                    Commission
+                                    {t("Commission")}
                                 </th>
                                 <th className="text-center text-slate-400 font-medium px-4 py-3">
-                                    Conversions
+                                    {t("Conversions")}
                                 </th>
                                 <th className="text-right text-slate-400 font-medium px-4 py-3">
-                                    Total Earned
+                                    {t("Total Earned")}
                                 </th>
                                 <th className="text-right text-slate-400 font-medium px-4 py-3">
-                                    Pending
+                                    {t("Pending")}
                                 </th>
                                 <th className="text-center text-slate-400 font-medium px-4 py-3">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-4 py-3" />
                             </tr>
@@ -408,7 +410,7 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                                             setData("name", e.target.value)
                                         }
                                         className="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-slate-200 text-sm outline-none focus:border-violet-500"
-                                        placeholder="John Doe"
+                                        placeholder={t("John Doe")}
                                     />
                                     {errors.name && (
                                         <p className="text-red-400 text-xs mt-1">
@@ -440,7 +442,7 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-slate-400 text-xs mb-1">
-                                        Phone
+                                        {t("Phone")}
                                     </label>
                                     <input
                                         value={data.phone}
@@ -479,7 +481,7 @@ export default function AffiliatesIndex({ affiliates, stats }) {
 
                             <div>
                                 <label className="block text-slate-400 text-xs mb-1">
-                                    Status
+                                    {t("Status")}
                                 </label>
                                 <select
                                     value={data.status}
@@ -488,14 +490,14 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                                     }
                                     className="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-slate-200 text-sm outline-none focus:border-violet-500"
                                 >
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
+                                    <option value="active">{t("Active")}</option>
+                                    <option value="inactive">{t("Inactive")}</option>
                                 </select>
                             </div>
 
                             <div>
                                 <label className="block text-slate-400 text-xs mb-1">
-                                    Notes
+                                    {t("Notes")}
                                 </label>
                                 <textarea
                                     value={data.notes}
@@ -504,7 +506,7 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                                     }
                                     rows={2}
                                     className="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-slate-200 text-sm outline-none focus:border-violet-500 resize-none"
-                                    placeholder="Optional notes about this affiliate..."
+                                    placeholder={t("Optional notes about this affiliate...")}
                                 />
                             </div>
 
@@ -514,7 +516,7 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                                     onClick={() => setModal(null)}
                                     className="px-4 py-2 text-sm text-slate-300 bg-slate-700 hover:bg-slate-600 rounded-lg"
                                 >
-                                    Cancel
+                                    {t("Cancel")}
                                 </button>
                                 <button
                                     type="submit"

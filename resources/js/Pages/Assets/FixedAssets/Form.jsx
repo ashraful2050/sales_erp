@@ -3,8 +3,10 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { ArrowLeft, Save } from "lucide-react";
 import { useEffect } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Form({ asset, categories }) {
+    const { t } = useTranslation();
     const isEdit = !!asset;
     const { data, setData, post, put, processing, errors } = useForm({
         name: asset?.name ?? "",
@@ -72,7 +74,7 @@ export default function Form({ asset, categories }) {
                             href={route("assets.fixed-assets.index")}
                             className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm"
                         >
-                            <ArrowLeft className="w-4 h-4" /> Back
+                            <ArrowLeft className="w-4 h-4" /> {t("Back")}
                         </Link>
                     }
                 />
@@ -110,7 +112,7 @@ export default function Form({ asset, categories }) {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Asset Code
+                                    {t("Asset Code")}
                                 </label>
                                 <input
                                     type="text"
@@ -156,7 +158,7 @@ export default function Form({ asset, categories }) {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Status
+                                    {t("Status")}
                                 </label>
                                 <select
                                     value={data.status}
@@ -184,7 +186,7 @@ export default function Form({ asset, categories }) {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Serial Number
+                                    {t("Serial Number")}
                                 </label>
                                 <input
                                     type="text"
@@ -204,7 +206,7 @@ export default function Form({ asset, categories }) {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Location
+                                    {t("Location")}
                                 </label>
                                 <input
                                     type="text"
@@ -224,7 +226,7 @@ export default function Form({ asset, categories }) {
 
                             <div className="sm:col-span-2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Description
+                                    {t("Description")}
                                 </label>
                                 <textarea
                                     value={data.description}
@@ -233,7 +235,7 @@ export default function Form({ asset, categories }) {
                                     }
                                     rows={2}
                                     className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                                    placeholder="Optional notes..."
+                                    placeholder={t("Optional notes...")}
                                 />
                                 {errors.description && (
                                     <p className="text-red-500 text-xs mt-1">
@@ -369,7 +371,7 @@ export default function Form({ asset, categories }) {
 
                             <div className="sm:col-span-2">
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Depreciation Method
+                                    {t("Depreciation Method")}
                                 </label>
                                 <select
                                     value={data.depreciation_method}

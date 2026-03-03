@@ -5,6 +5,7 @@ import Pagination from "@/Components/Pagination";
 import Badge from "@/Components/Badge";
 import { Plus, Star, ThumbsUp, Minus, ThumbsDown } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const sentimentColors = {
     positive: "green",
@@ -18,6 +19,7 @@ const sentimentIcons = {
 };
 
 export default function CustomerFeedback({ feedbacks, summary, filters }) {
+    const { t } = useTranslation();
     const [showForm, setShowForm] = useState(false);
     const { data, setData, post, processing, reset, errors } = useForm({
         customer_id: "",
@@ -38,17 +40,17 @@ export default function CustomerFeedback({ feedbacks, summary, filters }) {
     };
 
     return (
-        <AppLayout title="Customer Feedback">
-            <Head title="Customer Feedback" />
+        <AppLayout title={t("Customer Feedback")}>
+            <Head title={t("Customer Feedback")} />
             <PageHeader
-                title="Customer Feedback"
-                subtitle="Feedback analysis and sentiment tracking"
+                title={t("Customer Feedback")}
+                subtitle={t("Feedback analysis and sentiment tracking")}
                 actions={
                     <button
                         onClick={() => setShowForm(!showForm)}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                     >
-                        <Plus size={15} /> Add Feedback
+                        <Plus size={15} /> {t("Add Feedback")}
                     </button>
                 }
             />
@@ -130,7 +132,7 @@ export default function CustomerFeedback({ feedbacks, summary, filters }) {
                     <div className="space-y-3">
                         <div>
                             <label className="text-xs text-slate-600">
-                                Customer Name
+                                {t("Customer Name")}
                             </label>
                             <input
                                 value={data.customer_name}
@@ -143,7 +145,7 @@ export default function CustomerFeedback({ feedbacks, summary, filters }) {
                         <div className="grid grid-cols-2 gap-3">
                             <div>
                                 <label className="text-xs text-slate-600">
-                                    Rating
+                                    {t("Rating")}
                                 </label>
                                 <div className="flex gap-1 mt-1">
                                     {[1, 2, 3, 4, 5].map((r) => (
@@ -171,7 +173,7 @@ export default function CustomerFeedback({ feedbacks, summary, filters }) {
                             </div>
                             <div>
                                 <label className="text-xs text-slate-600">
-                                    Category
+                                    {t("Category")}
                                 </label>
                                 <select
                                     value={data.category}
@@ -198,7 +200,7 @@ export default function CustomerFeedback({ feedbacks, summary, filters }) {
                         </div>
                         <div>
                             <label className="text-xs text-slate-600">
-                                Feedback
+                                {t("Feedback")}
                             </label>
                             <textarea
                                 rows={3}
@@ -216,14 +218,14 @@ export default function CustomerFeedback({ feedbacks, summary, filters }) {
                             disabled={processing}
                             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                         >
-                            Submit
+                            {t("Submit")}
                         </button>
                         <button
                             type="button"
                             onClick={() => setShowForm(false)}
                             className="text-slate-500 text-sm"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>
                     </div>
                 </form>
@@ -253,7 +255,7 @@ export default function CustomerFeedback({ feedbacks, summary, filters }) {
             <div className="space-y-3">
                 {feedbacks.data?.length === 0 ? (
                     <div className="bg-white rounded-xl border border-slate-200 p-10 text-center text-slate-400">
-                        No feedback yet.
+                        {t("No feedback yet.")}
                     </div>
                 ) : (
                     feedbacks.data?.map((fb) => {

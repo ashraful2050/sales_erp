@@ -3,8 +3,10 @@ import { Head, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { ArrowLeft, Edit } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Show({ entry }) {
+    const { t } = useTranslation();
     const totalDebits = entry.lines?.reduce((s, l) => s + Number(l.debit ?? 0), 0) ?? 0;
     const totalCredits = entry.lines?.reduce((s, l) => s + Number(l.credit ?? 0), 0) ?? 0;
     const isBalanced = Math.abs(totalDebits - totalCredits) < 0.01;
@@ -19,11 +21,11 @@ export default function Show({ entry }) {
                     actions={
                         <div className="flex gap-2">
                             <Link href={route("accounting.journal-entries.index")} className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
-                                <ArrowLeft className="w-4 h-4" /> Back
+                                <ArrowLeft className="w-4 h-4" /> {t("Back")}
                             </Link>
                             {entry.status === "draft" && (
                                 <Link href={route("accounting.journal-entries.edit", entry.id)} className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm">
-                                    <Edit className="w-4 h-4" /> Edit
+                                    <Edit className="w-4 h-4" /> {t("Edit")}
                                 </Link>
                             )}
                         </div>
@@ -34,25 +36,25 @@ export default function Show({ entry }) {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
                         <div>
-                            <p className="text-xs text-gray-500 mb-1">Status</p>
+                            <p className="text-xs text-gray-500 mb-1">{t("Status")}</p>
                             <Badge color={entry.status === "posted" ? "green" : entry.status === "draft" ? "yellow" : "red"}>{entry.status}</Badge>
                         </div>
                         <div>
-                            <p className="text-xs text-gray-500">Entry Type</p>
+                            <p className="text-xs text-gray-500">{t("Entry Type")}</p>
                             <p className="font-medium capitalize">{entry.entry_type ?? "—"}</p>
                         </div>
                         <div>
-                            <p className="text-xs text-gray-500">Reference</p>
+                            <p className="text-xs text-gray-500">{t("Reference")}</p>
                             <p className="font-medium">{entry.reference ?? "—"}</p>
                         </div>
                         <div>
-                            <p className="text-xs text-gray-500">Created By</p>
+                            <p className="text-xs text-gray-500">{t("Created By")}</p>
                             <p className="font-medium">{entry.created_by?.name ?? "—"}</p>
                         </div>
                     </div>
                     {entry.description && (
                         <div className="mt-4 pt-4 border-t border-gray-100">
-                            <p className="text-xs text-gray-500 mb-1">Description</p>
+                            <p className="text-xs text-gray-500 mb-1">{t("Description")}</p>
                             <p className="text-sm text-gray-700">{entry.description}</p>
                         </div>
                     )}
@@ -72,10 +74,10 @@ export default function Show({ entry }) {
                         <table className="w-full text-sm">
                             <thead className="bg-gray-50 text-xs text-gray-500 uppercase">
                                 <tr>
-                                    <th className="px-4 py-3 text-left">Account</th>
-                                    <th className="px-4 py-3 text-left">Description</th>
-                                    <th className="px-4 py-3 text-right">Debit</th>
-                                    <th className="px-4 py-3 text-right">Credit</th>
+                                    <th className="px-4 py-3 text-left">{t("Account")}</th>
+                                    <th className="px-4 py-3 text-left">{t("Description")}</th>
+                                    <th className="px-4 py-3 text-right">{t("Debit")}</th>
+                                    <th className="px-4 py-3 text-right">{t("Credit")}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-50">

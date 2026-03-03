@@ -16,6 +16,7 @@ import Pagination from "@/Components/Pagination";
 import Badge from "@/Components/Badge";
 import SearchFilter from "@/Components/SearchFilter";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColors = {
     new: "blue",
@@ -29,6 +30,7 @@ const statusColors = {
 const priorityColors = { low: "slate", medium: "yellow", high: "orange" };
 
 export default function LeadsIndex({ leads, stats, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [status, setStatus] = useState(filters?.status ?? "");
     const [priority, setPriority] = useState(filters?.priority ?? "");
@@ -45,8 +47,8 @@ export default function LeadsIndex({ leads, stats, filters }) {
     const del = async (id) => {
         if (
             await confirm("This lead will be permanently deleted.", {
-                title: "Delete Lead?",
-                confirmLabel: "Delete",
+                title: t("Delete Lead?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -61,17 +63,17 @@ export default function LeadsIndex({ leads, stats, filters }) {
         }).format(v);
 
     return (
-        <AppLayout title="CRM – Leads">
-            <Head title="Leads" />
+        <AppLayout title={t("CRM – Leads")}>
+            <Head title={t("Leads")} />
             <PageHeader
-                title="Leads"
-                subtitle="Manage your sales pipeline"
+                title={t("Leads")}
+                subtitle={t("Manage your sales pipeline")}
                 actions={
                     <Link
                         href={route("crm.leads.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Lead
+                        <Plus size={16} /> {t("New Lead")}
                     </Link>
                 }
             />
@@ -136,7 +138,7 @@ export default function LeadsIndex({ leads, stats, filters }) {
                         setSearch(v);
                         applyFilters(v, status, priority);
                     }}
-                    placeholder="Search leads…"
+                    placeholder={t("Search leads…")}
                 />
                 <select
                     value={status}
@@ -146,7 +148,7 @@ export default function LeadsIndex({ leads, stats, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm"
                 >
-                    <option value="">All Status</option>
+                    <option value="">{t("All Status")}</option>
                     {[
                         "new",
                         "contacted",
@@ -169,7 +171,7 @@ export default function LeadsIndex({ leads, stats, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm"
                 >
-                    <option value="">All Priority</option>
+                    <option value="">{t("All Priority")}</option>
                     {["low", "medium", "high"].map((p) => (
                         <option key={p} value={p}>
                             {p.charAt(0).toUpperCase() + p.slice(1)}
@@ -210,7 +212,7 @@ export default function LeadsIndex({ leads, stats, filters }) {
                                         colSpan={8}
                                         className="px-4 py-8 text-center text-slate-400"
                                     >
-                                        No leads found.
+                                        {t("No leads found.")}
                                     </td>
                                 </tr>
                             ) : (

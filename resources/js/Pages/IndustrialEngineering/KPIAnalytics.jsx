@@ -11,6 +11,7 @@ import {
     Package,
     Percent,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function KPICard({ label, value, sub, icon: Icon, color = "blue" }) {
     return (
@@ -29,7 +30,7 @@ function KPICard({ label, value, sub, icon: Icon, color = "blue" }) {
 
 function LineChart({ data, keyField, valueField, color = "blue", label }) {
     if (!data?.length)
-        return <p className="text-slate-400 text-sm">No data.</p>;
+        return <p className="text-slate-400 text-sm">{t("No data.")}</p>;
     const vals = data.map((d) => d[valueField] ?? 0);
     const max = Math.max(...vals) || 1;
     const min = Math.min(...vals);
@@ -86,15 +87,16 @@ function BarRow({ label, value, max, color = "blue" }) {
 }
 
 export default function KPIAnalytics({ kpis, monthlyTrend, topProducts }) {
+    const { t } = useTranslation();
     const fmt = (n) => Number(n ?? 0).toLocaleString();
 
     return (
         <AppLayout>
-            <Head title="KPI & Performance Analytics" />
+            <Head title={t("KPI & Performance Analytics")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Sales KPI & Performance Analytics"
-                    subtitle="Data-driven decision making with real-time dashboards and variance analysis"
+                    title={t("Sales KPI & Performance Analytics")}
+                    subtitle={t("Data-driven decision making with real-time dashboards and variance analysis")}
                 />
 
                 <div className="flex flex-wrap gap-2">
@@ -216,7 +218,7 @@ export default function KPIAnalytics({ kpis, monthlyTrend, topProducts }) {
                             </>
                         ) : (
                             <p className="text-slate-400 text-sm">
-                                No trend data available.
+                                {t("No trend data available.")}
                             </p>
                         )}
                     </div>
@@ -241,7 +243,7 @@ export default function KPIAnalytics({ kpis, monthlyTrend, topProducts }) {
                             </>
                         ) : (
                             <p className="text-slate-400 text-sm">
-                                No product data available.
+                                {t("No product data available.")}
                             </p>
                         )}
                     </div>
@@ -258,16 +260,16 @@ export default function KPIAnalytics({ kpis, monthlyTrend, topProducts }) {
                         <thead className="bg-slate-50">
                             <tr>
                                 <th className="text-left px-4 py-2 text-slate-500 font-medium text-xs">
-                                    KPI
+                                    {t("KPI")}
                                 </th>
                                 <th className="text-right px-4 py-2 text-slate-500 font-medium text-xs">
-                                    Value
+                                    {t("Value")}
                                 </th>
                                 <th className="text-right px-4 py-2 text-slate-500 font-medium text-xs">
-                                    Target
+                                    {t("Target")}
                                 </th>
                                 <th className="text-right px-4 py-2 text-slate-500 font-medium text-xs">
-                                    Status
+                                    {t("Status")}
                                 </th>
                             </tr>
                         </thead>

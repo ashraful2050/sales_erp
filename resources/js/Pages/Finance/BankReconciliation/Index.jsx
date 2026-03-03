@@ -5,6 +5,7 @@ import Badge from "@/Components/Badge";
 import { Search, CheckCircle, XCircle } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const fmt = (v) =>
     Number(v || 0).toLocaleString("en-BD", { minimumFractionDigits: 2 });
@@ -15,6 +16,7 @@ export default function BankReconciliationIndex({
     filters,
     summary,
 }) {
+    const { t } = useTranslation();
     const [selected, setSelected] = useState([]);
     const { confirm: dlgConfirm, alert: dlgAlert } = useDialog();
 
@@ -40,15 +42,15 @@ export default function BankReconciliationIndex({
     const reconcileSelected = async () => {
         if (!selected.length) {
             await dlgAlert("Please select at least one transaction.", {
-                title: "No Selection",
+                title: t("No Selection"),
                 intent: "warning",
             });
             return;
         }
         if (
             await dlgConfirm(`Reconcile ${selected.length} transaction(s)?`, {
-                title: "Confirm Reconciliation",
-                confirmLabel: "Reconcile",
+                title: t("Confirm Reconciliation"),
+                confirmLabel: t("Reconcile"),
                 intent: "info",
             })
         ) {
@@ -67,8 +69,8 @@ export default function BankReconciliationIndex({
             await dlgConfirm(
                 "This transaction will be marked as unreconciled.",
                 {
-                    title: "Unreconcile Transaction?",
-                    confirmLabel: "Unreconcile",
+                    title: t("Unreconcile Transaction?"),
+                    confirmLabel: t("Unreconcile"),
                     intent: "warning",
                 },
             )
@@ -78,11 +80,11 @@ export default function BankReconciliationIndex({
     };
 
     return (
-        <AppLayout title="Bank Reconciliation">
-            <Head title="Bank Reconciliation" />
+        <AppLayout title={t("Bank Reconciliation")}>
+            <Head title={t("Bank Reconciliation")} />
             <PageHeader
-                title="Bank Reconciliation"
-                subtitle="Match bank statement with system transactions"
+                title={t("Bank Reconciliation")}
+                subtitle={t("Match bank statement with system transactions")}
             />
 
             <div className="space-y-6">
@@ -90,7 +92,7 @@ export default function BankReconciliationIndex({
                 <div className="bg-white rounded-xl border border-slate-200 p-4 flex flex-wrap gap-4">
                     <div>
                         <label className="block text-xs font-medium text-slate-600 mb-1">
-                            Bank Account
+                            {t("Bank Account")}
                         </label>
                         <select
                             value={filters?.bank_account_id ?? ""}
@@ -109,7 +111,7 @@ export default function BankReconciliationIndex({
                     </div>
                     <div>
                         <label className="block text-xs font-medium text-slate-600 mb-1">
-                            From Date
+                            {t("From Date")}
                         </label>
                         <input
                             type="date"
@@ -122,7 +124,7 @@ export default function BankReconciliationIndex({
                     </div>
                     <div>
                         <label className="block text-xs font-medium text-slate-600 mb-1">
-                            To Date
+                            {t("To Date")}
                         </label>
                         <input
                             type="date"
@@ -135,7 +137,7 @@ export default function BankReconciliationIndex({
                     </div>
                     <div>
                         <label className="block text-xs font-medium text-slate-600 mb-1">
-                            Status
+                            {t("Status")}
                         </label>
                         <select
                             value={filters?.reconciled ?? ""}
@@ -144,9 +146,9 @@ export default function BankReconciliationIndex({
                             }
                             className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            <option value="">All</option>
-                            <option value="0">Unreconciled</option>
-                            <option value="1">Reconciled</option>
+                            <option value="">{t("All")}</option>
+                            <option value="0">{t("Unreconciled")}</option>
+                            <option value="1">{t("Reconciled")}</option>
                         </select>
                     </div>
                 </div>
@@ -156,7 +158,7 @@ export default function BankReconciliationIndex({
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
                             <p className="text-xs text-slate-500 uppercase font-semibold">
-                                Total Debits
+                                {t("Total Debits")}
                             </p>
                             <p className="text-lg font-bold text-green-600">
                                 {fmt(summary.total_debit)}
@@ -164,7 +166,7 @@ export default function BankReconciliationIndex({
                         </div>
                         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
                             <p className="text-xs text-slate-500 uppercase font-semibold">
-                                Total Credits
+                                {t("Total Credits")}
                             </p>
                             <p className="text-lg font-bold text-red-500">
                                 {fmt(summary.total_credit)}
@@ -172,7 +174,7 @@ export default function BankReconciliationIndex({
                         </div>
                         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
                             <p className="text-xs text-slate-500 uppercase font-semibold">
-                                Reconciled
+                                {t("Reconciled")}
                             </p>
                             <p className="text-lg font-bold text-blue-600">
                                 {summary.reconciled_count}
@@ -180,7 +182,7 @@ export default function BankReconciliationIndex({
                         </div>
                         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
                             <p className="text-xs text-slate-500 uppercase font-semibold">
-                                Unreconciled
+                                {t("Unreconciled")}
                             </p>
                             <p className="text-lg font-bold text-amber-500">
                                 {summary.unreconciled_count}
@@ -222,25 +224,25 @@ export default function BankReconciliationIndex({
                                         />
                                     </th>
                                     <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Date
+                                        {t("Date")}
                                     </th>
                                     <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Description
+                                        {t("Description")}
                                     </th>
                                     <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Reference
+                                        {t("Reference")}
                                     </th>
                                     <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Debit
+                                        {t("Debit")}
                                     </th>
                                     <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Credit
+                                        {t("Credit")}
                                     </th>
                                     <th className="text-center px-4 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Status
+                                        {t("Status")}
                                     </th>
                                     <th className="text-center px-4 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Action
+                                        {t("Action")}
                                     </th>
                                 </tr>
                             </thead>
@@ -313,7 +315,7 @@ export default function BankReconciliationIndex({
                                                     }
                                                     className="text-xs text-red-500 hover:text-red-700 flex items-center gap-1 mx-auto"
                                                 >
-                                                    <XCircle size={14} /> Undo
+                                                    <XCircle size={14} /> {t("Undo")}
                                                 </button>
                                             )}
                                         </td>

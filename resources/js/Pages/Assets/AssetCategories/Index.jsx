@@ -5,6 +5,7 @@ import Badge from "@/Components/Badge";
 import { Plus, Pencil, Trash2, Check, X } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const METHODS = [
     { value: "straight_line", label: "Straight Line" },
@@ -20,6 +21,7 @@ const defaultData = {
 };
 
 export default function AssetCategoriesIndex({ categories }) {
+    const { t } = useTranslation();
     const [editing, setEditing] = useState(null);
     const [showAdd, setShowAdd] = useState(false);
     const addForm = useForm(defaultData);
@@ -56,8 +58,8 @@ export default function AssetCategoriesIndex({ categories }) {
             await dlgConfirm(
                 "Delete this asset category? This cannot be undone.",
                 {
-                    title: "Delete Category",
-                    confirmLabel: "Delete",
+                    title: t("Delete Category"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -66,17 +68,17 @@ export default function AssetCategoriesIndex({ categories }) {
     };
 
     return (
-        <AppLayout title="Asset Categories">
-            <Head title="Asset Categories" />
+        <AppLayout title={t("Asset Categories")}>
+            <Head title={t("Asset Categories")} />
             <PageHeader
-                title="Asset Categories"
-                subtitle={`${categories.length} categories`}
+                title={t("Asset Categories")}
+                subtitle={`${categories.length} ${t("categories")}`}
                 actions={
                     <button
                         onClick={() => setShowAdd(!showAdd)}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> Add Category
+                        <Plus size={16} /> {t("Add Category")}
                     </button>
                 }
             />
@@ -85,19 +87,19 @@ export default function AssetCategoriesIndex({ categories }) {
                     <thead className="bg-slate-50 border-b border-slate-200">
                         <tr>
                             <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Category
+                                {t("Category")}
                             </th>
                             <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Useful Life (yrs)
+                                {t("Useful Life (yrs)")}
                             </th>
                             <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Dep. Rate (%)
+                                {t("Dep. Rate (%)")}
                             </th>
                             <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Method
+                                {t("Method")}
                             </th>
                             <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Status
+                                {t("Status")}
                             </th>
                             <th className="px-4 py-3 w-24"></th>
                         </tr>
@@ -115,7 +117,7 @@ export default function AssetCategoriesIndex({ categories }) {
                                             )
                                         }
                                         className="border rounded px-2 py-1 w-full text-sm"
-                                        placeholder="Category name"
+                                        placeholder={t("Category name")}
                                     />
                                 </td>
                                 <td className="px-3 py-2 text-center">
@@ -193,7 +195,7 @@ export default function AssetCategoriesIndex({ categories }) {
                                     colSpan={6}
                                     className="px-6 py-12 text-center text-slate-400"
                                 >
-                                    No asset categories found.
+                                    {t("No asset categories found.")}
                                 </td>
                             </tr>
                         )}

@@ -18,6 +18,7 @@ import {
     Clock,
 } from "lucide-react";
 import { fmtDateTime } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const EVENT_COLORS = {
     created: "bg-green-100 text-green-800",
@@ -34,7 +35,7 @@ const EVENT_ICONS = {
 
 function DiffView({ oldValues, newValues }) {
     if (!oldValues && !newValues)
-        return <p className="text-slate-500 text-sm">No diff data.</p>;
+        return <p className="text-slate-500 text-sm">{t("No diff data.")}</p>;
     const keys = Array.from(
         new Set([
             ...Object.keys(oldValues ?? {}),
@@ -46,13 +47,13 @@ function DiffView({ oldValues, newValues }) {
             <thead>
                 <tr className="bg-slate-100 text-left">
                     <th className="px-3 py-2 font-semibold text-slate-600 w-1/4">
-                        Field
+                        {t("Field")}
                     </th>
                     <th className="px-3 py-2 font-semibold text-red-600 w-[37.5%]">
-                        Before
+                        {t("Before")}
                     </th>
                     <th className="px-3 py-2 font-semibold text-green-600 w-[37.5%]">
-                        After
+                        {t("After")}
                     </th>
                 </tr>
             </thead>
@@ -177,6 +178,7 @@ function DetailModal({ log, onClose }) {
 }
 
 export default function AuditLogs({ logs, stats, topUsers, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [event, setEvent] = useState(filters?.event ?? "");
     const [module, setModule] = useState(filters?.module ?? "");
@@ -210,11 +212,11 @@ export default function AuditLogs({ logs, stats, topUsers, filters }) {
 
     return (
         <AppLayout>
-            <Head title="Audit Logs" />
+            <Head title={t("Audit Logs")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Audit Logs"
-                    subtitle="Complete activity trail for all system changes (Super Admin only)"
+                    title={t("Audit Logs")}
+                    subtitle={t("Complete activity trail for all system changes (Super Admin only)")}
                     icon={Activity}
                     iconClass="bg-violet-100 text-violet-600"
                 />
@@ -272,7 +274,7 @@ export default function AuditLogs({ logs, stats, topUsers, filters }) {
                         <input
                             value={search}
                             onChange={(e) => handleSearch(e.target.value)}
-                            placeholder="Search user, model, IP…"
+                            placeholder={t("Search user, model, IP…")}
                             className="w-full pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-violet-500 focus:border-transparent"
                         />
                     </div>
@@ -284,13 +286,13 @@ export default function AuditLogs({ logs, stats, topUsers, filters }) {
                         }}
                         className="py-2 px-3 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-violet-500"
                     >
-                        <option value="">All Events</option>
-                        <option value="created">Created</option>
-                        <option value="updated">Updated</option>
-                        <option value="deleted">Deleted</option>
-                        <option value="restored">Restored</option>
-                        <option value="login">Login</option>
-                        <option value="logout">Logout</option>
+                        <option value="">{t("All Events")}</option>
+                        <option value="created">{t("Created")}</option>
+                        <option value="updated">{t("Updated")}</option>
+                        <option value="deleted">{t("Deleted")}</option>
+                        <option value="restored">{t("Restored")}</option>
+                        <option value="login">{t("Login")}</option>
+                        <option value="logout">{t("Logout")}</option>
                     </select>
                     {Array.isArray(filters?.modules) &&
                         filters.modules.length > 0 && (
@@ -302,7 +304,7 @@ export default function AuditLogs({ logs, stats, topUsers, filters }) {
                                 }}
                                 className="py-2 px-3 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-violet-500"
                             >
-                                <option value="">All Modules</option>
+                                <option value="">{t("All Modules")}</option>
                                 {filters.modules.map((m) => (
                                     <option key={m} value={m}>
                                         {m}
@@ -346,7 +348,7 @@ export default function AuditLogs({ logs, stats, topUsers, filters }) {
                             }}
                             className="flex items-center gap-1 px-3 py-2 text-sm text-slate-500 border border-slate-300 rounded-lg hover:bg-slate-100"
                         >
-                            <X size={14} /> Clear
+                            <X size={14} /> {t("Clear")}
                         </button>
                     )}
                 </div>
@@ -386,7 +388,7 @@ export default function AuditLogs({ logs, stats, topUsers, filters }) {
                                                 size={40}
                                                 className="mx-auto mb-3 opacity-30"
                                             />
-                                            No audit logs found.
+                                            {t("No audit logs found.")}
                                         </td>
                                     </tr>
                                 ) : (

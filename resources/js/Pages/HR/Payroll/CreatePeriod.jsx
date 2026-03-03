@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Field = ({ label, error, children }) => (
     <div>
@@ -28,6 +29,7 @@ const Select = ({ error, children, ...props }) => (
 );
 
 export default function PayrollCreatePeriod({ employees }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors } = useForm({
         name: "",
         start_date: "",
@@ -51,17 +53,17 @@ export default function PayrollCreatePeriod({ employees }) {
     };
 
     return (
-        <AppLayout title="Create Payroll Period">
-            <Head title="Create Payroll Period" />
+        <AppLayout title={t("Create Payroll Period")}>
+            <Head title={t("Create Payroll Period")} />
             <PageHeader
-                title="Create Payroll Period"
-                subtitle="Generate a new payroll run for a period"
+                title={t("Create Payroll Period")}
+                subtitle={t("Generate a new payroll run for a period")}
                 actions={
                     <Link
                         href={route("hr.payroll.index")}
                         className="flex items-center gap-2 text-slate-600 text-sm font-medium"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -135,7 +137,7 @@ export default function PayrollCreatePeriod({ employees }) {
                             className="w-4 h-4 rounded border-slate-300 text-blue-600"
                         />
                         <span className="text-sm text-slate-700 font-medium">
-                            Include all active employees
+                            {t("Include all active employees")}
                         </span>
                     </label>
                     {!data.include_all && (
@@ -186,7 +188,7 @@ export default function PayrollCreatePeriod({ employees }) {
                         disabled={processing}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Save size={16} /> Generate Payroll
+                        <Save size={16} /> {t("Generate Payroll")}
                     </button>
                 </div>
             </form>

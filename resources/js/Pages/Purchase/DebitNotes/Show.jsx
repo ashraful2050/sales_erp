@@ -4,6 +4,7 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { ArrowLeft, Pencil } from "lucide-react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColor = {
     draft: "gray",
@@ -15,6 +16,7 @@ const fmt = (v) =>
     Number(v || 0).toLocaleString("en-BD", { minimumFractionDigits: 2 });
 
 export default function DebitNoteShow({ debitNote }) {
+    const { t } = useTranslation();
     return (
         <AppLayout title={`Debit Note ${debitNote.po_number}`}>
             <Head title={`Debit Note ${debitNote.po_number}`} />
@@ -27,7 +29,7 @@ export default function DebitNoteShow({ debitNote }) {
                             href={route("purchase.debit-notes.index")}
                             className="flex items-center gap-2 text-slate-600 text-sm font-medium"
                         >
-                            <ArrowLeft size={16} /> Back
+                            <ArrowLeft size={16} /> {t("Back")}
                         </Link>
                         <Link
                             href={route(
@@ -36,7 +38,7 @@ export default function DebitNoteShow({ debitNote }) {
                             )}
                             className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
                         >
-                            <Pencil size={16} /> Edit
+                            <Pencil size={16} /> {t("Edit")}
                         </Link>
                     </div>
                 }
@@ -94,19 +96,19 @@ export default function DebitNoteShow({ debitNote }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Description
+                                    {t("Description")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Qty
+                                    {t("Qty")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Cost Price
+                                    {t("Cost Price")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Tax
+                                    {t("Tax")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Total
+                                    {t("Total")}
                                 </th>
                             </tr>
                         </thead>

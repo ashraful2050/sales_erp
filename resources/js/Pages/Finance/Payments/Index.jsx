@@ -16,6 +16,7 @@ import {
 import ExportButtons from "@/Components/ExportButtons";
 import { fmtDate } from "@/utils/date";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const METHOD_LABEL = {
     cash: "Cash",
@@ -30,6 +31,7 @@ const METHOD_LABEL = {
 const TYPE_COLOR = { received: "green", made: "red" };
 
 export default function PaymentsIndex({ payments, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [type, setType] = useState(filters?.type ?? "");
     const apply = (s, t) =>
@@ -41,9 +43,9 @@ export default function PaymentsIndex({ payments, filters }) {
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
-            await dlgConfirm("This payment will be permanently removed.", {
-                title: "Delete Payment?",
-                confirmLabel: "Delete",
+            await dlgConfirm(t("This payment will be permanently removed."), {
+                title: t("Delete Payment?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -51,17 +53,17 @@ export default function PaymentsIndex({ payments, filters }) {
     };
 
     return (
-        <AppLayout title="Payments">
-            <Head title="Payments" />
+        <AppLayout title={t("Payments")}>
+            <Head title={t("Payments")} />
             <PageHeader
-                title="Payments"
-                subtitle={`${payments.total} total payments`}
+                title={t("Payments")}
+                subtitle={`${payments.total} ${t("total payments")}`}
                 actions={
                     <Link
                         href={route("finance.payments.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> Record Payment
+                        <Plus size={16} /> {t("Record Payment")}
                     </Link>
                 }
             />
@@ -72,7 +74,7 @@ export default function PaymentsIndex({ payments, filters }) {
                         setSearch(v);
                         apply(v, type);
                     }}
-                    placeholder="Search payment #…"
+                    placeholder={t("Search payment #…")}
                 />
                 <select
                     value={type}
@@ -82,9 +84,9 @@ export default function PaymentsIndex({ payments, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Types</option>
-                    <option value="received">Money Received</option>
-                    <option value="made">Money Paid</option>
+                    <option value="">{t("All Types")}</option>
+                    <option value="received">{t("Money Received")}</option>
+                    <option value="made">{t("Money Paid")}</option>
                 </select>
                 <ExportButtons
                     tableId="export-table"
@@ -98,22 +100,22 @@ export default function PaymentsIndex({ payments, filters }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Payment #
+                                    {t("Payment #")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Type
+                                    {t("Type")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Party
+                                    {t("Party")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Date
+                                    {t("Date")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Method
+                                    {t("Method")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Amount
+                                    {t("Amount")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -125,7 +127,7 @@ export default function PaymentsIndex({ payments, filters }) {
                                         colSpan={7}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No payments found.
+                                        {t("No payments found.")}
                                     </td>
                                 </tr>
                             )}

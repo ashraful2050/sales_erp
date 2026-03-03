@@ -7,6 +7,7 @@ import Badge from "@/Components/Badge";
 import SearchFilter from "@/Components/SearchFilter";
 import { Plus, Eye, Pencil, Trash2, Lock } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const TYPE_LABELS = {
     asset: "Asset",
@@ -24,6 +25,7 @@ const TYPE_COLORS = {
 };
 
 export default function AccountGroupsIndex({ groups, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [type, setType] = useState(filters?.type ?? "");
     const apply = (s, t) =>
@@ -38,8 +40,8 @@ export default function AccountGroupsIndex({ groups, filters }) {
             await dlgConfirm(
                 "This account group will be permanently removed.",
                 {
-                    title: "Delete Account Group?",
-                    confirmLabel: "Delete",
+                    title: t("Delete Account Group?"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -48,17 +50,17 @@ export default function AccountGroupsIndex({ groups, filters }) {
     };
 
     return (
-        <AppLayout title="Account Groups">
-            <Head title="Account Groups" />
+        <AppLayout title={t("Account Groups")}>
+            <Head title={t("Account Groups")} />
             <PageHeader
-                title="Account Groups"
-                subtitle={`${groups.total} groups`}
+                title={t("Account Groups")}
+                subtitle={`${groups.total} ${t("groups")}`}
                 actions={
                     <Link
                         href={route("accounting.account-groups.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Group
+                        <Plus size={16} /> {t("New Group")}
                     </Link>
                 }
             />
@@ -69,7 +71,7 @@ export default function AccountGroupsIndex({ groups, filters }) {
                         setSearch(v);
                         apply(v, type);
                     }}
-                    placeholder="Search group name…"
+                    placeholder={t("Search group name…")}
                 />
                 <select
                     value={type}
@@ -79,7 +81,7 @@ export default function AccountGroupsIndex({ groups, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Types</option>
+                    <option value="">{t("All Types")}</option>
                     {Object.entries(TYPE_LABELS).map(([k, v]) => (
                         <option key={k} value={k}>
                             {v}
@@ -93,16 +95,16 @@ export default function AccountGroupsIndex({ groups, filters }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Group Name
+                                    {t("Group Name")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Type
+                                    {t("Type")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Nature
+                                    {t("Nature")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    System
+                                    {t("System")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -114,7 +116,7 @@ export default function AccountGroupsIndex({ groups, filters }) {
                                         colSpan={5}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No account groups found.
+                                        {t("No account groups found.")}
                                     </td>
                                 </tr>
                             )}
@@ -154,7 +156,7 @@ export default function AccountGroupsIndex({ groups, filters }) {
                                     <td className="px-6 py-4 text-center">
                                         {g.is_system ? (
                                             <span className="text-xs text-slate-500 font-medium">
-                                                System
+                                                {t("System")}
                                             </span>
                                         ) : (
                                             <span className="text-xs text-slate-300">

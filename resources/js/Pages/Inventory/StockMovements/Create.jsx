@@ -3,6 +3,7 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { ArrowLeft, Save, PackagePlus, PackageMinus, RefreshCw } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const inputCls = "w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
 const errCls  = "text-xs text-red-500 mt-1";
@@ -14,6 +15,7 @@ const TYPE_CONFIG = {
 };
 
 export default function StockMovementCreate({ products, warehouses }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors } = useForm({
         product_id:     "",
         warehouse_id:   "",
@@ -43,12 +45,12 @@ export default function StockMovementCreate({ products, warehouses }) {
     };
 
     return (
-        <AppLayout title="New Stock Entry">
-            <Head title="New Stock Entry" />
-            <PageHeader title="New Stock Entry" subtitle="Record stock in, stock out or adjustment"
+        <AppLayout title={t("New Stock Entry")}>
+            <Head title={t("New Stock Entry")} />
+            <PageHeader title={t("New Stock Entry")} subtitle={t("Record stock in, stock out or adjustment")}
                 actions={
                     <Link href={route("inventory.stock-movements.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium">
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -124,17 +126,17 @@ export default function StockMovementCreate({ products, warehouses }) {
                         {/* Unit Cost (only for stock_in) */}
                         {data.movement_type === "in" && (
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Unit Cost (BDT)</label>
+                                <label className="block text-sm font-medium text-slate-700 mb-1">{t("Unit Cost (BDT)")}</label>
                                 <input type="number" step="0.01" min="0" value={data.unit_cost} onChange={e => setData("unit_cost", e.target.value)}
                                     className={inputCls} placeholder="0.00" />
-                                <p className="text-xs text-slate-400 mt-1">Used to calculate weighted average cost</p>
+                                <p className="text-xs text-slate-400 mt-1">{t("Used to calculate weighted average cost")}</p>
                                 {errors.unit_cost && <p className={errCls}>{errors.unit_cost}</p>}
                             </div>
                         )}
 
                         {/* Reference */}
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Reference</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Reference")}</label>
                             <input type="text" value={data.reference_type} onChange={e => setData("reference_type", e.target.value)}
                                 className={inputCls} placeholder="e.g. PO-001, GRN-005, Physical Count" />
                             {errors.reference_type && <p className={errCls}>{errors.reference_type}</p>}
@@ -142,9 +144,9 @@ export default function StockMovementCreate({ products, warehouses }) {
 
                         {/* Notes */}
                         <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Notes")}</label>
                             <textarea value={data.notes} onChange={e => setData("notes", e.target.value)} rows={2}
-                                className={inputCls} placeholder="Optional remarks..." />
+                                className={inputCls} placeholder={t("Optional remarks...")} />
                         </div>
                     </div>
 

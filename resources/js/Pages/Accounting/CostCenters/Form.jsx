@@ -1,8 +1,10 @@
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function CostCenterForm({ costCenter, parents }) {
+    const { t } = useTranslation();
     const isEdit = !!costCenter;
     const { data, setData, post, put, processing, errors } = useForm({
         name: costCenter?.name ?? "",
@@ -32,17 +34,17 @@ export default function CostCenterForm({ costCenter, parents }) {
                     <label className="block text-sm font-medium text-slate-700 mb-1">Name <span className="text-red-500">*</span></label>
                     <input value={data.name} onChange={e => setData("name", e.target.value)}
                         className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="Cost center name" />
+                        placeholder={t("Cost center name")} />
                     {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Code</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">{t("Code")}</label>
                     <input value={data.code} onChange={e => setData("code", e.target.value)}
                         className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
                         placeholder="e.g. CC-001" />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Parent Cost Center</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">{t("Parent Cost Center")}</label>
                     <select value={data.parent_id} onChange={e => setData("parent_id", e.target.value)}
                         className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
                         <option value="">— None (Top Level) —</option>
@@ -52,7 +54,7 @@ export default function CostCenterForm({ costCenter, parents }) {
                 {isEdit && (
                     <div className="flex items-center gap-3">
                         <input type="checkbox" id="is_active" checked={data.is_active} onChange={e => setData("is_active", e.target.checked)} className="w-4 h-4 rounded" />
-                        <label htmlFor="is_active" className="text-sm text-slate-700">Active</label>
+                        <label htmlFor="is_active" className="text-sm text-slate-700">{t("Active")}</label>
                     </div>
                 )}
                 <div className="flex items-center gap-3 pt-2">

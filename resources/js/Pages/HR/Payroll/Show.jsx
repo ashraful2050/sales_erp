@@ -18,7 +18,7 @@ export default function Show({ period }) {
                     subtitle={`${period.period_start} → ${period.period_end}`}
                     actions={
                         <Link href={route("hr.payroll.index")} className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
-                            <ArrowLeft className="w-4 h-4" /> Back
+                            <ArrowLeft className="w-4 h-4" /> {t("Back")}
                         </Link>
                     }
                 />

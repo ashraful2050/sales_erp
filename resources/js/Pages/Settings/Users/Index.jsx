@@ -4,6 +4,7 @@ import PageHeader from "@/Components/PageHeader";
 import { Plus, Pencil, Trash2, ShieldCheck, User } from "lucide-react";
 import { fmtDate } from "@/utils/date";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const roleBadge = {
     superadmin: "bg-purple-100 text-purple-700",
@@ -13,12 +14,13 @@ const roleBadge = {
 };
 
 export default function UsersIndex({ users, isAdminMode }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id, name) => {
         if (
             await dlgConfirm(`Deleting "${name}" cannot be undone.`, {
                 title: `Delete User "${name}"?`,
-                confirmLabel: "Delete",
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         ) {
@@ -45,7 +47,7 @@ export default function UsersIndex({ users, isAdminMode }) {
                         href={route("settings.users.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={15} /> Add User
+                        <Plus size={15} /> {t("Add User")}
                     </Link>
                 }
             />
@@ -55,16 +57,16 @@ export default function UsersIndex({ users, isAdminMode }) {
                     <thead className="bg-slate-50 border-b border-slate-200">
                         <tr>
                             <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                User
+                                {t("User")}
                             </th>
                             <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                Role
+                                {t("Role")}
                             </th>
                             <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                Status
+                                {t("Status")}
                             </th>
                             <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                Created
+                                {t("Created")}
                             </th>
                             <th className="px-5 py-3 w-24"></th>
                         </tr>
@@ -76,7 +78,7 @@ export default function UsersIndex({ users, isAdminMode }) {
                                     colSpan={5}
                                     className="text-center py-12 text-slate-400"
                                 >
-                                    No users found.
+                                    {t("No users found.")}
                                 </td>
                             </tr>
                         )}

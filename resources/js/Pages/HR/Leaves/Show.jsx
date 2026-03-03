@@ -30,14 +30,14 @@ export default function Show({ leave }) {
                                 href={route("hr.leaves.index")}
                                 className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm"
                             >
-                                <ArrowLeft className="w-4 h-4" /> Back
+                                <ArrowLeft className="w-4 h-4" /> {t("Back")}
                             </Link>
                             {leave.status === "pending" && (
                                 <Link
                                     href={route("hr.leaves.edit", leave.id)}
                                     className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm"
                                 >
-                                    <Edit className="w-4 h-4" /> Edit
+                                    <Edit className="w-4 h-4" /> {t("Edit")}
                                 </Link>
                             )}
                         </div>

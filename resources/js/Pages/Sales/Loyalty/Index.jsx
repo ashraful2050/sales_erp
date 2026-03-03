@@ -4,8 +4,10 @@ import PageHeader from "@/Components/PageHeader";
 import { Plus, Trash2, Gift, Star } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function LoyaltyIndex({ programs }) {
+    const { t } = useTranslation();
     const { confirm } = useDialog();
     const [showForm, setShowForm] = useState(false);
     const { data, setData, post, processing, reset, errors } = useForm({
@@ -29,8 +31,8 @@ export default function LoyaltyIndex({ programs }) {
     const del = async (id) => {
         if (
             await confirm("Delete this loyalty program?", {
-                title: "Delete?",
-                confirmLabel: "Delete",
+                title: t("Delete?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -38,17 +40,17 @@ export default function LoyaltyIndex({ programs }) {
     };
 
     return (
-        <AppLayout title="Loyalty Programs">
-            <Head title="Loyalty Programs" />
+        <AppLayout title={t("Loyalty Programs")}>
+            <Head title={t("Loyalty Programs")} />
             <PageHeader
-                title="Loyalty Programs"
-                subtitle="Reward customer loyalty and drive repeat sales"
+                title={t("Loyalty Programs")}
+                subtitle={t("Reward customer loyalty and drive repeat sales")}
                 actions={
                     <button
                         onClick={() => setShowForm(!showForm)}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                     >
-                        <Plus size={15} /> New Program
+                        <Plus size={15} /> {t("New Program")}
                     </button>
                 }
             />
@@ -111,7 +113,7 @@ export default function LoyaltyIndex({ programs }) {
                         ))}
                         <div className="col-span-2">
                             <label className="block text-xs text-slate-600 mb-1">
-                                Description
+                                {t("Description")}
                             </label>
                             <textarea
                                 value={data.description}
@@ -129,14 +131,14 @@ export default function LoyaltyIndex({ programs }) {
                             disabled={processing}
                             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                         >
-                            Create Program
+                            {t("Create Program")}
                         </button>
                         <button
                             type="button"
                             onClick={() => setShowForm(false)}
                             className="text-slate-500 text-sm px-4 py-2"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>
                     </div>
                 </form>
@@ -150,7 +152,7 @@ export default function LoyaltyIndex({ programs }) {
                             size={32}
                             className="mx-auto mb-2 text-slate-300"
                         />
-                        No loyalty programs yet.
+                        {t("No loyalty programs yet.")}
                     </div>
                 ) : (
                     programs.map((p) => (

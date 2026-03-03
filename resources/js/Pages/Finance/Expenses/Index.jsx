@@ -6,10 +6,12 @@ import { Plus, Search, Trash2, Edit, ArrowUpRight } from "lucide-react";
 import ExportButtons from "@/Components/ExportButtons";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColors = { approved: "green", draft: "gray", rejected: "red" };
 
 export default function ExpensesIndex({ expenses, categories, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters.search ?? "");
     const [categoryId, setCategoryId] = useState(filters.category_id ?? "");
     const [from, setFrom] = useState(filters.from ?? "");
@@ -27,8 +29,8 @@ export default function ExpensesIndex({ expenses, categories, filters }) {
             await dlgConfirm(
                 "This expense record will be permanently removed.",
                 {
-                    title: "Delete Expense?",
-                    confirmLabel: "Delete",
+                    title: t("Delete Expense?"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -37,11 +39,11 @@ export default function ExpensesIndex({ expenses, categories, filters }) {
     };
 
     return (
-        <AppLayout title="Expenses">
-            <Head title="Expenses" />
+        <AppLayout title={t("Expenses")}>
+            <Head title={t("Expenses")} />
             <PageHeader
-                title="Expenses"
-                subtitle="Track all company expenditures"
+                title={t("Expenses")}
+                subtitle={t("Track all company expenditures")}
                 actions={
                     <div className="flex gap-2">
                         <Link
@@ -54,7 +56,7 @@ export default function ExpensesIndex({ expenses, categories, filters }) {
                             href={route("finance.expenses.create")}
                             className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                         >
-                            <Plus size={16} /> New Expense
+                            <Plus size={16} /> {t("New Expense")}
                         </Link>
                     </div>
                 }
@@ -68,7 +70,7 @@ export default function ExpensesIndex({ expenses, categories, filters }) {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && apply()}
-                        placeholder="Title or expense number…"
+                        placeholder={t("Title or expense number…")}
                         className="flex-1 text-sm outline-none"
                     />
                 </div>
@@ -77,7 +79,7 @@ export default function ExpensesIndex({ expenses, categories, filters }) {
                     onChange={(e) => setCategoryId(e.target.value)}
                     className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none"
                 >
-                    <option value="">All Categories</option>
+                    <option value="">{t("All Categories")}</option>
                     {categories.map((c) => (
                         <option key={c.id} value={c.id}>
                             {c.name}
@@ -100,7 +102,7 @@ export default function ExpensesIndex({ expenses, categories, filters }) {
                     onClick={apply}
                     className="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm hover:bg-blue-700"
                 >
-                    Filter
+                    {t("Filter")}
                 </button>
                 <ExportButtons
                     tableId="export-table"
@@ -140,7 +142,7 @@ export default function ExpensesIndex({ expenses, categories, filters }) {
                                     colSpan={8}
                                     className="text-center py-12 text-slate-400"
                                 >
-                                    No expenses found.
+                                    {t("No expenses found.")}
                                 </td>
                             </tr>
                         )}

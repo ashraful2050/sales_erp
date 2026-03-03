@@ -71,7 +71,7 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                         href={route("settings.users.index")}
                         className="flex items-center gap-2 text-slate-600 text-sm font-medium"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -80,8 +80,8 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                 <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-sm text-blue-800 mb-2">
                     <Info size={16} className="mt-0.5 shrink-0" />
                     <span>
-                        As an <strong>Admin</strong>, you can create{" "}
-                        <strong>Moderator</strong> accounts only. The role
+                        As an <strong>{t("Admin")}</strong>, you can create{" "}
+                        <strong>{t("Moderator")}</strong> accounts only. The role
                         assigned to a moderator can only include permissions
                         that you yourself have been granted by the SuperAdmin.
                     </span>
@@ -183,7 +183,7 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                             className="w-4 h-4 rounded border-slate-300 text-blue-600"
                         />
                         <span className="text-sm text-slate-700">
-                            Active account
+                            {t("Active account")}
                         </span>
                     </label>
                 </div>

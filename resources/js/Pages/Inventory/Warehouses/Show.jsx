@@ -12,14 +12,14 @@ export default function Show({ warehouse }) {
             <div className="p-6 space-y-6">
                 <PageHeader
                     title={warehouse.name}
-                    subtitle="Warehouse Details"
+                    subtitle={t("Warehouse Details")}
                     actions={
                         <div className="flex gap-2">
                             <Link href={route("inventory.warehouses.index")} className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
-                                <ArrowLeft className="w-4 h-4" /> Back
+                                <ArrowLeft className="w-4 h-4" /> {t("Back")}
                             </Link>
                             <Link href={route("inventory.warehouses.edit", warehouse.id)} className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm">
-                                <Edit className="w-4 h-4" /> Edit
+                                <Edit className="w-4 h-4" /> {t("Edit")}
                             </Link>
                         </div>
                     }

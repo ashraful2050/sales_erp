@@ -11,6 +11,7 @@ import {
     Zap,
     Shield,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function StatCard({ label, value, sub, icon: Icon, color = "blue" }) {
     return (
@@ -73,13 +74,14 @@ export default function ProcessOptimization({
     quoteConversion,
     totalQuotes,
 }) {
+    const { t } = useTranslation();
     return (
         <AppLayout>
-            <Head title="Process Optimization" />
+            <Head title={t("Process Optimization")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Sales Process Optimization Engine"
-                    subtitle="Reduce cycle time and eliminate bottlenecks using Time Study & Lean principles"
+                    title={t("Sales Process Optimization Engine")}
+                    subtitle={t("Reduce cycle time and eliminate bottlenecks using Time Study & Lean principles")}
                 />
 
                 {/* IE Concept Badges */}
@@ -151,7 +153,7 @@ export default function ProcessOptimization({
                             </div>
                         ) : (
                             <p className="text-slate-400 text-sm">
-                                No cycle time data available yet.
+                                {t("No cycle time data available yet.")}
                             </p>
                         )}
                     </div>
@@ -194,7 +196,7 @@ export default function ProcessOptimization({
                             </div>
                         ) : (
                             <p className="text-slate-400 text-sm">
-                                No data available.
+                                {t("No data available.")}
                             </p>
                         )}
                     </div>
@@ -212,7 +214,7 @@ export default function ProcessOptimization({
                                 {slaBreaches}
                             </p>
                             <p className="text-sm text-slate-500 mt-1">
-                                SLA Breaches (Overdue Invoices)
+                                {t("SLA Breaches (Overdue Invoices)")}
                             </p>
                         </div>
                         <div className="bg-slate-50 rounded-lg p-4 text-center">
@@ -222,7 +224,7 @@ export default function ProcessOptimization({
                                 {slaCompliance}%
                             </p>
                             <p className="text-sm text-slate-500 mt-1">
-                                SLA Compliance Rate
+                                {t("SLA Compliance Rate")}
                             </p>
                         </div>
                         <div className="bg-slate-50 rounded-lg p-4 text-center">
@@ -230,7 +232,7 @@ export default function ProcessOptimization({
                                 {cycleData?.max_days ?? 0}d
                             </p>
                             <p className="text-sm text-slate-500 mt-1">
-                                Max Cycle Time (Bottleneck)
+                                {t("Max Cycle Time (Bottleneck)")}
                             </p>
                         </div>
                     </div>

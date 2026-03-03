@@ -15,6 +15,7 @@ import {
     MapPin,
 } from "lucide-react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const EVENT_CONFIG = {
     login: { label: "Login", cls: "bg-green-100 text-green-800", Icon: LogIn },
@@ -37,6 +38,7 @@ function duration(loggedIn, loggedOut) {
 }
 
 export default function LoginHistory({ histories, stats, users, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [event, setEvent] = useState(filters?.event ?? "");
     const [userId, setUserId] = useState(filters?.user_id ?? "");
@@ -67,11 +69,11 @@ export default function LoginHistory({ histories, stats, users, filters }) {
 
     return (
         <AppLayout>
-            <Head title="Login History" />
+            <Head title={t("Login History")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Login History"
-                    subtitle="All login, logout, and failed attempt events (Super Admin only)"
+                    title={t("Login History")}
+                    subtitle={t("All login, logout, and failed attempt events (Super Admin only)")}
                     icon={LogIn}
                     iconClass="bg-cyan-100 text-cyan-600"
                 />
@@ -134,7 +136,7 @@ export default function LoginHistory({ histories, stats, users, filters }) {
                         <input
                             value={search}
                             onChange={(e) => handleSearch(e.target.value)}
-                            placeholder="Search user, IP, browser…"
+                            placeholder={t("Search user, IP, browser…")}
                             className="w-full pl-9 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                         />
                     </div>
@@ -146,10 +148,10 @@ export default function LoginHistory({ histories, stats, users, filters }) {
                         }}
                         className="py-2 px-3 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500"
                     >
-                        <option value="">All Events</option>
-                        <option value="login">Login</option>
-                        <option value="logout">Logout</option>
-                        <option value="failed">Failed</option>
+                        <option value="">{t("All Events")}</option>
+                        <option value="login">{t("Login")}</option>
+                        <option value="logout">{t("Logout")}</option>
+                        <option value="failed">{t("Failed")}</option>
                     </select>
                     {Array.isArray(users) && users.length > 0 && (
                         <select
@@ -160,7 +162,7 @@ export default function LoginHistory({ histories, stats, users, filters }) {
                             }}
                             className="py-2 px-3 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500"
                         >
-                            <option value="">All Users</option>
+                            <option value="">{t("All Users")}</option>
                             {users.map((u) => (
                                 <option key={u.id} value={u.id}>
                                     {u.name}
@@ -204,7 +206,7 @@ export default function LoginHistory({ histories, stats, users, filters }) {
                             }}
                             className="flex items-center gap-1 px-3 py-2 text-sm text-slate-500 border border-slate-300 rounded-lg hover:bg-slate-100"
                         >
-                            <X size={14} /> Clear
+                            <X size={14} /> {t("Clear")}
                         </button>
                     )}
                 </div>
@@ -245,7 +247,7 @@ export default function LoginHistory({ histories, stats, users, filters }) {
                                                 size={40}
                                                 className="mx-auto mb-3 opacity-30"
                                             />
-                                            No login history found.
+                                            {t("No login history found.")}
                                         </td>
                                     </tr>
                                 ) : (

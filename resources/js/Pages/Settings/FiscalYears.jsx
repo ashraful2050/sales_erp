@@ -6,6 +6,7 @@ import Badge from "@/Components/Badge";
 import { Plus, Trash2, X, Check, Lock } from "lucide-react";
 import { fmtDate } from "@/utils/date";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function FiscalYearForm({ onSave, onCancel }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -30,12 +31,12 @@ function FiscalYearForm({ onSave, onCancel }) {
         >
             <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">
-                    Name
+                    {t("Name")}
                 </label>
                 <input
                     value={data.name}
                     onChange={(e) => setData("name", e.target.value)}
-                    placeholder="FY 2024-25"
+                    placeholder={t("FY 2024-25")}
                     className={`w-full border rounded-lg px-3 py-2 text-sm ${errors.name ? "border-red-400" : "border-slate-200"}`}
                 />
                 {errors.name && (
@@ -44,7 +45,7 @@ function FiscalYearForm({ onSave, onCancel }) {
             </div>
             <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">
-                    Start Date
+                    {t("Start Date")}
                 </label>
                 <input
                     type="date"
@@ -60,7 +61,7 @@ function FiscalYearForm({ onSave, onCancel }) {
             </div>
             <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">
-                    End Date
+                    {t("End Date")}
                 </label>
                 <input
                     type="date"
@@ -76,16 +77,16 @@ function FiscalYearForm({ onSave, onCancel }) {
             </div>
             <div>
                 <label className="block text-xs font-medium text-slate-600 mb-1">
-                    Status
+                    {t("Status")}
                 </label>
                 <select
                     value={data.status}
                     onChange={(e) => setData("status", e.target.value)}
                     className={`w-full border rounded-lg px-3 py-2 text-sm bg-white ${errors.status ? "border-red-400" : "border-slate-200"}`}
                 >
-                    <option value="active">Active</option>
-                    <option value="pending">Pending</option>
-                    <option value="closed">Closed</option>
+                    <option value="active">{t("Active")}</option>
+                    <option value="pending">{t("Pending")}</option>
+                    <option value="closed">{t("Closed")}</option>
                 </select>
                 {errors.status && (
                     <p className="text-red-500 text-xs mt-1">{errors.status}</p>
@@ -97,7 +98,7 @@ function FiscalYearForm({ onSave, onCancel }) {
                     disabled={processing}
                     className="flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm font-medium"
                 >
-                    <Check size={14} /> Add
+                    <Check size={14} /> {t("Add")}
                 </button>
                 <button
                     type="button"
@@ -114,6 +115,7 @@ function FiscalYearForm({ onSave, onCancel }) {
 const STATUS_MAP = { active: "green", closed: "slate", locked: "red" };
 
 export default function FiscalYearsIndex({ fiscalYears }) {
+    const { t } = useTranslation();
     const [showForm, setShowForm] = useState(false);
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
@@ -121,8 +123,8 @@ export default function FiscalYearsIndex({ fiscalYears }) {
             await dlgConfirm(
                 "Delete this fiscal year? This cannot be undone.",
                 {
-                    title: "Delete Fiscal Year",
-                    confirmLabel: "Delete",
+                    title: t("Delete Fiscal Year"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -134,8 +136,8 @@ export default function FiscalYearsIndex({ fiscalYears }) {
             await dlgConfirm(
                 "This action locks all journal entries for this period.",
                 {
-                    title: "Close Fiscal Year?",
-                    confirmLabel: "Close Year",
+                    title: t("Close Fiscal Year?"),
+                    confirmLabel: t("Close Year"),
                     intent: "warning",
                 },
             )
@@ -146,17 +148,17 @@ export default function FiscalYearsIndex({ fiscalYears }) {
     };
 
     return (
-        <AppLayout title="Fiscal Years">
-            <Head title="Fiscal Years" />
+        <AppLayout title={t("Fiscal Years")}>
+            <Head title={t("Fiscal Years")} />
             <PageHeader
-                title="Fiscal Years"
-                subtitle="Manage accounting periods and fiscal year settings"
+                title={t("Fiscal Years")}
+                subtitle={t("Manage accounting periods and fiscal year settings")}
                 actions={
                     <button
                         onClick={() => setShowForm(true)}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Fiscal Year
+                        <Plus size={16} /> {t("New Fiscal Year")}
                     </button>
                 }
             />
@@ -172,16 +174,16 @@ export default function FiscalYearsIndex({ fiscalYears }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Name
+                                    {t("Name")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Start Date
+                                    {t("Start Date")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    End Date
+                                    {t("End Date")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -193,7 +195,7 @@ export default function FiscalYearsIndex({ fiscalYears }) {
                                         colSpan={5}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No fiscal years defined.
+                                        {t("No fiscal years defined.")}
                                     </td>
                                 </tr>
                             )}
@@ -231,7 +233,7 @@ export default function FiscalYearsIndex({ fiscalYears }) {
                                                     onClick={() => close(fy.id)}
                                                     className="text-xs px-2 py-1 border border-amber-200 text-amber-600 hover:bg-amber-50 rounded-md"
                                                 >
-                                                    Close Year
+                                                    {t("Close Year")}
                                                 </button>
                                             )}
                                             {fy.status !== "locked" && (

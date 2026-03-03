@@ -1,5 +1,6 @@
 ﻿import { Head, Link } from "@inertiajs/react";
 import { useState } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 /* ── tiny helpers ─────────────────────────────────────────── */
 function Badge({ children, color = "blue" }) {
@@ -151,7 +152,7 @@ const MODULES = [
 const WHY = [
     {
         icon: "⚡",
-        title: "Real-Time Dashboard",
+        title: t("Real-Time Dashboard"),
         body: "All critical business metrics—sales, collections, payables, stock levels—visible on a single screen the moment data changes.",
         bullets: [
             "Live KPI cards",
@@ -163,7 +164,7 @@ const WHY = [
     },
     {
         icon: "🔐",
-        title: "Granular Role Permissions",
+        title: t("Granular Role Permissions"),
         body: "Build custom roles with per-module, per-action access control. Every feature can be individually toggled for any user.",
         bullets: [
             "Module-level gates",
@@ -175,7 +176,7 @@ const WHY = [
     },
     {
         icon: "📤",
-        title: "Export Everything",
+        title: t("Export Everything"),
         body: "Every table, report and statement in AccounTech BD can be exported to PDF or Excel with a single click.",
         bullets: [
             "PDF & Excel export",
@@ -187,7 +188,7 @@ const WHY = [
     },
     {
         icon: "🌍",
-        title: "Multi-Currency & Multi-Tax",
+        title: t("Multi-Currency & Multi-Tax"),
         body: "Run operations in BDT and foreign currencies. Apply VAT, SD and custom tax rates per product or transaction.",
         bullets: [
             "Live exchange rates",
@@ -202,7 +203,7 @@ const WHY = [
 const MODULE_DETAILS = [
     {
         icon: "🛒",
-        title: "Sales Management",
+        title: t("Sales Management"),
         body: "The Sales module handles the complete sales lifecycle — from quotation to delivery. Manage customers, issue professional invoices, track payments due, apply tax and discounts, and generate credit notes for returns. Every transaction syncs to accounting automatically.",
         tag: "Sales",
         tagColor: "green",
@@ -217,7 +218,7 @@ const MODULE_DETAILS = [
     },
     {
         icon: "🚚",
-        title: "Purchase Management",
+        title: t("Purchase Management"),
         body: "Streamline your procurement—create purchase orders, receive goods against GRN, and manage vendor relationships and payables. Debit notes handle returns to suppliers, keeping your books accurate.",
         tag: "Purchase",
         tagColor: "amber",
@@ -232,7 +233,7 @@ const MODULE_DETAILS = [
     },
     {
         icon: "📒",
-        title: "Accounting & Finance",
+        title: t("Accounting & Finance"),
         body: "A complete double-entry accounting engine. Maintain your chart of accounts, post journal entries, assign cost centers, manage budgets, and produce trial balance, P&L and balance sheet at any time.",
         tag: "Accounting",
         tagColor: "purple",
@@ -247,7 +248,7 @@ const MODULE_DETAILS = [
     },
     {
         icon: "👥",
-        title: "HR & Payroll",
+        title: t("HR & Payroll"),
         body: "Manage your entire workforce — from employee onboarding and department assignment to monthly payroll processing, leave approvals, and salary slip generation. All linked to your chart of accounts.",
         tag: "HR",
         tagColor: "rose",
@@ -313,11 +314,12 @@ const FAQS = [
 ];
 
 export default function Welcome({ auth, plans = [] }) {
+    const { t } = useTranslation();
     const [pricingCycle, setPricingCycle] = useState("monthly");
 
     return (
         <div className="min-h-screen bg-white text-slate-800 font-sans antialiased overflow-x-hidden">
-            <Head title="AccounTech BD — Complete ERP Software" />
+            <Head title={t("AccounTech BD — Complete ERP Software")} />
 
             {/* ············ NAVBAR ············ */}
             <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
@@ -342,31 +344,31 @@ export default function Welcome({ auth, plans = [] }) {
                             href="#features"
                             className="hover:text-blue-600 transition-colors"
                         >
-                            Features
+                            {t("Features")}
                         </a>
                         <a
                             href="#modules"
                             className="hover:text-blue-600 transition-colors"
                         >
-                            Modules
+                            {t("Modules")}
                         </a>
                         <a
                             href="#why"
                             className="hover:text-blue-600 transition-colors"
                         >
-                            Why Us
+                            {t("Why Us")}
                         </a>
                         <a
                             href="#pricing"
                             className="hover:text-blue-600 transition-colors"
                         >
-                            Pricing
+                            {t("Pricing")}
                         </a>
                         <a
                             href="#faq"
                             className="hover:text-blue-600 transition-colors"
                         >
-                            FAQ
+                            {t("FAQ")}
                         </a>
                     </div>
                     <div className="flex items-center gap-2">
@@ -414,7 +416,7 @@ export default function Welcome({ auth, plans = [] }) {
                         The Complete ERP for
                         <br />
                         <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                            Bangladesh Businesses
+                            {t("Bangladesh Businesses")}
                         </span>
                     </h1>
                     <p className="max-w-2xl mx-auto text-slate-300 text-lg leading-relaxed mb-10">
@@ -767,37 +769,37 @@ export default function Welcome({ auth, plans = [] }) {
                         {[
                             {
                                 icon: "🔐",
-                                title: "Role-Based Access Control",
+                                title: t("Role-Based Access Control"),
                                 desc: "Fine-grained permissions per module and action. Create unlimited custom roles for any team structure.",
                                 color: "purple",
                             },
                             {
                                 icon: "📤",
-                                title: "One-Click Export",
+                                title: t("One-Click Export"),
                                 desc: "Every report, invoice and table exports to PDF or Excel. Printable invoice templates included.",
                                 color: "green",
                             },
                             {
                                 icon: "💱",
-                                title: "Multi-Currency Support",
+                                title: t("Multi-Currency Support"),
                                 desc: "Transact in BDT and foreign currencies with configurable exchange rates per entry.",
                                 color: "amber",
                             },
                             {
                                 icon: "🔗",
-                                title: "Fully Integrated",
+                                title: t("Fully Integrated"),
                                 desc: "POS sales hit inventory and accounting automatically. Payroll flows to chart of accounts. Everything connected.",
                                 color: "blue",
                             },
                             {
                                 icon: "📊",
-                                title: "Rich Reports & Analytics",
+                                title: t("Rich Reports & Analytics"),
                                 desc: "P&L, balance sheet, trial balance, customer statements, vendor statements, payroll summaries and more.",
                                 color: "indigo",
                             },
                             {
                                 icon: "🌍",
-                                title: "Web-Based & Responsive",
+                                title: t("Web-Based & Responsive"),
                                 desc: "Runs in any modern browser. No desktop installation needed. Access securely from anywhere.",
                                 color: "teal",
                             },
@@ -862,7 +864,7 @@ export default function Welcome({ auth, plans = [] }) {
                                         : "text-slate-500 hover:text-slate-700"
                                 }`}
                             >
-                                Monthly
+                                {t("Monthly")}
                             </button>
                             <button
                                 onClick={() => setPricingCycle("yearly")}
@@ -934,7 +936,7 @@ export default function Welcome({ auth, plans = [] }) {
                                         {isDemo ? (
                                             <div className="flex items-baseline gap-1">
                                                 <span className="text-3xl font-black text-green-600">
-                                                    FREE
+                                                    {t("FREE")}
                                                 </span>
                                                 <span className="text-slate-500 text-sm">
                                                     / 24 hours

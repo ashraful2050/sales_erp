@@ -3,6 +3,7 @@ import { Head, useForm, Link } from "@inertiajs/react";
 import { useState, useEffect } from "react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft, Plus, Trash2, AlertTriangle } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Select = ({ error, children, ...props }) => (
     <select {...props} className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${error ? "border-red-400" : "border-slate-200"}`}>{children}</select>
@@ -14,6 +15,7 @@ const Input = ({ error, className = "", ...props }) => (
 const emptyLine = () => ({ product_id: "", description: "", quantity: 1, unit_price: "", discount_pct: 0, tax_rate_id: "", line_total: 0 });
 
 export default function InvoiceForm({ invoice, customers, products, taxRates }) {
+    const { t } = useTranslation();
     const isEdit = !!invoice;
     const { data, setData, post, put, processing, errors } = useForm({
         invoice_number: invoice?.invoice_number ?? "",
@@ -75,7 +77,7 @@ export default function InvoiceForm({ invoice, customers, products, taxRates }) 
             <PageHeader
                 title={isEdit ? "Edit Invoice" : "New Invoice"}
                 subtitle={isEdit ? `Invoice #${invoice.invoice_number}` : "Create a new sales invoice"}
-                actions={<Link href={route("sales.invoices.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> Back</Link>}
+                actions={<Link href={route("sales.invoices.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> {t("Back")}</Link>}
             />
             <form onSubmit={submit} className="space-y-6">
                 {/* Header */}
@@ -94,19 +96,19 @@ export default function InvoiceForm({ invoice, customers, products, taxRates }) 
                             <Input type="date" value={data.invoice_date} onChange={e => setData("invoice_date", e.target.value)} required />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Due Date</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Due Date")}</label>
                             <Input type="date" value={data.due_date} onChange={e => setData("due_date", e.target.value)} />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Status</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Status")}</label>
                             <Select value={data.status} onChange={e => setData("status", e.target.value)}>
-                                <option value="draft">Draft</option>
-                                <option value="sent">Sent</option>
+                                <option value="draft">{t("Draft")}</option>
+                                <option value="sent">{t("Sent")}</option>
                             </Select>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Invoice Number</label>
-                            <Input value={data.invoice_number} onChange={e => setData("invoice_number", e.target.value)} placeholder="Auto-generated" />
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Invoice Number")}</label>
+                            <Input value={data.invoice_number} onChange={e => setData("invoice_number", e.target.value)} placeholder={t("Auto-generated")} />
                         </div>
                     </div>
                 </div>
@@ -117,20 +119,20 @@ export default function InvoiceForm({ invoice, customers, products, taxRates }) 
                         <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">Line Items</h3>
                         <button type="button" onClick={addLine}
                             className="flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm font-medium">
-                            <Plus size={15} /> Add Line
+                            <Plus size={15} /> {t("Add Line")}
                         </button>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead className="bg-slate-50">
                                 <tr>
-                                    <th className="text-left px-4 py-2 text-xs font-medium text-slate-500 w-48">Product</th>
-                                    <th className="text-left px-4 py-2 text-xs font-medium text-slate-500">Description</th>
-                                    <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-20">Qty</th>
-                                    <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-28">Unit Price</th>
+                                    <th className="text-left px-4 py-2 text-xs font-medium text-slate-500 w-48">{t("Product")}</th>
+                                    <th className="text-left px-4 py-2 text-xs font-medium text-slate-500">{t("Description")}</th>
+                                    <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-20">{t("Qty")}</th>
+                                    <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-28">{t("Unit Price")}</th>
                                     <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-20">Disc %</th>
-                                    <th className="text-left px-4 py-2 text-xs font-medium text-slate-500 w-32">Tax</th>
-                                    <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-28">Total</th>
+                                    <th className="text-left px-4 py-2 text-xs font-medium text-slate-500 w-32">{t("Tax")}</th>
+                                    <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-28">{t("Total")}</th>
                                     <th className="w-8 px-2"></th>
                                 </tr>
                             </thead>
@@ -144,7 +146,7 @@ export default function InvoiceForm({ invoice, customers, products, taxRates }) 
                                             </Select>
                                         </td>
                                         <td className="px-4 py-2">
-                                            <Input value={item.description} onChange={e => updateLine(idx, "description", e.target.value)} placeholder="Description…" error={errors[`items.${idx}.description`]} />
+                                            <Input value={item.description} onChange={e => updateLine(idx, "description", e.target.value)} placeholder={t("Description…")} error={errors[`items.${idx}.description`]} />
                                             {errors[`items.${idx}.description`] && <p className="text-xs text-red-500 mt-1">{errors[`items.${idx}.description`]}</p>}
                                         </td>
                                         <td className="px-4 py-2">
@@ -159,7 +161,7 @@ export default function InvoiceForm({ invoice, customers, products, taxRates }) 
                                         </td>
                                         <td className="px-4 py-2">
                                             <Select value={item.tax_rate_id} onChange={e => updateLine(idx, "tax_rate_id", e.target.value)}>
-                                                <option value="">No Tax</option>
+                                                <option value="">{t("No Tax")}</option>
                                                 {taxRates?.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                                             </Select>
                                         </td>
@@ -180,21 +182,21 @@ export default function InvoiceForm({ invoice, customers, products, taxRates }) 
                     <div className="border-t border-slate-100 px-6 py-4 flex flex-col items-end gap-2">
                         <div className="w-64 space-y-1 text-sm">
                             <div className="flex justify-between text-slate-600">
-                                <span>Subtotal</span>
+                                <span>{t("Subtotal")}</span>
                                 <span className="font-mono">৳{subtotal.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between text-slate-600">
-                                <span>VAT / Tax</span>
+                                <span>{t("VAT / Tax")}</span>
                                 <span className="font-mono">৳{taxTotal.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between text-slate-600 items-center">
-                                <span>Discount</span>
+                                <span>{t("Discount")}</span>
                                 <input type="number" step="any" min="0" value={data.discount_amount}
                                     onChange={e => setData("discount_amount", e.target.value)}
                                     className="w-28 border border-slate-200 rounded px-2 py-1 text-right text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500" />
                             </div>
                             <div className="flex justify-between font-semibold text-slate-800 border-t border-slate-200 pt-2 text-base">
-                                <span>Total</span>
+                                <span>{t("Total")}</span>
                                 <span className="font-mono">৳{grandTotal.toFixed(2)}</span>
                             </div>
                         </div>
@@ -204,12 +206,12 @@ export default function InvoiceForm({ invoice, customers, products, taxRates }) 
                 {/* Notes & Terms */}
                 <div className="bg-white rounded-xl border border-slate-200 p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t("Notes")}</label>
                         <textarea value={data.notes} onChange={e => setData("notes", e.target.value)} rows={3}
                             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Terms & Conditions</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t("Terms & Conditions")}</label>
                         <textarea value={data.terms} onChange={e => setData("terms", e.target.value)} rows={3}
                             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>

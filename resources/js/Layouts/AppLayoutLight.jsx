@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import SubscriptionBanner from "@/Components/SubscriptionBanner";
-import { nav } from "./navConfig";
+import LanguageSwitcher from "@/Components/LanguageSwitcher";
+import { getNav } from "./navConfig";
+import { useTranslation } from "@/hooks/useTranslation";
 import {
     ChevronDown,
     ChevronRight,
@@ -140,6 +142,8 @@ export default function AppLayoutLight({ children, title }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const [flashMsg, setFlashMsg] = useState(null);
+    const { t: tr } = useTranslation();
+    const nav = getNav(tr);
 
     useEffect(() => {
         const msg = flash?.error
@@ -250,11 +254,12 @@ export default function AppLayoutLight({ children, title }) {
                         </button>
                         {title && (
                             <h1 className="text-sm font-semibold text-slate-700 hidden sm:block">
-                                {title}
+                                {tr(title, { default: title })}
                             </h1>
                         )}
                     </div>
                     <div className="flex items-center gap-2">
+                        <LanguageSwitcher />
                         <button className="text-slate-400 hover:text-slate-600 p-2 rounded-lg hover:bg-slate-100">
                             <Bell size={18} />
                         </button>
@@ -280,7 +285,10 @@ export default function AppLayoutLight({ children, title }) {
                                         href="/profile"
                                         className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                                     >
-                                        <User size={14} /> Profile
+                                        <User size={14} />{" "}
+                                        {tr("nav.profile", {
+                                            default: "Profile",
+                                        })}
                                     </Link>
                                     {isSuperAdmin && (
                                         <Link
@@ -289,7 +297,10 @@ export default function AppLayoutLight({ children, title }) {
                                             )}
                                             className="flex items-center gap-2 px-4 py-2 text-sm text-violet-700 hover:bg-violet-50"
                                         >
-                                            <Shield size={14} /> Super Admin
+                                            <Shield size={14} />{" "}
+                                            {tr("nav.super_admin_panel", {
+                                                default: "Super Admin",
+                                            })}
                                         </Link>
                                     )}
                                     <hr className="my-1 border-slate-100" />
@@ -299,7 +310,10 @@ export default function AppLayoutLight({ children, title }) {
                                         as="button"
                                         className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                                     >
-                                        <LogOut size={14} /> Log out
+                                        <LogOut size={14} />{" "}
+                                        {tr("nav.logout", {
+                                            default: "Log out",
+                                        })}
                                     </Link>
                                 </div>
                             )}

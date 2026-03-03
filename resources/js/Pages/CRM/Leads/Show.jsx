@@ -11,6 +11,7 @@ import {
     Plus,
     CheckCircle,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColors = {
     new: "blue",
@@ -24,6 +25,7 @@ const statusColors = {
 const outcomeColors = { positive: "green", neutral: "yellow", negative: "red" };
 
 export default function LeadShow({ lead }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors, reset } = useForm({
         type: "call",
         subject: "",
@@ -62,14 +64,14 @@ export default function LeadShow({ lead }) {
                                 }
                                 className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2"
                             >
-                                <CheckCircle size={15} /> Convert to Customer
+                                <CheckCircle size={15} /> {t("Convert to Customer")}
                             </button>
                         )}
                         <Link
                             href={route("crm.leads.index")}
                             className="flex items-center gap-2 text-sm text-slate-600"
                         >
-                            <ArrowLeft size={16} /> Back
+                            <ArrowLeft size={16} /> {t("Back")}
                         </Link>
                     </div>
                 }
@@ -84,26 +86,26 @@ export default function LeadShow({ lead }) {
                         </h3>
                         <div className="space-y-3 text-sm">
                             <div className="flex justify-between">
-                                <span className="text-slate-500">Status</span>
+                                <span className="text-slate-500">{t("Status")}</span>
                                 <Badge
                                     color={statusColors[lead.status]}
                                     label={lead.status}
                                 />
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-slate-500">Priority</span>
+                                <span className="text-slate-500">{t("Priority")}</span>
                                 <span className="font-medium capitalize">
                                     {lead.priority}
                                 </span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-slate-500">Source</span>
+                                <span className="text-slate-500">{t("Source")}</span>
                                 <span className="capitalize">
                                     {lead.source || "—"}
                                 </span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-slate-500">Industry</span>
+                                <span className="text-slate-500">{t("Industry")}</span>
                                 <span>{lead.industry || "—"}</span>
                             </div>
                             <div className="flex justify-between">
@@ -119,13 +121,13 @@ export default function LeadShow({ lead }) {
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-slate-500">
-                                    Close Date
+                                    {t("Close Date")}
                                 </span>
                                 <span>{lead.expected_close_date || "—"}</span>
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-slate-500">
-                                    Assigned To
+                                    {t("Assigned To")}
                                 </span>
                                 <span>{lead.assigned_to?.name || "—"}</span>
                             </div>
@@ -240,7 +242,7 @@ export default function LeadShow({ lead }) {
                                 </select>
                             </div>
                             <input
-                                placeholder="Subject"
+                                placeholder={t("Subject")}
                                 value={data.subject}
                                 onChange={(e) =>
                                     setData("subject", e.target.value)
@@ -256,7 +258,7 @@ export default function LeadShow({ lead }) {
                                 className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
                             />
                             <textarea
-                                placeholder="Description…"
+                                placeholder={t("Description…")}
                                 value={data.description}
                                 onChange={(e) =>
                                     setData("description", e.target.value)
@@ -269,7 +271,7 @@ export default function LeadShow({ lead }) {
                                 disabled={processing}
                                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                             >
-                                Log Activity
+                                {t("Log Activity")}
                             </button>
                         </form>
                     </div>
@@ -281,7 +283,7 @@ export default function LeadShow({ lead }) {
                         </h3>
                         {lead.activities?.length === 0 ? (
                             <p className="text-slate-400 text-sm text-center py-4">
-                                No activities yet.
+                                {t("No activities yet.")}
                             </p>
                         ) : (
                             <div className="space-y-3">

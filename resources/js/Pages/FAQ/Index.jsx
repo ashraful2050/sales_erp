@@ -3,6 +3,7 @@ import { Head, Link, router } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Search, BookOpen, ChevronRight, Eye, Plus, Settings2 } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const COLOR_MAP = {
     blue:   "bg-blue-50 text-blue-700 border-blue-200",
@@ -17,6 +18,7 @@ const COLOR_MAP = {
 };
 
 export default function FaqIndex({ categories, faqs, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [activeCategory, setActiveCategory] = useState(filters?.category ?? null);
 
@@ -36,8 +38,8 @@ export default function FaqIndex({ categories, faqs, filters }) {
     };
 
     return (
-        <AppLayout title="Knowledge Base">
-            <Head title="Knowledge Base" />
+        <AppLayout title={t("Knowledge Base")}>
+            <Head title={t("Knowledge Base")} />
 
             {/* Hero */}
             <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-8 mb-6 text-white relative overflow-hidden">
@@ -48,19 +50,19 @@ export default function FaqIndex({ categories, faqs, filters }) {
                         <span className="text-blue-200 text-sm font-medium">AccounTech BD — Knowledge Base</span>
                     </div>
                     <h1 className="text-3xl font-black mb-2">How can we help you?</h1>
-                    <p className="text-blue-200 mb-5">Search our knowledge base or browse by category</p>
+                    <p className="text-blue-200 mb-5">{t("Search our knowledge base or browse by category")}</p>
                     <form onSubmit={handleSearch} className="flex gap-2">
                         <div className="flex-1 relative">
                             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                             <input
                                 value={search}
                                 onChange={e => setSearch(e.target.value)}
-                                placeholder="Search articles, questions…"
+                                placeholder={t("Search articles, questions…")}
                                 className="w-full pl-9 pr-4 py-2.5 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-white/50"
                             />
                         </div>
                         <button type="submit" className="bg-white/20 hover:bg-white/30 text-white px-5 py-2.5 rounded-xl text-sm font-semibold border border-white/20">
-                            Search
+                            {t("Search")}
                         </button>
                     </form>
                 </div>
@@ -93,7 +95,7 @@ export default function FaqIndex({ categories, faqs, filters }) {
                             <button onClick={() => selectCategory(null)}
                                 className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 border-dashed border-slate-200 hover:border-slate-300 text-slate-400 text-xs">
                                 <span className="text-xl">✕</span>
-                                Clear filter
+                                {t("Clear filter")}
                             </button>
                         )}
                     </div>
@@ -111,10 +113,10 @@ export default function FaqIndex({ categories, faqs, filters }) {
                 </h2>
                 <div className="flex items-center gap-2">
                     <Link href={route("faq.admin.index")} className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-blue-600 font-medium">
-                        <Settings2 size={13} /> Manage
+                        <Settings2 size={13} /> {t("Manage")}
                     </Link>
                     <Link href={route("faq.admin.create")} className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold">
-                        <Plus size={13} /> New Article
+                        <Plus size={13} /> {t("New Article")}
                     </Link>
                 </div>
             </div>
@@ -122,7 +124,7 @@ export default function FaqIndex({ categories, faqs, filters }) {
             {faqs?.length === 0 ? (
                 <div className="bg-white rounded-xl border border-slate-200 p-16 text-center">
                     <BookOpen size={40} className="mx-auto text-slate-200 mb-3" />
-                    <p className="text-slate-500 font-medium">No articles found</p>
+                    <p className="text-slate-500 font-medium">{t("No articles found")}</p>
                     <p className="text-slate-400 text-sm mt-1">Try a different search term or browse another category</p>
                 </div>
             ) : (

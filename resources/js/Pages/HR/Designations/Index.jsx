@@ -5,8 +5,10 @@ import Badge from "@/Components/Badge";
 import { Plus, Pencil, Trash2, Check, X } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function DesignationsIndex({ designations }) {
+    const { t } = useTranslation();
     const [editing, setEditing] = useState(null);
     const [showAdd, setShowAdd] = useState(false);
     const addForm = useForm({ name: "" });
@@ -37,8 +39,8 @@ export default function DesignationsIndex({ designations }) {
             await dlgConfirm(
                 "Delete this designation? This cannot be undone.",
                 {
-                    title: "Delete Designation",
-                    confirmLabel: "Delete",
+                    title: t("Delete Designation"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -47,17 +49,17 @@ export default function DesignationsIndex({ designations }) {
     };
 
     return (
-        <AppLayout title="Designations">
-            <Head title="Designations" />
+        <AppLayout title={t("Designations")}>
+            <Head title={t("Designations")} />
             <PageHeader
-                title="Designations"
-                subtitle={`${designations.length} designations`}
+                title={t("Designations")}
+                subtitle={`${designations.length} ${t("designations")}`}
                 actions={
                     <button
                         onClick={() => setShowAdd(!showAdd)}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> Add Designation
+                        <Plus size={16} /> {t("Add Designation")}
                     </button>
                 }
             />
@@ -66,10 +68,10 @@ export default function DesignationsIndex({ designations }) {
                     <thead className="bg-slate-50 border-b border-slate-200">
                         <tr>
                             <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Designation
+                                {t("Designation")}
                             </th>
                             <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Status
+                                {t("Status")}
                             </th>
                             <th className="px-6 py-3 w-24"></th>
                         </tr>
@@ -118,7 +120,7 @@ export default function DesignationsIndex({ designations }) {
                                     colSpan={3}
                                     className="px-6 py-12 text-center text-slate-400"
                                 >
-                                    No designations found.
+                                    {t("No designations found.")}
                                 </td>
                             </tr>
                         )}

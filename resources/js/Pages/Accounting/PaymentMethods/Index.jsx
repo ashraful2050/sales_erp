@@ -5,6 +5,7 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { Plus, Pencil, Trash2, Star } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const TYPE_COLOR = {
     cash: "green",
@@ -20,14 +21,15 @@ const TYPE_LABEL = {
 };
 
 export default function PaymentMethodsIndex({ paymentMethods }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
             await dlgConfirm(
                 "This payment method will be permanently removed.",
                 {
-                    title: "Delete Payment Method?",
-                    confirmLabel: "Delete",
+                    title: t("Delete Payment Method?"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -36,17 +38,17 @@ export default function PaymentMethodsIndex({ paymentMethods }) {
     };
 
     return (
-        <AppLayout title="Payment Methods">
-            <Head title="Payment Methods" />
+        <AppLayout title={t("Payment Methods")}>
+            <Head title={t("Payment Methods")} />
             <PageHeader
-                title="Payment Methods"
-                subtitle={`${paymentMethods.length} methods configured`}
+                title={t("Payment Methods")}
+                subtitle={`${paymentMethods.length} ${t("methods configured")}`}
                 actions={
                     <Link
                         href={route("accounting.payment-methods.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> Add Method
+                        <Plus size={16} /> {t("Add Method")}
                     </Link>
                 }
             />
@@ -57,22 +59,22 @@ export default function PaymentMethodsIndex({ paymentMethods }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    #
+                                    {t("#")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Name
+                                    {t("Name")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Type
+                                    {t("Type")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Linked Account
+                                    {t("Linked Account")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Default
+                                    {t("Default")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>

@@ -5,6 +5,7 @@ import Pagination from "@/Components/Pagination";
 import Badge from "@/Components/Badge";
 import { Plus, Pencil, Trash2, Tag } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const typeColors = {
     fixed: "blue",
@@ -14,12 +15,13 @@ const typeColors = {
 };
 
 export default function PricingIndex({ rules }) {
+    const { t } = useTranslation();
     const { confirm } = useDialog();
     const del = async (id) => {
         if (
             await confirm("Delete this pricing rule?", {
-                title: "Delete?",
-                confirmLabel: "Delete",
+                title: t("Delete?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -27,17 +29,17 @@ export default function PricingIndex({ rules }) {
     };
 
     return (
-        <AppLayout title="Pricing Rules">
-            <Head title="Pricing Rules" />
+        <AppLayout title={t("Pricing Rules")}>
+            <Head title={t("Pricing Rules")} />
             <PageHeader
-                title="Pricing Rules"
-                subtitle="Dynamic pricing engine"
+                title={t("Pricing Rules")}
+                subtitle={t("Dynamic pricing engine")}
                 actions={
                     <Link
                         href={route("sales.pricing-rules.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                     >
-                        <Plus size={15} /> New Rule
+                        <Plus size={15} /> {t("New Rule")}
                     </Link>
                 }
             />
@@ -72,7 +74,7 @@ export default function PricingIndex({ rules }) {
                                     colSpan={8}
                                     className="px-4 py-8 text-center text-slate-400"
                                 >
-                                    No pricing rules yet.
+                                    {t("No pricing rules yet.")}
                                 </td>
                             </tr>
                         ) : (

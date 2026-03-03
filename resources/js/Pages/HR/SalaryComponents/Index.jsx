@@ -5,10 +5,12 @@ import Badge from "@/Components/Badge";
 import { Plus, Pencil, Trash2, Check, X } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const TYPE_COLORS = { earning: "green", deduction: "red" };
 
 export default function SalaryComponentsIndex({ components }) {
+    const { t } = useTranslation();
     const [editing, setEditing] = useState(null);
     const [showAdd, setShowAdd] = useState(false);
     const addForm = useForm({
@@ -56,8 +58,8 @@ export default function SalaryComponentsIndex({ components }) {
             await dlgConfirm(
                 "Delete this salary component? This cannot be undone.",
                 {
-                    title: "Delete Salary Component",
-                    confirmLabel: "Delete",
+                    title: t("Delete Salary Component"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -72,7 +74,7 @@ export default function SalaryComponentsIndex({ components }) {
                     value={f.name}
                     onChange={(e) => onChange("name", e.target.value)}
                     className="border rounded px-2 py-1 w-full text-sm"
-                    placeholder="Component name"
+                    placeholder={t("Component name")}
                 />
             </td>
             <td className="px-3 py-2">
@@ -81,8 +83,8 @@ export default function SalaryComponentsIndex({ components }) {
                     onChange={(e) => onChange("type", e.target.value)}
                     className="border rounded px-2 py-1 text-sm"
                 >
-                    <option value="earning">Earning</option>
-                    <option value="deduction">Deduction</option>
+                    <option value="earning">{t("Earning")}</option>
+                    <option value="deduction">{t("Deduction")}</option>
                 </select>
             </td>
             <td className="px-3 py-2 text-center">
@@ -108,17 +110,17 @@ export default function SalaryComponentsIndex({ components }) {
     );
 
     return (
-        <AppLayout title="Salary Components">
-            <Head title="Salary Components" />
+        <AppLayout title={t("Salary Components")}>
+            <Head title={t("Salary Components")} />
             <PageHeader
-                title="Salary Components"
-                subtitle={`${components.length} components`}
+                title={t("Salary Components")}
+                subtitle={`${components.length} ${t("components")}`}
                 actions={
                     <button
                         onClick={() => setShowAdd(!showAdd)}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> Add Component
+                        <Plus size={16} /> {t("Add Component")}
                     </button>
                 }
             />
@@ -127,19 +129,19 @@ export default function SalaryComponentsIndex({ components }) {
                     <thead className="bg-slate-50 border-b border-slate-200">
                         <tr>
                             <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Component Name
+                                {t("Component Name")}
                             </th>
                             <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Type
+                                {t("Type")}
                             </th>
                             <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Taxable
+                                {t("Taxable")}
                             </th>
                             <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                PF Applicable
+                                {t("PF Applicable")}
                             </th>
                             <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Status
+                                {t("Status")}
                             </th>
                             <th className="px-6 py-3 w-24"></th>
                         </tr>
@@ -183,7 +185,7 @@ export default function SalaryComponentsIndex({ components }) {
                                     colSpan={6}
                                     className="px-6 py-12 text-center text-slate-400"
                                 >
-                                    No salary components found.
+                                    {t("No salary components found.")}
                                 </td>
                             </tr>
                         )}
@@ -268,7 +270,7 @@ export default function SalaryComponentsIndex({ components }) {
                                         <td className="px-6 py-4 text-center">
                                             {c.is_taxable ? (
                                                 <span className="text-green-600 font-medium">
-                                                    Yes
+                                                    {t("Yes")}
                                                 </span>
                                             ) : (
                                                 <span className="text-slate-400">
@@ -279,7 +281,7 @@ export default function SalaryComponentsIndex({ components }) {
                                         <td className="px-6 py-4 text-center">
                                             {c.is_pf_applicable ? (
                                                 <span className="text-green-600 font-medium">
-                                                    Yes
+                                                    {t("Yes")}
                                                 </span>
                                             ) : (
                                                 <span className="text-slate-400">

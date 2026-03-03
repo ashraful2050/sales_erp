@@ -3,10 +3,12 @@ import { Head, router } from "@inertiajs/react";
 import { useState } from "react";
 import PageHeader from "@/Components/PageHeader";
 import { Download } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const BUCKETS = ["Current", "1-30 days", "31-60 days", "61-90 days", "90+ days"];
 
 export default function AgedPayables({ report, filters }) {
+    const { t } = useTranslation();
     const [asOf, setAsOf] = useState(filters?.as_of ?? new Date().toISOString().slice(0, 10));
     const run = () => router.get(route("reports.aged-payables"), { as_of: asOf }, { preserveState: true, replace: true });
 
@@ -14,23 +16,23 @@ export default function AgedPayables({ report, filters }) {
     const grandTotal = totals.reduce((s, t) => s + t, 0);
 
     return (
-        <AppLayout title="Aged Payables">
-            <Head title="Aged Payables" />
+        <AppLayout title={t("Aged Payables")}>
+            <Head title={t("Aged Payables")} />
             <PageHeader
-                title="Aged Payables"
-                subtitle="Outstanding vendor balances by age"
+                title={t("Aged Payables")}
+                subtitle={t("Outstanding vendor balances by age")}
                 actions={
                     <button className="flex items-center gap-2 text-slate-600 border border-slate-200 hover:bg-slate-50 px-4 py-2 rounded-lg text-sm font-medium">
-                        <Download size={16} /> Export
+                        <Download size={16} /> {t("Export")}
                     </button>
                 }
             />
             <div className="bg-white rounded-xl border border-slate-200 mb-4 p-4 flex flex-wrap gap-3 items-end">
                 <div>
-                    <label className="block text-xs font-medium text-slate-600 mb-1">As of Date</label>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">{t("As of Date")}</label>
                     <input type="date" value={asOf} onChange={e => setAsOf(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm" />
                 </div>
-                <button onClick={run} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">Generate</button>
+                <button onClick={run} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">{t("Generate")}</button>
             </div>
 
             {report && (
@@ -39,13 +41,13 @@ export default function AgedPayables({ report, filters }) {
                         <table className="w-full text-sm">
                             <thead className="bg-slate-50 border-b border-slate-200">
                                 <tr>
-                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Vendor</th>
-                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Total</th>
+                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Vendor")}</th>
+                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Total")}</th>
                                     {BUCKETS.map(b => <th key={b} className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase whitespace-nowrap">{b}</th>)}
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
-                                {report.length === 0 && <tr><td colSpan={7} className="px-6 py-12 text-center text-slate-400">No outstanding payables.</td></tr>}
+                                {report.length === 0 && <tr><td colSpan={7} className="px-6 py-12 text-center text-slate-400">{t("No outstanding payables.")}</td></tr>}
                                 {report.map((row, i) => {
                                     const rowTotal = row.buckets?.reduce((s, b) => s + Number(b ?? 0), 0) ?? 0;
                                     return (

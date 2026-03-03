@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft, Plus, Trash2 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Input = ({ error, ...props }) => (
     <input {...props} className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${error ? "border-red-400" : "border-slate-200"}`} />
@@ -11,6 +12,7 @@ const Select = ({ children, ...props }) => (
 );
 
 export default function DeliveryNoteCreate({ invoice: preInvoice, customers, products, pendingInvoices }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors } = useForm({
         invoice_id:       preInvoice?.id ?? "",
         customer_id:      preInvoice?.customer_id ?? "",
@@ -46,17 +48,17 @@ export default function DeliveryNoteCreate({ invoice: preInvoice, customers, pro
     };
 
     return (
-        <AppLayout title="New Delivery Note">
-            <Head title="New Delivery Note" />
+        <AppLayout title={t("New Delivery Note")}>
+            <Head title={t("New Delivery Note")} />
             <PageHeader
-                title="New Delivery Note (Challan)"
-                subtitle="Record goods dispatched to customer"
-                actions={<Link href={route("sales.delivery-notes.index")} className="flex items-center gap-2 text-slate-600 text-sm"><ArrowLeft size={16} /> Back</Link>}
+                title={t("New Delivery Note (Challan)")}
+                subtitle={t("Record goods dispatched to customer")}
+                actions={<Link href={route("sales.delivery-notes.index")} className="flex items-center gap-2 text-slate-600 text-sm"><ArrowLeft size={16} /> {t("Back")}</Link>}
             />
             <form onSubmit={e => { e.preventDefault(); post(route("sales.delivery-notes.store")); }} className="space-y-6 max-w-4xl">
                 <div className="bg-white rounded-xl border border-slate-200 p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Invoice (optional)</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t("Invoice (optional)")}</label>
                         <Select value={data.invoice_id} onChange={e => handleInvoiceChange(e.target.value)}>
                             <option value="">— Without Invoice —</option>
                             {preInvoice && !pendingInvoices.find(i => i.id === preInvoice.id) &&
@@ -81,18 +83,18 @@ export default function DeliveryNoteCreate({ invoice: preInvoice, customers, pro
                         <Input value={data.vehicle_no} onChange={e => setData("vehicle_no", e.target.value)} placeholder="e.g. Dhaka Metro G-1234" />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Driver Name</label>
-                        <Input value={data.driver_name} onChange={e => setData("driver_name", e.target.value)} placeholder="Driver name" />
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t("Driver Name")}</label>
+                        <Input value={data.driver_name} onChange={e => setData("driver_name", e.target.value)} placeholder={t("Driver name")} />
                     </div>
                     <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Delivery Address</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t("Delivery Address")}</label>
                         <textarea value={data.delivery_address} onChange={e => setData("delivery_address", e.target.value)} rows={2}
                             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Full delivery address" />
+                            placeholder={t("Full delivery address")} />
                     </div>
                     <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
-                        <Input value={data.notes} onChange={e => setData("notes", e.target.value)} placeholder="Additional notes" />
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t("Notes")}</label>
+                        <Input value={data.notes} onChange={e => setData("notes", e.target.value)} placeholder={t("Additional notes")} />
                     </div>
                 </div>
 
@@ -102,7 +104,7 @@ export default function DeliveryNoteCreate({ invoice: preInvoice, customers, pro
                         <h3 className="text-sm font-semibold text-slate-700">Items to Deliver</h3>
                         <button type="button" onClick={addRow}
                             className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 font-medium">
-                            <Plus size={15} /> Add Row
+                            <Plus size={15} /> {t("Add Row")}
                         </button>
                     </div>
                     <table className="w-full text-sm">
@@ -127,7 +129,7 @@ export default function DeliveryNoteCreate({ invoice: preInvoice, customers, pro
                                             onChange={e => updateRow(i, "quantity", e.target.value)} required />
                                     </td>
                                     <td className="px-4 py-2">
-                                        <Input value={item.notes ?? ""} onChange={e => updateRow(i, "notes", e.target.value)} placeholder="Optional" />
+                                        <Input value={item.notes ?? ""} onChange={e => updateRow(i, "notes", e.target.value)} placeholder={t("Optional")} />
                                     </td>
                                     <td className="px-4 py-2 w-10">
                                         {data.items.length > 1 && (
@@ -146,7 +148,7 @@ export default function DeliveryNoteCreate({ invoice: preInvoice, customers, pro
                     <Link href={route("sales.delivery-notes.index")} className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50">Cancel</Link>
                     <button type="submit" disabled={processing}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium">
-                        <Save size={16} /> Create Delivery Note
+                        <Save size={16} /> {t("Create Delivery Note")}
                     </button>
                 </div>
             </form>

@@ -2,10 +2,12 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, router } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { useState } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const fmt = (v) => Number(v || 0).toLocaleString("en-BD", { minimumFractionDigits: 2 });
 
 export default function DayBook({ entries, filters }) {
+    const { t } = useTranslation();
     const [dateFrom, setDateFrom] = useState(filters?.date_from ?? "");
     const [dateTo, setDateTo] = useState(filters?.date_to ?? "");
 
@@ -15,22 +17,22 @@ export default function DayBook({ entries, filters }) {
     const totalCredit = entries.reduce((s, e) => s + parseFloat(e.total_credit ?? 0), 0);
 
     return (
-        <AppLayout title="Day Book">
-            <Head title="Day Book" />
-            <PageHeader title="Day Book" subtitle="All journal entries for the selected period" />
+        <AppLayout title={t("Day Book")}>
+            <Head title={t("Day Book")} />
+            <PageHeader title={t("Day Book")} subtitle={t("All journal entries for the selected period")} />
             <div className="space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-4 flex flex-wrap gap-4 items-end">
                     <div>
-                        <label className="block text-xs font-medium text-slate-600 mb-1">From Date</label>
+                        <label className="block text-xs font-medium text-slate-600 mb-1">{t("From Date")}</label>
                         <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)}
                             className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label className="block text-xs font-medium text-slate-600 mb-1">To Date</label>
+                        <label className="block text-xs font-medium text-slate-600 mb-1">{t("To Date")}</label>
                         <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)}
                             className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
-                    <button onClick={apply} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium">Apply</button>
+                    <button onClick={apply} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium">{t("Apply")}</button>
                 </div>
 
                 <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
@@ -38,17 +40,17 @@ export default function DayBook({ entries, filters }) {
                         <table className="w-full text-sm">
                             <thead className="bg-slate-50 border-b border-slate-200">
                                 <tr>
-                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Date</th>
-                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Entry #</th>
-                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Description</th>
-                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Reference</th>
-                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Debit</th>
-                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Credit</th>
+                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Date")}</th>
+                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Entry #")}</th>
+                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Description")}</th>
+                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Reference")}</th>
+                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Debit")}</th>
+                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Credit")}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
                                 {entries.length === 0 && (
-                                    <tr><td colSpan={6} className="px-6 py-12 text-center text-slate-400">No entries found for the selected period.</td></tr>
+                                    <tr><td colSpan={6} className="px-6 py-12 text-center text-slate-400">{t("No entries found for the selected period.")}</td></tr>
                                 )}
                                 {entries.map(entry => (
                                     <tr key={entry.id} className="hover:bg-slate-50">

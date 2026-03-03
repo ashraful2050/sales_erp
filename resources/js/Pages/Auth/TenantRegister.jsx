@@ -15,6 +15,7 @@ import {
     Zap,
     Star,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const FEATURES_LABELS = {
     accounting: "Accounting & GL",
@@ -91,6 +92,7 @@ function InputField({ label, icon: Icon, error, ...props }) {
 }
 
 export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
+    const { t } = useTranslation();
     const [step, setStep] = useState(1);
     const [chosenPlan, setChosenPlan] = useState(
         selectedPlan ?? plans[0] ?? null,
@@ -132,7 +134,7 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
 
     return (
         <>
-            <Head title="Start Free Trial" />
+            <Head title={t("Start Free Trial")} />
 
             {/* Full-page dark background */}
             <div className="min-h-screen bg-[#0a0a14] text-white relative overflow-hidden">
@@ -163,7 +165,7 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
                                 <Shield size={15} className="text-white" />
                             </div>
                             <span className="font-bold text-white text-sm group-hover:text-violet-300 transition-colors">
-                                SalesERP
+                                {t("SalesERP")}
                             </span>
                         </Link>
                         <p className="text-slate-400 text-sm hidden sm:block">
@@ -183,8 +185,7 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
                         {/* Header */}
                         <div className="text-center mb-10">
                             <div className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-medium px-3 py-1.5 rounded-full mb-5">
-                                <Sparkles size={12} />
-                                No credit card required
+                                <Sparkles size={12} /> {t("No credit card required")}
                             </div>
                             <h1 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent leading-tight">
                                 {step === 1
@@ -466,7 +467,7 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
                                                                 e.target.value,
                                                             )
                                                         }
-                                                        placeholder="Acme Corp"
+                                                        placeholder={t("Acme Corp")}
                                                         error={
                                                             errors.company_name
                                                         }
@@ -518,7 +519,7 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
                                                                 e.target.value,
                                                             )
                                                         }
-                                                        placeholder="Bangladesh"
+                                                        placeholder={t("Bangladesh")}
                                                         error={
                                                             errors.company_country
                                                         }
@@ -552,7 +553,7 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
                                                                 e.target.value,
                                                             )
                                                         }
-                                                        placeholder="John Doe"
+                                                        placeholder={t("John Doe")}
                                                         error={
                                                             errors.admin_name
                                                         }
@@ -584,7 +585,7 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
                                                                 e.target.value,
                                                             )
                                                         }
-                                                        placeholder="Min. 8 characters"
+                                                        placeholder={t("Min. 8 characters")}
                                                         error={errors.password}
                                                     />
                                                     <InputField
@@ -600,7 +601,7 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
                                                                 e.target.value,
                                                             )
                                                         }
-                                                        placeholder="Repeat password"
+                                                        placeholder={t("Repeat password")}
                                                         error={
                                                             errors.password_confirmation
                                                         }
@@ -667,14 +668,14 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
                                                         href="#"
                                                         className="text-violet-400 hover:text-violet-300"
                                                     >
-                                                        Terms of Service
+                                                        {t("Terms of Service")}
                                                     </a>{" "}
                                                     and{" "}
                                                     <a
                                                         href="#"
                                                         className="text-violet-400 hover:text-violet-300"
                                                     >
-                                                        Privacy Policy
+                                                        {t("Privacy Policy")}
                                                     </a>
                                                 </label>
                                             </div>
@@ -744,7 +745,7 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
                                         {/* Chosen plan card */}
                                         <div className="bg-gradient-to-br from-violet-600/20 to-purple-700/10 border border-violet-500/30 rounded-2xl p-5">
                                             <p className="text-violet-300 text-xs font-semibold uppercase tracking-widest mb-3">
-                                                Selected Plan
+                                                {t("Selected Plan")}
                                             </p>
                                             <h3 className="text-white text-xl font-extrabold mb-1">
                                                 {chosenPlan?.name}
@@ -786,7 +787,7 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
                                         {/* Limits */}
                                         <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
                                             <p className="text-slate-400 text-xs font-semibold uppercase tracking-widest mb-3">
-                                                Limits
+                                                {t("Limits")}
                                             </p>
                                             <div className="space-y-2">
                                                 {[
@@ -830,7 +831,7 @@ export default function TenantRegister({ plans, selectedPlan, affiliateCode }) {
                                         {chosenPlan?.features?.length > 0 && (
                                             <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
                                                 <p className="text-slate-400 text-xs font-semibold uppercase tracking-widest mb-3">
-                                                    Included Features
+                                                    {t("Included Features")}
                                                 </p>
                                                 <div className="space-y-1.5">
                                                     {chosenPlan.features.map(

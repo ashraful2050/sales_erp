@@ -3,8 +3,10 @@ import { Head, Link, router } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { useState } from "react";
 import { Filter } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function CashFlow({ year }) {
+    const { t } = useTranslation();
     const [selectedYear, setSelectedYear] = useState(year);
 
     const currentYear = new Date().getFullYear();
@@ -34,17 +36,17 @@ export default function CashFlow({ year }) {
 
     return (
         <AppLayout>
-            <Head title="Cash Flow Statement" />
+            <Head title={t("Cash Flow Statement")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Cash Flow Statement"
+                    title={t("Cash Flow Statement")}
                     subtitle={`Year: ${year}`}
                 />
 
                 {/* Filter */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-wrap items-end gap-4">
                     <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">Year</label>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">{t("Year")}</label>
                         <select
                             value={selectedYear}
                             onChange={(e) => setSelectedYear(e.target.value)}
@@ -59,7 +61,7 @@ export default function CashFlow({ year }) {
                         onClick={handleFilter}
                         className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm"
                     >
-                        <Filter className="w-4 h-4" /> Apply Filter
+                        <Filter className="w-4 h-4" /> {t("Apply Filter")}
                     </button>
                 </div>
 
@@ -106,7 +108,7 @@ export default function CashFlow({ year }) {
                         })}
                         <div className="px-6 py-4 bg-gray-50">
                             <div className="flex justify-between items-center font-bold text-base">
-                                <span>Net Change in Cash</span>
+                                <span>{t("Net Change in Cash")}</span>
                                 <span className="text-indigo-700">৳0</span>
                             </div>
                         </div>

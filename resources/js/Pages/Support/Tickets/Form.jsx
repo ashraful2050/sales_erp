@@ -32,7 +32,7 @@ export default function TicketForm({ customers, users, ticket }) {
                         ? `Edit Ticket ${ticket.ticket_number}`
                         : "Create Support Ticket"
                 }
-                subtitle="Log a new customer support request"
+                subtitle={t("Log a new customer support request")}
                 actions={
                     <Link
                         href={route("support.tickets.index")}
@@ -86,7 +86,7 @@ export default function TicketForm({ customers, users, ticket }) {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="text-xs font-medium text-slate-600">
-                                Customer
+                                {t("Customer")}
                             </label>
                             <select
                                 value={data.customer_id}
@@ -135,7 +135,7 @@ export default function TicketForm({ customers, users, ticket }) {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="text-xs font-medium text-slate-600">
-                                Customer Email
+                                {t("Customer Email")}
                             </label>
                             <input
                                 type="email"
@@ -148,7 +148,7 @@ export default function TicketForm({ customers, users, ticket }) {
                         </div>
                         <div>
                             <label className="text-xs font-medium text-slate-600">
-                                Channel
+                                {t("Channel")}
                             </label>
                             <select
                                 value={data.channel}
@@ -180,7 +180,7 @@ export default function TicketForm({ customers, users, ticket }) {
                     <div className="grid grid-cols-3 gap-4">
                         <div>
                             <label className="text-xs font-medium text-slate-600">
-                                Priority
+                                {t("Priority")}
                             </label>
                             <select
                                 value={data.priority}
@@ -204,7 +204,7 @@ export default function TicketForm({ customers, users, ticket }) {
                         </div>
                         <div>
                             <label className="text-xs font-medium text-slate-600">
-                                Category
+                                {t("Category")}
                             </label>
                             <select
                                 value={data.category}
@@ -234,7 +234,7 @@ export default function TicketForm({ customers, users, ticket }) {
                         </div>
                         <div>
                             <label className="text-xs font-medium text-slate-600">
-                                Assign To
+                                {t("Assign To")}
                             </label>
                             <select
                                 value={data.assigned_to}

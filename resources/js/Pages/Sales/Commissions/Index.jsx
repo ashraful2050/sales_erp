@@ -5,10 +5,12 @@ import Pagination from "@/Components/Pagination";
 import Badge from "@/Components/Badge";
 import { Plus, CheckCircle, DollarSign } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColors = { pending: "yellow", approved: "blue", paid: "green" };
 
 export default function CommissionsIndex({ structures, records, stats }) {
+    const { t } = useTranslation();
     const [showForm, setShowForm] = useState(false);
     const { data, setData, post, processing, reset } = useForm({
         name: "",
@@ -31,17 +33,17 @@ export default function CommissionsIndex({ structures, records, stats }) {
         `$${Number(v).toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
 
     return (
-        <AppLayout title="Sales Commissions">
-            <Head title="Sales Commissions" />
+        <AppLayout title={t("Sales Commissions")}>
+            <Head title={t("Sales Commissions")} />
             <PageHeader
-                title="Sales Commissions"
-                subtitle="Track and manage sales rep commissions"
+                title={t("Sales Commissions")}
+                subtitle={t("Track and manage sales rep commissions")}
                 actions={
                     <button
                         onClick={() => setShowForm(!showForm)}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                     >
-                        <Plus size={15} /> New Structure
+                        <Plus size={15} /> {t("New Structure")}
                     </button>
                 }
             />
@@ -143,14 +145,14 @@ export default function CommissionsIndex({ structures, records, stats }) {
                             disabled={processing}
                             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                         >
-                            Create
+                            {t("Create")}
                         </button>
                         <button
                             type="button"
                             onClick={() => setShowForm(false)}
                             className="text-slate-500 text-sm"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>
                     </div>
                 </form>
@@ -191,7 +193,7 @@ export default function CommissionsIndex({ structures, records, stats }) {
                                     colSpan={7}
                                     className="px-4 py-8 text-center text-slate-400"
                                 >
-                                    No commission records.
+                                    {t("No commission records.")}
                                 </td>
                             </tr>
                         ) : (
@@ -247,7 +249,7 @@ export default function CommissionsIndex({ structures, records, stats }) {
                                                 }
                                                 className="p-1 text-slate-400 hover:text-blue-600 text-xs"
                                             >
-                                                Mark Paid
+                                                {t("Mark Paid")}
                                             </button>
                                         )}
                                     </td>

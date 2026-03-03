@@ -15,10 +15,10 @@ export default function Show({ bankAccount }) {
                     actions={
                         <div className="flex gap-2">
                             <Link href={route("finance.bank-accounts.index")} className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
-                                <ArrowLeft className="w-4 h-4" /> Back
+                                <ArrowLeft className="w-4 h-4" /> {t("Back")}
                             </Link>
                             <Link href={route("finance.bank-accounts.edit", bankAccount.id)} className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm">
-                                <Edit className="w-4 h-4" /> Edit
+                                <Edit className="w-4 h-4" /> {t("Edit")}
                             </Link>
                         </div>
                     }
@@ -27,11 +27,11 @@ export default function Show({ bankAccount }) {
                 {/* Balance Card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-indigo-50 text-indigo-700 rounded-xl p-4">
-                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">Current Balance</p>
+                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">{t("Current Balance")}</p>
                         <p className="text-2xl font-bold mt-1">৳{Number(bankAccount.current_balance ?? 0).toLocaleString()}</p>
                     </div>
                     <div className="bg-blue-50 text-blue-700 rounded-xl p-4">
-                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">Opening Balance</p>
+                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">{t("Opening Balance")}</p>
                         <p className="text-2xl font-bold mt-1">৳{Number(bankAccount.opening_balance ?? 0).toLocaleString()}</p>
                     </div>
                 </div>

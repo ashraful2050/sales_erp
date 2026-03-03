@@ -8,6 +8,7 @@ import {
     Activity,
     Calendar,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function BarItem({ label, value, forecast, max }) {
     const pct = max > 0 ? Math.min((value / max) * 100, 100) : 0;
@@ -31,6 +32,7 @@ function BarItem({ label, value, forecast, max }) {
 }
 
 export default function DemandForecasting({ historical, forecast, topDemand }) {
+    const { t } = useTranslation();
     const allRevenues = [
         ...(historical?.map((h) => h.revenue) ?? []),
         ...(forecast?.map((f) => f.revenue) ?? []),
@@ -57,11 +59,11 @@ export default function DemandForecasting({ historical, forecast, topDemand }) {
 
     return (
         <AppLayout>
-            <Head title="Demand Forecasting" />
+            <Head title={t("Demand Forecasting")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Demand Forecasting & Planning Module"
-                    subtitle="Reduce overstock and stockouts using statistical forecasting models"
+                    title={t("Demand Forecasting & Planning Module")}
+                    subtitle={t("Reduce overstock and stockouts using statistical forecasting models")}
                 />
 
                 <div className="flex flex-wrap gap-2">
@@ -89,7 +91,7 @@ export default function DemandForecasting({ historical, forecast, topDemand }) {
                             {historical?.length ?? 0}
                         </p>
                         <p className="text-sm text-slate-500">
-                            Historical Months
+                            {t("Historical Months")}
                         </p>
                     </div>
                     <div className="bg-white rounded-xl border border-slate-200 p-5">
@@ -100,7 +102,7 @@ export default function DemandForecasting({ historical, forecast, topDemand }) {
                             ${Number(forecastNext).toLocaleString()}
                         </p>
                         <p className="text-sm text-slate-500">
-                            Next Month Forecast
+                            {t("Next Month Forecast")}
                         </p>
                     </div>
                     <div className="bg-white rounded-xl border border-slate-200 p-5">
@@ -111,7 +113,7 @@ export default function DemandForecasting({ historical, forecast, topDemand }) {
                             {forecastAccuracy}%
                         </p>
                         <p className="text-sm text-slate-500">
-                            Forecast Accuracy
+                            {t("Forecast Accuracy")}
                         </p>
                     </div>
                     <div className="bg-white rounded-xl border border-slate-200 p-5">
@@ -122,7 +124,7 @@ export default function DemandForecasting({ historical, forecast, topDemand }) {
                             {topDemand?.length ?? 0}
                         </p>
                         <p className="text-sm text-slate-500">
-                            High-demand Products
+                            {t("High-demand Products")}
                         </p>
                     </div>
                 </div>
@@ -135,12 +137,10 @@ export default function DemandForecasting({ historical, forecast, topDemand }) {
                     </h3>
                     <div className="mb-3 text-xs text-slate-400 flex gap-4">
                         <span>
-                            <span className="inline-block w-3 h-3 rounded-sm bg-blue-500 mr-1" />
-                            Historical
+                            <span className="inline-block w-3 h-3 rounded-sm bg-blue-500 mr-1" /> {t("Historical")}
                         </span>
                         <span>
-                            <span className="inline-block w-3 h-3 rounded-sm bg-orange-400 opacity-70 mr-1" />
-                            Forecast
+                            <span className="inline-block w-3 h-3 rounded-sm bg-orange-400 opacity-70 mr-1" /> {t("Forecast")}
                         </span>
                     </div>
                     {historical?.length ? (
@@ -166,7 +166,7 @@ export default function DemandForecasting({ historical, forecast, topDemand }) {
                         </>
                     ) : (
                         <p className="text-slate-400 text-sm">
-                            No historical data available.
+                            {t("No historical data available.")}
                         </p>
                     )}
                 </div>
@@ -183,16 +183,16 @@ export default function DemandForecasting({ historical, forecast, topDemand }) {
                                 <thead className="bg-slate-50 text-xs text-slate-500">
                                     <tr>
                                         <th className="text-left px-4 py-2">
-                                            Product
+                                            {t("Product")}
                                         </th>
                                         <th className="text-right px-4 py-2">
-                                            Total Qty Sold
+                                            {t("Total Qty Sold")}
                                         </th>
                                         <th className="text-right px-4 py-2">
-                                            Order Frequency
+                                            {t("Order Frequency")}
                                         </th>
                                         <th className="text-right px-4 py-2">
-                                            Demand Bar
+                                            {t("Demand Bar")}
                                         </th>
                                     </tr>
                                 </thead>
@@ -230,7 +230,7 @@ export default function DemandForecasting({ historical, forecast, topDemand }) {
                         </div>
                     ) : (
                         <p className="text-slate-400 text-sm">
-                            No demand data available.
+                            {t("No demand data available.")}
                         </p>
                     )}
                 </div>

@@ -9,6 +9,7 @@ import {
     TrendingDown,
     DollarSign,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function Slider({
     label,
@@ -53,7 +54,7 @@ function Slider({
 
 function DeltaBadge({ value }) {
     if (value === 0)
-        return <span className="text-slate-400 text-sm">No change</span>;
+        return <span className="text-slate-400 text-sm">{t("No change")}</span>;
     const isPos = value > 0;
     return (
         <span
@@ -66,6 +67,7 @@ function DeltaBadge({ value }) {
 }
 
 export default function Simulation({ baseMetrics, simResult, params }) {
+    const { t } = useTranslation();
     const [localParams, setLocalParams] = useState({
         teamSizeChange: params?.teamSizeChange ?? 0,
         priceChange: params?.priceChange ?? 0,
@@ -101,11 +103,11 @@ export default function Simulation({ baseMetrics, simResult, params }) {
 
     return (
         <AppLayout>
-            <Head title="Simulation & What-If Analysis" />
+            <Head title={t("Simulation & What-If Analysis")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Simulation & What-If Analysis Tool"
-                    subtitle="Strategic planning support using Operations Research & System Modeling"
+                    title={t("Simulation & What-If Analysis Tool")}
+                    subtitle={t("Strategic planning support using Operations Research & System Modeling")}
                 />
 
                 <div className="flex flex-wrap gap-2">
@@ -177,13 +179,13 @@ export default function Simulation({ baseMetrics, simResult, params }) {
                                 onClick={runSim}
                                 className="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white text-sm font-medium py-2.5 rounded-lg hover:bg-blue-700 transition"
                             >
-                                <Play size={14} /> Run Simulation
+                                <Play size={14} /> {t("Run Simulation")}
                             </button>
                             <button
                                 onClick={resetSim}
                                 className="px-4 flex items-center justify-center gap-2 bg-slate-100 text-slate-600 text-sm font-medium py-2.5 rounded-lg hover:bg-slate-200 transition"
                             >
-                                <RotateCcw size={14} /> Reset
+                                <RotateCcw size={14} /> {t("Reset")}
                             </button>
                         </div>
                     </div>

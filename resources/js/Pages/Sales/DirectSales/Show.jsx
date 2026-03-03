@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { ArrowLeft, Printer, Trash2 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const fmt = (n) =>
     new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(n ?? 0);
@@ -15,6 +16,7 @@ const fmtDate = (d) =>
         : "—";
 
 export default function DirectSaleShow({ sale, company }) {
+    const { t } = useTranslation();
     const confirmDelete = () => {
         if (confirm("Delete this direct sale permanently?")) {
             router.delete(route("sales.direct-sales.destroy", sale.id));
@@ -26,26 +28,26 @@ export default function DirectSaleShow({ sale, company }) {
             <Head title={`Direct Sale ${sale.invoice_number}`} />
             <PageHeader
                 title={sale.invoice_number}
-                subtitle="Direct Sale Receipt"
+                subtitle={t("Direct Sale Receipt")}
                 actions={
                     <div className="flex gap-2">
                         <Link
                             href={route("sales.direct-sales.index")}
                             className="flex items-center gap-2 text-slate-600 text-sm font-medium"
                         >
-                            <ArrowLeft size={16} /> Back
+                            <ArrowLeft size={16} /> {t("Back")}
                         </Link>
                         <button
                             onClick={() => window.print()}
                             className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg text-sm transition-colors"
                         >
-                            <Printer size={15} /> Print
+                            <Printer size={15} /> {t("Print")}
                         </button>
                         <button
                             onClick={confirmDelete}
                             className="flex items-center gap-2 bg-red-50 hover:bg-red-100 text-red-700 px-3 py-2 rounded-lg text-sm transition-colors"
                         >
-                            <Trash2 size={15} /> Delete
+                            <Trash2 size={15} /> {t("Delete")}
                         </button>
                     </div>
                 }
@@ -70,7 +72,7 @@ export default function DirectSaleShow({ sale, company }) {
                             Date: {fmtDate(sale.invoice_date)}
                         </p>
                         <span className="inline-block mt-1 px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
-                            PAID
+                            {t("PAID")}
                         </span>
                     </div>
                 </div>
@@ -88,25 +90,25 @@ export default function DirectSaleShow({ sale, company }) {
                     <thead className="border-b-2 border-slate-200">
                         <tr>
                             <th className="text-left py-2 font-semibold text-slate-600">
-                                #
+                                {t("#")}
                             </th>
                             <th className="text-left py-2 font-semibold text-slate-600">
-                                Description
+                                {t("Description")}
                             </th>
                             <th className="text-right py-2 font-semibold text-slate-600">
-                                Qty
+                                {t("Qty")}
                             </th>
                             <th className="text-right py-2 font-semibold text-slate-600">
-                                Unit Price
+                                {t("Unit Price")}
                             </th>
                             <th className="text-right py-2 font-semibold text-slate-600">
-                                Disc%
+                                {t("Disc%")}
                             </th>
                             <th className="text-right py-2 font-semibold text-slate-600">
-                                Tax
+                                {t("Tax")}
                             </th>
                             <th className="text-right py-2 font-semibold text-slate-600">
-                                Total
+                                {t("Total")}
                             </th>
                         </tr>
                     </thead>
@@ -141,27 +143,27 @@ export default function DirectSaleShow({ sale, company }) {
                 <div className="flex justify-end">
                     <div className="w-64 space-y-2 text-sm">
                         <div className="flex justify-between text-slate-500">
-                            <span>Subtotal</span>
+                            <span>{t("Subtotal")}</span>
                             <span>{fmt(sale.subtotal)}</span>
                         </div>
                         <div className="flex justify-between text-slate-500">
-                            <span>Tax</span>
+                            <span>{t("Tax")}</span>
                             <span>{fmt(sale.tax_amount)}</span>
                         </div>
                         {Number(sale.discount_amount) > 0 && (
                             <div className="flex justify-between text-red-600">
-                                <span>Discount</span>
+                                <span>{t("Discount")}</span>
                                 <span>−{fmt(sale.discount_amount)}</span>
                             </div>
                         )}
                         <div className="flex justify-between font-bold text-base border-t border-slate-200 pt-2">
-                            <span>Grand Total</span>
+                            <span>{t("Grand Total")}</span>
                             <span className="text-blue-700">
                                 {sale.currency_code} {fmt(sale.total_amount)}
                             </span>
                         </div>
                         <div className="flex justify-between text-emerald-600 font-medium">
-                            <span>Amount Paid</span>
+                            <span>{t("Amount Paid")}</span>
                             <span>{fmt(sale.paid_amount)}</span>
                         </div>
                     </div>

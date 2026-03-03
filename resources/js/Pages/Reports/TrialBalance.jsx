@@ -3,8 +3,10 @@ import { Head, router } from "@inertiajs/react";
 import { useState } from "react";
 import PageHeader from "@/Components/PageHeader";
 import { Download } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function TrialBalance({ report, filters }) {
+    const { t } = useTranslation();
     const [fromDate, setFromDate] = useState(filters?.from_date ?? "");
     const [toDate, setToDate] = useState(filters?.to_date ?? "");
 
@@ -14,30 +16,30 @@ export default function TrialBalance({ report, filters }) {
     const totalCredit = report?.reduce((s, r) => s + Number(r.credit || 0), 0) ?? 0;
 
     return (
-        <AppLayout title="Trial Balance">
-            <Head title="Trial Balance" />
+        <AppLayout title={t("Trial Balance")}>
+            <Head title={t("Trial Balance")} />
             <PageHeader
-                title="Trial Balance"
-                subtitle="View all account balances as debit and credit totals"
+                title={t("Trial Balance")}
+                subtitle={t("View all account balances as debit and credit totals")}
                 actions={
                     <button className="flex items-center gap-2 text-slate-600 border border-slate-200 hover:bg-slate-50 px-4 py-2 rounded-lg text-sm font-medium">
-                        <Download size={16} /> Export
+                        <Download size={16} /> {t("Export")}
                     </button>
                 }
             />
             <div className="bg-white rounded-xl border border-slate-200 mb-4 p-4 flex flex-wrap gap-3 items-end">
                 <div>
-                    <label className="block text-xs font-medium text-slate-600 mb-1">From Date</label>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">{t("From Date")}</label>
                     <input type="date" value={fromDate} onChange={e => setFromDate(e.target.value)}
                         className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
                 <div>
-                    <label className="block text-xs font-medium text-slate-600 mb-1">To Date</label>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">{t("To Date")}</label>
                     <input type="date" value={toDate} onChange={e => setToDate(e.target.value)}
                         className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
                 <button onClick={run} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
-                    Generate
+                    {t("Generate")}
                 </button>
             </div>
 
@@ -47,16 +49,16 @@ export default function TrialBalance({ report, filters }) {
                         <table className="w-full text-sm">
                             <thead className="bg-slate-50 border-b border-slate-200">
                                 <tr>
-                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase w-24">Code</th>
-                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Account Name</th>
-                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Type</th>
+                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase w-24">{t("Code")}</th>
+                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Account Name")}</th>
+                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Type")}</th>
                                     <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Debit (Dr)</th>
                                     <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Credit (Cr)</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
                                 {report.length === 0 && (
-                                    <tr><td colSpan={5} className="px-6 py-12 text-center text-slate-400">No transactions for this period.</td></tr>
+                                    <tr><td colSpan={5} className="px-6 py-12 text-center text-slate-400">{t("No transactions for this period.")}</td></tr>
                                 )}
                                 {report.map((row, i) => (
                                     <tr key={i} className="hover:bg-slate-50">

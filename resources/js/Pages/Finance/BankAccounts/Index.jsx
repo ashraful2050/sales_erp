@@ -5,14 +5,16 @@ import Badge from "@/Components/Badge";
 import { Plus, Eye, Pencil, Trash2, Building, CreditCard } from "lucide-react";
 import ExportButtons from "@/Components/ExportButtons";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function BankAccountsIndex({ bankAccounts }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
-            await dlgConfirm("This bank account will be permanently removed.", {
-                title: "Delete Bank Account?",
-                confirmLabel: "Delete",
+            await dlgConfirm(t("This bank account will be permanently removed."), {
+                title: t("Delete Bank Account?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -20,11 +22,11 @@ export default function BankAccountsIndex({ bankAccounts }) {
     };
 
     return (
-        <AppLayout title="Bank Accounts">
-            <Head title="Bank Accounts" />
+        <AppLayout title={t("Bank Accounts")}>
+            <Head title={t("Bank Accounts")} />
             <PageHeader
-                title="Bank Accounts"
-                subtitle={`${bankAccounts.length} bank accounts`}
+                title={t("Bank Accounts")}
+                subtitle={`${bankAccounts.length} ${t("bank accounts")}`}
                 actions={
                     <div className="flex items-center gap-2">
                         <ExportButtons
@@ -36,7 +38,7 @@ export default function BankAccountsIndex({ bankAccounts }) {
                             href={route("finance.bank-accounts.create")}
                             className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                         >
-                            <Plus size={16} /> Add Bank Account
+                            <Plus size={16} /> {t("Add Bank Account")}
                         </Link>
                     </div>
                 }
@@ -44,7 +46,7 @@ export default function BankAccountsIndex({ bankAccounts }) {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {bankAccounts.length === 0 && (
                     <div className="col-span-3 bg-white rounded-xl border border-slate-200 py-12 text-center text-slate-400">
-                        No bank accounts configured.
+                        {t("No bank accounts configured.")}
                     </div>
                 )}
                 {bankAccounts.map((ba) => (
@@ -85,7 +87,7 @@ export default function BankAccountsIndex({ bankAccounts }) {
                             {ba.branch_name && (
                                 <div className="flex justify-between">
                                     <span className="text-slate-500">
-                                        Branch
+                                        {t("Branch")}
                                     </span>
                                     <span className="text-slate-700">
                                         {ba.branch_name}
@@ -93,12 +95,12 @@ export default function BankAccountsIndex({ bankAccounts }) {
                                 </div>
                             )}
                             <div className="flex justify-between">
-                                <span className="text-slate-500">Type</span>
+                                <span className="text-slate-500">{t("Type")}</span>
                                 <Badge color="indigo">{ba.account_type}</Badge>
                             </div>
                             <div className="flex justify-between border-t border-slate-100 pt-2 mt-2">
                                 <span className="text-slate-500 font-medium">
-                                    Opening Balance
+                                    {t("Opening Balance")}
                                 </span>
                                 <span className="font-mono font-semibold text-slate-800">
                                     ৳
@@ -131,7 +133,7 @@ export default function BankAccountsIndex({ bankAccounts }) {
                                 onClick={() => del(ba.id)}
                                 className="flex-1 text-center py-1.5 text-sm text-red-600 hover:bg-red-50 rounded-lg font-medium"
                             >
-                                Delete
+                                {t("Delete")}
                             </button>
                         </div>
                     </div>

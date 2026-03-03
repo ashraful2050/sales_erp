@@ -10,8 +10,10 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Login({ status, canResetPassword }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -29,7 +31,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <>
-            <Head title="Sign In" />
+            <Head title={t("Sign In")} />
 
             <div
                 className="min-h-screen flex items-center justify-center relative overflow-hidden px-4"
@@ -72,8 +74,7 @@ export default function Login({ status, canResetPassword }) {
                             <ArrowLeft
                                 size={14}
                                 className="group-hover:-translate-x-0.5 transition-transform"
-                            />
-                            Back to home
+                            /> {t("Back to home")}
                         </Link>
                     </div>
                     {/* Logo + heading */}
@@ -85,7 +86,7 @@ export default function Login({ status, canResetPassword }) {
                             Welcome back
                         </h1>
                         <p className="text-slate-400 text-sm mt-2">
-                            Sign in to your account to continue
+                            {t("Sign in to your account to continue")}
                         </p>
                     </div>
 
@@ -103,7 +104,7 @@ export default function Login({ status, canResetPassword }) {
                             {/* Email */}
                             <div>
                                 <label className="block text-slate-300 text-sm font-medium mb-1.5">
-                                    Email address
+                                    {t("Email address")}
                                 </label>
                                 <div className="relative">
                                     <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none z-10">
@@ -138,7 +139,7 @@ export default function Login({ status, canResetPassword }) {
                             <div>
                                 <div className="flex items-center justify-between mb-1.5">
                                     <label className="block text-slate-300 text-sm font-medium">
-                                        Password
+                                        {t("Password")}
                                     </label>
                                     {canResetPassword && (
                                         <Link
@@ -204,7 +205,7 @@ export default function Login({ status, canResetPassword }) {
                                     className="w-4 h-4 rounded border-slate-600 bg-slate-800 text-violet-600 focus:ring-violet-500 focus:ring-offset-0 cursor-pointer"
                                 />
                                 <span className="text-slate-400 text-sm group-hover:text-slate-300 transition-colors">
-                                    Remember me
+                                    {t("Remember me")}
                                 </span>
                             </label>
 

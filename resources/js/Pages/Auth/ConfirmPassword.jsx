@@ -4,8 +4,10 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function ConfirmPassword() {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors, reset } = useForm({
         password: '',
     });
@@ -20,7 +22,7 @@ export default function ConfirmPassword() {
 
     return (
         <GuestLayout>
-            <Head title="Confirm Password" />
+            <Head title={t("Confirm Password")} />
 
             <div className="mb-4 text-sm text-gray-600">
                 This is a secure area of the application. Please confirm your

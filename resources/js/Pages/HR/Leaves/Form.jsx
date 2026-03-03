@@ -38,7 +38,7 @@ export default function LeaveForm({ leave, leaveTypes, employees }) {
             <PageHeader
                 title={isEdit ? "Edit Leave Request" : "Apply for Leave"}
                 subtitle={isEdit ? "Update leave request details" : "Submit a new leave application"}
-                actions={<Link href={route("hr.leaves.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> Back</Link>}
+                actions={<Link href={route("hr.leaves.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> {t("Back")}</Link>}
             />
             <form onSubmit={submit} className="max-w-2xl space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">

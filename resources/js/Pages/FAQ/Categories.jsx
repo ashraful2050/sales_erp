@@ -4,6 +4,7 @@ import PageHeader from "@/Components/PageHeader";
 import { Plus, Edit, Trash2, X, Save, BookOpen } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const COLORS = [
     "blue",
@@ -63,6 +64,7 @@ const emptyForm = {
 };
 
 export default function FaqCategories({ categories }) {
+    const { t } = useTranslation();
     const [editing, setEditing] = useState(null); // null = new, id = edit
 
     const { data, setData, post, put, processing, errors, reset } =
@@ -105,7 +107,7 @@ export default function FaqCategories({ categories }) {
                 `Articles in this category will become uncategorized.`,
                 {
                     title: `Delete "${name}"?`,
-                    confirmLabel: "Delete",
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -115,24 +117,24 @@ export default function FaqCategories({ categories }) {
     };
 
     return (
-        <AppLayout title="FAQ Categories">
-            <Head title="FAQ Categories" />
+        <AppLayout title={t("FAQ Categories")}>
+            <Head title={t("FAQ Categories")} />
             <PageHeader
-                title="FAQ Categories"
-                subtitle="Organize your knowledge base articles by topic"
+                title={t("FAQ Categories")}
+                subtitle={t("Organize your knowledge base articles by topic")}
                 actions={
                     <div className="flex gap-2">
                         <Link
                             href={route("faq.index")}
                             className="flex items-center gap-1.5 px-4 py-2 border border-slate-200 bg-white text-slate-600 rounded-lg text-sm"
                         >
-                            <BookOpen size={15} /> View KB
+                            <BookOpen size={15} /> {t("View KB")}
                         </Link>
                         <button
                             onClick={openNew}
                             className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                         >
-                            <Plus size={15} /> New Category
+                            <Plus size={15} /> {t("New Category")}
                         </button>
                     </div>
                 }
@@ -148,13 +150,13 @@ export default function FaqCategories({ categories }) {
                                 className="mx-auto text-slate-200 mb-3"
                             />
                             <p className="text-slate-500 font-medium">
-                                No categories yet
+                                {t("No categories yet")}
                             </p>
                             <button
                                 onClick={openNew}
                                 className="mt-3 text-blue-600 text-sm font-medium hover:underline"
                             >
-                                Create your first category
+                                {t("Create your first category")}
                             </button>
                         </div>
                     ) : (
@@ -267,7 +269,7 @@ export default function FaqCategories({ categories }) {
                             </div>
                             <div>
                                 <label className="text-xs font-semibold text-slate-600 mb-1 block">
-                                    Description
+                                    {t("Description")}
                                 </label>
                                 <textarea
                                     value={data.description}
@@ -280,7 +282,7 @@ export default function FaqCategories({ categories }) {
                             </div>
                             <div>
                                 <label className="text-xs font-semibold text-slate-600 mb-2 block">
-                                    Icon
+                                    {t("Icon")}
                                 </label>
                                 <div className="flex flex-wrap gap-1.5">
                                     {ICONS.map((icon) => (
@@ -299,7 +301,7 @@ export default function FaqCategories({ categories }) {
                             </div>
                             <div>
                                 <label className="text-xs font-semibold text-slate-600 mb-2 block">
-                                    Color
+                                    {t("Color")}
                                 </label>
                                 <div className="flex flex-wrap gap-1.5">
                                     {COLORS.map((c) => (
@@ -316,7 +318,7 @@ export default function FaqCategories({ categories }) {
                             <div className="flex gap-3">
                                 <div className="flex-1">
                                     <label className="text-xs font-semibold text-slate-600 mb-1 block">
-                                        Sort Order
+                                        {t("Sort Order")}
                                     </label>
                                     <input
                                         type="number"
@@ -333,7 +335,7 @@ export default function FaqCategories({ categories }) {
                                 </div>
                                 <div className="flex-1">
                                     <label className="text-xs font-semibold text-slate-600 mb-1 block">
-                                        Status
+                                        {t("Status")}
                                     </label>
                                     <select
                                         value={data.is_active ? "1" : "0"}
@@ -345,8 +347,8 @@ export default function FaqCategories({ categories }) {
                                         }
                                         className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     >
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
+                                        <option value="1">{t("Active")}</option>
+                                        <option value="0">{t("Inactive")}</option>
                                     </select>
                                 </div>
                             </div>
@@ -372,7 +374,7 @@ export default function FaqCategories({ categories }) {
                                     onClick={close}
                                     className="flex-1 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
                                 >
-                                    Cancel
+                                    {t("Cancel")}
                                 </button>
                                 <button
                                     type="submit"

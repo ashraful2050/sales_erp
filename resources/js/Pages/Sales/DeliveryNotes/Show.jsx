@@ -4,18 +4,20 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { ArrowLeft, Truck } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColors = { draft: "gray", dispatched: "blue", delivered: "green" };
 
 export default function DeliveryNoteShow({ note }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const markDelivered = async () => {
         if (
             await dlgConfirm(
                 "This will mark the delivery as delivered and cannot be undone.",
                 {
-                    title: "Mark as Delivered?",
-                    confirmLabel: "Mark Delivered",
+                    title: t("Mark as Delivered?"),
+                    confirmLabel: t("Mark Delivered"),
                     intent: "success",
                 },
             )
@@ -39,14 +41,14 @@ export default function DeliveryNoteShow({ note }) {
                                 href={route("sales.delivery-notes.index")}
                                 className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm"
                             >
-                                <ArrowLeft className="w-4 h-4" /> Back
+                                <ArrowLeft className="w-4 h-4" /> {t("Back")}
                             </Link>
                             {note.status === "dispatched" && (
                                 <button
                                     onClick={markDelivered}
                                     className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm"
                                 >
-                                    <Truck className="w-4 h-4" /> Mark Delivered
+                                    <Truck className="w-4 h-4" /> {t("Mark Delivered")}
                                 </button>
                             )}
                         </div>
@@ -57,7 +59,7 @@ export default function DeliveryNoteShow({ note }) {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
                         <div>
                             <p className="text-xs text-gray-500 mb-1">
-                                Note Number
+                                {t("Note Number")}
                             </p>
                             <p className="font-semibold font-mono">
                                 {note.note_number}
@@ -65,13 +67,13 @@ export default function DeliveryNoteShow({ note }) {
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 mb-1">
-                                Dispatch Date
+                                {t("Dispatch Date")}
                             </p>
                             <p className="font-medium">{note.dispatch_date}</p>
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 mb-1">
-                                Customer
+                                {t("Customer")}
                             </p>
                             <p className="font-medium">
                                 {note.customer?.name ?? "—"}
@@ -79,35 +81,35 @@ export default function DeliveryNoteShow({ note }) {
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 mb-1">
-                                Invoice
+                                {t("Invoice")}
                             </p>
                             <p className="font-medium">
                                 {note.invoice?.invoice_number ?? "—"}
                             </p>
                         </div>
                         <div>
-                            <p className="text-xs text-gray-500 mb-1">Status</p>
+                            <p className="text-xs text-gray-500 mb-1">{t("Status")}</p>
                             <Badge color={statusColors[note.status] ?? "gray"}>
                                 {note.status}
                             </Badge>
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 mb-1">
-                                Vehicle
+                                {t("Vehicle")}
                             </p>
                             <p className="font-medium">
                                 {note.vehicle_no ?? "—"}
                             </p>
                         </div>
                         <div>
-                            <p className="text-xs text-gray-500 mb-1">Driver</p>
+                            <p className="text-xs text-gray-500 mb-1">{t("Driver")}</p>
                             <p className="font-medium">
                                 {note.driver_name ?? "—"}
                             </p>
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 mb-1">
-                                Created By
+                                {t("Created By")}
                             </p>
                             <p className="font-medium">
                                 {note.creator?.name ?? "—"}
@@ -117,7 +119,7 @@ export default function DeliveryNoteShow({ note }) {
                     {note.delivery_address && (
                         <div className="mt-4 pt-4 border-t">
                             <p className="text-xs text-gray-500 mb-1">
-                                Delivery Address
+                                {t("Delivery Address")}
                             </p>
                             <p className="text-sm whitespace-pre-line">
                                 {note.delivery_address}
@@ -126,7 +128,7 @@ export default function DeliveryNoteShow({ note }) {
                     )}
                     {note.notes && (
                         <div className="mt-4 pt-4 border-t">
-                            <p className="text-xs text-gray-500 mb-1">Notes</p>
+                            <p className="text-xs text-gray-500 mb-1">{t("Notes")}</p>
                             <p className="text-sm">{note.notes}</p>
                         </div>
                     )}

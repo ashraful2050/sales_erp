@@ -3,8 +3,10 @@ import { Head, Link, router, useForm } from "@inertiajs/react";
 import { useState } from "react";
 import { Search, UserX, Plus, Shield, X } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function UsersIndex({ users, filters, companies }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const [search, setSearch] = useState(filters.search ?? "");
     const [companyId, setCompanyId] = useState(filters.company_id ?? "");
@@ -20,9 +22,9 @@ export default function UsersIndex({ users, filters, companies }) {
 
     const deactivate = async (userId) => {
         if (
-            await dlgConfirm("This user will no longer be able to log in.", {
-                title: "Deactivate User?",
-                confirmLabel: "Deactivate",
+            await dlgConfirm(t("This user will no longer be able to log in."), {
+                title: t("Deactivate User?"),
+                confirmLabel: t("Deactivate"),
                 intent: "warning",
             })
         ) {
@@ -32,7 +34,7 @@ export default function UsersIndex({ users, filters, companies }) {
 
     return (
         <SuperAdminLayout title="All Users">
-            <Head title="Users — Super Admin" />
+            <Head title={t("Users — Super Admin")} />
 
             <div className="flex items-center justify-between mb-6">
                 <div>
@@ -48,13 +50,13 @@ export default function UsersIndex({ users, filters, companies }) {
                         href={route("superadmin.super-admins")}
                         className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-2 rounded-lg text-sm transition-colors"
                     >
-                        <Shield size={15} /> Super Admins
+                        <Shield size={15} /> {t("Super Admins")}
                     </Link>
                     <button
                         onClick={() => setShowSuperAdminModal(true)}
                         className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                     >
-                        <Plus size={15} /> Add Super Admin
+                        <Plus size={15} /> {t("Add Super Admin")}
                     </button>
                 </div>
             </div>
@@ -68,7 +70,7 @@ export default function UsersIndex({ users, filters, companies }) {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && applyFilter()}
-                        placeholder="Search users..."
+                        placeholder={t("Search users...")}
                         className="bg-transparent text-slate-200 text-sm outline-none placeholder-slate-500 flex-1"
                     />
                 </div>
@@ -77,7 +79,7 @@ export default function UsersIndex({ users, filters, companies }) {
                     onChange={(e) => setCompanyId(e.target.value)}
                     className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 text-sm outline-none"
                 >
-                    <option value="">All tenants</option>
+                    <option value="">{t("All tenants")}</option>
                     {companies.map((c) => (
                         <option key={c.id} value={c.id}>
                             {c.name}
@@ -88,7 +90,7 @@ export default function UsersIndex({ users, filters, companies }) {
                     onClick={applyFilter}
                     className="bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg text-sm"
                 >
-                    Filter
+                    {t("Filter")}
                 </button>
             </div>
 
@@ -98,22 +100,22 @@ export default function UsersIndex({ users, filters, companies }) {
                         <thead className="bg-slate-700/50">
                             <tr>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Name
+                                    {t("Name")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Email
+                                    {t("Email")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Company
+                                    {t("Company")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Role
+                                    {t("Role")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="text-right text-slate-400 py-3 px-4 font-medium">
-                                    Actions
+                                    {t("Actions")}
                                 </th>
                             </tr>
                         </thead>
@@ -181,7 +183,7 @@ export default function UsersIndex({ users, filters, companies }) {
                                         colSpan={6}
                                         className="py-12 text-center text-slate-500"
                                     >
-                                        No users found.
+                                        {t("No users found.")}
                                     </td>
                                 </tr>
                             )}
@@ -285,7 +287,7 @@ function CreateSuperAdminModal({ onClose }) {
                             onClick={onClose}
                             className="px-4 py-2 text-sm text-slate-300 bg-slate-700 hover:bg-slate-600 rounded-lg"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>
                         <button
                             type="submit"

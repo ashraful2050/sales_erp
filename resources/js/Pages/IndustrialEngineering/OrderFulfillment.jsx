@@ -9,6 +9,7 @@ import {
     TrendingUp,
     BarChart2,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function StatCard({ label, value, sub, icon: Icon, color = "blue" }) {
     return (
@@ -31,6 +32,7 @@ export default function OrderFulfillment({
     deliveryTrend,
     priorityOrders,
 }) {
+    const { t } = useTranslation();
     const delivered = deliveryStats?.delivered ?? 0;
     const total = deliveryStats?.total ?? 0;
     const deliveryRate = total > 0 ? Math.round((delivered / total) * 100) : 0;
@@ -49,11 +51,11 @@ export default function OrderFulfillment({
 
     return (
         <AppLayout>
-            <Head title="Order Fulfillment Optimization" />
+            <Head title={t("Order Fulfillment Optimization")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Order Fulfillment Optimization"
-                    subtitle="Improve delivery speed and reduce cost using Operations Research & Scheduling Algorithms"
+                    title={t("Order Fulfillment Optimization")}
+                    subtitle={t("Improve delivery speed and reduce cost using Operations Research & Scheduling Algorithms")}
                 />
 
                 <div className="flex flex-wrap gap-2">
@@ -145,17 +147,15 @@ export default function OrderFulfillment({
                             </div>
                         ) : (
                             <p className="text-slate-400 text-sm">
-                                No delivery trend data.
+                                {t("No delivery trend data.")}
                             </p>
                         )}
                         <div className="flex gap-4 mt-2 text-xs text-slate-400">
                             <span>
-                                <span className="inline-block w-3 h-2 rounded bg-blue-200 mr-1" />
-                                Total
+                                <span className="inline-block w-3 h-2 rounded bg-blue-200 mr-1" /> {t("Total")}
                             </span>
                             <span>
-                                <span className="inline-block w-3 h-2 rounded bg-green-500 mr-1" />
-                                Delivered
+                                <span className="inline-block w-3 h-2 rounded bg-green-500 mr-1" /> {t("Delivered")}
                             </span>
                         </div>
                     </div>
@@ -226,16 +226,16 @@ export default function OrderFulfillment({
                                 <tr>
                                     <th className="text-left px-4 py-2">#</th>
                                     <th className="text-left px-4 py-2">
-                                        Customer
+                                        {t("Customer")}
                                     </th>
                                     <th className="text-right px-4 py-2">
-                                        Amount
+                                        {t("Amount")}
                                     </th>
                                     <th className="text-right px-4 py-2">
-                                        Due Date
+                                        {t("Due Date")}
                                     </th>
                                     <th className="text-right px-4 py-2">
-                                        Status
+                                        {t("Status")}
                                     </th>
                                 </tr>
                             </thead>

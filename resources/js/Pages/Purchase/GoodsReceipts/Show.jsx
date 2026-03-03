@@ -17,20 +17,20 @@ export default function GoodsReceiptShow({ grn }) {
                     actions={
                         <Link href={route("purchase.goods-receipts.index")}
                             className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
-                            <ArrowLeft className="w-4 h-4" /> Back
+                            <ArrowLeft className="w-4 h-4" /> {t("Back")}
                         </Link>
                     }
                 />
                 <div className="bg-white rounded-xl border border-gray-100 p-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
-                        <div><p className="text-xs text-gray-500 mb-1">GRN Number</p><p className="font-semibold font-mono">{grn.grn_number}</p></div>
-                        <div><p className="text-xs text-gray-500 mb-1">Receipt Date</p><p className="font-medium">{grn.receipt_date}</p></div>
-                        <div><p className="text-xs text-gray-500 mb-1">Vendor</p><p className="font-medium">{grn.vendor?.name ?? "—"}</p></div>
-                        <div><p className="text-xs text-gray-500 mb-1">PO Reference</p><p className="font-medium">{grn.purchase_order?.po_number ?? "—"}</p></div>
-                        <div><p className="text-xs text-gray-500 mb-1">Status</p><Badge color="green">{grn.status}</Badge></div>
-                        <div><p className="text-xs text-gray-500 mb-1">Created By</p><p className="font-medium">{grn.creator?.name ?? "—"}</p></div>
+                        <div><p className="text-xs text-gray-500 mb-1">{t("GRN Number")}</p><p className="font-semibold font-mono">{grn.grn_number}</p></div>
+                        <div><p className="text-xs text-gray-500 mb-1">{t("Receipt Date")}</p><p className="font-medium">{grn.receipt_date}</p></div>
+                        <div><p className="text-xs text-gray-500 mb-1">{t("Vendor")}</p><p className="font-medium">{grn.vendor?.name ?? "—"}</p></div>
+                        <div><p className="text-xs text-gray-500 mb-1">{t("PO Reference")}</p><p className="font-medium">{grn.purchase_order?.po_number ?? "—"}</p></div>
+                        <div><p className="text-xs text-gray-500 mb-1">{t("Status")}</p><Badge color="green">{grn.status}</Badge></div>
+                        <div><p className="text-xs text-gray-500 mb-1">{t("Created By")}</p><p className="font-medium">{grn.creator?.name ?? "—"}</p></div>
                     </div>
-                    {grn.notes && <div className="mt-4 pt-4 border-t"><p className="text-xs text-gray-500 mb-1">Notes</p><p className="text-sm">{grn.notes}</p></div>}
+                    {grn.notes && <div className="mt-4 pt-4 border-t"><p className="text-xs text-gray-500 mb-1">{t("Notes")}</p><p className="text-sm">{grn.notes}</p></div>}
                 </div>
 
                 <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">

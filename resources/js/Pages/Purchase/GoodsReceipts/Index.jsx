@@ -6,8 +6,10 @@ import { Plus, Search, Eye, Trash2 } from "lucide-react";
 import ExportButtons from "@/Components/ExportButtons";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function GoodsReceiptsIndex({ grns, vendors, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters.search ?? "");
     const [vendorId, setVendorId] = useState(filters.vendor_id ?? "");
 
@@ -23,8 +25,8 @@ export default function GoodsReceiptsIndex({ grns, vendors, filters }) {
             await dlgConfirm(
                 "Stock levels will NOT be reversed automatically.",
                 {
-                    title: "Delete this GRN?",
-                    confirmLabel: "Delete",
+                    title: t("Delete this GRN?"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -33,17 +35,17 @@ export default function GoodsReceiptsIndex({ grns, vendors, filters }) {
     };
 
     return (
-        <AppLayout title="Goods Receipts (GRN)">
-            <Head title="Goods Receipts" />
+        <AppLayout title={t("Goods Receipts (GRN)")}>
+            <Head title={t("Goods Receipts")} />
             <PageHeader
-                title="Goods Receipts (GRN)"
-                subtitle="Record received goods from purchase orders"
+                title={t("Goods Receipts (GRN)")}
+                subtitle={t("Record received goods from purchase orders")}
                 actions={
                     <Link
                         href={route("purchase.goods-receipts.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Receipt
+                        <Plus size={16} /> {t("New Receipt")}
                     </Link>
                 }
             />
@@ -55,7 +57,7 @@ export default function GoodsReceiptsIndex({ grns, vendors, filters }) {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && apply()}
-                        placeholder="GRN number…"
+                        placeholder={t("GRN number…")}
                         className="flex-1 text-sm outline-none"
                     />
                 </div>
@@ -64,7 +66,7 @@ export default function GoodsReceiptsIndex({ grns, vendors, filters }) {
                     onChange={(e) => setVendorId(e.target.value)}
                     className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm"
                 >
-                    <option value="">All Vendors</option>
+                    <option value="">{t("All Vendors")}</option>
                     {vendors.map((v) => (
                         <option key={v.id} value={v.id}>
                             {v.name}
@@ -75,7 +77,7 @@ export default function GoodsReceiptsIndex({ grns, vendors, filters }) {
                     onClick={apply}
                     className="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm hover:bg-blue-700"
                 >
-                    Filter
+                    {t("Filter")}
                 </button>
                 <ExportButtons
                     tableId="export-table"
@@ -112,7 +114,7 @@ export default function GoodsReceiptsIndex({ grns, vendors, filters }) {
                                     colSpan={6}
                                     className="text-center py-12 text-slate-400"
                                 >
-                                    No GRNs found.
+                                    {t("No GRNs found.")}
                                 </td>
                             </tr>
                         )}

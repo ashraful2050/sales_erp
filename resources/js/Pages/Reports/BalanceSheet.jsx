@@ -3,6 +3,7 @@ import { Head, router } from "@inertiajs/react";
 import { useState } from "react";
 import PageHeader from "@/Components/PageHeader";
 import { Download } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function BSSection({ title, groups }) {
     const sectionTotal = groups?.reduce((s, g) => s + (g.accounts?.reduce((as, a) => as + Number(a.balance || 0), 0) ?? 0), 0) ?? 0;
@@ -36,27 +37,28 @@ function BSSection({ title, groups }) {
 }
 
 export default function BalanceSheet({ report, filters }) {
+    const { t } = useTranslation();
     const [asOf, setAsOf] = useState(filters?.as_of ?? new Date().toISOString().slice(0, 10));
     const run = () => router.get(route("reports.balance-sheet"), { as_of: asOf }, { preserveState: true, replace: true });
 
     return (
-        <AppLayout title="Balance Sheet">
-            <Head title="Balance Sheet" />
+        <AppLayout title={t("Balance Sheet")}>
+            <Head title={t("Balance Sheet")} />
             <PageHeader
-                title="Balance Sheet"
-                subtitle="Assets, liabilities and equity as of a date"
+                title={t("Balance Sheet")}
+                subtitle={t("Assets, liabilities and equity as of a date")}
                 actions={
                     <button className="flex items-center gap-2 text-slate-600 border border-slate-200 hover:bg-slate-50 px-4 py-2 rounded-lg text-sm font-medium">
-                        <Download size={16} /> Export
+                        <Download size={16} /> {t("Export")}
                     </button>
                 }
             />
             <div className="bg-white rounded-xl border border-slate-200 mb-4 p-4 flex flex-wrap gap-3 items-end">
                 <div>
-                    <label className="block text-xs font-medium text-slate-600 mb-1">As of Date</label>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">{t("As of Date")}</label>
                     <input type="date" value={asOf} onChange={e => setAsOf(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
-                <button onClick={run} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">Generate</button>
+                <button onClick={run} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">{t("Generate")}</button>
             </div>
 
             {report && (

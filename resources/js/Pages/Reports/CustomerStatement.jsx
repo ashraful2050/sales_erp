@@ -4,6 +4,7 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { useState } from "react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const invStatus = {
     draft: "gray",
@@ -23,6 +24,7 @@ export default function CustomerStatement({
     payments,
     filters,
 }) {
+    const { t } = useTranslation();
     const [customerId, setCustomerId] = useState(filters?.customer_id ?? "");
     const [dateFrom, setDateFrom] = useState(filters?.date_from ?? "");
     const [dateTo, setDateTo] = useState(filters?.date_to ?? "");
@@ -45,11 +47,11 @@ export default function CustomerStatement({
     const balance = totalInvoiced - totalPaid;
 
     return (
-        <AppLayout title="Customer Statement">
-            <Head title="Customer Statement" />
+        <AppLayout title={t("Customer Statement")}>
+            <Head title={t("Customer Statement")} />
             <PageHeader
-                title="Customer Statement"
-                subtitle="Account statement for a specific customer"
+                title={t("Customer Statement")}
+                subtitle={t("Account statement for a specific customer")}
             />
             <div className="space-y-6">
                 {/* Filter bar */}
@@ -73,7 +75,7 @@ export default function CustomerStatement({
                     </div>
                     <div>
                         <label className="block text-xs font-medium text-slate-600 mb-1">
-                            From
+                            {t("From")}
                         </label>
                         <input
                             type="date"
@@ -97,7 +99,7 @@ export default function CustomerStatement({
                         onClick={apply}
                         className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium"
                     >
-                        View Statement
+                        {t("View Statement")}
                     </button>
                 </div>
 
@@ -107,7 +109,7 @@ export default function CustomerStatement({
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div className="md:col-span-1 bg-white rounded-xl border border-slate-200 p-4">
                                 <p className="text-xs text-slate-500 uppercase font-semibold mb-2">
-                                    Customer
+                                    {t("Customer")}
                                 </p>
                                 <p className="font-bold text-slate-800 text-lg">
                                     {customer.name}
@@ -125,7 +127,7 @@ export default function CustomerStatement({
                             </div>
                             <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
                                 <p className="text-xs text-slate-500 uppercase font-semibold">
-                                    Total Invoiced
+                                    {t("Total Invoiced")}
                                 </p>
                                 <p className="text-xl font-bold text-blue-700 mt-1">
                                     {fmt(totalInvoiced)}
@@ -133,7 +135,7 @@ export default function CustomerStatement({
                             </div>
                             <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
                                 <p className="text-xs text-slate-500 uppercase font-semibold">
-                                    Total Received
+                                    {t("Total Received")}
                                 </p>
                                 <p className="text-xl font-bold text-green-600 mt-1">
                                     {fmt(totalPaid)}
@@ -143,7 +145,7 @@ export default function CustomerStatement({
                                 className={`rounded-xl border p-4 text-center ${balance > 0 ? "bg-red-50 border-red-200" : "bg-green-50 border-green-200"}`}
                             >
                                 <p className="text-xs uppercase font-semibold text-slate-500">
-                                    Balance Due
+                                    {t("Balance Due")}
                                 </p>
                                 <p
                                     className={`text-xl font-bold mt-1 ${balance > 0 ? "text-red-700" : "text-green-700"}`}
@@ -188,7 +190,7 @@ export default function CustomerStatement({
                                                 colSpan={7}
                                                 className="text-center py-8 text-slate-400"
                                             >
-                                                No invoices in this period.
+                                                {t("No invoices in this period.")}
                                             </td>
                                         </tr>
                                     )}
@@ -289,7 +291,7 @@ export default function CustomerStatement({
                                                 colSpan={5}
                                                 className="text-center py-8 text-slate-400"
                                             >
-                                                No payments in this period.
+                                                {t("No payments in this period.")}
                                             </td>
                                         </tr>
                                     )}

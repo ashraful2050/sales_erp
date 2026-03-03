@@ -2,10 +2,12 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { ArrowLeft, Plus, Trash2 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const empty = { description: "", quantity: 1, unit_price: "", tax_percentage: 0, tax_amount: 0, total: 0 };
 
 export default function DebitNoteForm({ debitNote, vendors, accounts }) {
+    const { t } = useTranslation();
     const isEdit = !!debitNote;
     const { data, setData, post, put, processing, errors } = useForm({
         vendor_id:   debitNote?.vendor_id ?? "",
@@ -49,8 +51,8 @@ export default function DebitNoteForm({ debitNote, vendors, accounts }) {
     return (
         <AppLayout title={isEdit ? "Edit Debit Note" : "New Debit Note"}>
             <Head title={isEdit ? "Edit Debit Note" : "New Debit Note"} />
-            <PageHeader title={isEdit ? `Edit: ${debitNote.po_number}` : "New Debit Note"} subtitle="Purchase return"
-                actions={<Link href={route("purchase.debit-notes.index")} className="flex items-center gap-2 text-slate-600 text-sm"><ArrowLeft size={16} /> Back</Link>}
+            <PageHeader title={isEdit ? `Edit: ${debitNote.po_number}` : "New Debit Note"} subtitle={t("Purchase return")}
+                actions={<Link href={route("purchase.debit-notes.index")} className="flex items-center gap-2 text-slate-600 text-sm"><ArrowLeft size={16} /> {t("Back")}</Link>}
             />
             <form onSubmit={submit} className="space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-6">
@@ -70,21 +72,21 @@ export default function DebitNoteForm({ debitNote, vendors, accounts }) {
                             {errors.po_date && <p className={errCls}>{errors.po_date}</p>}
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Status</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Status")}</label>
                             <select value={data.status} onChange={e => setData("status", e.target.value)} className={inputCls}>
-                                <option value="draft">Draft</option>
-                                <option value="submitted">Submitted</option>
-                                <option value="approved">Approved</option>
-                                <option value="cancelled">Cancelled</option>
+                                <option value="draft">{t("Draft")}</option>
+                                <option value="submitted">{t("Submitted")}</option>
+                                <option value="approved">{t("Approved")}</option>
+                                <option value="cancelled">{t("Cancelled")}</option>
                             </select>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Reference</label>
-                            <input value={data.reference} onChange={e => setData("reference", e.target.value)} className={inputCls} placeholder="Original PO / Invoice ref" />
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Reference")}</label>
+                            <input value={data.reference} onChange={e => setData("reference", e.target.value)} className={inputCls} placeholder={t("Original PO / Invoice ref")} />
                         </div>
                         <div className="md:col-span-2">
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
-                            <input value={data.notes} onChange={e => setData("notes", e.target.value)} className={inputCls} placeholder="Reason for return..." />
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Notes")}</label>
+                            <input value={data.notes} onChange={e => setData("notes", e.target.value)} className={inputCls} placeholder={t("Reason for return...")} />
                         </div>
                     </div>
                 </div>
@@ -92,25 +94,25 @@ export default function DebitNoteForm({ debitNote, vendors, accounts }) {
                 <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
                     <div className="px-6 py-4 border-b border-slate-200 flex justify-between items-center">
                         <h3 className="font-semibold text-slate-700">Return Items</h3>
-                        <button type="button" onClick={addRow} className="flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm font-medium"><Plus size={15} /> Add Row</button>
+                        <button type="button" onClick={addRow} className="flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm font-medium"><Plus size={15} /> {t("Add Row")}</button>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead className="bg-slate-50 border-b border-slate-200">
                                 <tr>
-                                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-1/3">Description</th>
-                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-20">Qty</th>
-                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-28">Cost Price</th>
+                                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-1/3">{t("Description")}</th>
+                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-20">{t("Qty")}</th>
+                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-28">{t("Cost Price")}</th>
                                     <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-20">Tax %</th>
-                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-28">Tax Amt</th>
-                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-28">Total</th>
+                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-28">{t("Tax Amt")}</th>
+                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-28">{t("Total")}</th>
                                     <th className="w-10"></th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
                                 {data.items.map((item, i) => (
                                     <tr key={i}>
-                                        <td className="px-4 py-2"><input value={item.description} onChange={e => updateItem(i, "description", e.target.value)} className={inputCls} placeholder="Item description" /></td>
+                                        <td className="px-4 py-2"><input value={item.description} onChange={e => updateItem(i, "description", e.target.value)} className={inputCls} placeholder={t("Item description")} /></td>
                                         <td className="px-4 py-2"><input type="number" min="1" value={item.quantity} onChange={e => updateItem(i, "quantity", e.target.value)} className={inputCls + " text-right"} /></td>
                                         <td className="px-4 py-2"><input type="number" min="0" step="0.01" value={item.unit_price} onChange={e => updateItem(i, "unit_price", e.target.value)} className={inputCls + " text-right"} /></td>
                                         <td className="px-4 py-2"><input type="number" min="0" max="100" step="0.01" value={item.tax_percentage} onChange={e => updateItem(i, "tax_percentage", e.target.value)} className={inputCls + " text-right"} /></td>

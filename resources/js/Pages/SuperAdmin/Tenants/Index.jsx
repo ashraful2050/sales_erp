@@ -16,6 +16,7 @@ import {
     CreditCard,
 } from "lucide-react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const StatusBadge = ({ status }) => {
     const cls =
@@ -35,6 +36,7 @@ const StatusBadge = ({ status }) => {
 };
 
 export default function TenantsIndex({ tenants, filters, plans }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters.search ?? "");
     const [status, setStatus] = useState(filters.status ?? "");
     const [suspendModal, setSuspendModal] = useState(null);
@@ -68,7 +70,7 @@ export default function TenantsIndex({ tenants, filters, plans }) {
 
     return (
         <SuperAdminLayout title="Tenants">
-            <Head title="Tenants — Super Admin" />
+            <Head title={t("Tenants — Super Admin")} />
 
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
@@ -84,7 +86,7 @@ export default function TenantsIndex({ tenants, filters, plans }) {
                     href={route("superadmin.tenants.create")}
                     className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                 >
-                    <Plus size={16} /> New Tenant
+                    <Plus size={16} /> {t("New Tenant")}
                 </Link>
             </div>
 
@@ -97,7 +99,7 @@ export default function TenantsIndex({ tenants, filters, plans }) {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && applyFilter()}
-                        placeholder="Search by name or email..."
+                        placeholder={t("Search by name or email...")}
                         className="bg-transparent text-slate-200 text-sm outline-none placeholder-slate-500 flex-1"
                     />
                 </div>
@@ -108,17 +110,17 @@ export default function TenantsIndex({ tenants, filters, plans }) {
                     }}
                     className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 text-sm outline-none"
                 >
-                    <option value="">All statuses</option>
-                    <option value="active">Active</option>
-                    <option value="suspended">Suspended</option>
-                    <option value="pending">Pending</option>
-                    <option value="cancelled">Cancelled</option>
+                    <option value="">{t("All statuses")}</option>
+                    <option value="active">{t("Active")}</option>
+                    <option value="suspended">{t("Suspended")}</option>
+                    <option value="pending">{t("Pending")}</option>
+                    <option value="cancelled">{t("Cancelled")}</option>
                 </select>
                 <button
                     onClick={applyFilter}
                     className="bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
                 >
-                    Filter
+                    {t("Filter")}
                 </button>
             </div>
 
@@ -129,25 +131,25 @@ export default function TenantsIndex({ tenants, filters, plans }) {
                         <thead className="bg-slate-700/50">
                             <tr>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Company
+                                    {t("Company")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Admin
+                                    {t("Admin")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Plan
+                                    {t("Plan")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Users
+                                    {t("Users")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Joined
+                                    {t("Joined")}
                                 </th>
                                 <th className="text-right text-slate-400 py-3 px-4 font-medium">
-                                    Actions
+                                    {t("Actions")}
                                 </th>
                             </tr>
                         </thead>
@@ -190,7 +192,7 @@ export default function TenantsIndex({ tenants, filters, plans }) {
                                             </span>
                                         ) : (
                                             <span className="text-slate-500 text-xs">
-                                                No plan
+                                                {t("No plan")}
                                             </span>
                                         )}
                                     </td>
@@ -268,7 +270,7 @@ export default function TenantsIndex({ tenants, filters, plans }) {
                                         colSpan={7}
                                         className="py-12 text-center text-slate-500"
                                     >
-                                        No tenants found.
+                                        {t("No tenants found.")}
                                     </td>
                                 </tr>
                             )}
@@ -337,7 +339,7 @@ function SuspendModal({ tenant, onConfirm, onClose }) {
                 <textarea
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
-                    placeholder="Reason for suspension (optional)..."
+                    placeholder={t("Reason for suspension (optional)...")}
                     rows={3}
                     className="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-slate-200 text-sm outline-none resize-none placeholder-slate-500 mb-4"
                 />
@@ -346,13 +348,13 @@ function SuspendModal({ tenant, onConfirm, onClose }) {
                         onClick={onClose}
                         className="px-4 py-2 text-sm text-slate-300 hover:text-white bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </button>
                     <button
                         onClick={() => onConfirm(reason)}
                         className="px-4 py-2 text-sm text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
                     >
-                        Suspend Tenant
+                        {t("Suspend Tenant")}
                     </button>
                 </div>
             </div>

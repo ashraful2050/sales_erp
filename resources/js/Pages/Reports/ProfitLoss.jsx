@@ -3,6 +3,7 @@ import { Head, router } from "@inertiajs/react";
 import { useState } from "react";
 import PageHeader from "@/Components/PageHeader";
 import { Download } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function Section({ title, rows, color = "slate" }) {
     const total = rows?.reduce((s, r) => s + Number(r.amount || 0), 0) ?? 0;
@@ -26,6 +27,7 @@ function Section({ title, rows, color = "slate" }) {
 }
 
 export default function ProfitLoss({ report, filters }) {
+    const { t } = useTranslation();
     const [fromDate, setFromDate] = useState(filters?.from_date ?? "");
     const [toDate, setToDate] = useState(filters?.to_date ?? "");
     const run = () => router.get(route("reports.profit-loss"), { from_date: fromDate, to_date: toDate }, { preserveState: true, replace: true });
@@ -35,27 +37,27 @@ export default function ProfitLoss({ report, filters }) {
     const netProfit = totalRevenue - totalExpense;
 
     return (
-        <AppLayout title="Profit & Loss">
-            <Head title="Profit & Loss Statement" />
+        <AppLayout title={t("Profit & Loss")}>
+            <Head title={t("Profit & Loss Statement")} />
             <PageHeader
-                title="Profit & Loss Statement"
-                subtitle="Revenue vs expenses for the selected period"
+                title={t("Profit & Loss Statement")}
+                subtitle={t("Revenue vs expenses for the selected period")}
                 actions={
                     <button className="flex items-center gap-2 text-slate-600 border border-slate-200 hover:bg-slate-50 px-4 py-2 rounded-lg text-sm font-medium">
-                        <Download size={16} /> Export
+                        <Download size={16} /> {t("Export")}
                     </button>
                 }
             />
             <div className="bg-white rounded-xl border border-slate-200 mb-4 p-4 flex flex-wrap gap-3 items-end">
                 <div>
-                    <label className="block text-xs font-medium text-slate-600 mb-1">From Date</label>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">{t("From Date")}</label>
                     <input type="date" value={fromDate} onChange={e => setFromDate(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
                 <div>
-                    <label className="block text-xs font-medium text-slate-600 mb-1">To Date</label>
+                    <label className="block text-xs font-medium text-slate-600 mb-1">{t("To Date")}</label>
                     <input type="date" value={toDate} onChange={e => setToDate(e.target.value)} className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </div>
-                <button onClick={run} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">Generate</button>
+                <button onClick={run} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">{t("Generate")}</button>
             </div>
 
             {report && (

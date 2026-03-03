@@ -12,6 +12,7 @@ import {
     Star,
 } from "lucide-react";
 import { Link } from "@inertiajs/react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColors = {
     open: "blue",
@@ -29,21 +30,22 @@ const priorityColors = {
 };
 
 export default function TicketsIndex({ tickets, stats, filters }) {
+    const { t } = useTranslation();
     const changeStatus = (id, status) =>
         router.patch(route("support.tickets.update", id), { status });
 
     return (
-        <AppLayout title="Support Tickets">
-            <Head title="Support Tickets" />
+        <AppLayout title={t("Support Tickets")}>
+            <Head title={t("Support Tickets")} />
             <PageHeader
-                title="Customer Support"
-                subtitle="Manage customer support tickets"
+                title={t("Customer Support")}
+                subtitle={t("Manage customer support tickets")}
                 actions={
                     <Link
                         href={route("support.tickets.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                     >
-                        <Plus size={15} /> New Ticket
+                        <Plus size={15} /> {t("New Ticket")}
                     </Link>
                 }
             />
@@ -137,32 +139,32 @@ export default function TicketsIndex({ tickets, stats, filters }) {
                             size={32}
                             className="mx-auto mb-2 text-slate-300"
                         />
-                        No support tickets found.
+                        {t("No support tickets found.")}
                     </div>
                 ) : (
                     <table className="w-full text-sm">
                         <thead>
                             <tr className="border-b border-slate-100">
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Ticket
+                                    {t("Ticket")}
                                 </th>
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Customer
+                                    {t("Customer")}
                                 </th>
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Channel
+                                    {t("Channel")}
                                 </th>
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Priority
+                                    {t("Priority")}
                                 </th>
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Assigned
+                                    {t("Assigned")}
                                 </th>
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Created
+                                    {t("Created")}
                                 </th>
                                 <th className="px-4 py-3"></th>
                             </tr>
@@ -231,7 +233,7 @@ export default function TicketsIndex({ tickets, stats, filters }) {
                                             </span>
                                         ) : (
                                             <span className="text-xs text-slate-300">
-                                                Unassigned
+                                                {t("Unassigned")}
                                             </span>
                                         )}
                                     </td>

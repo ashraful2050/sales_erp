@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Field = ({ label, error, children }) => (
     <div>
@@ -18,6 +19,7 @@ const Select = ({ error, children, ...props }) => (
 );
 
 export default function EmployeeForm({ employee, departments, designations }) {
+    const { t } = useTranslation();
     const isEdit = !!employee;
     const { data, setData, post, put, processing, errors } = useForm({
         employee_id: employee?.employee_id ?? "",
@@ -55,14 +57,14 @@ export default function EmployeeForm({ employee, departments, designations }) {
             <PageHeader
                 title={isEdit ? "Edit Employee" : "New Employee"}
                 subtitle={isEdit ? `Editing: ${employee.name}` : "Register a new employee"}
-                actions={<Link href={route("hr.employees.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> Back</Link>}
+                actions={<Link href={route("hr.employees.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> {t("Back")}</Link>}
             />
             <form onSubmit={submit} className="max-w-4xl space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
                     <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">Personal Info</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <Field label="Employee ID" error={errors.employee_id}>
-                            <Input value={data.employee_id} onChange={e => setData("employee_id", e.target.value)} placeholder="Auto-generate if blank" />
+                            <Input value={data.employee_id} onChange={e => setData("employee_id", e.target.value)} placeholder={t("Auto-generate if blank")} />
                         </Field>
                         <Field label="Full Name *" error={errors.name}>
                             <Input value={data.name} onChange={e => setData("name", e.target.value)} required />
@@ -72,9 +74,9 @@ export default function EmployeeForm({ employee, departments, designations }) {
                         </Field>
                         <Field label="Gender" error={errors.gender}>
                             <Select value={data.gender} onChange={e => setData("gender", e.target.value)}>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
+                                <option value="male">{t("Male")}</option>
+                                <option value="female">{t("Female")}</option>
+                                <option value="other">{t("Other")}</option>
                             </Select>
                         </Field>
                         <Field label="Date of Birth" error={errors.date_of_birth}>
@@ -119,10 +121,10 @@ export default function EmployeeForm({ employee, departments, designations }) {
                         </Field>
                         <Field label="Employment Type" error={errors.employment_type}>
                             <Select value={data.employment_type} onChange={e => setData("employment_type", e.target.value)}>
-                                <option value="permanent">Permanent</option>
-                                <option value="contract">Contract</option>
-                                <option value="part_time">Part Time</option>
-                                <option value="intern">Intern</option>
+                                <option value="permanent">{t("Permanent")}</option>
+                                <option value="contract">{t("Contract")}</option>
+                                <option value="part_time">{t("Part Time")}</option>
+                                <option value="intern">{t("Intern")}</option>
                             </Select>
                         </Field>
                         <Field label="Joining Date *" error={errors.joining_date}>
@@ -133,25 +135,25 @@ export default function EmployeeForm({ employee, departments, designations }) {
                         </Field>
                         <Field label="Salary Type *" error={errors.salary_type}>
                             <Select value={data.salary_type} onChange={e => setData("salary_type", e.target.value)}>
-                                <option value="monthly">Monthly</option>
-                                <option value="weekly">Weekly</option>
-                                <option value="daily">Daily</option>
-                                <option value="hourly">Hourly</option>
+                                <option value="monthly">{t("Monthly")}</option>
+                                <option value="weekly">{t("Weekly")}</option>
+                                <option value="daily">{t("Daily")}</option>
+                                <option value="hourly">{t("Hourly")}</option>
                             </Select>
                         </Field>
                         <Field label="Payment Method *" error={errors.payment_method}>
                             <Select value={data.payment_method} onChange={e => setData("payment_method", e.target.value)}>
-                                <option value="cash">Cash</option>
-                                <option value="bank">Bank Transfer</option>
+                                <option value="cash">{t("Cash")}</option>
+                                <option value="bank">{t("Bank Transfer")}</option>
                                 <option value="bkash">bKash</option>
-                                <option value="nagad">Nagad</option>
+                                <option value="nagad">{t("Nagad")}</option>
                             </Select>
                         </Field>
                         <Field label="Status" error={errors.status}>
                             <Select value={data.status} onChange={e => setData("status", e.target.value)}>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                                <option value="terminated">Terminated</option>
+                                <option value="active">{t("Active")}</option>
+                                <option value="inactive">{t("Inactive")}</option>
+                                <option value="terminated">{t("Terminated")}</option>
                             </Select>
                         </Field>
                     </div>

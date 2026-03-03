@@ -8,6 +8,7 @@ import SearchFilter from "@/Components/SearchFilter";
 import { Plus, Eye, Pencil, Trash2, Check, X } from "lucide-react";
 import { fmtDate } from "@/utils/date";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const STATUS_COLOR = {
     pending: "amber",
@@ -17,6 +18,7 @@ const STATUS_COLOR = {
 };
 
 export default function LeavesIndex({ leaves, filters, leaveTypes }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const [status, setStatus] = useState(filters?.status ?? "");
     const apply = (st) =>
@@ -43,8 +45,8 @@ export default function LeavesIndex({ leaves, filters, leaveTypes }) {
             await dlgConfirm(
                 "Delete this leave request? This cannot be undone.",
                 {
-                    title: "Delete Leave Request",
-                    confirmLabel: "Delete",
+                    title: t("Delete Leave Request"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -53,17 +55,17 @@ export default function LeavesIndex({ leaves, filters, leaveTypes }) {
     };
 
     return (
-        <AppLayout title="Leave Requests">
-            <Head title="Leave Requests" />
+        <AppLayout title={t("Leave Requests")}>
+            <Head title={t("Leave Requests")} />
             <PageHeader
-                title="Leave Requests"
-                subtitle={`${leaves.total} total requests`}
+                title={t("Leave Requests")}
+                subtitle={`${leaves.total} ${t("total requests")}`}
                 actions={
                     <Link
                         href={route("hr.leaves.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Leave Request
+                        <Plus size={16} /> {t("New Leave Request")}
                     </Link>
                 }
             />
@@ -76,10 +78,10 @@ export default function LeavesIndex({ leaves, filters, leaveTypes }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Status</option>
-                    <option value="pending">Pending</option>
-                    <option value="approved">Approved</option>
-                    <option value="rejected">Rejected</option>
+                    <option value="">{t("All Status")}</option>
+                    <option value="pending">{t("Pending")}</option>
+                    <option value="approved">{t("Approved")}</option>
+                    <option value="rejected">{t("Rejected")}</option>
                 </select>
             </div>
             <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
@@ -88,22 +90,22 @@ export default function LeavesIndex({ leaves, filters, leaveTypes }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Employee
+                                    {t("Employee")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Leave Type
+                                    {t("Leave Type")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    From
+                                    {t("From")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    To
+                                    {t("To")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Days
+                                    {t("Days")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -115,7 +117,7 @@ export default function LeavesIndex({ leaves, filters, leaveTypes }) {
                                         colSpan={7}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No leave requests found.
+                                        {t("No leave requests found.")}
                                     </td>
                                 </tr>
                             )}

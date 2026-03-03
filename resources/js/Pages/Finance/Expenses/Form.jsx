@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Field = ({ label, error, children }) => (
     <div>
@@ -18,6 +19,7 @@ const Select = ({ error, children, ...props }) => (
 );
 
 export default function ExpenseForm({ expense, categories, bankAccounts }) {
+    const { t } = useTranslation();
     const isEdit = !!expense;
     const { data, setData, post, put, processing, errors } = useForm({
         expense_category_id: expense?.expense_category_id ?? "",
@@ -41,8 +43,8 @@ export default function ExpenseForm({ expense, categories, bankAccounts }) {
             <Head title={isEdit ? "Edit Expense" : "New Expense"} />
             <PageHeader
                 title={isEdit ? "Edit Expense" : "New Expense"}
-                subtitle="Record a company expenditure"
-                actions={<Link href={route("finance.expenses.index")} className="flex items-center gap-2 text-slate-600 text-sm"><ArrowLeft size={16} /> Back</Link>}
+                subtitle={t("Record a company expenditure")}
+                actions={<Link href={route("finance.expenses.index")} className="flex items-center gap-2 text-slate-600 text-sm"><ArrowLeft size={16} /> {t("Back")}</Link>}
             />
             <form onSubmit={submit} className="max-w-2xl space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
@@ -64,14 +66,14 @@ export default function ExpenseForm({ expense, categories, bankAccounts }) {
                         </Field>
                         <Field label="Payment Method *" error={errors.payment_method}>
                             <Select value={data.payment_method} onChange={e => setData("payment_method", e.target.value)} required>
-                                <option value="cash">Cash</option>
-                                <option value="bank">Bank Transfer</option>
-                                <option value="cheque">Cheque</option>
+                                <option value="cash">{t("Cash")}</option>
+                                <option value="bank">{t("Bank Transfer")}</option>
+                                <option value="cheque">{t("Cheque")}</option>
                                 <option value="bkash">bKash</option>
-                                <option value="nagad">Nagad</option>
-                                <option value="rocket">Rocket</option>
-                                <option value="upay">Upay</option>
-                                <option value="other">Other</option>
+                                <option value="nagad">{t("Nagad")}</option>
+                                <option value="rocket">{t("Rocket")}</option>
+                                <option value="upay">{t("Upay")}</option>
+                                <option value="other">{t("Other")}</option>
                             </Select>
                         </Field>
                         <Field label="Bank Account" error={errors.bank_account_id}>
@@ -81,13 +83,13 @@ export default function ExpenseForm({ expense, categories, bankAccounts }) {
                             </Select>
                         </Field>
                         <Field label="Reference" error={errors.reference}>
-                            <Input value={data.reference} onChange={e => setData("reference", e.target.value)} placeholder="Cheque no., voucher no…" />
+                            <Input value={data.reference} onChange={e => setData("reference", e.target.value)} placeholder={t("Cheque no., voucher no…")} />
                         </Field>
                         <Field label="Status" error={errors.status}>
                             <Select value={data.status} onChange={e => setData("status", e.target.value)}>
-                                <option value="approved">Approved</option>
-                                <option value="draft">Draft</option>
-                                <option value="rejected">Rejected</option>
+                                <option value="approved">{t("Approved")}</option>
+                                <option value="draft">{t("Draft")}</option>
+                                <option value="rejected">{t("Rejected")}</option>
                             </Select>
                         </Field>
                     </div>

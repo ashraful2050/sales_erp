@@ -17,10 +17,10 @@ export default function Show({ account }) {
                     actions={
                         <div className="flex gap-2">
                             <Link href={route("accounting.accounts.index")} className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
-                                <ArrowLeft className="w-4 h-4" /> Back
+                                <ArrowLeft className="w-4 h-4" /> {t("Back")}
                             </Link>
                             <Link href={route("accounting.accounts.edit", account.id)} className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm">
-                                <Edit className="w-4 h-4" /> Edit
+                                <Edit className="w-4 h-4" /> {t("Edit")}
                             </Link>
                         </div>
                     }
@@ -29,16 +29,16 @@ export default function Show({ account }) {
                 {/* Balance Card */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-indigo-50 text-indigo-700 rounded-xl p-4">
-                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">Current Balance</p>
+                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">{t("Current Balance")}</p>
                         <p className="text-2xl font-bold mt-1">৳{Math.abs(balance).toLocaleString()}</p>
                         <p className="text-xs mt-1">{balance >= 0 ? "Debit" : "Credit"}</p>
                     </div>
                     <div className="bg-green-50 text-green-700 rounded-xl p-4">
-                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">Total Debits</p>
+                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">{t("Total Debits")}</p>
                         <p className="text-2xl font-bold mt-1">৳{account.journal_lines?.reduce((s, l) => s + Number(l.debit ?? 0), 0).toLocaleString()}</p>
                     </div>
                     <div className="bg-red-50 text-red-700 rounded-xl p-4">
-                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">Total Credits</p>
+                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">{t("Total Credits")}</p>
                         <p className="text-2xl font-bold mt-1">৳{account.journal_lines?.reduce((s, l) => s + Number(l.credit ?? 0), 0).toLocaleString()}</p>
                     </div>
                 </div>

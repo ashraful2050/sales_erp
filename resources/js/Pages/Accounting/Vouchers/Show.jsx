@@ -5,6 +5,7 @@ import Badge from "@/Components/Badge";
 import { ArrowLeft, CheckCircle, XCircle, Pencil } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const STATUS_COLOR = {
     draft: "slate",
@@ -41,6 +42,7 @@ function Detail({ label, value }) {
 }
 
 export default function VoucherShow({ voucher }) {
+    const { t } = useTranslation();
     const [showRejectForm, setShowRejectForm] = useState(false);
     const { data, setData, post, processing } = useForm({
         rejection_reason: "",
@@ -57,8 +59,8 @@ export default function VoucherShow({ voucher }) {
             await dlgConfirm(
                 "The voucher will be approved and posted to the journal.",
                 {
-                    title: "Approve Voucher?",
-                    confirmLabel: "Approve",
+                    title: t("Approve Voucher?"),
+                    confirmLabel: t("Approve"),
                     intent: "success",
                 },
             )
@@ -92,7 +94,7 @@ export default function VoucherShow({ voucher }) {
                                 )}
                                 className="flex items-center gap-2 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
                             >
-                                <Pencil size={15} /> Edit
+                                <Pencil size={15} /> {t("Edit")}
                             </Link>
                         )}
                         {voucher.status === "pending" && (
@@ -101,13 +103,13 @@ export default function VoucherShow({ voucher }) {
                                     onClick={approve}
                                     className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm"
                                 >
-                                    <CheckCircle size={15} /> Approve
+                                    <CheckCircle size={15} /> {t("Approve")}
                                 </button>
                                 <button
                                     onClick={() => setShowRejectForm((v) => !v)}
                                     className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg text-sm"
                                 >
-                                    <XCircle size={15} /> Reject
+                                    <XCircle size={15} /> {t("Reject")}
                                 </button>
                             </>
                         )}
@@ -115,7 +117,7 @@ export default function VoucherShow({ voucher }) {
                             href={route(backRoute)}
                             className="flex items-center gap-2 text-slate-600 hover:text-slate-900 text-sm"
                         >
-                            <ArrowLeft size={16} /> Back
+                            <ArrowLeft size={16} /> {t("Back")}
                         </Link>
                     </div>
                 }
@@ -129,7 +131,7 @@ export default function VoucherShow({ voucher }) {
                 >
                     <div className="flex-1">
                         <label className="block text-sm font-medium text-red-700 mb-1">
-                            Rejection Reason
+                            {t("Rejection Reason")}
                         </label>
                         <input
                             type="text"
@@ -138,7 +140,7 @@ export default function VoucherShow({ voucher }) {
                                 setData("rejection_reason", e.target.value)
                             }
                             className="w-full border border-red-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                            placeholder="Optional…"
+                            placeholder={t("Optional…")}
                         />
                     </div>
                     <button
@@ -146,7 +148,7 @@ export default function VoucherShow({ voucher }) {
                         disabled={processing}
                         className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm"
                     >
-                        Confirm Reject
+                        {t("Confirm Reject")}
                     </button>
                 </form>
             )}
@@ -230,7 +232,7 @@ export default function VoucherShow({ voucher }) {
                 {voucher.narration && (
                     <div className="mt-6 pt-6 border-t border-slate-100">
                         <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">
-                            Narration
+                            {t("Narration")}
                         </p>
                         <p className="text-sm text-slate-800">
                             {voucher.narration}

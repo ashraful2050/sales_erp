@@ -5,19 +5,21 @@ import Badge from "@/Components/Badge";
 import { ArrowLeft, Pencil, FileText } from "lucide-react";
 import { fmtDate } from "@/utils/date";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const fmt = (v) =>
     Number(v || 0).toLocaleString("en-BD", { minimumFractionDigits: 2 });
 
 export default function QuotationShow({ quote }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const convert = async () => {
         if (
             await dlgConfirm(
                 "A new sales invoice will be created from this quotation.",
                 {
-                    title: "Convert to Invoice?",
-                    confirmLabel: "Convert",
+                    title: t("Convert to Invoice?"),
+                    confirmLabel: t("Convert"),
                     intent: "info",
                 },
             )
@@ -37,19 +39,19 @@ export default function QuotationShow({ quote }) {
                             href={route("sales.quotations.index")}
                             className="flex items-center gap-2 text-slate-600 text-sm font-medium"
                         >
-                            <ArrowLeft size={16} /> Back
+                            <ArrowLeft size={16} /> {t("Back")}
                         </Link>
                         <Link
                             href={route("sales.quotations.edit", quote.id)}
                             className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-medium"
                         >
-                            <Pencil size={16} /> Edit
+                            <Pencil size={16} /> {t("Edit")}
                         </Link>
                         <button
                             onClick={convert}
                             className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                         >
-                            <FileText size={16} /> Convert to Invoice
+                            <FileText size={16} /> {t("Convert to Invoice")}
                         </button>
                     </div>
                 }
@@ -103,19 +105,19 @@ export default function QuotationShow({ quote }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Description
+                                    {t("Description")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Qty
+                                    {t("Qty")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Unit Price
+                                    {t("Unit Price")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Tax
+                                    {t("Tax")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Total
+                                    {t("Total")}
                                 </th>
                             </tr>
                         </thead>

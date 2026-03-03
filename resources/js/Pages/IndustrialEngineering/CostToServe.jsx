@@ -8,6 +8,7 @@ import {
     BarChart2,
     Percent,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function MarginBadge({ margin }) {
     if (margin >= 30)
@@ -34,17 +35,18 @@ export default function CostToServe({
     categoryCost,
     lowMarginCount,
 }) {
+    const { t } = useTranslation();
     const maxRev = customerCost?.length
         ? Math.max(...customerCost.map((c) => c.revenue))
         : 1;
 
     return (
         <AppLayout>
-            <Head title="Cost-to-Serve Analysis" />
+            <Head title={t("Cost-to-Serve Analysis")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Cost-to-Serve Analysis"
-                    subtitle="Improve profitability using Activity-Based Costing (ABC) and Cost Engineering"
+                    title={t("Cost-to-Serve Analysis")}
+                    subtitle={t("Improve profitability using Activity-Based Costing (ABC) and Cost Engineering")}
                 />
 
                 <div className="flex flex-wrap gap-2">
@@ -73,7 +75,7 @@ export default function CostToServe({
                             {customerCost?.length ?? 0}
                         </p>
                         <p className="text-sm text-slate-500">
-                            Customers Analyzed
+                            {t("Customers Analyzed")}
                         </p>
                     </div>
                     <div className="bg-white rounded-xl border border-slate-200 p-5">
@@ -84,7 +86,7 @@ export default function CostToServe({
                             {lowMarginCount}
                         </p>
                         <p className="text-sm text-slate-500">
-                            Low-Margin Customers
+                            {t("Low-Margin Customers")}
                         </p>
                         <p className="text-xs text-slate-400 mt-1">
                             Margin &lt; 20%
@@ -106,7 +108,7 @@ export default function CostToServe({
                             %
                         </p>
                         <p className="text-sm text-slate-500">
-                            Avg Customer Margin
+                            {t("Avg Customer Margin")}
                         </p>
                     </div>
                     <div className="bg-white rounded-xl border border-slate-200 p-5">
@@ -117,7 +119,7 @@ export default function CostToServe({
                             {categoryCost?.length ?? 0}
                         </p>
                         <p className="text-sm text-slate-500">
-                            Product Categories
+                            {t("Product Categories")}
                         </p>
                     </div>
                 </div>
@@ -142,22 +144,22 @@ export default function CostToServe({
                                 <thead className="bg-slate-50 text-xs text-slate-500">
                                     <tr>
                                         <th className="text-left px-4 py-2">
-                                            Customer
+                                            {t("Customer")}
                                         </th>
                                         <th className="text-right px-4 py-2">
-                                            Revenue
+                                            {t("Revenue")}
                                         </th>
                                         <th className="text-right px-4 py-2">
-                                            Cost
+                                            {t("Cost")}
                                         </th>
                                         <th className="text-right px-4 py-2">
-                                            Margin
+                                            {t("Margin")}
                                         </th>
                                         <th className="text-right px-4 py-2">
-                                            Orders
+                                            {t("Orders")}
                                         </th>
                                         <th className="text-right px-4 py-2">
-                                            Status
+                                            {t("Status")}
                                         </th>
                                     </tr>
                                 </thead>
@@ -254,7 +256,7 @@ export default function CostToServe({
                         </div>
                     ) : (
                         <p className="text-slate-400 text-sm">
-                            No category data available.
+                            {t("No category data available.")}
                         </p>
                     )}
                 </div>

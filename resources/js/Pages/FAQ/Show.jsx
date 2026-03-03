@@ -30,7 +30,7 @@ export default function FaqShow({ faq, related }) {
                 {/* Breadcrumb */}
                 <div className="flex items-center gap-2 text-sm text-slate-400 mb-4">
                     <Link href={route("faq.index")} className="hover:text-blue-600 flex items-center gap-1">
-                        <ArrowLeft size={14} /> Knowledge Base
+                        <ArrowLeft size={14} /> {t("Knowledge Base")}
                     </Link>
                     {faq.category && (
                         <>
@@ -59,7 +59,7 @@ export default function FaqShow({ faq, related }) {
                                     </div>
                                     <Link href={route("faq.admin.edit", faq.id)}
                                         className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-blue-600 font-medium">
-                                        <Edit size={12} /> Edit
+                                        <Edit size={12} /> {t("Edit")}
                                     </Link>
                                 </div>
                                 <h1 className="text-2xl font-bold text-slate-900 leading-snug">{faq.question}</h1>
@@ -129,7 +129,7 @@ export default function FaqShow({ faq, related }) {
 
                         <div className="bg-blue-50 border border-blue-100 rounded-2xl p-5">
                             <p className="text-sm font-semibold text-blue-800 mb-1">Can't find an answer?</p>
-                            <p className="text-xs text-blue-600 mb-3">Browse all articles or contact your administrator</p>
+                            <p className="text-xs text-blue-600 mb-3">{t("Browse all articles or contact your administrator")}</p>
                             <Link href={route("faq.index")}
                                 className="block text-center bg-blue-600 text-white text-xs font-semibold px-4 py-2 rounded-xl hover:bg-blue-700">
                                 Browse All Articles

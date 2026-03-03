@@ -1,8 +1,10 @@
 import PrimaryButton from '@/Components/PrimaryButton';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function VerifyEmail({ status }) {
+    const { t } = useTranslation();
     const { post, processing } = useForm({});
 
     const submit = (e) => {
@@ -13,7 +15,7 @@ export default function VerifyEmail({ status }) {
 
     return (
         <GuestLayout>
-            <Head title="Email Verification" />
+            <Head title={t("Email Verification")} />
 
             <div className="mb-4 text-sm text-gray-600">
                 Thanks for signing up! Before getting started, could you verify

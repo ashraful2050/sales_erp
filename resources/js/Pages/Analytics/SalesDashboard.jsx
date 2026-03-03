@@ -9,6 +9,7 @@ import {
     Brain,
     AlertTriangle,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const kpiIcons = {
     revenue: DollarSign,
@@ -80,6 +81,7 @@ export default function SalesDashboard({
     channelPerformance,
     churnRisk,
 }) {
+    const { t } = useTranslation();
     const fmt = (n) =>
         new Intl.NumberFormat("en-US", {
             style: "currency",
@@ -100,14 +102,14 @@ export default function SalesDashboard({
         Math.max(...funnelStages.map((s) => leadFunnel?.[s.key] || 0)) || 1;
 
     return (
-        <AppLayout title="Sales Analytics">
-            <Head title="Sales Analytics" />
+        <AppLayout title={t("Sales Analytics")}>
+            <Head title={t("Sales Analytics")} />
             <PageHeader
-                title="Sales Analytics"
-                subtitle="AI-powered insights and revenue forecasting"
+                title={t("Sales Analytics")}
+                subtitle={t("AI-powered insights and revenue forecasting")}
                 actions={
                     <div className="flex items-center gap-1.5 bg-indigo-50 text-indigo-700 text-xs px-3 py-1.5 rounded-lg border border-indigo-200">
-                        <Brain size={13} /> AI Forecasting Active
+                        <Brain size={13} /> {t("AI Forecasting Active")}
                     </div>
                 }
             />
@@ -165,7 +167,7 @@ export default function SalesDashboard({
                             AI Revenue Forecast (6 months)
                         </h3>
                         <span className="text-xs text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">
-                            Moving Average
+                            {t("Moving Average")}
                         </span>
                     </div>
                     <SimpleBarChart
@@ -206,7 +208,7 @@ export default function SalesDashboard({
                             </div>
                         ))
                     ) : (
-                        <p className="text-slate-300 text-sm">No data</p>
+                        <p className="text-slate-300 text-sm">{t("No data")}</p>
                     )}
                 </div>
 
@@ -235,7 +237,7 @@ export default function SalesDashboard({
                             </div>
                         ))
                     ) : (
-                        <p className="text-slate-300 text-sm">No data</p>
+                        <p className="text-slate-300 text-sm">{t("No data")}</p>
                     )}
                 </div>
 
@@ -336,7 +338,7 @@ export default function SalesDashboard({
                         </div>
                     ) : (
                         <p className="text-slate-300 text-sm">
-                            No feedback data
+                            {t("No feedback data")}
                         </p>
                     )}
                 </div>
@@ -367,7 +369,7 @@ export default function SalesDashboard({
                         ))
                     ) : (
                         <p className="text-slate-300 text-sm">
-                            No channel data
+                            {t("No channel data")}
                         </p>
                     )}
                 </div>
@@ -396,7 +398,7 @@ export default function SalesDashboard({
                         ))
                     ) : (
                         <p className="text-slate-300 text-sm">
-                            No at-risk customers
+                            {t("No at-risk customers")}
                         </p>
                     )}
                 </div>

@@ -5,12 +5,14 @@ import Badge from "@/Components/Badge";
 import { Plus, Search } from "lucide-react";
 import ExportButtons from "@/Components/ExportButtons";
 import { useState } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const typeColor = { in: "green", out: "red", adjustment: "amber" };
 const typeLabel = { in: "Stock In", out: "Stock Out", adjustment: "Adjustment" };
 const fmt = (v) => Number(v || 0).toLocaleString("en-BD", { minimumFractionDigits: 2 });
 
 export default function StockMovementsIndex({ movements, products, warehouses, filters }) {
+    const { t } = useTranslation();
     const [f, setF] = useState({ ...filters });
 
     const apply = (extra = {}) => {
@@ -18,13 +20,13 @@ export default function StockMovementsIndex({ movements, products, warehouses, f
     };
 
     return (
-        <AppLayout title="Stock Movements">
-            <Head title="Stock Movements" />
-            <PageHeader title="Stock Movements" subtitle="Track all stock in, stock out and adjustments"
+        <AppLayout title={t("Stock Movements")}>
+            <Head title={t("Stock Movements")} />
+            <PageHeader title={t("Stock Movements")} subtitle={t("Track all stock in, stock out and adjustments")}
                 actions={
                     <Link href={route("inventory.stock-movements.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
-                        <Plus size={16} /> New Entry
+                        <Plus size={16} /> {t("New Entry")}
                     </Link>
                 }
             />
@@ -33,20 +35,20 @@ export default function StockMovementsIndex({ movements, products, warehouses, f
             <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6 flex flex-wrap gap-3">
                 <select value={f.product_id ?? ""} onChange={e => { const v = e.target.value; setF(p => ({ ...p, product_id: v })); apply({ product_id: v }); }}
                     className="border border-slate-300 rounded-lg text-sm px-3 py-2 min-w-[180px] focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">All Products</option>
+                    <option value="">{t("All Products")}</option>
                     {products.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
                 </select>
                 <select value={f.warehouse_id ?? ""} onChange={e => { const v = e.target.value; setF(p => ({ ...p, warehouse_id: v })); apply({ warehouse_id: v }); }}
                     className="border border-slate-300 rounded-lg text-sm px-3 py-2 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">All Warehouses</option>
+                    <option value="">{t("All Warehouses")}</option>
                     {warehouses.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}
                 </select>
                 <select value={f.movement_type ?? ""} onChange={e => { const v = e.target.value; setF(p => ({ ...p, movement_type: v })); apply({ movement_type: v }); }}
                     className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">All Types</option>
-                    <option value="in">Stock In</option>
-                    <option value="out">Stock Out</option>
-                    <option value="adjustment">Adjustment</option>
+                    <option value="">{t("All Types")}</option>
+                    <option value="in">{t("Stock In")}</option>
+                    <option value="out">{t("Stock Out")}</option>
+                    <option value="adjustment">{t("Adjustment")}</option>
                 </select>
                 <input type="date" value={f.date_from ?? ""} onChange={e => { const v = e.target.value; setF(p => ({ ...p, date_from: v })); apply({ date_from: v }); }}
                     className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
@@ -60,18 +62,18 @@ export default function StockMovementsIndex({ movements, products, warehouses, f
                     <table className="w-full text-sm" id="export-table">
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
-                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Date</th>
-                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Product</th>
-                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Warehouse</th>
-                                <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Type</th>
-                                <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Quantity</th>
-                                <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Unit Cost</th>
-                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Notes</th>
+                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Date")}</th>
+                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Product")}</th>
+                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Warehouse")}</th>
+                                <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Type")}</th>
+                                <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Quantity")}</th>
+                                <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Unit Cost")}</th>
+                                <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Notes")}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {movements.data?.length === 0 && (
-                                <tr><td colSpan={7} className="px-6 py-12 text-center text-slate-400">No stock movements found.</td></tr>
+                                <tr><td colSpan={7} className="px-6 py-12 text-center text-slate-400">{t("No stock movements found.")}</td></tr>
                             )}
                             {movements.data?.map(m => (
                                 <tr key={m.id} className="hover:bg-slate-50">

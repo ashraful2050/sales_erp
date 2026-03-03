@@ -9,20 +9,22 @@ import {
     CheckCircle,
 } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function Badge({ status }) {
     return status === "paid" ? (
         <span className="inline-flex items-center gap-1 text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full">
-            <CheckCircle size={11} /> Paid
+            <CheckCircle size={11} /> {t("Paid")}
         </span>
     ) : (
         <span className="inline-flex items-center gap-1 text-xs bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded-full">
-            <Clock size={11} /> Pending
+            <Clock size={11} /> {t("Pending")}
         </span>
     );
 }
 
 export default function AffiliateShow({ affiliate, conversions }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
 
     const markPaid = async () => {
@@ -30,8 +32,8 @@ export default function AffiliateShow({ affiliate, conversions }) {
             await dlgConfirm(
                 `Mark all pending commissions for "${affiliate.name}" as paid and reset balance to $0?`,
                 {
-                    title: "Mark as Paid?",
-                    confirmLabel: "Mark Paid",
+                    title: t("Mark as Paid?"),
+                    confirmLabel: t("Mark Paid"),
                     intent: "primary",
                 },
             )
@@ -78,7 +80,7 @@ export default function AffiliateShow({ affiliate, conversions }) {
                         onClick={markPaid}
                         className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                     >
-                        <DollarSign size={15} /> Mark All Paid
+                        <DollarSign size={15} /> {t("Mark All Paid")}
                     </button>
                 )}
             </div>
@@ -122,7 +124,7 @@ export default function AffiliateShow({ affiliate, conversions }) {
             {/* Affiliate Link */}
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-4 mb-6">
                 <p className="text-slate-400 text-xs mb-1">
-                    Affiliate Referral Link
+                    {t("Affiliate Referral Link")}
                 </p>
                 <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-mono text-sm text-violet-300 bg-slate-700/60 px-3 py-1.5 rounded-lg break-all">
@@ -132,7 +134,7 @@ export default function AffiliateShow({ affiliate, conversions }) {
                         onClick={() => navigator.clipboard.writeText(affUrl)}
                         className="text-xs text-slate-400 hover:text-violet-400 bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-lg transition-colors"
                     >
-                        Copy Link
+                        {t("Copy Link")}
                     </button>
                 </div>
             </div>
@@ -152,25 +154,25 @@ export default function AffiliateShow({ affiliate, conversions }) {
                         <thead>
                             <tr className="border-b border-slate-700">
                                 <th className="text-left text-slate-400 font-medium px-4 py-3">
-                                    Tenant
+                                    {t("Tenant")}
                                 </th>
                                 <th className="text-left text-slate-400 font-medium px-4 py-3">
-                                    Plan
+                                    {t("Plan")}
                                 </th>
                                 <th className="text-center text-slate-400 font-medium px-4 py-3">
-                                    Billing
+                                    {t("Billing")}
                                 </th>
                                 <th className="text-right text-slate-400 font-medium px-4 py-3">
-                                    Amount Paid
+                                    {t("Amount Paid")}
                                 </th>
                                 <th className="text-right text-slate-400 font-medium px-4 py-3">
-                                    Commission
+                                    {t("Commission")}
                                 </th>
                                 <th className="text-center text-slate-400 font-medium px-4 py-3">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="text-right text-slate-400 font-medium px-4 py-3">
-                                    Date
+                                    {t("Date")}
                                 </th>
                             </tr>
                         </thead>
@@ -237,7 +239,7 @@ export default function AffiliateShow({ affiliate, conversions }) {
                                         colSpan={7}
                                         className="px-4 py-12 text-center text-slate-500"
                                     >
-                                        No conversions yet for this affiliate.
+                                        {t("No conversions yet for this affiliate.")}
                                     </td>
                                 </tr>
                             )}

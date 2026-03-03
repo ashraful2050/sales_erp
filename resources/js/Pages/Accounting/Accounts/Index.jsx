@@ -7,6 +7,7 @@ import Badge from "@/Components/Badge";
 import SearchFilter from "@/Components/SearchFilter";
 import { Plus, Eye, Pencil, Trash2 } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const TYPE_COLOR = {
     asset: "blue",
@@ -17,6 +18,7 @@ const TYPE_COLOR = {
 };
 
 export default function AccountsIndex({ accounts, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [type, setType] = useState(filters?.type ?? "");
     const apply = (s, t) =>
@@ -28,9 +30,9 @@ export default function AccountsIndex({ accounts, filters }) {
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
-            await dlgConfirm("This account will be permanently removed.", {
-                title: "Delete Account?",
-                confirmLabel: "Delete",
+            await dlgConfirm(t("This account will be permanently removed."), {
+                title: t("Delete Account?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -38,17 +40,17 @@ export default function AccountsIndex({ accounts, filters }) {
     };
 
     return (
-        <AppLayout title="Chart of Accounts">
-            <Head title="Chart of Accounts" />
+        <AppLayout title={t("Chart of Accounts")}>
+            <Head title={t("Chart of Accounts")} />
             <PageHeader
-                title="Chart of Accounts"
-                subtitle={`${accounts.total} total accounts`}
+                title={t("Chart of Accounts")}
+                subtitle={`${accounts.total} ${t("total accounts")}`}
                 actions={
                     <Link
                         href={route("accounting.accounts.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Account
+                        <Plus size={16} /> {t("New Account")}
                     </Link>
                 }
             />
@@ -59,7 +61,7 @@ export default function AccountsIndex({ accounts, filters }) {
                         setSearch(v);
                         apply(v, type);
                     }}
-                    placeholder="Search name or code…"
+                    placeholder={t("Search name or code…")}
                 />
                 <select
                     value={type}
@@ -69,7 +71,7 @@ export default function AccountsIndex({ accounts, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Types</option>
+                    <option value="">{t("All Types")}</option>
                     {["asset", "liability", "equity", "revenue", "expense"].map(
                         (t) => (
                             <option key={t} value={t}>
@@ -85,22 +87,22 @@ export default function AccountsIndex({ accounts, filters }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Code
+                                    {t("Code")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Account Name
+                                    {t("Account Name")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Group
+                                    {t("Group")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Type
+                                    {t("Type")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Opening Balance
+                                    {t("Opening Balance")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -112,7 +114,7 @@ export default function AccountsIndex({ accounts, filters }) {
                                         colSpan={7}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No accounts found.
+                                        {t("No accounts found.")}
                                     </td>
                                 </tr>
                             )}

@@ -3,11 +3,13 @@ import { Head, router } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { useState } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColor = { draft: "gray", approved: "green", rejected: "red" };
 const fmt = (v) => Number(v || 0).toLocaleString("en-BD", { minimumFractionDigits: 2 });
 
 export default function ExpenseReport({ expenses, categories, total, filters }) {
+    const { t } = useTranslation();
     const [dateFrom, setDateFrom] = useState(filters?.date_from ?? "");
     const [dateTo, setDateTo] = useState(filters?.date_to ?? "");
     const [status, setStatus] = useState(filters?.status ?? "");
@@ -25,55 +27,55 @@ export default function ExpenseReport({ expenses, categories, total, filters }) 
     }, {});
 
     return (
-        <AppLayout title="Expense Report">
-            <Head title="Expense Report" />
-            <PageHeader title="Expense Report" subtitle="All expenses for the selected period" />
+        <AppLayout title={t("Expense Report")}>
+            <Head title={t("Expense Report")} />
+            <PageHeader title={t("Expense Report")} subtitle={t("All expenses for the selected period")} />
             <div className="space-y-6">
                 {/* Filters */}
                 <div className="bg-white rounded-xl border border-slate-200 p-4 flex flex-wrap gap-4 items-end">
                     <div>
-                        <label className="block text-xs font-medium text-slate-600 mb-1">From Date</label>
+                        <label className="block text-xs font-medium text-slate-600 mb-1">{t("From Date")}</label>
                         <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)}
                             className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label className="block text-xs font-medium text-slate-600 mb-1">To Date</label>
+                        <label className="block text-xs font-medium text-slate-600 mb-1">{t("To Date")}</label>
                         <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)}
                             className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label className="block text-xs font-medium text-slate-600 mb-1">Category</label>
+                        <label className="block text-xs font-medium text-slate-600 mb-1">{t("Category")}</label>
                         <select value={categoryId} onChange={e => setCategoryId(e.target.value)}
                             className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">All Categories</option>
+                            <option value="">{t("All Categories")}</option>
                             {categories?.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                         </select>
                     </div>
                     <div>
-                        <label className="block text-xs font-medium text-slate-600 mb-1">Status</label>
+                        <label className="block text-xs font-medium text-slate-600 mb-1">{t("Status")}</label>
                         <select value={status} onChange={e => setStatus(e.target.value)}
                             className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">All</option>
-                            <option value="draft">Draft</option>
-                            <option value="approved">Approved</option>
-                            <option value="rejected">Rejected</option>
+                            <option value="">{t("All")}</option>
+                            <option value="draft">{t("Draft")}</option>
+                            <option value="approved">{t("Approved")}</option>
+                            <option value="rejected">{t("Rejected")}</option>
                         </select>
                     </div>
-                    <button onClick={apply} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium">Apply</button>
+                    <button onClick={apply} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium">{t("Apply")}</button>
                 </div>
 
                 {/* Summary cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
-                        <p className="text-xs text-slate-500 uppercase font-semibold">Total Expenses</p>
+                        <p className="text-xs text-slate-500 uppercase font-semibold">{t("Total Expenses")}</p>
                         <p className="text-2xl font-bold text-slate-700">{expenses.length}</p>
                     </div>
                     <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
-                        <p className="text-xs text-slate-500 uppercase font-semibold">Total Amount</p>
+                        <p className="text-xs text-slate-500 uppercase font-semibold">{t("Total Amount")}</p>
                         <p className="text-xl font-bold text-red-600">{fmt(total)}</p>
                     </div>
                     <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
-                        <p className="text-xs text-slate-500 uppercase font-semibold">Categories Used</p>
+                        <p className="text-xs text-slate-500 uppercase font-semibold">{t("Categories Used")}</p>
                         <p className="text-2xl font-bold text-blue-600">{Object.keys(byCategory).length}</p>
                     </div>
                 </div>
@@ -105,7 +107,7 @@ export default function ExpenseReport({ expenses, categories, total, filters }) 
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {expenses.length === 0 && (
-                                <tr><td colSpan={7} className="text-center py-12 text-slate-400">No expenses found.</td></tr>
+                                <tr><td colSpan={7} className="text-center py-12 text-slate-400">{t("No expenses found.")}</td></tr>
                             )}
                             {expenses.map(e => (
                                 <tr key={e.id} className="hover:bg-slate-50">

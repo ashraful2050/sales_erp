@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColors = {
     pending: "yellow",
@@ -31,6 +32,7 @@ const priorityColors = {
 };
 
 export default function TasksIndex({ tasks, users, summary, filters }) {
+    const { t } = useTranslation();
     const { confirm } = useDialog();
     const [showForm, setShowForm] = useState(false);
     const { data, setData, post, processing, reset, errors } = useForm({
@@ -55,8 +57,8 @@ export default function TasksIndex({ tasks, users, summary, filters }) {
     const del = async (id) => {
         if (
             await confirm("Delete this task?", {
-                title: "Delete Task?",
-                confirmLabel: "Delete",
+                title: t("Delete Task?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -65,17 +67,17 @@ export default function TasksIndex({ tasks, users, summary, filters }) {
     const complete = (id) => router.post(route("tasks.complete", id));
 
     return (
-        <AppLayout title="Tasks">
-            <Head title="Tasks" />
+        <AppLayout title={t("Tasks")}>
+            <Head title={t("Tasks")} />
             <PageHeader
-                title="Task Management"
-                subtitle="Team task and workflow management"
+                title={t("Task Management")}
+                subtitle={t("Team task and workflow management")}
                 actions={
                     <button
                         onClick={() => setShowForm(!showForm)}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                     >
-                        <Plus size={15} /> New Task
+                        <Plus size={15} /> {t("New Task")}
                     </button>
                 }
             />
@@ -165,7 +167,7 @@ export default function TasksIndex({ tasks, users, summary, filters }) {
                         </div>
                         <div>
                             <label className="text-xs text-slate-600">
-                                Description
+                                {t("Description")}
                             </label>
                             <textarea
                                 rows={2}
@@ -179,7 +181,7 @@ export default function TasksIndex({ tasks, users, summary, filters }) {
                         <div className="grid grid-cols-4 gap-3">
                             <div>
                                 <label className="text-xs text-slate-600">
-                                    Type
+                                    {t("Type")}
                                 </label>
                                 <select
                                     value={data.type}
@@ -212,7 +214,7 @@ export default function TasksIndex({ tasks, users, summary, filters }) {
                             </div>
                             <div>
                                 <label className="text-xs text-slate-600">
-                                    Assigned To
+                                    {t("Assigned To")}
                                 </label>
                                 <select
                                     value={data.assigned_to}
@@ -231,7 +233,7 @@ export default function TasksIndex({ tasks, users, summary, filters }) {
                             </div>
                             <div>
                                 <label className="text-xs text-slate-600">
-                                    Priority
+                                    {t("Priority")}
                                 </label>
                                 <select
                                     value={data.priority}
@@ -256,7 +258,7 @@ export default function TasksIndex({ tasks, users, summary, filters }) {
                             </div>
                             <div>
                                 <label className="text-xs text-slate-600">
-                                    Due Date
+                                    {t("Due Date")}
                                 </label>
                                 <input
                                     type="date"
@@ -275,14 +277,14 @@ export default function TasksIndex({ tasks, users, summary, filters }) {
                             disabled={processing}
                             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                         >
-                            Create Task
+                            {t("Create Task")}
                         </button>
                         <button
                             type="button"
                             onClick={() => setShowForm(false)}
                             className="text-slate-500 text-sm"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>
                     </div>
                 </form>
@@ -320,29 +322,29 @@ export default function TasksIndex({ tasks, users, summary, filters }) {
             <div className="bg-white rounded-xl border border-slate-200">
                 {tasks.data?.length === 0 ? (
                     <div className="p-12 text-center text-slate-400">
-                        No tasks found.
+                        {t("No tasks found.")}
                     </div>
                 ) : (
                     <table className="w-full text-sm">
                         <thead>
                             <tr className="border-b border-slate-100">
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Task
+                                    {t("Task")}
                                 </th>
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Assigned
+                                    {t("Assigned")}
                                 </th>
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Priority
+                                    {t("Priority")}
                                 </th>
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Due
+                                    {t("Due")}
                                 </th>
                                 <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500">
-                                    Comments
+                                    {t("Comments")}
                                 </th>
                                 <th className="px-4 py-3"></th>
                             </tr>
@@ -383,7 +385,7 @@ export default function TasksIndex({ tasks, users, summary, filters }) {
                                             </div>
                                         ) : (
                                             <span className="text-slate-300 text-xs">
-                                                Unassigned
+                                                {t("Unassigned")}
                                             </span>
                                         )}
                                     </td>

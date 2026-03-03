@@ -7,6 +7,7 @@ import ExportButtons from "@/Components/ExportButtons";
 import { useState } from "react";
 import { fmtDate } from "@/utils/date";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColor = {
     draft: "gray",
@@ -18,6 +19,7 @@ const fmt = (v) =>
     Number(v || 0).toLocaleString("en-BD", { minimumFractionDigits: 2 });
 
 export default function DebitNoteIndex({ debitNotes, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [status, setStatus] = useState(filters?.status ?? "");
 
@@ -31,9 +33,9 @@ export default function DebitNoteIndex({ debitNotes, filters }) {
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
-            await dlgConfirm("This debit note will be permanently removed.", {
-                title: "Delete Debit Note?",
-                confirmLabel: "Delete",
+            await dlgConfirm(t("This debit note will be permanently removed."), {
+                title: t("Delete Debit Note?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -41,17 +43,17 @@ export default function DebitNoteIndex({ debitNotes, filters }) {
     };
 
     return (
-        <AppLayout title="Debit Notes">
-            <Head title="Debit Notes" />
+        <AppLayout title={t("Debit Notes")}>
+            <Head title={t("Debit Notes")} />
             <PageHeader
-                title="Debit Notes"
-                subtitle="Manage purchase returns"
+                title={t("Debit Notes")}
+                subtitle={t("Manage purchase returns")}
                 actions={
                     <Link
                         href={route("purchase.debit-notes.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Debit Note
+                        <Plus size={16} /> {t("New Debit Note")}
                     </Link>
                 }
             />
@@ -68,7 +70,7 @@ export default function DebitNoteIndex({ debitNotes, filters }) {
                             onKeyDown={(e) =>
                                 e.key === "Enter" && applyFilters()
                             }
-                            placeholder="Search debit notes..."
+                            placeholder={t("Search debit notes...")}
                             className="pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
@@ -84,11 +86,11 @@ export default function DebitNoteIndex({ debitNotes, filters }) {
                         }}
                         className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                        <option value="">All Statuses</option>
-                        <option value="draft">Draft</option>
-                        <option value="submitted">Submitted</option>
-                        <option value="approved">Approved</option>
-                        <option value="cancelled">Cancelled</option>
+                        <option value="">{t("All Statuses")}</option>
+                        <option value="draft">{t("Draft")}</option>
+                        <option value="submitted">{t("Submitted")}</option>
+                        <option value="approved">{t("Approved")}</option>
+                        <option value="cancelled">{t("Cancelled")}</option>
                     </select>
                     <ExportButtons
                         tableId="export-table"
@@ -101,22 +103,22 @@ export default function DebitNoteIndex({ debitNotes, filters }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    DN Number
+                                    {t("DN Number")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Date
+                                    {t("Date")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Vendor
+                                    {t("Vendor")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Amount
+                                    {t("Amount")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                    Actions
+                                    {t("Actions")}
                                 </th>
                             </tr>
                         </thead>
@@ -127,7 +129,7 @@ export default function DebitNoteIndex({ debitNotes, filters }) {
                                         colSpan={6}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No debit notes found.
+                                        {t("No debit notes found.")}
                                     </td>
                                 </tr>
                             )}

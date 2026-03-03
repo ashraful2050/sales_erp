@@ -19,6 +19,7 @@ import {
     Clock,
     HeadphonesIcon,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const planIcons = { starter: Zap, business: Star, enterprise: Rocket };
 const industryOptions = [
@@ -72,6 +73,7 @@ const inputCls = (error) =>
     }`;
 
 export default function ContactUs({ plans }) {
+    const { t } = useTranslation();
     const { flash } = usePage().props;
     const [submitted, setSubmitted] = useState(!!flash?.success);
 
@@ -97,7 +99,7 @@ export default function ContactUs({ plans }) {
     if (submitted || wasSuccessful) {
         return (
             <>
-                <Head title="Request Received" />
+                <Head title={t("Request Received")} />
                 <div
                     className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
                     style={{ backgroundColor: "#0a0a14" }}
@@ -146,8 +148,7 @@ export default function ContactUs({ plans }) {
                             href="/"
                             className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white px-6 py-3 rounded-xl font-semibold transition-all shadow-lg shadow-violet-500/30"
                         >
-                            <ArrowLeft size={16} />
-                            Back to Home
+                            <ArrowLeft size={16} /> {t("Back to Home")}
                         </Link>
                     </div>
                 </div>
@@ -158,7 +159,7 @@ export default function ContactUs({ plans }) {
     // ── Main form ───────────────────────────────────────────────────────────
     return (
         <>
-            <Head title="Contact Us" />
+            <Head title={t("Contact Us")} />
 
             <div
                 className="min-h-screen text-white relative overflow-hidden"
@@ -191,7 +192,7 @@ export default function ContactUs({ plans }) {
                                 <Shield size={15} className="text-white" />
                             </div>
                             <span className="font-bold text-white text-sm group-hover:text-violet-300 transition-colors">
-                                SalesERP
+                                {t("SalesERP")}
                             </span>
                         </Link>
                         <Link
@@ -201,8 +202,7 @@ export default function ContactUs({ plans }) {
                             <ArrowLeft
                                 size={14}
                                 className="group-hover:-translate-x-0.5 transition-transform"
-                            />
-                            Back to Home
+                            /> {t("Back to Home")}
                         </Link>
                     </nav>
 
@@ -211,8 +211,7 @@ export default function ContactUs({ plans }) {
                         {/* Hero */}
                         <div className="text-center mb-10 max-w-2xl w-full">
                             <div className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-medium px-3 py-1.5 rounded-full mb-5">
-                                <Sparkles size={12} />
-                                Get in Touch
+                                <Sparkles size={12} /> {t("Get in Touch")}
                             </div>
                             <h1 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent leading-tight">
                                 Request a Demo
@@ -255,7 +254,7 @@ export default function ContactUs({ plans }) {
                                                             e.target.value,
                                                         )
                                                     }
-                                                    placeholder="John Doe"
+                                                    placeholder={t("John Doe")}
                                                     className={inputCls(
                                                         errors.name,
                                                     )}
@@ -310,7 +309,7 @@ export default function ContactUs({ plans }) {
                                                             e.target.value,
                                                         )
                                                     }
-                                                    placeholder="Acme Ltd."
+                                                    placeholder={t("Acme Ltd.")}
                                                     className={inputCls(
                                                         errors.company_name,
                                                     )}
@@ -418,7 +417,7 @@ export default function ContactUs({ plans }) {
                                                     )
                                                 }
                                                 rows={4}
-                                                placeholder="Tell us about your business needs..."
+                                                placeholder={t("Tell us about your business needs...")}
                                                 className="w-full bg-slate-800/80 border border-slate-700 rounded-xl pl-10 pr-4 py-3 text-white text-sm placeholder-slate-500 outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/60 resize-none transition-all duration-150"
                                             />
                                         </div>
@@ -469,7 +468,7 @@ export default function ContactUs({ plans }) {
                                 {/* Plan selector */}
                                 <div className="bg-slate-900/70 backdrop-blur-sm border border-slate-800 rounded-3xl p-5 shadow-2xl shadow-black/40">
                                     <p className="text-violet-300 text-xs font-semibold uppercase tracking-widest mb-1">
-                                        Plan Interest
+                                        {t("Plan Interest")}
                                     </p>
                                     <p className="text-slate-500 text-xs mb-4">
                                         Select the plan you're interested in
@@ -543,7 +542,7 @@ export default function ContactUs({ plans }) {
                                 {/* Trust signals */}
                                 <div className="bg-slate-900/70 backdrop-blur-sm border border-slate-800 rounded-3xl p-5 shadow-2xl shadow-black/40 space-y-3.5">
                                     <p className="text-slate-400 text-xs font-semibold uppercase tracking-widest mb-1">
-                                        Why Choose Us
+                                        {t("Why Choose Us")}
                                     </p>
                                     {[
                                         {

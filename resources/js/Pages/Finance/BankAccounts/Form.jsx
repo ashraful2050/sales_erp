@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Field = ({ label, error, children }) => (
     <div>
@@ -18,6 +19,7 @@ const Select = ({ error, children, ...props }) => (
 );
 
 export default function BankAccountForm({ bankAccount, glAccounts }) {
+    const { t } = useTranslation();
     const isEdit = !!bankAccount;
     const { data, setData, post, put, processing, errors } = useForm({
         bank_name: bankAccount?.bank_name ?? "",
@@ -44,7 +46,7 @@ export default function BankAccountForm({ bankAccount, glAccounts }) {
             <PageHeader
                 title={isEdit ? "Edit Bank Account" : "Add Bank Account"}
                 subtitle={isEdit ? `Editing: ${bankAccount.bank_name}` : "Link a new bank account"}
-                actions={<Link href={route("finance.bank-accounts.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> Back</Link>}
+                actions={<Link href={route("finance.bank-accounts.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> {t("Back")}</Link>}
             />
             <form onSubmit={submit} className="max-w-3xl space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
@@ -70,13 +72,13 @@ export default function BankAccountForm({ bankAccount, glAccounts }) {
                         </Field>
                         <Field label="Payment Method" error={errors.payment_method}>
                             <Select value={data.payment_method} onChange={e => setData("payment_method", e.target.value)}>
-                                <option value="bank">Bank Transfer</option>
-                                <option value="cash">Cash</option>
+                                <option value="bank">{t("Bank Transfer")}</option>
+                                <option value="cash">{t("Cash")}</option>
                                 <option value="bkash">bKash</option>
-                                <option value="nagad">Nagad</option>
-                                <option value="rocket">Rocket</option>
-                                <option value="upay">Upay</option>
-                                <option value="other">Other</option>
+                                <option value="nagad">{t("Nagad")}</option>
+                                <option value="rocket">{t("Rocket")}</option>
+                                <option value="upay">{t("Upay")}</option>
+                                <option value="other">{t("Other")}</option>
                             </Select>
                         </Field>
                         <Field label="Currency" error={errors.currency_code}>
@@ -94,7 +96,7 @@ export default function BankAccountForm({ bankAccount, glAccounts }) {
                     </div>
                     <label className="flex items-center gap-2 cursor-pointer">
                         <input type="checkbox" checked={data.is_active} onChange={e => setData("is_active", e.target.checked)} className="w-4 h-4 rounded border-slate-300 text-blue-600" />
-                        <span className="text-sm text-slate-700">Active account</span>
+                        <span className="text-sm text-slate-700">{t("Active account")}</span>
                     </label>
                 </div>
                 <div className="flex justify-end gap-3 pb-8">

@@ -3,8 +3,10 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft, Plus, X, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function FaqForm({ editFaq, categories }) {
+    const { t } = useTranslation();
     const isEdit = !!editFaq;
     const [tagInput, setTagInput] = useState("");
 
@@ -42,13 +44,13 @@ export default function FaqForm({ editFaq, categories }) {
             <Head title={isEdit ? "Edit FAQ" : "New FAQ Article"} />
             <PageHeader
                 title={isEdit ? "Edit FAQ Article" : "Create FAQ Article"}
-                subtitle="Add helpful articles to your knowledge base"
+                subtitle={t("Add helpful articles to your knowledge base")}
                 actions={
                     <Link
                         href={route("faq.admin.index")}
                         className="flex items-center gap-2 text-slate-600 text-sm font-medium hover:text-slate-900"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -58,7 +60,7 @@ export default function FaqForm({ editFaq, categories }) {
                 <div className="bg-white rounded-xl border border-slate-200 p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-2">
                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                            Category
+                            {t("Category")}
                         </label>
                         <select
                             value={data.faq_category_id}
@@ -82,7 +84,7 @@ export default function FaqForm({ editFaq, categories }) {
                     </div>
                     <div>
                         <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                            Sort Order
+                            {t("Sort Order")}
                         </label>
                         <input
                             type="number"
@@ -175,7 +177,7 @@ export default function FaqForm({ editFaq, categories }) {
                                     addTag();
                                 }
                             }}
-                            placeholder="Add a tag (press Enter)"
+                            placeholder={t("Add a tag (press Enter)")}
                             maxLength={50}
                             className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
@@ -184,7 +186,7 @@ export default function FaqForm({ editFaq, categories }) {
                             onClick={addTag}
                             className="flex items-center gap-1 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg text-sm font-medium"
                         >
-                            <Plus size={14} /> Add
+                            <Plus size={14} /> {t("Add")}
                         </button>
                     </div>
                     <p className="text-xs text-slate-400 mt-1">
@@ -196,7 +198,7 @@ export default function FaqForm({ editFaq, categories }) {
                 <div className="bg-white rounded-xl border border-slate-200 p-5 flex items-center justify-between">
                     <div>
                         <p className="text-sm font-semibold text-slate-700">
-                            Publication Status
+                            {t("Publication Status")}
                         </p>
                         <p className="text-xs text-slate-400 mt-0.5">
                             {data.is_published

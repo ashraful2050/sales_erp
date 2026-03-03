@@ -3,8 +3,10 @@ import { Head, useForm, router } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { ArrowLeft, Plus, Trash2 } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function SegmentShow({ segment, allCustomers }) {
+    const { t } = useTranslation();
     const { confirm } = useDialog();
     const { data, setData, post, processing } = useForm({ customer_id: "" });
 
@@ -15,8 +17,8 @@ export default function SegmentShow({ segment, allCustomers }) {
     const remove = async (cid) => {
         if (
             await confirm("Remove this customer from the segment?", {
-                title: "Remove Customer?",
-                confirmLabel: "Remove",
+                title: t("Remove Customer?"),
+                confirmLabel: t("Remove"),
                 intent: "danger",
             })
         )
@@ -40,7 +42,7 @@ export default function SegmentShow({ segment, allCustomers }) {
                         href={route("crm.segments.index")}
                         className="flex items-center gap-2 text-sm text-slate-600"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </a>
                 }
             />
@@ -74,7 +76,7 @@ export default function SegmentShow({ segment, allCustomers }) {
                                 disabled={processing}
                                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm"
                             >
-                                Add to Segment
+                                {t("Add to Segment")}
                             </button>
                         </form>
                     </div>
@@ -98,10 +100,10 @@ export default function SegmentShow({ segment, allCustomers }) {
                             <thead className="bg-slate-50">
                                 <tr>
                                     <th className="px-4 py-2 text-left text-xs text-slate-500 uppercase">
-                                        Name
+                                        {t("Name")}
                                     </th>
                                     <th className="px-4 py-2 text-left text-xs text-slate-500 uppercase">
-                                        Email
+                                        {t("Email")}
                                     </th>
                                     {segment.type === "manual" && (
                                         <th className="px-4 py-2"></th>
@@ -115,7 +117,7 @@ export default function SegmentShow({ segment, allCustomers }) {
                                             colSpan={3}
                                             className="px-4 py-6 text-center text-slate-400"
                                         >
-                                            No members yet.
+                                            {t("No members yet.")}
                                         </td>
                                     </tr>
                                 ) : (

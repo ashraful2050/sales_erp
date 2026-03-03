@@ -9,6 +9,7 @@ import { Plus, Eye, Pencil, Trash2 } from "lucide-react";
 import ExportButtons from "@/Components/ExportButtons";
 import { fmtDate } from "@/utils/date";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const STATUS_COLOR = {
     draft: "slate",
@@ -20,6 +21,7 @@ const STATUS_COLOR = {
 };
 
 export default function PurchaseOrdersIndex({ orders, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [status, setStatus] = useState(filters?.status ?? "");
     const apply = (s, st) =>
@@ -34,8 +36,8 @@ export default function PurchaseOrdersIndex({ orders, filters }) {
             await dlgConfirm(
                 "This purchase order will be permanently removed.",
                 {
-                    title: "Delete Purchase Order?",
-                    confirmLabel: "Delete",
+                    title: t("Delete Purchase Order?"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -44,17 +46,17 @@ export default function PurchaseOrdersIndex({ orders, filters }) {
     };
 
     return (
-        <AppLayout title="Purchase Orders">
-            <Head title="Purchase Orders" />
+        <AppLayout title={t("Purchase Orders")}>
+            <Head title={t("Purchase Orders")} />
             <PageHeader
-                title="Purchase Orders"
-                subtitle={`${orders.total} total orders`}
+                title={t("Purchase Orders")}
+                subtitle={`${orders.total} ${t("total orders")}`}
                 actions={
                     <Link
                         href={route("purchase.purchase-orders.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Purchase Order
+                        <Plus size={16} /> {t("New Purchase Order")}
                     </Link>
                 }
             />
@@ -65,7 +67,7 @@ export default function PurchaseOrdersIndex({ orders, filters }) {
                         setSearch(v);
                         apply(v, status);
                     }}
-                    placeholder="Search PO number…"
+                    placeholder={t("Search PO number…")}
                 />
                 <select
                     value={status}
@@ -75,7 +77,7 @@ export default function PurchaseOrdersIndex({ orders, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Status</option>
+                    <option value="">{t("All Status")}</option>
                     {[
                         "draft",
                         "sent",
@@ -101,22 +103,22 @@ export default function PurchaseOrdersIndex({ orders, filters }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    PO #
+                                    {t("PO #")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Vendor
+                                    {t("Vendor")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Date
+                                    {t("Date")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Expected
+                                    {t("Expected")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Amount
+                                    {t("Amount")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -128,7 +130,7 @@ export default function PurchaseOrdersIndex({ orders, filters }) {
                                         colSpan={7}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No purchase orders found.
+                                        {t("No purchase orders found.")}
                                     </td>
                                 </tr>
                             )}

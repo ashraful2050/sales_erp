@@ -8,8 +8,10 @@ import SearchFilter from "@/Components/SearchFilter";
 import { Plus, Eye, Pencil, Trash2, AlertTriangle } from "lucide-react";
 import ExportButtons from "@/Components/ExportButtons";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function ProductsIndex({ products, filters, categories }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [catId, setCatId] = useState(filters?.category_id ?? "");
     const apply = (s, c) =>
@@ -21,9 +23,9 @@ export default function ProductsIndex({ products, filters, categories }) {
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
-            await dlgConfirm("This product will be permanently removed.", {
-                title: "Delete Product?",
-                confirmLabel: "Delete",
+            await dlgConfirm(t("This product will be permanently removed."), {
+                title: t("Delete Product?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -31,17 +33,17 @@ export default function ProductsIndex({ products, filters, categories }) {
     };
 
     return (
-        <AppLayout title="Products">
-            <Head title="Products" />
+        <AppLayout title={t("Products")}>
+            <Head title={t("Products")} />
             <PageHeader
-                title="Products"
-                subtitle={`${products.total} total products`}
+                title={t("Products")}
+                subtitle={`${products.total} ${t("total products")}`}
                 actions={
                     <Link
                         href={route("inventory.products.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Product
+                        <Plus size={16} /> {t("New Product")}
                     </Link>
                 }
             />
@@ -52,7 +54,7 @@ export default function ProductsIndex({ products, filters, categories }) {
                         setSearch(v);
                         apply(v, catId);
                     }}
-                    placeholder="Search name, code, barcode…"
+                    placeholder={t("Search name, code, barcode…")}
                 />
                 <select
                     value={catId}
@@ -62,7 +64,7 @@ export default function ProductsIndex({ products, filters, categories }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Categories</option>
+                    <option value="">{t("All Categories")}</option>
                     {categories?.map((cat) => (
                         <option key={cat.id} value={cat.id}>
                             {cat.name}
@@ -81,25 +83,25 @@ export default function ProductsIndex({ products, filters, categories }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Product
+                                    {t("Product")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Category
+                                    {t("Category")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Unit
+                                    {t("Unit")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Cost
+                                    {t("Cost")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Sale Price
+                                    {t("Sale Price")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Stock
+                                    {t("Stock")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -111,7 +113,7 @@ export default function ProductsIndex({ products, filters, categories }) {
                                         colSpan={8}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No products found.
+                                        {t("No products found.")}
                                     </td>
                                 </tr>
                             )}

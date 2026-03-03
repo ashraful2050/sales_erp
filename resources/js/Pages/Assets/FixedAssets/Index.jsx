@@ -9,6 +9,7 @@ import { Plus, Eye, Pencil, Trash2 } from "lucide-react";
 import ExportButtons from "@/Components/ExportButtons";
 import { fmtDate } from "@/utils/date";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const STATUS_COLOR = {
     active: "green",
@@ -23,6 +24,7 @@ const DEP_METHOD = {
 };
 
 export default function FixedAssetsIndex({ assets, filters, categories }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [catId, setCatId] = useState(filters?.category_id ?? "");
     const [status, setStatus] = useState(filters?.status ?? "");
@@ -35,9 +37,9 @@ export default function FixedAssetsIndex({ assets, filters, categories }) {
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
-            await dlgConfirm("Delete this asset? This cannot be undone.", {
-                title: "Delete Asset",
-                confirmLabel: "Delete",
+            await dlgConfirm(t("Delete this asset? This cannot be undone."), {
+                title: t("Delete Asset"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -45,17 +47,17 @@ export default function FixedAssetsIndex({ assets, filters, categories }) {
     };
 
     return (
-        <AppLayout title="Fixed Assets">
-            <Head title="Fixed Assets" />
+        <AppLayout title={t("Fixed Assets")}>
+            <Head title={t("Fixed Assets")} />
             <PageHeader
-                title="Fixed Assets"
-                subtitle={`${assets.total} total assets`}
+                title={t("Fixed Assets")}
+                subtitle={`${assets.total} ${t("total assets")}`}
                 actions={
                     <Link
                         href={route("assets.fixed-assets.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> Add Asset
+                        <Plus size={16} /> {t("Add Asset")}
                     </Link>
                 }
             />
@@ -66,7 +68,7 @@ export default function FixedAssetsIndex({ assets, filters, categories }) {
                         setSearch(v);
                         apply(v, catId, status);
                     }}
-                    placeholder="Search asset name, code…"
+                    placeholder={t("Search asset name, code…")}
                 />
                 <select
                     value={catId}
@@ -76,7 +78,7 @@ export default function FixedAssetsIndex({ assets, filters, categories }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Categories</option>
+                    <option value="">{t("All Categories")}</option>
                     {categories?.map((c) => (
                         <option key={c.id} value={c.id}>
                             {c.name}
@@ -91,10 +93,10 @@ export default function FixedAssetsIndex({ assets, filters, categories }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Status</option>
-                    <option value="active">Active</option>
-                    <option value="disposed">Disposed</option>
-                    <option value="fully_depreciated">Fully Depreciated</option>
+                    <option value="">{t("All Status")}</option>
+                    <option value="active">{t("Active")}</option>
+                    <option value="disposed">{t("Disposed")}</option>
+                    <option value="fully_depreciated">{t("Fully Depreciated")}</option>
                 </select>
                 <ExportButtons
                     tableId="export-table"
@@ -108,25 +110,25 @@ export default function FixedAssetsIndex({ assets, filters, categories }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Asset
+                                    {t("Asset")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Category
+                                    {t("Category")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Purchase Date
+                                    {t("Purchase Date")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Method
+                                    {t("Method")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Cost
+                                    {t("Cost")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Current Value
+                                    {t("Current Value")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -138,7 +140,7 @@ export default function FixedAssetsIndex({ assets, filters, categories }) {
                                         colSpan={8}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No assets found.
+                                        {t("No assets found.")}
                                     </td>
                                 </tr>
                             )}

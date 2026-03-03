@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useState, useRef } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const COLOR_MAP = {
     blue: "bg-blue-100 text-blue-700",
@@ -27,6 +28,7 @@ const COLOR_MAP = {
 };
 
 export default function FaqAdminIndex({ faqs, categories, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [catFilter, setCat] = useState(filters?.category ?? "");
     const tableRef = useRef(null);
@@ -52,7 +54,7 @@ export default function FaqAdminIndex({ faqs, categories, filters }) {
                 `Delete this FAQ article? This cannot be undone.`,
                 {
                     title: `Delete "${q}"?`,
-                    confirmLabel: "Delete",
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -61,30 +63,30 @@ export default function FaqAdminIndex({ faqs, categories, filters }) {
     };
 
     return (
-        <AppLayout title="Manage FAQs">
-            <Head title="Manage FAQs" />
+        <AppLayout title={t("Manage FAQs")}>
+            <Head title={t("Manage FAQs")} />
             <PageHeader
-                title="Manage FAQ Articles"
-                subtitle={`${faqs?.total ?? 0} total articles`}
+                title={t("Manage FAQ Articles")}
+                subtitle={`${faqs?.total ?? 0} ${t("total articles")}`}
                 actions={
                     <div className="flex items-center gap-2">
                         <Link
                             href={route("faq.categories.index")}
                             className="flex items-center gap-1.5 px-4 py-2 border border-slate-200 bg-white text-slate-600 rounded-lg text-sm font-medium hover:bg-slate-50"
                         >
-                            <FolderOpen size={15} /> Categories
+                            <FolderOpen size={15} /> {t("Categories")}
                         </Link>
                         <Link
                             href={route("faq.index")}
                             className="flex items-center gap-1.5 px-4 py-2 border border-slate-200 bg-white text-slate-600 rounded-lg text-sm font-medium hover:bg-slate-50"
                         >
-                            <Eye size={15} /> View KB
+                            <Eye size={15} /> {t("View KB")}
                         </Link>
                         <Link
                             href={route("faq.admin.create")}
                             className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                         >
-                            <Plus size={15} /> New Article
+                            <Plus size={15} /> {t("New Article")}
                         </Link>
                     </div>
                 }
@@ -103,7 +105,7 @@ export default function FaqAdminIndex({ faqs, categories, filters }) {
                     <input
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search questions…"
+                        placeholder={t("Search questions…")}
                         className="w-full pl-8 pr-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
@@ -115,7 +117,7 @@ export default function FaqAdminIndex({ faqs, categories, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Categories</option>
+                    <option value="">{t("All Categories")}</option>
                     {(categories ?? []).map((c) => (
                         <option key={c.id} value={c.id}>
                             {c.icon} {c.name}
@@ -126,7 +128,7 @@ export default function FaqAdminIndex({ faqs, categories, filters }) {
                     type="submit"
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700"
                 >
-                    Search
+                    {t("Search")}
                 </button>
                 <ExportButtons
                     tableId="faq-table"
@@ -140,25 +142,25 @@ export default function FaqAdminIndex({ faqs, categories, filters }) {
                     <thead className="bg-slate-50 border-b border-slate-200">
                         <tr>
                             <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">
-                                #
+                                {t("#")}
                             </th>
                             <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase">
-                                Question
+                                {t("Question")}
                             </th>
                             <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase">
-                                Category
+                                {t("Category")}
                             </th>
                             <th className="px-4 py-3 text-center text-xs font-semibold text-slate-500 uppercase">
-                                Status
+                                {t("Status")}
                             </th>
                             <th className="px-4 py-3 text-center text-xs font-semibold text-slate-500 uppercase">
-                                Views
+                                {t("Views")}
                             </th>
                             <th className="px-4 py-3 text-center text-xs font-semibold text-slate-500 uppercase">
-                                Helpful
+                                {t("Helpful")}
                             </th>
                             <th className="px-4 py-3 text-center text-xs font-semibold text-slate-500 uppercase">
-                                Actions
+                                {t("Actions")}
                             </th>
                         </tr>
                     </thead>
@@ -243,11 +245,11 @@ export default function FaqAdminIndex({ faqs, categories, filters }) {
                                         <td className="px-4 py-3 text-center">
                                             {faq.is_published ? (
                                                 <span className="inline-flex items-center gap-1 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">
-                                                    <Eye size={10} /> Published
+                                                    <Eye size={10} /> {t("Published")}
                                                 </span>
                                             ) : (
                                                 <span className="inline-flex items-center gap-1 text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-medium">
-                                                    <EyeOff size={10} /> Draft
+                                                    <EyeOff size={10} /> {t("Draft")}
                                                 </span>
                                             )}
                                         </td>

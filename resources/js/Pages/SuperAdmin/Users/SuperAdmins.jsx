@@ -3,13 +3,15 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
 import { Shield, ArrowLeft, Plus, X, Users } from "lucide-react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function SuperAdmins({ admins }) {
+    const { t } = useTranslation();
     const [showModal, setShowModal] = useState(false);
 
     return (
         <SuperAdminLayout title="Super Admins">
-            <Head title="Super Admins" />
+            <Head title={t("Super Admins")} />
 
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
@@ -34,7 +36,7 @@ export default function SuperAdmins({ admins }) {
                     onClick={() => setShowModal(true)}
                     className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
                 >
-                    <Plus size={15} /> Add Super Admin
+                    <Plus size={15} /> {t("Add Super Admin")}
                 </button>
             </div>
 
@@ -44,16 +46,16 @@ export default function SuperAdmins({ admins }) {
                         <thead className="bg-slate-700/50">
                             <tr>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Name
+                                    {t("Name")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Email
+                                    {t("Email")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="text-left text-slate-400 py-3 px-4 font-medium">
-                                    Joined
+                                    {t("Joined")}
                                 </th>
                             </tr>
                         </thead>
@@ -103,7 +105,7 @@ export default function SuperAdmins({ admins }) {
                                             className="mx-auto text-slate-600 mb-2"
                                         />
                                         <p className="text-slate-500">
-                                            No super admins found.
+                                            {t("No super admins found.")}
                                         </p>
                                     </td>
                                 </tr>
@@ -186,7 +188,7 @@ function CreateSuperAdminModal({ onClose }) {
                             onClick={onClose}
                             className="px-4 py-2 text-sm text-slate-300 bg-slate-700 hover:bg-slate-600 rounded-lg"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>
                         <button
                             type="submit"

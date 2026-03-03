@@ -44,7 +44,7 @@ export default function PaymentMethodForm({ paymentMethod, accounts }) {
                         href={route("accounting.payment-methods.index")}
                         className="flex items-center gap-2 text-slate-600 hover:text-slate-900 text-sm"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -88,7 +88,7 @@ export default function PaymentMethodForm({ paymentMethod, accounts }) {
                     {/* Linked Account */}
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                            Linked Account
+                            {t("Linked Account")}
                         </label>
                         <select
                             value={data.account_id}
@@ -110,7 +110,7 @@ export default function PaymentMethodForm({ paymentMethod, accounts }) {
                     {/* Notes */}
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                            Notes
+                            {t("Notes")}
                         </label>
                         <input
                             type="text"
@@ -133,7 +133,7 @@ export default function PaymentMethodForm({ paymentMethod, accounts }) {
                                 className="w-4 h-4 rounded border-slate-300 text-blue-600"
                             />
                             <span className="text-sm text-slate-700">
-                                Set as default
+                                {t("Set as default")}
                             </span>
                         </label>
                         <label className="flex items-center gap-2 cursor-pointer select-none">
@@ -146,7 +146,7 @@ export default function PaymentMethodForm({ paymentMethod, accounts }) {
                                 className="w-4 h-4 rounded border-slate-300 text-blue-600"
                             />
                             <span className="text-sm text-slate-700">
-                                Active
+                                {t("Active")}
                             </span>
                         </label>
                     </div>

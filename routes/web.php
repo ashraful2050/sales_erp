@@ -45,6 +45,7 @@ use App\Http\Controllers\Settings\RoleController;
 use App\Http\Controllers\Settings\UnitController;
 use App\Http\Controllers\Settings\AuditLogController;
 use App\Http\Controllers\Settings\LoginHistoryController;
+use App\Http\Controllers\Settings\LanguageController;
 use App\Http\Controllers\Auth\TenantRegistrationController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SuperAdmin\ContactRequestController;
@@ -156,6 +157,9 @@ Route::middleware(['auth', 'verified', 'tenant.active'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Language Switcher (any authenticated user)
+    Route::post('/language/switch', [LanguageController::class, 'switchLanguage'])->name('language.switch');
 
     // Accounting
     Route::prefix('accounting')->name('accounting.')->middleware('perm:accounting.view')->group(function () {
@@ -293,6 +297,17 @@ Route::middleware(['auth', 'verified', 'tenant.active'])->group(function () {
         Route::get('audit-logs',           [AuditLogController::class, 'index'])->name('audit-logs.index');
         Route::get('audit-logs/{auditLog}', [AuditLogController::class, 'show'])->name('audit-logs.show');
         Route::get('login-history',        [LoginHistoryController::class, 'index'])->name('login-history.index');
+
+        // Languages & Translations
+        Route::middleware('perm:settings.edit')->group(function () {
+            Route::get('languages',                                  [LanguageController::class, 'index'])->name('languages.index');
+            Route::post('languages',                                 [LanguageController::class, 'store'])->name('languages.store');
+            Route::put('languages/{language}',                       [LanguageController::class, 'update'])->name('languages.update');
+            Route::delete('languages/{language}',                    [LanguageController::class, 'destroy'])->name('languages.destroy');
+            Route::post('languages/{language}/set-default',         [LanguageController::class, 'setDefault'])->name('languages.set-default');
+            Route::get('languages/{language}/translations',          [LanguageController::class, 'editTranslations'])->name('languages.translations');
+            Route::post('languages/{language}/translations',         [LanguageController::class, 'saveTranslations'])->name('languages.translations.save');
+        });
     });
 
     // Knowledge Base / FAQ

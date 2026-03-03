@@ -5,6 +5,10 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use App\Models\ContactRequest;
+use App\Models\Language;
+use App\Models\Translation;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -92,6 +96,20 @@ class HandleInertiaRequests extends Middleware
                 'error'   => $request->session()->get('error'),
                 'warning' => $request->session()->get('warning'),
             ],
+            'locale'       => App::getLocale(),
+            'languages'    => Cache::remember('active_languages_list', 3600, fn() =>
+                Language::active()->orderBy('sort_order')->orderBy('name')
+                    ->get(['id', 'name', 'native_name', 'code', 'flag', 'is_rtl', 'is_default'])
+                    ->toArray()
+            ),
+            'translations' => Cache::remember('translations_' . App::getLocale(), 3600, function () {
+                $locale = App::getLocale();
+                $rows = Translation::where('language_code', $locale)->get();
+                if ($rows->isEmpty() && $locale !== 'en') {
+                    $rows = Translation::where('language_code', 'en')->get();
+                }
+                return $rows->mapWithKeys(fn($t) => ["{$t->group}.{$t->key}" => $t->value])->toArray();
+            }),
         ];
     }
 }

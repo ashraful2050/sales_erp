@@ -7,6 +7,7 @@ import Badge from "@/Components/Badge";
 import { CheckCircle, XCircle, Eye } from "lucide-react";
 import { Link } from "@inertiajs/react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const STATUS_COLOR = { pending: "yellow", approved: "green", rejected: "red" };
 const TYPE_LABEL = {
@@ -43,7 +44,7 @@ function RejectModal({ voucher, onClose }) {
                         setData("rejection_reason", e.target.value)
                     }
                     className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"
-                    placeholder="Rejection reason (optional)…"
+                    placeholder={t("Rejection reason (optional)…")}
                 />
                 <div className="flex justify-end gap-2 mt-4">
                     <button
@@ -51,14 +52,14 @@ function RejectModal({ voucher, onClose }) {
                         onClick={onClose}
                         className="px-4 py-2 text-sm rounded-lg border border-slate-200"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </button>
                     <button
                         type="submit"
                         disabled={processing}
                         className="px-4 py-2 text-sm rounded-lg bg-red-600 text-white hover:bg-red-700 disabled:opacity-50"
                     >
-                        Confirm Reject
+                        {t("Confirm Reject")}
                     </button>
                 </div>
             </form>
@@ -67,6 +68,7 @@ function RejectModal({ voucher, onClose }) {
 }
 
 export default function VoucherApproval({ vouchers, counts, filters }) {
+    const { t } = useTranslation();
     const [status, setStatus] = useState(filters?.status ?? "pending");
     const [type, setType] = useState(filters?.type ?? "");
     const [rejectVoucher, setRejectVoucher] = useState(null);
@@ -85,8 +87,8 @@ export default function VoucherApproval({ vouchers, counts, filters }) {
             await dlgConfirm(
                 "The voucher will be approved and posted to the journal.",
                 {
-                    title: "Approve Voucher?",
-                    confirmLabel: "Approve",
+                    title: t("Approve Voucher?"),
+                    confirmLabel: t("Approve"),
                     intent: "success",
                 },
             )
@@ -95,11 +97,11 @@ export default function VoucherApproval({ vouchers, counts, filters }) {
     };
 
     return (
-        <AppLayout title="Voucher Approval">
-            <Head title="Voucher Approval" />
+        <AppLayout title={t("Voucher Approval")}>
+            <Head title={t("Voucher Approval")} />
             <PageHeader
-                title="Voucher Approval"
-                subtitle="Review and approve pending vouchers"
+                title={t("Voucher Approval")}
+                subtitle={t("Review and approve pending vouchers")}
             />
 
             {/* Summary cards */}
@@ -147,10 +149,10 @@ export default function VoucherApproval({ vouchers, counts, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Status</option>
-                    <option value="pending">Pending</option>
-                    <option value="approved">Approved</option>
-                    <option value="rejected">Rejected</option>
+                    <option value="">{t("All Status")}</option>
+                    <option value="pending">{t("Pending")}</option>
+                    <option value="approved">{t("Approved")}</option>
+                    <option value="rejected">{t("Rejected")}</option>
                 </select>
                 <select
                     value={type}
@@ -160,7 +162,7 @@ export default function VoucherApproval({ vouchers, counts, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Types</option>
+                    <option value="">{t("All Types")}</option>
                     {Object.entries(TYPE_LABEL).map(([v, l]) => (
                         <option key={v} value={v}>
                             {l}
@@ -175,25 +177,25 @@ export default function VoucherApproval({ vouchers, counts, filters }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Voucher #
+                                    {t("Voucher #")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Type
+                                    {t("Type")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Date
+                                    {t("Date")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Amount
+                                    {t("Amount")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Narration
+                                    {t("Narration")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Submitted By
+                                    {t("Submitted By")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -205,7 +207,7 @@ export default function VoucherApproval({ vouchers, counts, filters }) {
                                         colSpan={8}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No vouchers found.
+                                        {t("No vouchers found.")}
                                     </td>
                                 </tr>
                             )}

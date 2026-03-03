@@ -4,8 +4,10 @@ import { useState } from "react";
 import PageHeader from "@/Components/PageHeader";
 import { Download } from "lucide-react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function VatReturn({ report, filters }) {
+    const { t } = useTranslation();
     const [fromDate, setFromDate] = useState(filters?.from_date ?? "");
     const [toDate, setToDate] = useState(filters?.to_date ?? "");
     const run = () =>
@@ -20,21 +22,21 @@ export default function VatReturn({ report, filters }) {
     const netVat = outputVat - inputVat;
 
     return (
-        <AppLayout title="VAT Return">
-            <Head title="VAT Return" />
+        <AppLayout title={t("VAT Return")}>
+            <Head title={t("VAT Return")} />
             <PageHeader
-                title="VAT Return"
-                subtitle="Output VAT collected vs Input VAT paid"
+                title={t("VAT Return")}
+                subtitle={t("Output VAT collected vs Input VAT paid")}
                 actions={
                     <button className="flex items-center gap-2 text-slate-600 border border-slate-200 hover:bg-slate-50 px-4 py-2 rounded-lg text-sm font-medium">
-                        <Download size={16} /> Export
+                        <Download size={16} /> {t("Export")}
                     </button>
                 }
             />
             <div className="bg-white rounded-xl border border-slate-200 mb-4 p-4 flex flex-wrap gap-3 items-end">
                 <div>
                     <label className="block text-xs font-medium text-slate-600 mb-1">
-                        From Date
+                        {t("From Date")}
                     </label>
                     <input
                         type="date"
@@ -45,7 +47,7 @@ export default function VatReturn({ report, filters }) {
                 </div>
                 <div>
                     <label className="block text-xs font-medium text-slate-600 mb-1">
-                        To Date
+                        {t("To Date")}
                     </label>
                     <input
                         type="date"
@@ -58,7 +60,7 @@ export default function VatReturn({ report, filters }) {
                     onClick={run}
                     className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                 >
-                    Generate
+                    {t("Generate")}
                 </button>
             </div>
 
@@ -68,7 +70,7 @@ export default function VatReturn({ report, filters }) {
                     <div className="grid grid-cols-3 gap-4">
                         <div className="bg-green-50 border border-green-100 rounded-xl p-4 text-center">
                             <p className="text-xs text-green-600 font-medium uppercase mb-1">
-                                Output VAT (Sales)
+                                {t("Output VAT (Sales)")}
                             </p>
                             <p className="text-2xl font-bold text-green-700 font-mono">
                                 ৳
@@ -79,7 +81,7 @@ export default function VatReturn({ report, filters }) {
                         </div>
                         <div className="bg-red-50 border border-red-100 rounded-xl p-4 text-center">
                             <p className="text-xs text-red-600 font-medium uppercase mb-1">
-                                Input VAT (Purchases)
+                                {t("Input VAT (Purchases)")}
                             </p>
                             <p className="text-2xl font-bold text-red-700 font-mono">
                                 ৳
@@ -119,19 +121,19 @@ export default function VatReturn({ report, filters }) {
                                 <thead className="bg-slate-50 border-b border-slate-100">
                                     <tr>
                                         <th className="text-left px-6 py-2 text-xs font-medium text-slate-500">
-                                            Invoice
+                                            {t("Invoice")}
                                         </th>
                                         <th className="text-left px-6 py-2 text-xs font-medium text-slate-500">
-                                            Customer
+                                            {t("Customer")}
                                         </th>
                                         <th className="text-left px-6 py-2 text-xs font-medium text-slate-500">
-                                            Date
+                                            {t("Date")}
                                         </th>
                                         <th className="text-right px-6 py-2 text-xs font-medium text-slate-500">
-                                            Taxable
+                                            {t("Taxable")}
                                         </th>
                                         <th className="text-right px-6 py-2 text-xs font-medium text-slate-500">
-                                            VAT
+                                            {t("VAT")}
                                         </th>
                                     </tr>
                                 </thead>
@@ -173,19 +175,19 @@ export default function VatReturn({ report, filters }) {
                                 <thead className="bg-slate-50 border-b border-slate-100">
                                     <tr>
                                         <th className="text-left px-6 py-2 text-xs font-medium text-slate-500">
-                                            PO / Bill
+                                            {t("PO / Bill")}
                                         </th>
                                         <th className="text-left px-6 py-2 text-xs font-medium text-slate-500">
-                                            Vendor
+                                            {t("Vendor")}
                                         </th>
                                         <th className="text-left px-6 py-2 text-xs font-medium text-slate-500">
-                                            Date
+                                            {t("Date")}
                                         </th>
                                         <th className="text-right px-6 py-2 text-xs font-medium text-slate-500">
-                                            Taxable
+                                            {t("Taxable")}
                                         </th>
                                         <th className="text-right px-6 py-2 text-xs font-medium text-slate-500">
-                                            VAT
+                                            {t("VAT")}
                                         </th>
                                     </tr>
                                 </thead>

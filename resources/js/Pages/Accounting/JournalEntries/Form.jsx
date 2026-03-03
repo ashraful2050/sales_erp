@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft, Plus, Trash2, AlertTriangle } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Select = ({ error, children, ...props }) => (
     <select {...props} className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${error ? "border-red-400" : "border-slate-200"}`}>{children}</select>
@@ -13,6 +14,7 @@ const Input = ({ error, className = "", ...props }) => (
 const emptyLine = () => ({ account_id: "", description: "", debit: "", credit: "" });
 
 export default function JournalEntryForm({ entry, accounts }) {
+    const { t } = useTranslation();
     const isEdit = !!entry;
     const { data, setData, post, put, processing, errors } = useForm({
         voucher_number: entry?.voucher_number ?? "",
@@ -49,20 +51,20 @@ export default function JournalEntryForm({ entry, accounts }) {
             <Head title={isEdit ? "Edit Journal Entry" : "New Journal Entry"} />
             <PageHeader
                 title={isEdit ? "Edit Journal Entry" : "New Journal Entry"}
-                subtitle="Double-entry bookkeeping — debits must equal credits"
-                actions={<Link href={route("accounting.journal-entries.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> Back</Link>}
+                subtitle={t("Double-entry bookkeeping — debits must equal credits")}
+                actions={<Link href={route("accounting.journal-entries.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> {t("Back")}</Link>}
             />
             <form onSubmit={submit} className="space-y-6">
                 {/* Header */}
                 <div className="bg-white rounded-xl border border-slate-200 p-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Voucher Type</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Voucher Type")}</label>
                             <Select value={data.type} onChange={e => setData("type", e.target.value)}>
-                                <option value="journal">Journal</option>
-                                <option value="payment">Payment</option>
-                                <option value="receipt">Receipt</option>
-                                <option value="contra">Contra</option>
+                                <option value="journal">{t("Journal")}</option>
+                                <option value="payment">{t("Payment")}</option>
+                                <option value="receipt">{t("Receipt")}</option>
+                                <option value="contra">{t("Contra")}</option>
                             </Select>
                         </div>
                         <div>
@@ -70,12 +72,12 @@ export default function JournalEntryForm({ entry, accounts }) {
                             <Input type="date" value={data.date} onChange={e => setData("date", e.target.value)} required />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Voucher Number</label>
-                            <Input value={data.voucher_number} onChange={e => setData("voucher_number", e.target.value)} placeholder="Auto-generated" />
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Voucher Number")}</label>
+                            <Input value={data.voucher_number} onChange={e => setData("voucher_number", e.target.value)} placeholder={t("Auto-generated")} />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Reference</label>
-                            <Input value={data.reference} onChange={e => setData("reference", e.target.value)} placeholder="Invoice/PO number…" />
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Reference")}</label>
+                            <Input value={data.reference} onChange={e => setData("reference", e.target.value)} placeholder={t("Invoice/PO number…")} />
                         </div>
                     </div>
                     <div className="mt-4">
@@ -91,15 +93,15 @@ export default function JournalEntryForm({ entry, accounts }) {
                     <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
                         <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">Journal Lines</h3>
                         <button type="button" onClick={addLine} className="flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm font-medium">
-                            <Plus size={15} /> Add Line
+                            <Plus size={15} /> {t("Add Line")}
                         </button>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead className="bg-slate-50">
                                 <tr>
-                                    <th className="text-left px-4 py-2 text-xs font-medium text-slate-500">Account</th>
-                                    <th className="text-left px-4 py-2 text-xs font-medium text-slate-500">Description</th>
+                                    <th className="text-left px-4 py-2 text-xs font-medium text-slate-500">{t("Account")}</th>
+                                    <th className="text-left px-4 py-2 text-xs font-medium text-slate-500">{t("Description")}</th>
                                     <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-36">Debit (Dr)</th>
                                     <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-36">Credit (Cr)</th>
                                     <th className="w-8 px-2"></th>
@@ -115,7 +117,7 @@ export default function JournalEntryForm({ entry, accounts }) {
                                             </Select>
                                         </td>
                                         <td className="px-4 py-2">
-                                            <Input value={line.description} onChange={e => updateLine(idx, "description", e.target.value)} placeholder="Narration…" />
+                                            <Input value={line.description} onChange={e => updateLine(idx, "description", e.target.value)} placeholder={t("Narration…")} />
                                         </td>
                                         <td className="px-4 py-2">
                                             <Input type="number" step="0.01" min="0" value={line.debit}

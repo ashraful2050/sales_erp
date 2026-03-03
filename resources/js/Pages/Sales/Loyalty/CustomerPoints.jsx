@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Star, Award } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const tierColors = {
     standard: "slate",
@@ -17,6 +18,7 @@ export default function CustomerPoints({
     tier,
     history,
 }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, reset } = useForm({
         points: "",
         type: "adjusted",
@@ -32,8 +34,8 @@ export default function CustomerPoints({
     };
 
     return (
-        <AppLayout title="Loyalty Points">
-            <Head title="Loyalty Points" />
+        <AppLayout title={t("Loyalty Points")}>
+            <Head title={t("Loyalty Points")} />
             <PageHeader title={`${customer.name} – Loyalty Points`} />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -82,7 +84,7 @@ export default function CustomerPoints({
                         <form onSubmit={submit} className="space-y-3">
                             <div>
                                 <label className="text-xs text-slate-600">
-                                    Points (negative to deduct)
+                                    {t("Points (negative to deduct)")}
                                 </label>
                                 <input
                                     type="number"
@@ -95,7 +97,7 @@ export default function CustomerPoints({
                             </div>
                             <div>
                                 <label className="text-xs text-slate-600">
-                                    Notes
+                                    {t("Notes")}
                                 </label>
                                 <input
                                     type="text"
@@ -111,7 +113,7 @@ export default function CustomerPoints({
                                 disabled={processing}
                                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm"
                             >
-                                Apply Adjustment
+                                {t("Apply Adjustment")}
                             </button>
                         </form>
                     </div>
@@ -151,7 +153,7 @@ export default function CustomerPoints({
                                             colSpan={5}
                                             className="px-4 py-6 text-center text-slate-400"
                                         >
-                                            No history.
+                                            {t("No history.")}
                                         </td>
                                     </tr>
                                 ) : (

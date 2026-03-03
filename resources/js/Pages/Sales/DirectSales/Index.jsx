@@ -3,6 +3,7 @@ import { Head, Link, router } from "@inertiajs/react";
 import { useState } from "react";
 import PageHeader from "@/Components/PageHeader";
 import { Plus, Search, Eye, Trash2, ShoppingCart } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const fmt = (n) =>
     new Intl.NumberFormat("en-US", { minimumFractionDigits: 2 }).format(n ?? 0);
@@ -16,6 +17,7 @@ const fmtDate = (d) =>
         : "—";
 
 export default function DirectSalesIndex({ sales, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [dateFrom, setDateFrom] = useState(filters?.date_from ?? "");
     const [dateTo, setDateTo] = useState(filters?.date_to ?? "");
@@ -36,17 +38,17 @@ export default function DirectSalesIndex({ sales, filters }) {
     };
 
     return (
-        <AppLayout title="Direct Sales">
-            <Head title="Direct Sales" />
+        <AppLayout title={t("Direct Sales")}>
+            <Head title={t("Direct Sales")} />
             <PageHeader
-                title="Direct Sales"
-                subtitle="Cash / immediate sales — invoice + payment in one step"
+                title={t("Direct Sales")}
+                subtitle={t("Cash / immediate sales — invoice + payment in one step")}
                 actions={
                     <Link
                         href={route("sales.direct-sales.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                     >
-                        <Plus size={16} /> New Direct Sale
+                        <Plus size={16} /> {t("New Direct Sale")}
                     </Link>
                 }
             />
@@ -61,7 +63,7 @@ export default function DirectSalesIndex({ sales, filters }) {
                     <input
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search DS# or customer..."
+                        placeholder={t("Search DS# or customer...")}
                         className="pl-9 pr-4 py-2 border border-slate-200 rounded-lg text-sm w-56 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
@@ -81,7 +83,7 @@ export default function DirectSalesIndex({ sales, filters }) {
                     type="submit"
                     className="px-4 py-2 bg-slate-700 text-white rounded-lg text-sm hover:bg-slate-800 transition-colors"
                 >
-                    Filter
+                    {t("Filter")}
                 </button>
             </form>
 
@@ -91,19 +93,19 @@ export default function DirectSalesIndex({ sales, filters }) {
                     <thead className="bg-slate-50 border-b border-slate-200">
                         <tr>
                             <th className="text-left py-3 px-4 font-semibold text-slate-600">
-                                Ref #
+                                {t("Ref #")}
                             </th>
                             <th className="text-left py-3 px-4 font-semibold text-slate-600">
-                                Customer
+                                {t("Customer")}
                             </th>
                             <th className="text-left py-3 px-4 font-semibold text-slate-600">
-                                Date
+                                {t("Date")}
                             </th>
                             <th className="text-right py-3 px-4 font-semibold text-slate-600">
-                                Amount
+                                {t("Amount")}
                             </th>
                             <th className="text-center py-3 px-4 font-semibold text-slate-600">
-                                Status
+                                {t("Status")}
                             </th>
                             <th className="py-3 px-4"></th>
                         </tr>
@@ -119,7 +121,7 @@ export default function DirectSalesIndex({ sales, filters }) {
                                         size={32}
                                         className="mx-auto mb-2 opacity-30"
                                     />
-                                    No direct sales yet.
+                                    {t("No direct sales yet.")}
                                 </td>
                             </tr>
                         )}
@@ -131,7 +133,7 @@ export default function DirectSalesIndex({ sales, filters }) {
                                 <td className="py-3 px-4 text-slate-700">
                                     {s.customer?.name ?? (
                                         <span className="text-slate-400 italic">
-                                            Walk-in
+                                            {t("Walk-in")}
                                         </span>
                                     )}
                                 </td>
@@ -143,7 +145,7 @@ export default function DirectSalesIndex({ sales, filters }) {
                                 </td>
                                 <td className="py-3 px-4 text-center">
                                     <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
-                                        Paid
+                                        {t("Paid")}
                                     </span>
                                 </td>
                                 <td className="py-3 px-4">

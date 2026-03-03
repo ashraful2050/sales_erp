@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Field = ({ label, error, children }) => (
     <div>
@@ -18,6 +19,7 @@ const Select = ({ error, children, ...props }) => (
 );
 
 export default function AccountForm({ account, groups }) {
+    const { t } = useTranslation();
     const isEdit = !!account;
     const { data, setData, post, put, processing, errors } = useForm({
         code: account?.code ?? "",
@@ -42,7 +44,7 @@ export default function AccountForm({ account, groups }) {
             <PageHeader
                 title={isEdit ? "Edit Account" : "New Account"}
                 subtitle={isEdit ? `Editing: ${account.name}` : "Add a new chart of accounts entry"}
-                actions={<Link href={route("accounting.accounts.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> Back</Link>}
+                actions={<Link href={route("accounting.accounts.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> {t("Back")}</Link>}
             />
             <form onSubmit={submit} className="max-w-3xl space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
@@ -53,11 +55,11 @@ export default function AccountForm({ account, groups }) {
                         </Field>
                         <Field label="Account Type *" error={errors.type}>
                             <Select value={data.type} onChange={e => setData("type", e.target.value)}>
-                                <option value="asset">Asset</option>
-                                <option value="liability">Liability</option>
-                                <option value="equity">Equity</option>
-                                <option value="revenue">Revenue</option>
-                                <option value="expense">Expense</option>
+                                <option value="asset">{t("Asset")}</option>
+                                <option value="liability">{t("Liability")}</option>
+                                <option value="equity">{t("Equity")}</option>
+                                <option value="revenue">{t("Revenue")}</option>
+                                <option value="expense">{t("Expense")}</option>
                             </Select>
                         </Field>
                         <Field label="Account Name *" error={errors.name}>
@@ -94,7 +96,7 @@ export default function AccountForm({ account, groups }) {
                     </div>
                     <label className="flex items-center gap-2 cursor-pointer">
                         <input type="checkbox" checked={data.is_active} onChange={e => setData("is_active", e.target.checked)} className="w-4 h-4 rounded border-slate-300 text-blue-600" />
-                        <span className="text-sm text-slate-700">Active account</span>
+                        <span className="text-sm text-slate-700">{t("Active account")}</span>
                     </label>
                 </div>
 

@@ -3,6 +3,9 @@ import { Link, usePage } from "@inertiajs/react";
 import SubscriptionBanner from "@/Components/SubscriptionBanner";
 import AppLayoutLight from "./AppLayoutLight";
 import AppLayoutTally from "./AppLayoutTally";
+import LanguageSwitcher from "@/Components/LanguageSwitcher";
+import { getNav } from "./navConfig";
+import { useTranslation } from "@/hooks/useTranslation";
 import {
     LayoutDashboard,
     BookOpen,
@@ -739,6 +742,9 @@ function AppLayoutDark({ children, title }) {
     const [collapsed, setCollapsed] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const [flashMsg, setFlashMsg] = useState(null);
+    const { t } = useTranslation();
+    // eslint-disable-next-line no-shadow
+    const nav = getNav(t);
 
     // Show flash messages (success / error / warning) and auto-dismiss after 4 s
     useEffect(() => {
@@ -879,11 +885,12 @@ function AppLayoutDark({ children, title }) {
                         </button>
                         {title && (
                             <h1 className="text-lg font-semibold text-slate-700 hidden sm:block">
-                                {title}
+                                {t(title, { default: title })}
                             </h1>
                         )}
                     </div>
                     <div className="flex items-center gap-3">
+                        <LanguageSwitcher />
                         <button className="relative text-slate-500 hover:text-slate-700 p-1.5 rounded-lg hover:bg-slate-100">
                             <Bell size={20} />
                         </button>
@@ -906,15 +913,20 @@ function AppLayoutDark({ children, title }) {
                                         href="/profile"
                                         className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                                     >
-                                        <User size={14} /> Profile
+                                        <User size={14} />{" "}
+                                        {t("nav.profile", {
+                                            default: "Profile",
+                                        })}
                                     </Link>
                                     {isSuperAdmin && (
                                         <Link
                                             href={route("superadmin.dashboard")}
                                             className="flex items-center gap-2 px-4 py-2 text-sm text-violet-700 hover:bg-violet-50"
                                         >
-                                            <Shield size={14} /> Super Admin
-                                            Panel
+                                            <Shield size={14} />{" "}
+                                            {t("nav.super_admin_panel", {
+                                                default: "Super Admin Panel",
+                                            })}
                                         </Link>
                                     )}
                                     <hr className="my-1 border-slate-100" />
@@ -924,7 +936,10 @@ function AppLayoutDark({ children, title }) {
                                         as="button"
                                         className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                                     >
-                                        <LogOut size={14} /> Log out
+                                        <LogOut size={14} />{" "}
+                                        {t("nav.logout", {
+                                            default: "Log out",
+                                        })}
                                     </Link>
                                 </div>
                             )}

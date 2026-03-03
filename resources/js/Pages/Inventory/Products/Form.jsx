@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Field = ({ label, error, children }) => (
     <div>
@@ -34,6 +35,7 @@ export default function ProductForm({
     taxRates,
     units,
 }) {
+    const { t } = useTranslation();
     const isEdit = !!product;
     const { data, setData, post, put, processing, errors } = useForm({
         name: product?.name ?? "",
@@ -75,7 +77,7 @@ export default function ProductForm({
                         href={route("inventory.products.index")}
                         className="flex items-center gap-2 text-slate-600 text-sm font-medium"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -113,9 +115,9 @@ export default function ProductForm({
                                 }
                                 required
                             >
-                                <option value="product">Product</option>
-                                <option value="service">Service</option>
-                                <option value="combo">Combo</option>
+                                <option value="product">{t("Product")}</option>
+                                <option value="service">{t("Service")}</option>
+                                <option value="combo">{t("Combo")}</option>
                             </Select>
                         </Field>
                         <Field label="Category" error={errors.category_id}>
@@ -139,7 +141,7 @@ export default function ProductForm({
                                 onChange={(e) =>
                                     setData("code", e.target.value)
                                 }
-                                placeholder="Auto-generate if blank"
+                                placeholder={t("Auto-generate if blank")}
                             />
                         </Field>
                         <Field label="Barcode" error={errors.barcode}>
@@ -214,7 +216,7 @@ export default function ProductForm({
                                     setData("tax_rate_id", e.target.value)
                                 }
                             >
-                                <option value="">No Tax</option>
+                                <option value="">{t("No Tax")}</option>
                                 {taxRates?.map((t) => (
                                     <option key={t.id} value={t.id}>
                                         {t.name} ({t.rate}%)
@@ -296,7 +298,7 @@ export default function ProductForm({
                             className="w-4 h-4 rounded border-slate-300 text-blue-600"
                         />
                         <span className="text-sm text-slate-700">
-                            Active product
+                            {t("Active product")}
                         </span>
                     </label>
                 </div>

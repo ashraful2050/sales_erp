@@ -6,6 +6,7 @@ import Badge from "@/Components/Badge";
 import { Plus, RefreshCw, Trash2, Globe } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const typeColors = {
     ecommerce: "blue",
@@ -18,6 +19,7 @@ const typeColors = {
 };
 
 export default function ChannelsIndex({ channels }) {
+    const { t } = useTranslation();
     const { confirm } = useDialog();
     const [showForm, setShowForm] = useState(false);
     const { data, setData, post, processing, reset, errors } = useForm({
@@ -42,8 +44,8 @@ export default function ChannelsIndex({ channels }) {
     const del = async (id) => {
         if (
             await confirm("Remove this sales channel?", {
-                title: "Remove Channel?",
-                confirmLabel: "Remove",
+                title: t("Remove Channel?"),
+                confirmLabel: t("Remove"),
                 intent: "danger",
             })
         )
@@ -51,17 +53,17 @@ export default function ChannelsIndex({ channels }) {
     };
 
     return (
-        <AppLayout title="Sales Channels">
-            <Head title="Sales Channels" />
+        <AppLayout title={t("Sales Channels")}>
+            <Head title={t("Sales Channels")} />
             <PageHeader
-                title="Sales Channels"
-                subtitle="Omnichannel sales integration"
+                title={t("Sales Channels")}
+                subtitle={t("Omnichannel sales integration")}
                 actions={
                     <button
                         onClick={() => setShowForm(!showForm)}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                     >
-                        <Plus size={15} /> Add Channel
+                        <Plus size={15} /> {t("Add Channel")}
                     </button>
                 }
             />
@@ -89,7 +91,7 @@ export default function ChannelsIndex({ channels }) {
                         </div>
                         <div>
                             <label className="text-xs text-slate-600">
-                                Type
+                                {t("Type")}
                             </label>
                             <select
                                 value={data.type}
@@ -119,7 +121,7 @@ export default function ChannelsIndex({ channels }) {
                         </div>
                         <div>
                             <label className="text-xs text-slate-600">
-                                Platform
+                                {t("Platform")}
                             </label>
                             <input
                                 placeholder="e.g. Shopify, WooCommerce"
@@ -132,7 +134,7 @@ export default function ChannelsIndex({ channels }) {
                         </div>
                         <div>
                             <label className="text-xs text-slate-600">
-                                Webhook URL
+                                {t("Webhook URL")}
                             </label>
                             <input
                                 type="url"
@@ -145,7 +147,7 @@ export default function ChannelsIndex({ channels }) {
                         </div>
                         <div>
                             <label className="text-xs text-slate-600">
-                                API Key
+                                {t("API Key")}
                             </label>
                             <input
                                 type="password"
@@ -158,7 +160,7 @@ export default function ChannelsIndex({ channels }) {
                         </div>
                         <div>
                             <label className="text-xs text-slate-600">
-                                API Secret
+                                {t("API Secret")}
                             </label>
                             <input
                                 type="password"
@@ -180,7 +182,7 @@ export default function ChannelsIndex({ channels }) {
                             className="rounded"
                         />
                         <span className="text-sm text-slate-700">
-                            Enable Auto Sync
+                            {t("Enable Auto Sync")}
                         </span>
                     </div>
                     <div className="flex gap-3 mt-4">
@@ -189,14 +191,14 @@ export default function ChannelsIndex({ channels }) {
                             disabled={processing}
                             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                         >
-                            Add Channel
+                            {t("Add Channel")}
                         </button>
                         <button
                             type="button"
                             onClick={() => setShowForm(false)}
                             className="text-slate-500 text-sm"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>
                     </div>
                 </form>
@@ -209,7 +211,7 @@ export default function ChannelsIndex({ channels }) {
                             size={32}
                             className="mx-auto mb-2 text-slate-300"
                         />
-                        No channels added yet.
+                        {t("No channels added yet.")}
                     </div>
                 ) : (
                     channels.data?.map((ch) => (
@@ -274,7 +276,7 @@ export default function ChannelsIndex({ channels }) {
                                     }
                                     className="flex-1 flex items-center justify-center gap-1 border border-slate-200 hover:bg-slate-50 text-slate-600 py-1.5 rounded text-xs"
                                 >
-                                    <RefreshCw size={12} /> Sync
+                                    <RefreshCw size={12} /> {t("Sync")}
                                 </button>
                                 <button
                                     onClick={() => del(ch.id)}

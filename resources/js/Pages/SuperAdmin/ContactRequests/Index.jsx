@@ -16,6 +16,7 @@ import {
     RefreshCw,
 } from "lucide-react";
 import { fmtDate, fmtDateTime } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColors = {
     pending: "bg-amber-500/10 text-amber-400 border border-amber-500/20",
@@ -148,7 +149,7 @@ function ApproveModal({ contact, plans, onClose }) {
                                             e.target.value,
                                         )
                                     }
-                                    placeholder="Auto-generated if empty"
+                                    placeholder={t("Auto-generated if empty")}
                                     className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-white text-sm font-mono placeholder-slate-500 focus:outline-none focus:border-violet-500"
                                 />
                             </div>
@@ -176,7 +177,7 @@ function ApproveModal({ contact, plans, onClose }) {
                     {/* Notes */}
                     <div>
                         <label className="block text-slate-400 text-sm mb-1.5">
-                            Internal Notes (optional)
+                            {t("Internal Notes (optional)")}
                         </label>
                         <textarea
                             value={data.admin_notes}
@@ -184,7 +185,7 @@ function ApproveModal({ contact, plans, onClose }) {
                                 setData("admin_notes", e.target.value)
                             }
                             rows={3}
-                            placeholder="Any notes about this approval..."
+                            placeholder={t("Any notes about this approval...")}
                             className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-violet-500 resize-none"
                         />
                     </div>
@@ -202,7 +203,7 @@ function ApproveModal({ contact, plans, onClose }) {
                             onClick={onClose}
                             className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-xl text-sm font-medium transition-colors"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>
                         <button
                             type="submit"
@@ -286,7 +287,7 @@ function RejectModal({ contact, onClose }) {
                                 setData("admin_notes", e.target.value)
                             }
                             rows={4}
-                            placeholder="Enter the reason for rejection..."
+                            placeholder={t("Enter the reason for rejection...")}
                             autoFocus
                             className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-red-500 resize-none"
                         />
@@ -303,7 +304,7 @@ function RejectModal({ contact, onClose }) {
                             onClick={onClose}
                             className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-xl text-sm font-medium transition-colors"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>
                         <button
                             type="submit"
@@ -425,7 +426,7 @@ function DetailDrawer({ contact, plans, onClose, onApprove, onReject }) {
                     {contact.message && (
                         <div>
                             <p className="text-slate-500 text-xs mb-2">
-                                Message
+                                {t("Message")}
                             </p>
                             <div className="bg-slate-800/50 rounded-xl px-4 py-3 text-slate-300 text-sm leading-relaxed">
                                 {contact.message}
@@ -437,7 +438,7 @@ function DetailDrawer({ contact, plans, onClose, onApprove, onReject }) {
                     {contact.admin_notes && (
                         <div>
                             <p className="text-slate-500 text-xs mb-2">
-                                Admin Notes
+                                {t("Admin Notes")}
                             </p>
                             <div className="bg-slate-800/50 rounded-xl px-4 py-3 text-slate-300 text-sm leading-relaxed">
                                 {contact.admin_notes}
@@ -449,7 +450,7 @@ function DetailDrawer({ contact, plans, onClose, onApprove, onReject }) {
                     {contact.status === "approved" && contact.approved_at && (
                         <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4">
                             <p className="text-green-400 text-xs font-medium mb-1">
-                                Approved
+                                {t("Approved")}
                             </p>
                             <p className="text-slate-400 text-xs">
                                 {fmtDateTime(contact.approved_at)}
@@ -464,7 +465,7 @@ function DetailDrawer({ contact, plans, onClose, onApprove, onReject }) {
                     {contact.status === "rejected" && contact.rejected_at && (
                         <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
                             <p className="text-red-400 text-xs font-medium mb-1">
-                                Rejected
+                                {t("Rejected")}
                             </p>
                             <p className="text-slate-400 text-xs">
                                 {fmtDateTime(contact.rejected_at)}
@@ -479,15 +480,13 @@ function DetailDrawer({ contact, plans, onClose, onApprove, onReject }) {
                                 onClick={() => onReject(contact)}
                                 className="flex-1 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 py-2.5 rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-colors"
                             >
-                                <XCircle size={14} />
-                                Reject
+                                <XCircle size={14} /> {t("Reject")}
                             </button>
                             <button
                                 onClick={() => onApprove(contact)}
                                 className="flex-1 bg-green-600 hover:bg-green-500 text-white py-2.5 rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-colors"
                             >
-                                <CheckCircle size={14} />
-                                Approve
+                                <CheckCircle size={14} /> {t("Approve")}
                             </button>
                         </div>
                     )}
@@ -504,6 +503,7 @@ export default function ContactRequestsIndex({
     filters,
     plans,
 }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters.search || "");
     const [statusFilter, setStatusFilter] = useState(filters.status || "");
     const [selectedContact, setSelectedContact] = useState(null);
@@ -578,7 +578,7 @@ export default function ContactRequestsIndex({
                             Contact Requests
                         </h1>
                         <p className="text-slate-400 text-sm mt-1">
-                            Manage incoming demo and subscription requests
+                            {t("Manage incoming demo and subscription requests")}
                         </p>
                     </div>
                     {counts.pending > 0 && (
@@ -667,7 +667,7 @@ export default function ContactRequestsIndex({
                                 type="search"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                placeholder="Search name, email, company..."
+                                placeholder={t("Search name, email, company...")}
                                 className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-8 pr-4 py-2 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-violet-500"
                             />
                         </div>
@@ -675,7 +675,7 @@ export default function ContactRequestsIndex({
                             type="submit"
                             className="bg-violet-600 hover:bg-violet-500 text-white px-4 rounded-xl text-sm transition-colors"
                         >
-                            Search
+                            {t("Search")}
                         </button>
                     </form>
                 </div>
@@ -689,7 +689,7 @@ export default function ContactRequestsIndex({
                                 className="text-slate-700 mx-auto mb-3"
                             />
                             <p className="text-slate-500">
-                                No contact requests found.
+                                {t("No contact requests found.")}
                             </p>
                         </div>
                     ) : (
@@ -698,25 +698,25 @@ export default function ContactRequestsIndex({
                                 <thead>
                                     <tr className="border-b border-slate-800 text-left">
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide">
-                                            Contact
+                                            {t("Contact")}
                                         </th>
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide">
-                                            Company
+                                            {t("Company")}
                                         </th>
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide hidden md:table-cell">
-                                            Industry
+                                            {t("Industry")}
                                         </th>
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide hidden lg:table-cell">
-                                            Plan Interest
+                                            {t("Plan Interest")}
                                         </th>
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide">
-                                            Status
+                                            {t("Status")}
                                         </th>
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide hidden sm:table-cell">
-                                            Date
+                                            {t("Date")}
                                         </th>
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide">
-                                            Actions
+                                            {t("Actions")}
                                         </th>
                                     </tr>
                                 </thead>
@@ -867,7 +867,7 @@ export default function ContactRequestsIndex({
                                     }
                                     className="flex items-center gap-1 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-lg text-sm transition-colors"
                                 >
-                                    <ChevronLeft size={14} /> Prev
+                                    <ChevronLeft size={14} /> {t("Prev")}
                                 </button>
                             )}
                             {contacts.next_page_url && (

@@ -5,6 +5,7 @@ import Pagination from "@/Components/Pagination";
 import Badge from "@/Components/Badge";
 import { Plus, Pencil, Trash2, CheckCircle } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const typeColors = {
     percentage: "green",
@@ -18,12 +19,13 @@ const statusColors = {
 };
 
 export default function DiscountsIndex({ rules }) {
+    const { t } = useTranslation();
     const { confirm } = useDialog();
     const del = async (id) => {
         if (
             await confirm("Delete this discount rule?", {
-                title: "Delete?",
-                confirmLabel: "Delete",
+                title: t("Delete?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -31,17 +33,17 @@ export default function DiscountsIndex({ rules }) {
     };
 
     return (
-        <AppLayout title="Discount Rules">
-            <Head title="Discount Rules" />
+        <AppLayout title={t("Discount Rules")}>
+            <Head title={t("Discount Rules")} />
             <PageHeader
-                title="Discount Rules"
-                subtitle="Manage coupons and discount structures"
+                title={t("Discount Rules")}
+                subtitle={t("Manage coupons and discount structures")}
                 actions={
                     <Link
                         href={route("sales.discount-rules.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
                     >
-                        <Plus size={15} /> New Discount
+                        <Plus size={15} /> {t("New Discount")}
                     </Link>
                 }
             />
@@ -77,7 +79,7 @@ export default function DiscountsIndex({ rules }) {
                                     colSpan={9}
                                     className="px-4 py-8 text-center text-slate-400"
                                 >
-                                    No discount rules yet.
+                                    {t("No discount rules yet.")}
                                 </td>
                             </tr>
                         ) : (

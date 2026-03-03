@@ -26,7 +26,7 @@ export default function Show({ asset }) {
                                 href={route("assets.fixed-assets.index")}
                                 className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm"
                             >
-                                <ArrowLeft className="w-4 h-4" /> Back
+                                <ArrowLeft className="w-4 h-4" /> {t("Back")}
                             </Link>
                             <Link
                                 href={route(
@@ -35,7 +35,7 @@ export default function Show({ asset }) {
                                 )}
                                 className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm"
                             >
-                                <Edit className="w-4 h-4" /> Edit
+                                <Edit className="w-4 h-4" /> {t("Edit")}
                             </Link>
                         </div>
                     }
@@ -45,7 +45,7 @@ export default function Show({ asset }) {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-blue-50 text-blue-700 rounded-xl p-4">
                         <p className="text-xs font-medium uppercase tracking-wide opacity-70">
-                            Purchase Cost
+                            {t("Purchase Cost")}
                         </p>
                         <p className="text-2xl font-bold mt-1">
                             ৳{Number(asset.purchase_cost ?? 0).toLocaleString()}
@@ -53,7 +53,7 @@ export default function Show({ asset }) {
                     </div>
                     <div className="bg-red-50 text-red-700 rounded-xl p-4">
                         <p className="text-xs font-medium uppercase tracking-wide opacity-70">
-                            Accumulated Depreciation
+                            {t("Accumulated Depreciation")}
                         </p>
                         <p className="text-2xl font-bold mt-1">
                             ৳{totalDepreciation.toLocaleString()}
@@ -61,7 +61,7 @@ export default function Show({ asset }) {
                     </div>
                     <div className="bg-green-50 text-green-700 rounded-xl p-4">
                         <p className="text-xs font-medium uppercase tracking-wide opacity-70">
-                            Book Value
+                            {t("Book Value")}
                         </p>
                         <p className="text-2xl font-bold mt-1">
                             ৳{bookValue.toLocaleString()}

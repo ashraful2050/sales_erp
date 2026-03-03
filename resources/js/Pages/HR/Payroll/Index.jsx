@@ -8,16 +8,18 @@ import SearchFilter from "@/Components/SearchFilter";
 import { Plus, Eye, Pencil, Trash2 } from "lucide-react";
 import { fmtDate } from "@/utils/date";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function PayrollIndex({ periods }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
             await dlgConfirm(
                 "Delete this payroll period? This cannot be undone.",
                 {
-                    title: "Delete Payroll Period",
-                    confirmLabel: "Delete",
+                    title: t("Delete Payroll Period"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -33,17 +35,17 @@ export default function PayrollIndex({ periods }) {
     };
 
     return (
-        <AppLayout title="Payroll">
-            <Head title="Payroll" />
+        <AppLayout title={t("Payroll")}>
+            <Head title={t("Payroll")} />
             <PageHeader
-                title="Payroll"
-                subtitle="Manage payroll periods"
+                title={t("Payroll")}
+                subtitle={t("Manage payroll periods")}
                 actions={
                     <Link
                         href={route("hr.payroll.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Payroll Period
+                        <Plus size={16} /> {t("New Payroll Period")}
                     </Link>
                 }
             />
@@ -53,25 +55,25 @@ export default function PayrollIndex({ periods }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Period
+                                    {t("Period")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Start Date
+                                    {t("Start Date")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    End Date
+                                    {t("End Date")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Payment Date
+                                    {t("Payment Date")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Employees
+                                    {t("Employees")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Total Net
+                                    {t("Total Net")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -83,7 +85,7 @@ export default function PayrollIndex({ periods }) {
                                         colSpan={8}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No payroll periods found.
+                                        {t("No payroll periods found.")}
                                     </td>
                                 </tr>
                             )}

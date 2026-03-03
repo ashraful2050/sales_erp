@@ -13,6 +13,7 @@ import {
     CheckCircle2,
 } from "lucide-react";
 import { fmtDateTime } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const mailableLabels = {
     "App\\Mail\\TenantApproved": "Tenant Approved",
@@ -41,6 +42,7 @@ function RecipientList({ to }) {
 }
 
 export default function EmailLogsIndex({ logs, counts, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters.search || "");
     const [statusFilter, setStatus] = useState(filters.status || "");
 
@@ -78,15 +80,14 @@ export default function EmailLogsIndex({ logs, counts, filters }) {
                             Email Logs
                         </h1>
                         <p className="text-slate-400 text-sm mt-1">
-                            History of all outgoing emails from the system
+                            {t("History of all outgoing emails from the system")}
                         </p>
                     </div>
                     <button
                         onClick={() => router.reload()}
                         className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-3 py-2 rounded-xl text-sm transition-colors"
                     >
-                        <RefreshCw size={14} />
-                        Refresh
+                        <RefreshCw size={14} /> {t("Refresh")}
                     </button>
                 </div>
 
@@ -172,7 +173,7 @@ export default function EmailLogsIndex({ logs, counts, filters }) {
                                 type="search"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                placeholder="Search subject, email..."
+                                placeholder={t("Search subject, email...")}
                                 className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-8 pr-4 py-2 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-violet-500"
                             />
                         </div>
@@ -180,7 +181,7 @@ export default function EmailLogsIndex({ logs, counts, filters }) {
                             type="submit"
                             className="bg-violet-600 hover:bg-violet-500 text-white px-4 rounded-xl text-sm transition-colors"
                         >
-                            Search
+                            {t("Search")}
                         </button>
                     </form>
                 </div>
@@ -194,7 +195,7 @@ export default function EmailLogsIndex({ logs, counts, filters }) {
                                 className="text-slate-700 mx-auto mb-3"
                             />
                             <p className="text-slate-500">
-                                No email logs found.
+                                {t("No email logs found.")}
                             </p>
                         </div>
                     ) : (
@@ -203,22 +204,22 @@ export default function EmailLogsIndex({ logs, counts, filters }) {
                                 <thead>
                                     <tr className="border-b border-slate-800 text-left">
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide">
-                                            Type
+                                            {t("Type")}
                                         </th>
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide">
-                                            Subject
+                                            {t("Subject")}
                                         </th>
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide">
-                                            Recipient(s)
+                                            {t("Recipient(s)")}
                                         </th>
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide">
-                                            Status
+                                            {t("Status")}
                                         </th>
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide">
-                                            Sent At
+                                            {t("Sent At")}
                                         </th>
                                         <th className="px-4 py-3 text-slate-500 text-xs font-medium uppercase tracking-wide hidden lg:table-cell">
-                                            Error
+                                            {t("Error")}
                                         </th>
                                     </tr>
                                 </thead>
@@ -248,15 +249,13 @@ export default function EmailLogsIndex({ logs, counts, filters }) {
                                                     <span className="inline-flex items-center gap-1 bg-green-500/10 text-green-400 border border-green-500/20 px-2 py-0.5 rounded-full text-xs font-medium">
                                                         <CheckCircle2
                                                             size={10}
-                                                        />
-                                                        Sent
+                                                        /> {t("Sent")}
                                                     </span>
                                                 ) : (
                                                     <span className="inline-flex items-center gap-1 bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded-full text-xs font-medium">
                                                         <AlertCircle
                                                             size={10}
-                                                        />
-                                                        Failed
+                                                        /> {t("Failed")}
                                                     </span>
                                                 )}
                                             </td>
@@ -304,7 +303,7 @@ export default function EmailLogsIndex({ logs, counts, filters }) {
                                     }
                                     className="flex items-center gap-1 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-lg text-sm transition-colors"
                                 >
-                                    <ChevronLeft size={14} /> Prev
+                                    <ChevronLeft size={14} /> {t("Prev")}
                                 </button>
                             )}
                             {logs.next_page_url && (

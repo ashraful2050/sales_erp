@@ -9,6 +9,7 @@ import {
     Pause,
     RotateCcw,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function WasteCard({ type, value, unit, description, icon: Icon, level }) {
     const colors = {
@@ -57,6 +58,7 @@ function WasteCard({ type, value, unit, description, icon: Icon, level }) {
 }
 
 export default function WasteDashboard({ wastes, wasteTrend, lostTrend }) {
+    const { t } = useTranslation();
     const maxWaste = wasteTrend?.length
         ? Math.max(...wasteTrend.map((r) => r.rework))
         : 1;
@@ -72,11 +74,11 @@ export default function WasteDashboard({ wastes, wasteTrend, lostTrend }) {
 
     return (
         <AppLayout>
-            <Head title="Waste Dashboard (Lean)" />
+            <Head title={t("Waste Dashboard (Lean)")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Waste Identification Dashboard (Lean Sales)"
-                    subtitle="Identify inefficiencies in the sales process using the 7 Lean Wastes"
+                    title={t("Waste Identification Dashboard (Lean Sales)")}
+                    subtitle={t("Identify inefficiencies in the sales process using the 7 Lean Wastes")}
                 />
 
                 <div className="flex flex-wrap gap-2">
@@ -281,7 +283,7 @@ export default function WasteDashboard({ wastes, wasteTrend, lostTrend }) {
                             </div>
                         ) : (
                             <p className="text-slate-400 text-sm">
-                                No lost lead data available.
+                                {t("No lost lead data available.")}
                             </p>
                         )}
                     </div>

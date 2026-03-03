@@ -17,10 +17,10 @@ export default function Show({ product }) {
                     actions={
                         <div className="flex gap-2">
                             <Link href={route("inventory.products.index")} className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
-                                <ArrowLeft className="w-4 h-4" /> Back
+                                <ArrowLeft className="w-4 h-4" /> {t("Back")}
                             </Link>
                             <Link href={route("inventory.products.edit", product.id)} className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm">
-                                <Edit className="w-4 h-4" /> Edit
+                                <Edit className="w-4 h-4" /> {t("Edit")}
                             </Link>
                         </div>
                     }
@@ -29,15 +29,15 @@ export default function Show({ product }) {
                 {/* Stock Summary Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-blue-50 text-blue-700 rounded-xl p-4">
-                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">Total Stock</p>
+                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">{t("Total Stock")}</p>
                         <p className="text-2xl font-bold mt-1">{totalStock} {product.unit?.name ?? ""}</p>
                     </div>
                     <div className="bg-green-50 text-green-700 rounded-xl p-4">
-                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">Sale Price</p>
+                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">{t("Sale Price")}</p>
                         <p className="text-2xl font-bold mt-1">৳{Number(product.sale_price ?? 0).toLocaleString()}</p>
                     </div>
                     <div className="bg-orange-50 text-orange-700 rounded-xl p-4">
-                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">Cost Price</p>
+                        <p className="text-xs font-medium uppercase tracking-wide opacity-70">{t("Cost Price")}</p>
                         <p className="text-2xl font-bold mt-1">৳{Number(product.cost_price ?? 0).toLocaleString()}</p>
                     </div>
                 </div>

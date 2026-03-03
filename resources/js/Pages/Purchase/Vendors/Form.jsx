@@ -48,7 +48,7 @@ export default function VendorForm({ vendor }) {
                 subtitle={isEdit ? `Editing: ${vendor.name}` : "Add a new vendor / supplier"}
                 actions={
                     <Link href={route("purchase.vendors.index")} className="flex items-center gap-2 text-slate-600 hover:text-slate-800 text-sm font-medium">
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -116,7 +116,7 @@ export default function VendorForm({ vendor }) {
                     </Field>
                     <label className="flex items-center gap-2 cursor-pointer">
                         <input type="checkbox" checked={data.is_active} onChange={e => setData("is_active", e.target.checked)} className="w-4 h-4 rounded border-slate-300 text-blue-600" />
-                        <span className="text-sm text-slate-700">Active vendor</span>
+                        <span className="text-sm text-slate-700">{t("Active vendor")}</span>
                     </label>
                 </div>
 

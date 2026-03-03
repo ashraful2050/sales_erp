@@ -8,8 +8,10 @@ import SearchFilter from "@/Components/SearchFilter";
 import { Plus, Eye, Pencil, Trash2 } from "lucide-react";
 import ExportButtons from "@/Components/ExportButtons";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function EmployeesIndex({ employees, filters, departments }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [deptId, setDeptId] = useState(filters?.department_id ?? "");
     const [status, setStatus] = useState(filters?.status ?? "");
@@ -25,8 +27,8 @@ export default function EmployeesIndex({ employees, filters, departments }) {
             await dlgConfirm(
                 "Delete this employee record? This cannot be undone.",
                 {
-                    title: "Delete Employee",
-                    confirmLabel: "Delete",
+                    title: t("Delete Employee"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -35,17 +37,17 @@ export default function EmployeesIndex({ employees, filters, departments }) {
     };
 
     return (
-        <AppLayout title="Employees">
-            <Head title="Employees" />
+        <AppLayout title={t("Employees")}>
+            <Head title={t("Employees")} />
             <PageHeader
-                title="Employees"
-                subtitle={`${employees.total} total employees`}
+                title={t("Employees")}
+                subtitle={`${employees.total} ${t("total employees")}`}
                 actions={
                     <Link
                         href={route("hr.employees.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Employee
+                        <Plus size={16} /> {t("New Employee")}
                     </Link>
                 }
             />
@@ -56,7 +58,7 @@ export default function EmployeesIndex({ employees, filters, departments }) {
                         setSearch(v);
                         apply(v, deptId, status);
                     }}
-                    placeholder="Search name, ID, email…"
+                    placeholder={t("Search name, ID, email…")}
                 />
                 <select
                     value={deptId}
@@ -66,7 +68,7 @@ export default function EmployeesIndex({ employees, filters, departments }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Departments</option>
+                    <option value="">{t("All Departments")}</option>
                     {departments?.map((d) => (
                         <option key={d.id} value={d.id}>
                             {d.name}
@@ -81,10 +83,10 @@ export default function EmployeesIndex({ employees, filters, departments }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Status</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="terminated">Terminated</option>
+                    <option value="">{t("All Status")}</option>
+                    <option value="active">{t("Active")}</option>
+                    <option value="inactive">{t("Inactive")}</option>
+                    <option value="terminated">{t("Terminated")}</option>
                 </select>
                 <ExportButtons
                     tableId="export-table"
@@ -98,22 +100,22 @@ export default function EmployeesIndex({ employees, filters, departments }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Employee
+                                    {t("Employee")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Department
+                                    {t("Department")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Designation
+                                    {t("Designation")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Joining Date
+                                    {t("Joining Date")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Basic Salary
+                                    {t("Basic Salary")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -125,7 +127,7 @@ export default function EmployeesIndex({ employees, filters, departments }) {
                                         colSpan={7}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No employees found.
+                                        {t("No employees found.")}
                                     </td>
                                 </tr>
                             )}

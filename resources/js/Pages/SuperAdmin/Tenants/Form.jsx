@@ -1,6 +1,7 @@
 import SuperAdminLayout from "@/Layouts/SuperAdminLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { ArrowLeft, Building2 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Field = ({ label, error, required, children }) => (
     <div>
@@ -30,6 +31,7 @@ const Select = ({ children, ...props }) => (
 );
 
 export default function TenantForm({ tenant, plans }) {
+    const { t } = useTranslation();
     const isEdit = !!tenant;
 
     const { data, setData, post, put, processing, errors } = useForm(
@@ -120,7 +122,7 @@ export default function TenantForm({ tenant, plans }) {
                                             e.target.value,
                                         )
                                     }
-                                    placeholder="Acme Corp"
+                                    placeholder={t("Acme Corp")}
                                 />
                             </Field>
                             <Field
@@ -177,7 +179,7 @@ export default function TenantForm({ tenant, plans }) {
                                             e.target.value,
                                         )
                                     }
-                                    placeholder="Bangladesh"
+                                    placeholder={t("Bangladesh")}
                                 />
                             </Field>
                         </div>
@@ -195,11 +197,11 @@ export default function TenantForm({ tenant, plans }) {
                                             setData("status", e.target.value)
                                         }
                                     >
-                                        <option value="active">Active</option>
+                                        <option value="active">{t("Active")}</option>
                                         <option value="suspended">
                                             Suspended
                                         </option>
-                                        <option value="pending">Pending</option>
+                                        <option value="pending">{t("Pending")}</option>
                                         <option value="cancelled">
                                             Cancelled
                                         </option>
@@ -217,7 +219,7 @@ export default function TenantForm({ tenant, plans }) {
                                                 e.target.value,
                                             )
                                         }
-                                        placeholder="Optional reason..."
+                                        placeholder={t("Optional reason...")}
                                     />
                                 </Field>
                             </div>
@@ -245,7 +247,7 @@ export default function TenantForm({ tenant, plans }) {
                                                     e.target.value,
                                                 )
                                             }
-                                            placeholder="John Doe"
+                                            placeholder={t("John Doe")}
                                         />
                                     </Field>
                                     <Field
@@ -280,7 +282,7 @@ export default function TenantForm({ tenant, plans }) {
                                                     e.target.value,
                                                 )
                                             }
-                                            placeholder="Min. 8 characters"
+                                            placeholder={t("Min. 8 characters")}
                                         />
                                     </Field>
                                 </div>
@@ -327,7 +329,7 @@ export default function TenantForm({ tenant, plans }) {
                                                 )
                                             }
                                         >
-                                            <option value="trial">Trial</option>
+                                            <option value="trial">{t("Trial")}</option>
                                             <option value="monthly">
                                                 Monthly
                                             </option>

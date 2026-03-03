@@ -9,6 +9,7 @@ import {
     AlertTriangle,
     Zap,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function StatCard({ label, value, sub, icon: Icon, color = "blue" }) {
     return (
@@ -30,6 +31,7 @@ export default function Standardization({
     discountRules,
     workflowStats,
 }) {
+    const { t } = useTranslation();
     const autoRate =
         (workflowStats?.autoInvoices ?? 0) +
             (workflowStats?.manualInvoices ?? 0) >
@@ -44,11 +46,11 @@ export default function Standardization({
 
     return (
         <AppLayout>
-            <Head title="Standardization & Automation" />
+            <Head title={t("Standardization & Automation")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Standardization & Automation Tools"
-                    subtitle="Reduce human error and variability using SOPs, Process Control & Automation Engineering"
+                    title={t("Standardization & Automation Tools")}
+                    subtitle={t("Reduce human error and variability using SOPs, Process Control & Automation Engineering")}
                 />
 
                 <div className="flex flex-wrap gap-2">
@@ -133,7 +135,7 @@ export default function Standardization({
                                     className="text-slate-300 mx-auto mb-2"
                                 />
                                 <p className="text-slate-400 text-sm">
-                                    No pricing rules configured.
+                                    {t("No pricing rules configured.")}
                                 </p>
                                 <p className="text-xs text-slate-400 mt-1">
                                     Add pricing rules in Sales → Pricing Rules
@@ -176,7 +178,7 @@ export default function Standardization({
                                     className="text-slate-300 mx-auto mb-2"
                                 />
                                 <p className="text-slate-400 text-sm">
-                                    No discount rules configured.
+                                    {t("No discount rules configured.")}
                                 </p>
                             </div>
                         )}
@@ -250,7 +252,7 @@ export default function Standardization({
                                 {workflowStats?.autoInvoices ?? 0}
                             </p>
                             <p className="text-sm text-slate-500 mt-1">
-                                Auto-Generated (from Quotes)
+                                {t("Auto-Generated (from Quotes)")}
                             </p>
                         </div>
                         <div className="bg-slate-50 rounded-lg p-4 text-center">
@@ -258,7 +260,7 @@ export default function Standardization({
                                 {workflowStats?.manualInvoices ?? 0}
                             </p>
                             <p className="text-sm text-slate-500 mt-1">
-                                Manually Created
+                                {t("Manually Created")}
                             </p>
                         </div>
                         <div className="bg-slate-50 rounded-lg p-4 text-center">
@@ -268,7 +270,7 @@ export default function Standardization({
                                 {autoRate}%
                             </p>
                             <p className="text-sm text-slate-500 mt-1">
-                                Automation Rate
+                                {t("Automation Rate")}
                             </p>
                         </div>
                     </div>

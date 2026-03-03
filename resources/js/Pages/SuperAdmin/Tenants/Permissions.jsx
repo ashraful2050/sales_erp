@@ -115,7 +115,7 @@ function ModuleCard({
                         disabled={allGranted}
                         className="flex items-center gap-1 bg-green-500/10 hover:bg-green-500/20 disabled:opacity-40 text-green-400 border border-green-500/20 px-2 py-1 rounded-lg text-[10px] font-medium transition-colors"
                     >
-                        <ShieldCheck size={10} /> All
+                        <ShieldCheck size={10} /> {t("All")}
                     </button>
                     <button
                         type="button"
@@ -123,7 +123,7 @@ function ModuleCard({
                         disabled={noneGranted}
                         className="flex items-center gap-1 bg-red-500/10 hover:bg-red-500/20 disabled:opacity-40 text-red-400 border border-red-500/20 px-2 py-1 rounded-lg text-[10px] font-medium transition-colors"
                     >
-                        <ShieldX size={10} /> None
+                        <ShieldX size={10} /> {t("None")}
                     </button>
                 </div>
                 {/* Progress bar + expand */}
@@ -149,7 +149,7 @@ function ModuleCard({
                     {/* Actions row */}
                     <div>
                         <p className="text-slate-500 text-[10px] uppercase tracking-wide mb-2">
-                            Module Access
+                            {t("Module Access")}
                         </p>
                         <div className="flex flex-wrap gap-2">
                             {actions.map((action) => {
@@ -171,7 +171,7 @@ function ModuleCard({
                     {features && Object.keys(features).length > 0 && (
                         <div>
                             <p className="text-slate-500 text-[10px] uppercase tracking-wide mb-2">
-                                Features
+                                {t("Features")}
                             </p>
                             <div className="flex flex-wrap gap-2">
                                 {Object.entries(features).map(
@@ -274,7 +274,7 @@ export default function TenantPermissions({
                                 </span>
                             </p>
                             <p className="text-slate-500 text-xs mt-0.5">
-                                Granted
+                                {t("Granted")}
                             </p>
                         </div>
                     </div>
@@ -313,7 +313,7 @@ export default function TenantPermissions({
                             }}
                             className="flex items-center gap-2 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-400 px-4 py-2 rounded-xl text-sm font-medium transition-colors"
                         >
-                            <ShieldCheck size={14} /> Grant All Permissions
+                            <ShieldCheck size={14} /> {t("Grant All Permissions")}
                         </button>
                         <button
                             type="button"
@@ -326,7 +326,7 @@ export default function TenantPermissions({
                             }}
                             className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 px-4 py-2 rounded-xl text-sm font-medium transition-colors"
                         >
-                            <ShieldX size={14} /> Revoke All Permissions
+                            <ShieldX size={14} /> {t("Revoke All Permissions")}
                         </button>
                     </div>
 
@@ -352,7 +352,7 @@ export default function TenantPermissions({
                         <p className="text-slate-400 text-sm">
                             {isDirty ? (
                                 <span className="text-amber-400">
-                                    You have unsaved changes
+                                    {t("You have unsaved changes")}
                                 </span>
                             ) : (
                                 `${totalGranted} of ${totalKeys} permissions granted`

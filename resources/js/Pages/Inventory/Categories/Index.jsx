@@ -4,14 +4,16 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function CategoriesIndex({ categories }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
-            await dlgConfirm("This category will be permanently removed.", {
-                title: "Delete Category?",
-                confirmLabel: "Delete",
+            await dlgConfirm(t("This category will be permanently removed."), {
+                title: t("Delete Category?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -19,17 +21,17 @@ export default function CategoriesIndex({ categories }) {
     };
 
     return (
-        <AppLayout title="Product Categories">
-            <Head title="Product Categories" />
+        <AppLayout title={t("Product Categories")}>
+            <Head title={t("Product Categories")} />
             <PageHeader
-                title="Product Categories"
-                subtitle={`${categories.length} categories`}
+                title={t("Product Categories")}
+                subtitle={`${categories.length} ${t("categories")}`}
                 actions={
                     <Link
                         href={route("inventory.categories.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> Add Category
+                        <Plus size={16} /> {t("Add Category")}
                     </Link>
                 }
             />
@@ -39,16 +41,16 @@ export default function CategoriesIndex({ categories }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Category Name
+                                    {t("Category Name")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Code
+                                    {t("Code")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Description
+                                    {t("Description")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -60,7 +62,7 @@ export default function CategoriesIndex({ categories }) {
                                         colSpan={5}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No categories found.
+                                        {t("No categories found.")}
                                     </td>
                                 </tr>
                             )}

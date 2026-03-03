@@ -2,8 +2,10 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { ArrowLeft, Save } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Form({ warehouse }) {
+    const { t } = useTranslation();
     const isEdit = !!warehouse;
     const { data, setData, post, put, processing, errors } = useForm({
         name: warehouse?.name ?? "",
@@ -33,7 +35,7 @@ export default function Form({ warehouse }) {
                             href={route("inventory.warehouses.index")}
                             className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm"
                         >
-                            <ArrowLeft className="w-4 h-4" /> Back
+                            <ArrowLeft className="w-4 h-4" /> {t("Back")}
                         </Link>
                     }
                 />
@@ -57,7 +59,7 @@ export default function Form({ warehouse }) {
 
                         {/* Code */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Code</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">{t("Code")}</label>
                             <input
                                 type="text"
                                 value={data.code}
@@ -70,7 +72,7 @@ export default function Form({ warehouse }) {
 
                         {/* Location */}
                         <div className="sm:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Location / Address</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">{t("Location / Address")}</label>
                             <input
                                 type="text"
                                 value={data.location}
@@ -83,13 +85,13 @@ export default function Form({ warehouse }) {
 
                         {/* Description */}
                         <div className="sm:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">{t("Description")}</label>
                             <textarea
                                 value={data.description}
                                 onChange={(e) => setData("description", e.target.value)}
                                 rows={3}
                                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                                placeholder="Optional notes..."
+                                placeholder={t("Optional notes...")}
                             />
                             {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
                         </div>
@@ -103,7 +105,7 @@ export default function Form({ warehouse }) {
                                 onChange={(e) => setData("is_active", e.target.checked)}
                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                             />
-                            <label htmlFor="is_active" className="text-sm font-medium text-gray-700">Active</label>
+                            <label htmlFor="is_active" className="text-sm font-medium text-gray-700">{t("Active")}</label>
                         </div>
                     </div>
 

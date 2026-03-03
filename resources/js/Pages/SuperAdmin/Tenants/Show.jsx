@@ -24,6 +24,7 @@ import {
     LayoutGrid,
 } from "lucide-react";
 import { fmtDate, fmtDateTime } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const StatusBadge = ({ status }) => {
     const cls =
@@ -55,6 +56,7 @@ const StatCard = ({ label, value, icon: Icon }) => (
 );
 
 export default function TenantShow({ tenant, stats, plans }) {
+    const { t } = useTranslation();
     const [showPlanModal, setShowPlanModal] = useState(false);
     const [suspendModal, setSuspendModal] = useState(false);
 
@@ -74,7 +76,7 @@ export default function TenantShow({ tenant, stats, plans }) {
                 href={route("superadmin.tenants.index")}
                 className="inline-flex items-center gap-1.5 text-slate-400 hover:text-white text-sm mb-5 transition-colors"
             >
-                <ArrowLeft size={14} /> All Tenants
+                <ArrowLeft size={14} /> {t("All Tenants")}
             </Link>
 
             {/* Header */}
@@ -95,7 +97,7 @@ export default function TenantShow({ tenant, stats, plans }) {
                         href={route("superadmin.tenants.edit", tenant.id)}
                         className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                     >
-                        <Edit size={15} /> Edit
+                        <Edit size={15} /> {t("Edit")}
                     </Link>
                     <Link
                         href={route(
@@ -104,33 +106,33 @@ export default function TenantShow({ tenant, stats, plans }) {
                         )}
                         className="flex items-center gap-2 bg-violet-700 hover:bg-violet-600 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                     >
-                        <ShieldCheck size={15} /> Permissions
+                        <ShieldCheck size={15} /> {t("Permissions")}
                     </Link>
                     <button
                         onClick={impersonate}
                         className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                     >
-                        <UserCheck size={15} /> Impersonate
+                        <UserCheck size={15} /> {t("Impersonate")}
                     </button>
                     <button
                         onClick={() => setShowPlanModal(true)}
                         className="flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                     >
-                        <CreditCard size={15} /> Assign Plan
+                        <CreditCard size={15} /> {t("Assign Plan")}
                     </button>
                     {tenant.status === "active" ? (
                         <button
                             onClick={() => setSuspendModal(true)}
                             className="flex items-center gap-2 bg-red-700 hover:bg-red-800 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                         >
-                            <Pause size={15} /> Suspend
+                            <Pause size={15} /> {t("Suspend")}
                         </button>
                     ) : (
                         <button
                             onClick={activate}
                             className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                         >
-                            <Play size={15} /> Activate
+                            <Play size={15} /> {t("Activate")}
                         </button>
                     )}
                 </div>
@@ -254,7 +256,7 @@ export default function TenantShow({ tenant, stats, plans }) {
                         ))}
                         {!tenant.subscriptions?.length && (
                             <p className="text-slate-500 text-sm">
-                                No subscriptions.
+                                {t("No subscriptions.")}
                             </p>
                         )}
                     </div>
@@ -270,16 +272,16 @@ export default function TenantShow({ tenant, stats, plans }) {
                             <thead>
                                 <tr className="border-b border-slate-700">
                                     <th className="text-left text-slate-400 py-2 pr-4 font-medium">
-                                        Name
+                                        {t("Name")}
                                     </th>
                                     <th className="text-left text-slate-400 py-2 pr-4 font-medium">
-                                        Email
+                                        {t("Email")}
                                     </th>
                                     <th className="text-left text-slate-400 py-2 font-medium">
-                                        Role
+                                        {t("Role")}
                                     </th>
                                     <th className="text-left text-slate-400 py-2 font-medium">
-                                        Status
+                                        {t("Status")}
                                     </th>
                                 </tr>
                             </thead>
@@ -391,7 +393,7 @@ function AssignPlanModal({ tenant, plans, onClose }) {
                 <form onSubmit={submit} className="space-y-4">
                     <div>
                         <label className="block text-slate-400 text-xs mb-1">
-                            Plan
+                            {t("Plan")}
                         </label>
                         <select
                             value={data.plan_id}
@@ -408,7 +410,7 @@ function AssignPlanModal({ tenant, plans, onClose }) {
                     </div>
                     <div>
                         <label className="block text-slate-400 text-xs mb-1">
-                            Billing Cycle
+                            {t("Billing Cycle")}
                         </label>
                         <select
                             value={data.billing_cycle}
@@ -417,10 +419,10 @@ function AssignPlanModal({ tenant, plans, onClose }) {
                             }
                             className="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-slate-200 text-sm outline-none"
                         >
-                            <option value="trial">Trial</option>
-                            <option value="monthly">Monthly</option>
-                            <option value="yearly">Yearly</option>
-                            <option value="lifetime">Lifetime</option>
+                            <option value="trial">{t("Trial")}</option>
+                            <option value="monthly">{t("Monthly")}</option>
+                            <option value="yearly">{t("Yearly")}</option>
+                            <option value="lifetime">{t("Lifetime")}</option>
                         </select>
                     </div>
 
@@ -428,7 +430,7 @@ function AssignPlanModal({ tenant, plans, onClose }) {
                     {totalPrice !== null && (
                         <div className="bg-slate-700/50 border border-slate-600 rounded-lg px-4 py-3">
                             <p className="text-slate-400 text-xs mb-1">
-                                Total Price
+                                {t("Total Price")}
                             </p>
                             <div className="flex items-baseline gap-2">
                                 <span className="text-2xl font-bold text-white">
@@ -465,7 +467,7 @@ function AssignPlanModal({ tenant, plans, onClose }) {
 
                     <div>
                         <label className="block text-slate-400 text-xs mb-1">
-                            Custom Expiry (optional)
+                            {t("Custom Expiry (optional)")}
                         </label>
                         <input
                             type="date"
@@ -482,14 +484,14 @@ function AssignPlanModal({ tenant, plans, onClose }) {
                             onClick={onClose}
                             className="px-4 py-2 text-sm text-slate-300 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </button>
                         <button
                             type="submit"
                             disabled={processing}
                             className="px-4 py-2 text-sm text-white bg-violet-600 hover:bg-violet-700 rounded-lg transition-colors disabled:opacity-60"
                         >
-                            Assign Plan
+                            {t("Assign Plan")}
                         </button>
                     </div>
                 </form>
@@ -513,7 +515,7 @@ function SuspendModal({ tenant, onClose }) {
                 <textarea
                     value={data.reason}
                     onChange={(e) => setData("reason", e.target.value)}
-                    placeholder="Reason (optional)..."
+                    placeholder={t("Reason (optional)...")}
                     rows={3}
                     className="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-slate-200 text-sm outline-none resize-none mb-4"
                 />
@@ -522,7 +524,7 @@ function SuspendModal({ tenant, onClose }) {
                         onClick={onClose}
                         className="px-4 py-2 text-sm text-slate-300 bg-slate-700 hover:bg-slate-600 rounded-lg"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </button>
                     <button
                         onClick={() =>
@@ -534,7 +536,7 @@ function SuspendModal({ tenant, onClose }) {
                         disabled={processing}
                         className="px-4 py-2 text-sm text-white bg-red-600 hover:bg-red-700 rounded-lg disabled:opacity-60"
                     >
-                        Suspend
+                        {t("Suspend")}
                     </button>
                 </div>
             </div>
@@ -679,7 +681,7 @@ function LayoutSwitcher({ tenant }) {
                                     <span
                                         className={`ml-auto px-1.5 py-0.5 text-[10px] rounded font-bold text-white ${l.badge}`}
                                     >
-                                        Active
+                                        {t("Active")}
                                     </span>
                                 )}
                             </div>

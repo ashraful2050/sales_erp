@@ -2,10 +2,12 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, router } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { useState } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const fmt = (v) => Number(v || 0).toLocaleString("en-BD", { minimumFractionDigits: 2 });
 
 export default function Ledger({ accounts, account, lines, openingBalance, filters }) {
+    const { t } = useTranslation();
     const [accountId, setAccountId] = useState(filters?.account_id ?? "");
     const [dateFrom, setDateFrom] = useState(filters?.date_from ?? "");
     const [dateTo, setDateTo] = useState(filters?.date_to ?? "");
@@ -17,13 +19,13 @@ export default function Ledger({ accounts, account, lines, openingBalance, filte
     const closing = parseFloat(openingBalance ?? 0) + totalDebit - totalCredit;
 
     return (
-        <AppLayout title="Ledger">
-            <Head title="Ledger" />
-            <PageHeader title="Ledger" subtitle="Account-wise transaction history with running balance" />
+        <AppLayout title={t("Ledger")}>
+            <Head title={t("Ledger")} />
+            <PageHeader title={t("Ledger")} subtitle={t("Account-wise transaction history with running balance")} />
             <div className="space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-4 flex flex-wrap gap-4 items-end">
                     <div className="min-w-[240px]">
-                        <label className="block text-xs font-medium text-slate-600 mb-1">Account</label>
+                        <label className="block text-xs font-medium text-slate-600 mb-1">{t("Account")}</label>
                         <select value={accountId} onChange={e => setAccountId(e.target.value)}
                             className="border border-slate-300 rounded-lg text-sm px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="">-- Select Account --</option>
@@ -31,16 +33,16 @@ export default function Ledger({ accounts, account, lines, openingBalance, filte
                         </select>
                     </div>
                     <div>
-                        <label className="block text-xs font-medium text-slate-600 mb-1">From Date</label>
+                        <label className="block text-xs font-medium text-slate-600 mb-1">{t("From Date")}</label>
                         <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)}
                             className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label className="block text-xs font-medium text-slate-600 mb-1">To Date</label>
+                        <label className="block text-xs font-medium text-slate-600 mb-1">{t("To Date")}</label>
                         <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)}
                             className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
-                    <button onClick={apply} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium">Show Ledger</button>
+                    <button onClick={apply} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium">{t("Show Ledger")}</button>
                 </div>
 
                 {account && (
@@ -56,12 +58,12 @@ export default function Ledger({ accounts, account, lines, openingBalance, filte
                         <table className="w-full text-sm">
                             <thead className="bg-slate-50 border-b border-slate-200">
                                 <tr>
-                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Date</th>
-                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Entry #</th>
-                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Description</th>
-                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Debit</th>
-                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Credit</th>
-                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Balance</th>
+                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Date")}</th>
+                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Entry #")}</th>
+                                    <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Description")}</th>
+                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Debit")}</th>
+                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Credit")}</th>
+                                    <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Balance")}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100">
@@ -69,7 +71,7 @@ export default function Ledger({ accounts, account, lines, openingBalance, filte
                                     <tr><td colSpan={6} className="px-6 py-12 text-center text-slate-400">Select an account to view the ledger.</td></tr>
                                 )}
                                 {account && lines.length === 0 && (
-                                    <tr><td colSpan={6} className="px-6 py-12 text-center text-slate-400">No transactions for this account in the selected period.</td></tr>
+                                    <tr><td colSpan={6} className="px-6 py-12 text-center text-slate-400">{t("No transactions for this account in the selected period.")}</td></tr>
                                 )}
                                 {account && (
                                     <tr className="bg-blue-50">

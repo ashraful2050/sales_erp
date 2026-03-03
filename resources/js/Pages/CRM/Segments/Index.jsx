@@ -4,8 +4,10 @@ import PageHeader from "@/Components/PageHeader";
 import { Plus, Trash2, Users } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function SegmentsIndex({ segments }) {
+    const { t } = useTranslation();
     const { confirm } = useDialog();
     const { data, setData, post, processing, reset, errors } = useForm({
         name: "",
@@ -21,8 +23,8 @@ export default function SegmentsIndex({ segments }) {
     const del = async (id) => {
         if (
             await confirm("This segment will be deleted.", {
-                title: "Delete Segment?",
-                confirmLabel: "Delete",
+                title: t("Delete Segment?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -30,11 +32,11 @@ export default function SegmentsIndex({ segments }) {
     };
 
     return (
-        <AppLayout title="Customer Segments">
-            <Head title="Customer Segments" />
+        <AppLayout title={t("Customer Segments")}>
+            <Head title={t("Customer Segments")} />
             <PageHeader
-                title="Customer Segments"
-                subtitle="Group customers for targeted marketing"
+                title={t("Customer Segments")}
+                subtitle={t("Group customers for targeted marketing")}
             />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -46,7 +48,7 @@ export default function SegmentsIndex({ segments }) {
                     <form onSubmit={submit} className="space-y-3">
                         <div>
                             <input
-                                placeholder="Segment name *"
+                                placeholder={t("Segment name *")}
                                 value={data.name}
                                 onChange={(e) =>
                                     setData("name", e.target.value)
@@ -60,7 +62,7 @@ export default function SegmentsIndex({ segments }) {
                             )}
                         </div>
                         <textarea
-                            placeholder="Description…"
+                            placeholder={t("Description…")}
                             value={data.description}
                             onChange={(e) =>
                                 setData("description", e.target.value)
@@ -73,7 +75,7 @@ export default function SegmentsIndex({ segments }) {
                             onChange={(e) => setData("type", e.target.value)}
                             className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
                         >
-                            <option value="manual">Manual</option>
+                            <option value="manual">{t("Manual")}</option>
                             <option value="auto">Auto (rule-based)</option>
                         </select>
                         <button
@@ -81,7 +83,7 @@ export default function SegmentsIndex({ segments }) {
                             disabled={processing}
                             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm flex items-center justify-center gap-2"
                         >
-                            <Plus size={15} /> Create Segment
+                            <Plus size={15} /> {t("Create Segment")}
                         </button>
                     </form>
                 </div>
@@ -91,7 +93,7 @@ export default function SegmentsIndex({ segments }) {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {segments.length === 0 ? (
                             <div className="col-span-2 text-center py-8 text-slate-400">
-                                No segments yet.
+                                {t("No segments yet.")}
                             </div>
                         ) : (
                             segments.map((seg) => (

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import SubscriptionBanner from "@/Components/SubscriptionBanner";
-import { nav } from "./navConfig";
+import { getNav } from "./navConfig";
+import { useTranslation } from "@/hooks/useTranslation";
 import {
     ChevronRight,
     LogOut,
@@ -154,6 +155,8 @@ export default function AppLayoutTally({ children, title }) {
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const [flashMsg, setFlashMsg] = useState(null);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const { t: tr } = useTranslation();
+    const nav = getNav(tr);
 
     // Auto-select the module that has an active child
     useEffect(() => {
@@ -304,7 +307,9 @@ export default function AppLayoutTally({ children, title }) {
                     letterSpacing: 2,
                 }}
             >
-                {title || "Gateway of Tally"}
+                {title
+                    ? tr(title, { default: title })
+                    : tr("Gateway of Tally", { default: "Gateway of Tally" })}
             </div>
 
             <SubscriptionBanner />

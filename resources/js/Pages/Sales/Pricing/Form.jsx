@@ -2,8 +2,10 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function PricingForm({ rule }) {
+    const { t } = useTranslation();
     const isEdit = !!rule;
     const { data, setData, post, put, processing, errors } = useForm({
         name: "",
@@ -35,7 +37,7 @@ export default function PricingForm({ rule }) {
                         href={route("sales.pricing-rules.index")}
                         className="flex items-center gap-2 text-sm text-slate-600"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -60,7 +62,7 @@ export default function PricingForm({ rule }) {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Rule Type
+                                {t("Rule Type")}
                             </label>
                             <select
                                 value={data.type}
@@ -83,7 +85,7 @@ export default function PricingForm({ rule }) {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Applies To
+                                {t("Applies To")}
                             </label>
                             <select
                                 value={data.applies_to}
@@ -123,7 +125,7 @@ export default function PricingForm({ rule }) {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Adjustment Type
+                                {t("Adjustment Type")}
                             </label>
                             <select
                                 value={data.adjustment_type}
@@ -135,14 +137,14 @@ export default function PricingForm({ rule }) {
                                 <option value="percentage">
                                     Percentage (%)
                                 </option>
-                                <option value="fixed">Fixed Amount</option>
+                                <option value="fixed">{t("Fixed Amount")}</option>
                             </select>
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Start Date
+                                {t("Start Date")}
                             </label>
                             <input
                                 type="date"
@@ -155,7 +157,7 @@ export default function PricingForm({ rule }) {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                End Date
+                                {t("End Date")}
                             </label>
                             <input
                                 type="date"

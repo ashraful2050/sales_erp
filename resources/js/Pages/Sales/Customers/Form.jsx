@@ -49,7 +49,7 @@ export default function CustomerForm({ customer }) {
                 subtitle={isEdit ? `Editing: ${customer.name}` : "Add a new customer to your system"}
                 actions={
                     <Link href={route("sales.customers.index")} className="flex items-center gap-2 text-slate-600 hover:text-slate-800 text-sm font-medium">
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -118,7 +118,7 @@ export default function CustomerForm({ customer }) {
                     <label className="flex items-center gap-2 cursor-pointer">
                         <input type="checkbox" checked={data.is_active} onChange={e => setData("is_active", e.target.checked)}
                             className="w-4 h-4 rounded border-slate-300 text-blue-600" />
-                        <span className="text-sm text-slate-700">Active customer</span>
+                        <span className="text-sm text-slate-700">{t("Active customer")}</span>
                     </label>
                 </div>
 

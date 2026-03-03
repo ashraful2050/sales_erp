@@ -2,10 +2,12 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { ArrowLeft, Plus, Trash2 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const emptyLine = () => ({ product_id: "", description: "", quantity: 1, unit_price: "", tax_rate: 0, tax_amount: 0, total: 0 });
 
 export default function CreditNoteForm({ note, customers, products, taxRates }) {
+    const { t } = useTranslation();
     const isEdit = !!note;
     const { data, setData, post, put, processing, errors } = useForm({
         customer_id: note?.customer_id ?? "",
@@ -57,8 +59,8 @@ export default function CreditNoteForm({ note, customers, products, taxRates }) 
         <AppLayout title={isEdit ? "Edit Credit Note" : "New Credit Note"}>
             <Head title={isEdit ? "Edit Credit Note" : "New Credit Note"} />
             <PageHeader title={isEdit ? "Edit Credit Note" : "New Credit Note"}
-                subtitle="Sales Return / Credit Note"
-                actions={<Link href={route("sales.credit-notes.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> Back</Link>}
+                subtitle={t("Sales Return / Credit Note")}
+                actions={<Link href={route("sales.credit-notes.index")} className="flex items-center gap-2 text-slate-600 text-sm font-medium"><ArrowLeft size={16} /> {t("Back")}</Link>}
             />
             <form onSubmit={submit} className="space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-6">
@@ -79,10 +81,10 @@ export default function CreditNoteForm({ note, customers, products, taxRates }) 
                                 className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm" />
                         </div>
                         <div className="md:col-span-3">
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Notes / Reason</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">{t("Notes / Reason")}</label>
                             <textarea value={data.notes} onChange={e => setData("notes", e.target.value)} rows={2}
                                 className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
-                                placeholder="Reason for return…" />
+                                placeholder={t("Reason for return…")} />
                         </div>
                     </div>
                 </div>
@@ -93,19 +95,19 @@ export default function CreditNoteForm({ note, customers, products, taxRates }) 
                         <h3 className="font-semibold text-slate-700">Return Items</h3>
                         <button type="button" onClick={addLine}
                             className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800">
-                            <Plus size={15} /> Add Item
+                            <Plus size={15} /> {t("Add Item")}
                         </button>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead className="bg-slate-50 border-b border-slate-200">
                                 <tr>
-                                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-48">Product</th>
-                                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase">Description</th>
-                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-20">Qty</th>
-                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-28">Unit Price</th>
+                                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-48">{t("Product")}</th>
+                                    <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase">{t("Description")}</th>
+                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-20">{t("Qty")}</th>
+                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-28">{t("Unit Price")}</th>
                                     <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-20">Tax %</th>
-                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-28">Total</th>
+                                    <th className="text-right px-4 py-3 text-xs font-semibold text-slate-500 uppercase w-28">{t("Total")}</th>
                                     <th className="w-10 px-4 py-3"></th>
                                 </tr>
                             </thead>
@@ -121,7 +123,7 @@ export default function CreditNoteForm({ note, customers, products, taxRates }) 
                                         </td>
                                         <td className="px-3 py-2">
                                             <input value={line.description} onChange={e => updateLine(i, "description", e.target.value)}
-                                                className="border border-slate-200 rounded-lg px-2 py-1.5 text-xs w-full" placeholder="Description" />
+                                                className="border border-slate-200 rounded-lg px-2 py-1.5 text-xs w-full" placeholder={t("Description")} />
                                             {errors[`items.${i}.description`] && <p className="text-red-500 text-xs">{errors[`items.${i}.description`]}</p>}
                                         </td>
                                         <td className="px-3 py-2">

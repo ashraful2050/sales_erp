@@ -3,6 +3,7 @@ import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft, Plus, Trash2 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Input = ({ error, ...props }) => (
     <input {...props} className={`w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${error ? "border-red-400" : "border-slate-200"}`} />
@@ -12,6 +13,7 @@ const Select = ({ children, ...props }) => (
 );
 
 export default function GoodsReceiptCreate({ po, vendors, products, pendingOrders }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors } = useForm({
         purchase_order_id: po?.id ?? "",
         vendor_id:         po?.vendor?.id ?? "",
@@ -48,17 +50,17 @@ export default function GoodsReceiptCreate({ po, vendors, products, pendingOrder
     const totalCost = data.items.reduce((s, i) => s + (Number(i.quantity_received) * Number(i.unit_cost) || 0), 0);
 
     return (
-        <AppLayout title="New Goods Receipt">
-            <Head title="New Goods Receipt (GRN)" />
+        <AppLayout title={t("New Goods Receipt")}>
+            <Head title={t("New Goods Receipt (GRN)")} />
             <PageHeader
-                title="New Goods Receipt (GRN)"
-                subtitle="Record goods received from vendor"
-                actions={<Link href={route("purchase.goods-receipts.index")} className="flex items-center gap-2 text-slate-600 text-sm"><ArrowLeft size={16} /> Back</Link>}
+                title={t("New Goods Receipt (GRN)")}
+                subtitle={t("Record goods received from vendor")}
+                actions={<Link href={route("purchase.goods-receipts.index")} className="flex items-center gap-2 text-slate-600 text-sm"><ArrowLeft size={16} /> {t("Back")}</Link>}
             />
             <form onSubmit={e => { e.preventDefault(); post(route("purchase.goods-receipts.store")); }} className="space-y-6 max-w-4xl">
                 <div className="bg-white rounded-xl border border-slate-200 p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Purchase Order (optional)</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t("Purchase Order (optional)")}</label>
                         <Select value={data.purchase_order_id} onChange={e => handlePoChange(e.target.value)}>
                             <option value="">— Without PO —</option>
                             {pendingOrders.map(o => <option key={o.id} value={o.id}>{o.po_number}</option>)}
@@ -77,8 +79,8 @@ export default function GoodsReceiptCreate({ po, vendors, products, pendingOrder
                         <Input type="date" value={data.receipt_date} onChange={e => setData("receipt_date", e.target.value)} required />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Notes</label>
-                        <Input value={data.notes} onChange={e => setData("notes", e.target.value)} placeholder="Optional notes…" />
+                        <label className="block text-sm font-medium text-slate-700 mb-1">{t("Notes")}</label>
+                        <Input value={data.notes} onChange={e => setData("notes", e.target.value)} placeholder={t("Optional notes…")} />
                     </div>
                 </div>
 
@@ -88,7 +90,7 @@ export default function GoodsReceiptCreate({ po, vendors, products, pendingOrder
                         <h3 className="text-sm font-semibold text-slate-700">Items Received</h3>
                         <button type="button" onClick={addRow}
                             className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 font-medium">
-                            <Plus size={15} /> Add Row
+                            <Plus size={15} /> {t("Add Row")}
                         </button>
                     </div>
                     <table className="w-full text-sm">
@@ -144,7 +146,7 @@ export default function GoodsReceiptCreate({ po, vendors, products, pendingOrder
                     <Link href={route("purchase.goods-receipts.index")} className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50">Cancel</Link>
                     <button type="submit" disabled={processing}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium">
-                        <Save size={16} /> Save Receipt & Update Stock
+                        <Save size={16} /> {t("Save Receipt & Update Stock")}
                     </button>
                 </div>
             </form>

@@ -4,8 +4,10 @@ import PageHeader from "@/Components/PageHeader";
 import { Plus, Pencil, Trash2, Check, X } from "lucide-react";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function LeaveTypesIndex({ leaveTypes }) {
+    const { t } = useTranslation();
     const [editing, setEditing] = useState(null);
     const [showAdd, setShowAdd] = useState(false);
     const addForm = useForm({ name: "" });
@@ -34,9 +36,9 @@ export default function LeaveTypesIndex({ leaveTypes }) {
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
-            await dlgConfirm("Delete this leave type? This cannot be undone.", {
-                title: "Delete Leave Type",
-                confirmLabel: "Delete",
+            await dlgConfirm(t("Delete this leave type? This cannot be undone."), {
+                title: t("Delete Leave Type"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -44,17 +46,17 @@ export default function LeaveTypesIndex({ leaveTypes }) {
     };
 
     return (
-        <AppLayout title="Leave Types">
-            <Head title="Leave Types" />
+        <AppLayout title={t("Leave Types")}>
+            <Head title={t("Leave Types")} />
             <PageHeader
-                title="Leave Types"
-                subtitle={`${leaveTypes.length} types`}
+                title={t("Leave Types")}
+                subtitle={`${leaveTypes.length} ${t("types")}`}
                 actions={
                     <button
                         onClick={() => setShowAdd(!showAdd)}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> Add Leave Type
+                        <Plus size={16} /> {t("Add Leave Type")}
                     </button>
                 }
             />
@@ -63,7 +65,7 @@ export default function LeaveTypesIndex({ leaveTypes }) {
                     <thead className="bg-slate-50 border-b border-slate-200">
                         <tr>
                             <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                Leave Type Name
+                                {t("Leave Type Name")}
                             </th>
                             <th className="px-6 py-3 w-24"></th>
                         </tr>
@@ -111,7 +113,7 @@ export default function LeaveTypesIndex({ leaveTypes }) {
                                     colSpan={2}
                                     className="px-6 py-12 text-center text-slate-400"
                                 >
-                                    No leave types found.
+                                    {t("No leave types found.")}
                                 </td>
                             </tr>
                         )}

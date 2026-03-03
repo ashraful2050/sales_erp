@@ -6,10 +6,12 @@ import { Plus, Search, Eye, Trash2 } from "lucide-react";
 import ExportButtons from "@/Components/ExportButtons";
 import { useState } from "react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColors = { draft: "gray", dispatched: "blue", delivered: "green" };
 
 export default function DeliveryNotesIndex({ notes, customers, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters.search ?? "");
     const [customerId, setCustomerId] = useState(filters.customer_id ?? "");
     const [status, setStatus] = useState(filters.status ?? "");
@@ -26,8 +28,8 @@ export default function DeliveryNotesIndex({ notes, customers, filters }) {
             await dlgConfirm(
                 "This delivery note will be permanently removed.",
                 {
-                    title: "Delete Delivery Note?",
-                    confirmLabel: "Delete",
+                    title: t("Delete Delivery Note?"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -36,17 +38,17 @@ export default function DeliveryNotesIndex({ notes, customers, filters }) {
     };
 
     return (
-        <AppLayout title="Delivery Notes">
-            <Head title="Delivery Notes" />
+        <AppLayout title={t("Delivery Notes")}>
+            <Head title={t("Delivery Notes")} />
             <PageHeader
-                title="Delivery Notes (Challan)"
-                subtitle="Manage goods dispatched to customers"
+                title={t("Delivery Notes (Challan)")}
+                subtitle={t("Manage goods dispatched to customers")}
                 actions={
                     <Link
                         href={route("sales.delivery-notes.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Delivery Note
+                        <Plus size={16} /> {t("New Delivery Note")}
                     </Link>
                 }
             />
@@ -58,7 +60,7 @@ export default function DeliveryNotesIndex({ notes, customers, filters }) {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && apply()}
-                        placeholder="Delivery note number…"
+                        placeholder={t("Delivery note number…")}
                         className="flex-1 text-sm outline-none"
                     />
                 </div>
@@ -67,7 +69,7 @@ export default function DeliveryNotesIndex({ notes, customers, filters }) {
                     onChange={(e) => setCustomerId(e.target.value)}
                     className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm"
                 >
-                    <option value="">All Customers</option>
+                    <option value="">{t("All Customers")}</option>
                     {customers.map((c) => (
                         <option key={c.id} value={c.id}>
                             {c.name}
@@ -79,16 +81,16 @@ export default function DeliveryNotesIndex({ notes, customers, filters }) {
                     onChange={(e) => setStatus(e.target.value)}
                     className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm"
                 >
-                    <option value="">All Statuses</option>
-                    <option value="draft">Draft</option>
-                    <option value="dispatched">Dispatched</option>
-                    <option value="delivered">Delivered</option>
+                    <option value="">{t("All Statuses")}</option>
+                    <option value="draft">{t("Draft")}</option>
+                    <option value="dispatched">{t("Dispatched")}</option>
+                    <option value="delivered">{t("Delivered")}</option>
                 </select>
                 <button
                     onClick={apply}
                     className="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm hover:bg-blue-700"
                 >
-                    Filter
+                    {t("Filter")}
                 </button>
                 <ExportButtons
                     tableId="export-table"
@@ -125,7 +127,7 @@ export default function DeliveryNotesIndex({ notes, customers, filters }) {
                                     colSpan={6}
                                     className="text-center py-12 text-slate-400"
                                 >
-                                    No delivery notes found.
+                                    {t("No delivery notes found.")}
                                 </td>
                             </tr>
                         )}

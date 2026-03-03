@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Users, BarChart2, TrendingUp, UserCheck, Layers } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function HBar({ label, value, sub, max, color = "blue" }) {
     const pct = max > 0 ? Math.min((value / max) * 100, 100) : 0;
@@ -40,6 +41,7 @@ export default function WorkloadBalancing({
     leadDist,
     leadVolume,
 }) {
+    const { t } = useTranslation();
     const maxInvoices = repWorkload?.length
         ? Math.max(...repWorkload.map((r) => r.count))
         : 1;
@@ -58,11 +60,11 @@ export default function WorkloadBalancing({
 
     return (
         <AppLayout>
-            <Head title="Workload Balancing" />
+            <Head title={t("Workload Balancing")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Workload Balancing & Resource Allocation"
-                    subtitle="Improve sales team productivity using Line Balancing & Capacity Planning"
+                    title={t("Workload Balancing & Resource Allocation")}
+                    subtitle={t("Improve sales team productivity using Line Balancing & Capacity Planning")}
                 />
 
                 <div className="flex flex-wrap gap-2">
@@ -134,7 +136,7 @@ export default function WorkloadBalancing({
                             ))
                         ) : (
                             <p className="text-slate-400 text-sm">
-                                No workload data available.
+                                {t("No workload data available.")}
                             </p>
                         )}
                         <p className="text-xs text-slate-400 mt-2">
@@ -163,7 +165,7 @@ export default function WorkloadBalancing({
                             ))
                         ) : (
                             <p className="text-slate-400 text-sm">
-                                No lead distribution data.
+                                {t("No lead distribution data.")}
                             </p>
                         )}
                     </div>
@@ -200,7 +202,7 @@ export default function WorkloadBalancing({
                         </div>
                     ) : (
                         <p className="text-slate-400 text-sm">
-                            No trend data available.
+                            {t("No trend data available.")}
                         </p>
                     )}
                 </div>

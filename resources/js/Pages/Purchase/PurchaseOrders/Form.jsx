@@ -2,6 +2,7 @@
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft, Plus, Trash2 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Select = ({ error, children, ...props }) => (
     <select
@@ -34,6 +35,7 @@ export default function PurchaseOrderForm({
     taxRates,
     warehouses,
 }) {
+    const { t } = useTranslation();
     const isEdit = !!order;
     const { data, setData, post, put, processing, errors } = useForm({
         po_number: order?.po_number ?? "",
@@ -133,7 +135,7 @@ export default function PurchaseOrderForm({
                         href={route("purchase.purchase-orders.index")}
                         className="flex items-center gap-2 text-slate-600 text-sm font-medium"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -174,7 +176,7 @@ export default function PurchaseOrderForm({
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Expected Date
+                                {t("Expected Date")}
                             </label>
                             <Input
                                 type="date"
@@ -186,7 +188,7 @@ export default function PurchaseOrderForm({
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Receive Into Warehouse
+                                {t("Receive Into Warehouse")}
                             </label>
                             <Select
                                 value={data.warehouse_id}
@@ -204,7 +206,7 @@ export default function PurchaseOrderForm({
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Status
+                                {t("Status")}
                             </label>
                             <Select
                                 value={data.status}
@@ -212,20 +214,20 @@ export default function PurchaseOrderForm({
                                     setData("status", e.target.value)
                                 }
                             >
-                                <option value="draft">Draft</option>
-                                <option value="sent">Sent</option>
+                                <option value="draft">{t("Draft")}</option>
+                                <option value="sent">{t("Sent")}</option>
                             </Select>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                PO Number
+                                {t("PO Number")}
                             </label>
                             <Input
                                 value={data.po_number}
                                 onChange={(e) =>
                                     setData("po_number", e.target.value)
                                 }
-                                placeholder="Auto-generated"
+                                placeholder={t("Auto-generated")}
                             />
                         </div>
                     </div>
@@ -241,7 +243,7 @@ export default function PurchaseOrderForm({
                             onClick={addLine}
                             className="flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm font-medium"
                         >
-                            <Plus size={15} /> Add Line
+                            <Plus size={15} /> {t("Add Line")}
                         </button>
                     </div>
                     <div className="overflow-x-auto">
@@ -249,22 +251,22 @@ export default function PurchaseOrderForm({
                             <thead className="bg-slate-50">
                                 <tr>
                                     <th className="text-left px-4 py-2 text-xs font-medium text-slate-500 w-48">
-                                        Product
+                                        {t("Product")}
                                     </th>
                                     <th className="text-left px-4 py-2 text-xs font-medium text-slate-500">
-                                        Description
+                                        {t("Description")}
                                     </th>
                                     <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-20">
-                                        Qty
+                                        {t("Qty")}
                                     </th>
                                     <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-28">
-                                        Unit Cost
+                                        {t("Unit Cost")}
                                     </th>
                                     <th className="text-left px-4 py-2 text-xs font-medium text-slate-500 w-32">
-                                        Tax
+                                        {t("Tax")}
                                     </th>
                                     <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-28">
-                                        Total
+                                        {t("Total")}
                                     </th>
                                     <th className="w-8 px-2"></th>
                                 </tr>
@@ -305,7 +307,7 @@ export default function PurchaseOrderForm({
                                                         e.target.value,
                                                     )
                                                 }
-                                                placeholder="Description…"
+                                                placeholder={t("Description…")}
                                             />
                                         </td>
                                         <td className="px-4 py-2">
@@ -349,7 +351,7 @@ export default function PurchaseOrderForm({
                                                     )
                                                 }
                                             >
-                                                <option value="">No Tax</option>
+                                                <option value="">{t("No Tax")}</option>
                                                 {taxRates?.map((t) => (
                                                     <option
                                                         key={t.id}
@@ -387,19 +389,19 @@ export default function PurchaseOrderForm({
                     <div className="border-t border-slate-100 px-6 py-4 flex flex-col items-end gap-1">
                         <div className="w-56 space-y-1 text-sm">
                             <div className="flex justify-between text-slate-600">
-                                <span>Subtotal</span>
+                                <span>{t("Subtotal")}</span>
                                 <span className="font-mono">
                                     ৳{subtotal.toFixed(2)}
                                 </span>
                             </div>
                             <div className="flex justify-between text-slate-600">
-                                <span>Tax</span>
+                                <span>{t("Tax")}</span>
                                 <span className="font-mono">
                                     ৳{taxTotal.toFixed(2)}
                                 </span>
                             </div>
                             <div className="flex justify-between font-semibold text-slate-800 border-t border-slate-200 pt-2 text-base">
-                                <span>Total</span>
+                                <span>{t("Total")}</span>
                                 <span className="font-mono">
                                     ৳{grandTotal.toFixed(2)}
                                 </span>
@@ -410,7 +412,7 @@ export default function PurchaseOrderForm({
 
                 <div className="bg-white rounded-xl border border-slate-200 p-6">
                     <label className="block text-sm font-medium text-slate-700 mb-1">
-                        Notes
+                        {t("Notes")}
                     </label>
                     <textarea
                         value={data.notes}

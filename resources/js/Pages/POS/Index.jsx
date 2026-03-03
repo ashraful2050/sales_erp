@@ -13,8 +13,10 @@ import {
     AlertCircle,
 } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function PosIndex({ products, customers, errors = {} }) {
+    const { t } = useTranslation();
     const { alert: dlgAlert } = useDialog();
     const [search, setSearch] = useState("");
     const [cart, setCart] = useState([]);
@@ -85,7 +87,7 @@ export default function PosIndex({ products, customers, errors = {} }) {
         e.preventDefault();
         if (cart.length === 0) {
             await dlgAlert("Please add items to the cart before proceeding.", {
-                title: "Empty Cart",
+                title: t("Empty Cart"),
                 intent: "warning",
             });
             return;
@@ -116,8 +118,8 @@ export default function PosIndex({ products, customers, errors = {} }) {
     };
 
     return (
-        <AppLayout title="Point of Sale">
-            <Head title="POS — Point of Sale" />
+        <AppLayout title={t("Point of Sale")}>
+            <Head title={t("POS — Point of Sale")} />
 
             {success && (
                 <div className="fixed top-4 right-4 z-50 bg-green-600 text-white px-5 py-3 rounded-xl shadow-lg flex items-center gap-2">
@@ -134,7 +136,7 @@ export default function PosIndex({ products, customers, errors = {} }) {
                         <input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search products by name or code…"
+                            placeholder={t("Search products by name or code…")}
                             className="flex-1 text-sm outline-none text-slate-700"
                             autoFocus
                         />
@@ -196,7 +198,7 @@ export default function PosIndex({ products, customers, errors = {} }) {
                             })}
                             {filtered.length === 0 && (
                                 <div className="col-span-4 text-center py-16 text-slate-400">
-                                    No products found.
+                                    {t("No products found.")}
                                 </div>
                             )}
                         </div>
@@ -208,7 +210,7 @@ export default function PosIndex({ products, customers, errors = {} }) {
                     {/* Cart header */}
                     <div className="px-4 py-3 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
                         <span className="font-semibold text-slate-700 text-sm">
-                            Cart
+                            {t("Cart")}
                         </span>
                         <span className="bg-blue-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                             {cart.length}
@@ -222,8 +224,7 @@ export default function PosIndex({ products, customers, errors = {} }) {
                                 <ShoppingCart
                                     size={32}
                                     className="mb-2 opacity-40"
-                                />
-                                Cart is empty
+                                /> {t("Cart is empty")}
                             </div>
                         )}
                         {cart.map((item, i) => (
@@ -297,13 +298,13 @@ export default function PosIndex({ products, customers, errors = {} }) {
                         {/* Totals */}
                         <div className="space-y-1 text-sm">
                             <div className="flex justify-between text-slate-600">
-                                <span>Subtotal</span>
+                                <span>{t("Subtotal")}</span>
                                 <span className="font-mono">
                                     ৳{subtotal.toLocaleString()}
                                 </span>
                             </div>
                             <div className="flex justify-between items-center text-slate-600">
-                                <span>Discount</span>
+                                <span>{t("Discount")}</span>
                                 <div className="flex items-center gap-1">
                                     <span className="text-slate-400 text-xs">
                                         ৳
@@ -321,7 +322,7 @@ export default function PosIndex({ products, customers, errors = {} }) {
                                 </div>
                             </div>
                             <div className="flex justify-between font-bold text-base border-t pt-1 mt-1">
-                                <span>Total</span>
+                                <span>{t("Total")}</span>
                                 <span className="font-mono text-blue-700">
                                     ৳{total.toLocaleString()}
                                 </span>
@@ -341,13 +342,13 @@ export default function PosIndex({ products, customers, errors = {} }) {
                                 }
                                 className="flex-1 text-xs border border-slate-200 rounded-lg px-2 py-1.5 focus:outline-none"
                             >
-                                <option value="cash">Cash</option>
-                                <option value="bank">Bank Transfer</option>
+                                <option value="cash">{t("Cash")}</option>
+                                <option value="bank">{t("Bank Transfer")}</option>
                                 <option value="bkash">bKash</option>
-                                <option value="nagad">Nagad</option>
-                                <option value="rocket">Rocket</option>
-                                <option value="upay">Upay</option>
-                                <option value="cheque">Cheque</option>
+                                <option value="nagad">{t("Nagad")}</option>
+                                <option value="rocket">{t("Rocket")}</option>
+                                <option value="upay">{t("Upay")}</option>
+                                <option value="cheque">{t("Cheque")}</option>
                             </select>
                         </div>
 

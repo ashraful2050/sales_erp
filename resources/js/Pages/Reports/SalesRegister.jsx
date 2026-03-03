@@ -4,6 +4,7 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { useState } from "react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColor = {
     draft: "gray",
@@ -17,6 +18,7 @@ const fmt = (v) =>
     Number(v || 0).toLocaleString("en-BD", { minimumFractionDigits: 2 });
 
 export default function SalesRegister({ invoices, filters, totals }) {
+    const { t } = useTranslation();
     const [dateFrom, setDateFrom] = useState(filters?.date_from ?? "");
     const [dateTo, setDateTo] = useState(filters?.date_to ?? "");
     const [status, setStatus] = useState(filters?.status ?? "");
@@ -29,17 +31,17 @@ export default function SalesRegister({ invoices, filters, totals }) {
         );
 
     return (
-        <AppLayout title="Sales Register">
-            <Head title="Sales Register" />
+        <AppLayout title={t("Sales Register")}>
+            <Head title={t("Sales Register")} />
             <PageHeader
-                title="Sales Register"
-                subtitle="All sales invoices for the selected period"
+                title={t("Sales Register")}
+                subtitle={t("All sales invoices for the selected period")}
             />
             <div className="space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-4 flex flex-wrap gap-4 items-end">
                     <div>
                         <label className="block text-xs font-medium text-slate-600 mb-1">
-                            From Date
+                            {t("From Date")}
                         </label>
                         <input
                             type="date"
@@ -50,7 +52,7 @@ export default function SalesRegister({ invoices, filters, totals }) {
                     </div>
                     <div>
                         <label className="block text-xs font-medium text-slate-600 mb-1">
-                            To Date
+                            {t("To Date")}
                         </label>
                         <input
                             type="date"
@@ -61,26 +63,26 @@ export default function SalesRegister({ invoices, filters, totals }) {
                     </div>
                     <div>
                         <label className="block text-xs font-medium text-slate-600 mb-1">
-                            Status
+                            {t("Status")}
                         </label>
                         <select
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
                             className="border border-slate-300 rounded-lg text-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            <option value="">All</option>
-                            <option value="draft">Draft</option>
-                            <option value="sent">Sent</option>
-                            <option value="paid">Paid</option>
-                            <option value="partial">Partial</option>
-                            <option value="overdue">Overdue</option>
+                            <option value="">{t("All")}</option>
+                            <option value="draft">{t("Draft")}</option>
+                            <option value="sent">{t("Sent")}</option>
+                            <option value="paid">{t("Paid")}</option>
+                            <option value="partial">{t("Partial")}</option>
+                            <option value="overdue">{t("Overdue")}</option>
                         </select>
                     </div>
                     <button
                         onClick={apply}
                         className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium"
                     >
-                        Apply
+                        {t("Apply")}
                     </button>
                 </div>
 
@@ -88,7 +90,7 @@ export default function SalesRegister({ invoices, filters, totals }) {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
                             <p className="text-xs text-slate-500 uppercase font-semibold">
-                                Total Invoices
+                                {t("Total Invoices")}
                             </p>
                             <p className="text-2xl font-bold text-slate-700">
                                 {totals.count}
@@ -96,7 +98,7 @@ export default function SalesRegister({ invoices, filters, totals }) {
                         </div>
                         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
                             <p className="text-xs text-slate-500 uppercase font-semibold">
-                                Total Sales
+                                {t("Total Sales")}
                             </p>
                             <p className="text-xl font-bold text-blue-600">
                                 {fmt(totals.total_amount)}
@@ -104,7 +106,7 @@ export default function SalesRegister({ invoices, filters, totals }) {
                         </div>
                         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
                             <p className="text-xs text-slate-500 uppercase font-semibold">
-                                Total Received
+                                {t("Total Received")}
                             </p>
                             <p className="text-xl font-bold text-green-600">
                                 {fmt(totals.paid_amount)}
@@ -112,7 +114,7 @@ export default function SalesRegister({ invoices, filters, totals }) {
                         </div>
                         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
                             <p className="text-xs text-slate-500 uppercase font-semibold">
-                                Total Due
+                                {t("Total Due")}
                             </p>
                             <p className="text-xl font-bold text-red-500">
                                 {fmt(totals.due_amount)}
@@ -127,31 +129,31 @@ export default function SalesRegister({ invoices, filters, totals }) {
                             <thead className="bg-slate-50 border-b border-slate-200">
                                 <tr>
                                     <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Invoice #
+                                        {t("Invoice #")}
                                     </th>
                                     <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Date
+                                        {t("Date")}
                                     </th>
                                     <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Customer
+                                        {t("Customer")}
                                     </th>
                                     <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Subtotal
+                                        {t("Subtotal")}
                                     </th>
                                     <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Tax
+                                        {t("Tax")}
                                     </th>
                                     <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Total
+                                        {t("Total")}
                                     </th>
                                     <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Paid
+                                        {t("Paid")}
                                     </th>
                                     <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Due
+                                        {t("Due")}
                                     </th>
                                     <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase">
-                                        Status
+                                        {t("Status")}
                                     </th>
                                 </tr>
                             </thead>

@@ -9,6 +9,7 @@ import {
     Award,
     RefreshCw,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 function ImprovementCard({ label, current, previous, isGood }) {
     const change =
@@ -59,6 +60,7 @@ export default function ContinuousImprovement({
     convTrend,
     improvement,
 }) {
+    const { t } = useTranslation();
     const maxOrders = monthlyOrders?.length
         ? Math.max(...monthlyOrders.map((r) => r.orders))
         : 1;
@@ -71,11 +73,11 @@ export default function ContinuousImprovement({
 
     return (
         <AppLayout>
-            <Head title="Continuous Improvement" />
+            <Head title={t("Continuous Improvement")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Continuous Improvement Module"
-                    subtitle="Kaizen-based improvement tracking with A/B analysis and monthly efficiency reports"
+                    title={t("Continuous Improvement Module")}
+                    subtitle={t("Kaizen-based improvement tracking with A/B analysis and monthly efficiency reports")}
                 />
 
                 <div className="flex flex-wrap gap-2">
@@ -116,7 +118,7 @@ export default function ContinuousImprovement({
                         <p className="text-2xl font-bold text-slate-800">
                             {monthlyOrders?.length ?? 0}
                         </p>
-                        <p className="text-sm text-slate-500">Months Tracked</p>
+                        <p className="text-sm text-slate-500">{t("Months Tracked")}</p>
                     </div>
                     <div className="bg-white rounded-xl border border-slate-200 p-5">
                         <div className="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center mb-3">
@@ -129,7 +131,7 @@ export default function ContinuousImprovement({
                             %
                         </p>
                         <p className="text-sm text-slate-500">
-                            Latest Conversion Rate
+                            {t("Latest Conversion Rate")}
                         </p>
                     </div>
                 </div>
@@ -178,16 +180,16 @@ export default function ContinuousImprovement({
                                         <thead>
                                             <tr className="border-b border-slate-100">
                                                 <th className="text-left py-1 pr-3">
-                                                    Month
+                                                    {t("Month")}
                                                 </th>
                                                 <th className="text-right py-1 pr-3">
-                                                    Orders
+                                                    {t("Orders")}
                                                 </th>
                                                 <th className="text-right py-1 pr-3">
-                                                    Revenue
+                                                    {t("Revenue")}
                                                 </th>
                                                 <th className="text-right py-1">
-                                                    Avg Order
+                                                    {t("Avg Order")}
                                                 </th>
                                             </tr>
                                         </thead>
@@ -226,7 +228,7 @@ export default function ContinuousImprovement({
                             </>
                         ) : (
                             <p className="text-slate-400 text-sm">
-                                No order history available.
+                                {t("No order history available.")}
                             </p>
                         )}
                     </div>
@@ -272,16 +274,16 @@ export default function ContinuousImprovement({
                                         <thead>
                                             <tr className="border-b border-slate-100">
                                                 <th className="text-left py-1 pr-3">
-                                                    Month
+                                                    {t("Month")}
                                                 </th>
                                                 <th className="text-right py-1 pr-3">
-                                                    Total Leads
+                                                    {t("Total Leads")}
                                                 </th>
                                                 <th className="text-right py-1 pr-3">
-                                                    Won
+                                                    {t("Won")}
                                                 </th>
                                                 <th className="text-right py-1">
-                                                    Rate
+                                                    {t("Rate")}
                                                 </th>
                                             </tr>
                                         </thead>
@@ -314,7 +316,7 @@ export default function ContinuousImprovement({
                             </>
                         ) : (
                             <p className="text-slate-400 text-sm">
-                                No conversion trend data.
+                                {t("No conversion trend data.")}
                             </p>
                         )}
                     </div>

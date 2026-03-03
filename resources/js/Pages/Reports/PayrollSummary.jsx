@@ -3,8 +3,10 @@ import { Head, router } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { useState } from "react";
 import { Filter } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function PayrollSummary({ month }) {
+    const { t } = useTranslation();
     const [selectedMonth, setSelectedMonth] = useState(month);
 
     const handleFilter = () => {
@@ -27,17 +29,17 @@ export default function PayrollSummary({ month }) {
 
     return (
         <AppLayout>
-            <Head title="Payroll Summary Report" />
+            <Head title={t("Payroll Summary Report")} />
             <div className="p-6 space-y-6">
                 <PageHeader
-                    title="Payroll Summary Report"
+                    title={t("Payroll Summary Report")}
                     subtitle={`${monthName} ${year}`}
                 />
 
                 {/* Filter */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-wrap items-end gap-4">
                     <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">Month</label>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">{t("Month")}</label>
                         <input
                             type="month"
                             value={selectedMonth}
@@ -49,7 +51,7 @@ export default function PayrollSummary({ month }) {
                         onClick={handleFilter}
                         className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm"
                     >
-                        <Filter className="w-4 h-4" /> Apply Filter
+                        <Filter className="w-4 h-4" /> {t("Apply Filter")}
                     </button>
                 </div>
 

@@ -3,6 +3,7 @@ import { Head, router, useForm } from "@inertiajs/react";
 import { useState, useMemo } from "react";
 import PageHeader from "@/Components/PageHeader";
 import { Save } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const TYPE_COLOR = {
     asset: "blue",
@@ -18,6 +19,7 @@ export default function OpeningBalanceIndex({
     selectedFY,
     filters,
 }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState("");
     const [fyId, setFyId] = useState(
         filters?.fiscal_year_id ?? selectedFY?.id ?? "",
@@ -89,11 +91,11 @@ export default function OpeningBalanceIndex({
     const balanced = Math.abs(totalDebit - totalCredit) < 0.01;
 
     return (
-        <AppLayout title="Opening Balance">
-            <Head title="Opening Balance" />
+        <AppLayout title={t("Opening Balance")}>
+            <Head title={t("Opening Balance")} />
             <PageHeader
-                title="Opening Balance"
-                subtitle="Set opening balances for all accounts"
+                title={t("Opening Balance")}
+                subtitle={t("Set opening balances for all accounts")}
                 actions={
                     <button
                         onClick={save}
@@ -115,7 +117,7 @@ export default function OpeningBalanceIndex({
                         onChange={(e) => changeFY(e.target.value)}
                         className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                        <option value="">No Fiscal Year</option>
+                        <option value="">{t("No Fiscal Year")}</option>
                         {fiscalYears.map((fy) => (
                             <option key={fy.id} value={fy.id}>
                                 {fy.name} {fy.is_active ? "(Active)" : ""}
@@ -127,7 +129,7 @@ export default function OpeningBalanceIndex({
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search account name or code…"
+                    placeholder={t("Search account name or code…")}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-64"
                 />
                 {/* Balance indicator */}
@@ -152,19 +154,19 @@ export default function OpeningBalanceIndex({
                             <thead className="bg-slate-50 border-b border-slate-200">
                                 <tr>
                                     <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider w-24">
-                                        Code
+                                        {t("Code")}
                                     </th>
                                     <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        Account Name
+                                        {t("Account Name")}
                                     </th>
                                     <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider w-28">
-                                        Type
+                                        {t("Type")}
                                     </th>
                                     <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider w-36">
-                                        Debit (Dr)
+                                        {t("Debit (Dr)")}
                                     </th>
                                     <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider w-36">
-                                        Credit (Cr)
+                                        {t("Credit (Cr)")}
                                     </th>
                                 </tr>
                             </thead>
@@ -175,7 +177,7 @@ export default function OpeningBalanceIndex({
                                             colSpan={5}
                                             className="px-6 py-10 text-center text-slate-400"
                                         >
-                                            No accounts found.
+                                            {t("No accounts found.")}
                                         </td>
                                     </tr>
                                 )}

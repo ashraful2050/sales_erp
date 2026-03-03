@@ -4,6 +4,7 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { Send, Star, Lock, Unlock } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const statusColors = {
     open: "blue",
@@ -21,6 +22,7 @@ const priorityColors = {
 };
 
 export default function TicketShow({ ticket, replies }) {
+    const { t } = useTranslation();
     const [rating, setRating] = useState(ticket.satisfaction_rating || 0);
     const { data, setData, post, processing, reset, errors } = useForm({
         message: "",
@@ -126,7 +128,7 @@ export default function TicketShow({ ticket, replies }) {
                                     </p>
                                     {reply.is_internal && (
                                         <span className="bg-amber-200 text-amber-700 text-xs px-2 py-0.5 rounded-full flex items-center gap-1">
-                                            <Lock size={9} /> Internal
+                                            <Lock size={9} /> {t("Internal")}
                                         </span>
                                     )}
                                 </div>
@@ -150,7 +152,7 @@ export default function TicketShow({ ticket, replies }) {
                         >
                             <div className="flex items-center gap-3 mb-3">
                                 <span className="text-sm font-medium text-slate-700">
-                                    Reply
+                                    {t("Reply")}
                                 </span>
                                 <label className="flex items-center gap-1.5 text-xs text-slate-500 cursor-pointer">
                                     <input
@@ -164,7 +166,7 @@ export default function TicketShow({ ticket, replies }) {
                                         }
                                         className="rounded"
                                     />
-                                    <Lock size={11} /> Internal note
+                                    <Lock size={11} /> {t("Internal note")}
                                 </label>
                             </div>
                             <textarea
@@ -173,7 +175,7 @@ export default function TicketShow({ ticket, replies }) {
                                 onChange={(e) =>
                                     setData("message", e.target.value)
                                 }
-                                placeholder="Write your reply..."
+                                placeholder={t("Write your reply...")}
                                 className={`w-full border rounded-lg px-3 py-2 text-sm ${data.is_internal ? "border-amber-300 bg-amber-50" : "border-slate-300"}`}
                             />
                             {errors.message && (
@@ -205,7 +207,7 @@ export default function TicketShow({ ticket, replies }) {
                         </h3>
                         <div className="space-y-2 text-sm">
                             <div className="flex justify-between">
-                                <span className="text-slate-500">Status</span>
+                                <span className="text-slate-500">{t("Status")}</span>
                                 <Badge
                                     color={
                                         statusColors[ticket.status] || "slate"
@@ -214,7 +216,7 @@ export default function TicketShow({ ticket, replies }) {
                                 />
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-slate-500">Priority</span>
+                                <span className="text-slate-500">{t("Priority")}</span>
                                 <Badge
                                     color={
                                         priorityColors[ticket.priority] ||
@@ -224,13 +226,13 @@ export default function TicketShow({ ticket, replies }) {
                                 />
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-slate-500">Channel</span>
+                                <span className="text-slate-500">{t("Channel")}</span>
                                 <span className="text-slate-700">
                                     {ticket.channel}
                                 </span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-slate-500">Category</span>
+                                <span className="text-slate-500">{t("Category")}</span>
                                 <span className="text-slate-700">
                                     {ticket.category?.replace("_", " ")}
                                 </span>
@@ -238,7 +240,7 @@ export default function TicketShow({ ticket, replies }) {
                             {ticket.assignee && (
                                 <div className="flex justify-between">
                                     <span className="text-slate-500">
-                                        Assigned
+                                        {t("Assigned")}
                                     </span>
                                     <span className="text-slate-700">
                                         {ticket.assignee.name}
@@ -246,7 +248,7 @@ export default function TicketShow({ ticket, replies }) {
                                 </div>
                             )}
                             <div className="flex justify-between">
-                                <span className="text-slate-500">Created</span>
+                                <span className="text-slate-500">{t("Created")}</span>
                                 <span className="text-slate-700">
                                     {new Date(
                                         ticket.created_at,
@@ -296,7 +298,7 @@ export default function TicketShow({ ticket, replies }) {
                             </h3>
                             <div className="flex justify-between">
                                 <span className="text-slate-500">
-                                    First Response
+                                    {t("First Response")}
                                 </span>
                                 <span className="text-slate-700">
                                     {new Date(
@@ -307,7 +309,7 @@ export default function TicketShow({ ticket, replies }) {
                             {ticket.resolved_at && (
                                 <div className="flex justify-between">
                                     <span className="text-slate-500">
-                                        Resolved
+                                        {t("Resolved")}
                                     </span>
                                     <span className="text-slate-700">
                                         {new Date(

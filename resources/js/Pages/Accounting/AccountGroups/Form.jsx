@@ -2,8 +2,10 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { ArrowLeft, Save } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Form({ group }) {
+    const { t } = useTranslation();
     const isEdit = !!group;
     const { data, setData, post, put, processing, errors } = useForm({
         name: group?.name ?? "",
@@ -34,7 +36,7 @@ export default function Form({ group }) {
                             href={route("accounting.account-groups.index")}
                             className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm"
                         >
-                            <ArrowLeft className="w-4 h-4" /> Back
+                            <ArrowLeft className="w-4 h-4" /> {t("Back")}
                         </Link>
                     }
                 />
@@ -58,7 +60,7 @@ export default function Form({ group }) {
 
                         {/* Code */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Code</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">{t("Code")}</label>
                             <input
                                 type="text"
                                 value={data.code}
@@ -88,13 +90,13 @@ export default function Form({ group }) {
 
                         {/* Description */}
                         <div className="sm:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">{t("Description")}</label>
                             <textarea
                                 value={data.description}
                                 onChange={(e) => setData("description", e.target.value)}
                                 rows={3}
                                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                                placeholder="Optional description..."
+                                placeholder={t("Optional description...")}
                             />
                             {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
                         </div>

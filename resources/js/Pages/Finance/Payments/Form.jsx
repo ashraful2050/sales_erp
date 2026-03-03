@@ -3,6 +3,7 @@ import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft, FileText } from "lucide-react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Field = ({ label, error, children }) => (
     <div>
@@ -37,6 +38,7 @@ export default function PaymentForm({
     customers,
     vendors,
 }) {
+    const { t } = useTranslation();
     const isEdit = !!payment;
 
     // If coming from an invoice, pre-fill values
@@ -109,13 +111,13 @@ export default function PaymentForm({
             <Head title={isEdit ? "Edit Payment" : "New Payment"} />
             <PageHeader
                 title={isEdit ? "Edit Payment" : "New Payment"}
-                subtitle="Record a payment received or made"
+                subtitle={t("Record a payment received or made")}
                 actions={
                     <Link
                         href={route("finance.payments.index")}
                         className="flex items-center gap-2 text-slate-600 text-sm font-medium"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -173,7 +175,7 @@ export default function PaymentForm({
                         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                             <div>
                                 <p className="text-xs text-blue-500 mb-0.5">
-                                    Invoice
+                                    {t("Invoice")}
                                 </p>
                                 <p className="font-semibold text-blue-800">
                                     {selectedInvoice.invoice_number}
@@ -181,7 +183,7 @@ export default function PaymentForm({
                             </div>
                             <div>
                                 <p className="text-xs text-blue-500 mb-0.5">
-                                    Invoice Date
+                                    {t("Invoice Date")}
                                 </p>
                                 <p className="font-medium text-blue-700">
                                     {fmtDate(selectedInvoice.invoice_date)}
@@ -189,7 +191,7 @@ export default function PaymentForm({
                             </div>
                             <div>
                                 <p className="text-xs text-blue-500 mb-0.5">
-                                    Invoice Total
+                                    {t("Invoice Total")}
                                 </p>
                                 <p className="font-medium text-blue-700">
                                     ৳
@@ -200,7 +202,7 @@ export default function PaymentForm({
                             </div>
                             <div>
                                 <p className="text-xs text-blue-500 mb-0.5">
-                                    Balance Due
+                                    {t("Balance Due")}
                                 </p>
                                 <p className="font-bold text-red-600">
                                     ৳
@@ -276,14 +278,14 @@ export default function PaymentForm({
                                 }
                                 required
                             >
-                                <option value="cash">Cash</option>
-                                <option value="bank">Bank Transfer</option>
-                                <option value="cheque">Cheque</option>
+                                <option value="cash">{t("Cash")}</option>
+                                <option value="bank">{t("Bank Transfer")}</option>
+                                <option value="cheque">{t("Cheque")}</option>
                                 <option value="bkash">bKash</option>
-                                <option value="nagad">Nagad</option>
-                                <option value="rocket">Rocket</option>
-                                <option value="upay">Upay</option>
-                                <option value="other">Other</option>
+                                <option value="nagad">{t("Nagad")}</option>
+                                <option value="rocket">{t("Rocket")}</option>
+                                <option value="upay">{t("Upay")}</option>
+                                <option value="other">{t("Other")}</option>
                             </Select>
                         </Field>
                         <Field
@@ -295,7 +297,7 @@ export default function PaymentForm({
                                 onChange={(e) =>
                                     setData("reference", e.target.value)
                                 }
-                                placeholder="Optional"
+                                placeholder={t("Optional")}
                             />
                         </Field>
                         <Field

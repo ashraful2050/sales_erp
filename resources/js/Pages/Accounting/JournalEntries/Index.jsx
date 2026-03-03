@@ -8,6 +8,7 @@ import SearchFilter from "@/Components/SearchFilter";
 import { Plus, Eye, Pencil, Trash2, CheckCircle } from "lucide-react";
 import { fmtDate } from "@/utils/date";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const TYPE_LABEL = {
     journal: "Journal",
@@ -18,6 +19,7 @@ const TYPE_LABEL = {
 const STATUS_COLOR = { draft: "slate", posted: "green", voided: "red" };
 
 export default function JournalEntriesIndex({ entries, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const [type, setType] = useState(filters?.type ?? "");
     const [status, setStatus] = useState(filters?.status ?? "");
@@ -33,8 +35,8 @@ export default function JournalEntriesIndex({ entries, filters }) {
             await dlgConfirm(
                 "This journal entry will be permanently removed.",
                 {
-                    title: "Delete Journal Entry?",
-                    confirmLabel: "Delete",
+                    title: t("Delete Journal Entry?"),
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -43,17 +45,17 @@ export default function JournalEntriesIndex({ entries, filters }) {
     };
 
     return (
-        <AppLayout title="Journal Entries">
-            <Head title="Journal Entries" />
+        <AppLayout title={t("Journal Entries")}>
+            <Head title={t("Journal Entries")} />
             <PageHeader
-                title="Journal Entries"
-                subtitle={`${entries.total} total entries`}
+                title={t("Journal Entries")}
+                subtitle={`${entries.total} ${t("total entries")}`}
                 actions={
                     <Link
                         href={route("accounting.journal-entries.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Entry
+                        <Plus size={16} /> {t("New Entry")}
                     </Link>
                 }
             />
@@ -64,7 +66,7 @@ export default function JournalEntriesIndex({ entries, filters }) {
                         setSearch(v);
                         apply(v, type, status);
                     }}
-                    placeholder="Search voucher #, narration…"
+                    placeholder={t("Search voucher #, narration…")}
                 />
                 <select
                     value={type}
@@ -74,7 +76,7 @@ export default function JournalEntriesIndex({ entries, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Types</option>
+                    <option value="">{t("All Types")}</option>
                     {["journal", "payment", "receipt", "contra"].map((t) => (
                         <option key={t} value={t}>
                             {TYPE_LABEL[t]}
@@ -89,9 +91,9 @@ export default function JournalEntriesIndex({ entries, filters }) {
                     }}
                     className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                    <option value="">All Status</option>
-                    <option value="draft">Draft</option>
-                    <option value="posted">Posted</option>
+                    <option value="">{t("All Status")}</option>
+                    <option value="draft">{t("Draft")}</option>
+                    <option value="posted">{t("Posted")}</option>
                 </select>
             </div>
             <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
@@ -100,22 +102,22 @@ export default function JournalEntriesIndex({ entries, filters }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Voucher #
+                                    {t("Voucher #")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Type
+                                    {t("Type")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Date
+                                    {t("Date")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Narration
+                                    {t("Narration")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Created By
+                                    {t("Created By")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -127,7 +129,7 @@ export default function JournalEntriesIndex({ entries, filters }) {
                                         colSpan={7}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No journal entries found.
+                                        {t("No journal entries found.")}
                                     </td>
                                 </tr>
                             )}

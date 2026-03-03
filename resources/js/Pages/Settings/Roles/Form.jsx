@@ -13,6 +13,7 @@ import {
     Info,
 } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const actionLabels = {
     view: "View",
@@ -112,6 +113,7 @@ export default function RoleForm({
     isAdminMode,
     adminPermissions,
 }) {
+    const { t } = useTranslation();
     const isEdit = !!editRole;
     const [activeTab, setActiveTab] = useState("module");
     const [expandedMods, setExpandedMods] = useState(() => {
@@ -245,13 +247,13 @@ export default function RoleForm({
                 title={
                     isEdit ? `Edit Role: ${editRole.name}` : "Create New Role"
                 }
-                subtitle="Define a name and assign permissions for each module and feature"
+                subtitle={t("Define a name and assign permissions for each module and feature")}
                 actions={
                     <Link
                         href={route("settings.roles.index")}
                         className="flex items-center gap-2 text-slate-600 text-sm font-medium hover:text-slate-900"
                     >
-                        <ArrowLeft size={16} /> Back to Roles
+                        <ArrowLeft size={16} /> {t("Back to Roles")}
                     </Link>
                 }
             />
@@ -260,7 +262,7 @@ export default function RoleForm({
                 <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-amber-800 mb-2">
                     <Info size={16} className="mt-0.5 shrink-0" />
                     <span>
-                        As an <strong>Admin</strong>, you can only assign
+                        As an <strong>{t("Admin")}</strong>, you can only assign
                         permissions that have been granted to you by the
                         SuperAdmin. Permissions shown with{" "}
                         <Lock size={12} className="inline" /> are locked and
@@ -355,7 +357,7 @@ export default function RoleForm({
                                 <thead className="bg-slate-50">
                                     <tr>
                                         <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider w-52">
-                                            Module
+                                            {t("Module")}
                                         </th>
                                         {allActions.map((action) => (
                                             <th
@@ -376,7 +378,7 @@ export default function RoleForm({
                                             </th>
                                         ))}
                                         <th className="px-3 py-3 text-center text-xs font-semibold text-slate-500 w-20">
-                                            All
+                                            {t("All")}
                                         </th>
                                     </tr>
                                 </thead>
@@ -554,14 +556,14 @@ export default function RoleForm({
                                     onClick={() => toggleAllFeatures(true)}
                                     className="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-semibold hover:bg-blue-700"
                                 >
-                                    Enable All Features
+                                    {t("Enable All Features")}
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => toggleAllFeatures(false)}
                                     className="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-semibold hover:bg-slate-200"
                                 >
-                                    Disable All
+                                    {t("Disable All")}
                                 </button>
                             </div>
 

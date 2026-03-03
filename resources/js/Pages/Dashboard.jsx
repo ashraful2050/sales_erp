@@ -29,6 +29,7 @@ import {
     CalendarClock,
     Receipt,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const fmt = (n) =>
     new Intl.NumberFormat("en-BD", {
@@ -75,6 +76,7 @@ export default function Dashboard({
     todayPurchaseDue,
     expenseStatement,
 }) {
+    const { t } = useTranslation();
     const [expenseMonth, setExpenseMonth] = useState(
         expenseStatement?.month ?? new Date().toISOString().slice(0, 7),
     );
@@ -112,7 +114,7 @@ export default function Dashboard({
     }));
     return (
         <AppLayout header="Dashboard">
-            <Head title="Dashboard" />
+            <Head title={t("Dashboard")} />
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <StatCard
                     label="Revenue (This Month)"
@@ -307,7 +309,7 @@ export default function Dashboard({
                     </div>
                     {(todaySaleDue ?? []).length > 0 && (
                         <div className="px-5 py-3 bg-rose-50 border-t border-rose-100 flex justify-between text-xs text-rose-700">
-                            <span>Total Due Today</span>
+                            <span>{t("Total Due Today")}</span>
                             <span className="font-bold">
                                 {fmt(
                                     (todaySaleDue ?? []).reduce(
@@ -387,7 +389,7 @@ export default function Dashboard({
                     </div>
                     {(todayPurchaseDue ?? []).length > 0 && (
                         <div className="px-5 py-3 bg-amber-50 border-t border-amber-100 flex justify-between text-xs text-amber-700">
-                            <span>Total Due Today</span>
+                            <span>{t("Total Due Today")}</span>
                             <span className="font-bold">
                                 {fmt(
                                     (todayPurchaseDue ?? []).reduce(
@@ -526,7 +528,7 @@ export default function Dashboard({
                                 <circle cx="11" cy="11" r="8" />
                                 <path d="m21 21-4.35-4.35" />
                             </svg>
-                            Filter
+                            {t("Filter")}
                         </button>
                     </div>
 

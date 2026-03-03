@@ -3,6 +3,7 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import InputError from "@/Components/InputError";
 import { Save, ArrowLeft } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const TYPE_LABELS = {
     debit: "Debit Voucher",
@@ -26,6 +27,7 @@ export default function VoucherForm({
     paymentMethods,
     accounts,
 }) {
+    const { t } = useTranslation();
     const isEdit = !!voucher;
     const voucherType = voucher?.voucher_type ?? defaultType ?? "debit";
 
@@ -65,7 +67,7 @@ export default function VoucherForm({
                         href={route(backRoute)}
                         className="flex items-center gap-2 text-slate-600 hover:text-slate-900 text-sm"
                     >
-                        <ArrowLeft size={16} /> Back
+                        <ArrowLeft size={16} /> {t("Back")}
                     </Link>
                 }
             />
@@ -91,7 +93,7 @@ export default function VoucherForm({
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Status
+                                {t("Status")}
                             </label>
                             <select
                                 value={data.status}
@@ -100,7 +102,7 @@ export default function VoucherForm({
                                 }
                                 className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
-                                <option value="draft">Draft</option>
+                                <option value="draft">{t("Draft")}</option>
                                 <option value="pending">
                                     Submit for Approval
                                 </option>
@@ -169,7 +171,7 @@ export default function VoucherForm({
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-1">
-                                    Payment Method
+                                    {t("Payment Method")}
                                 </label>
                                 <select
                                     value={data.payment_method_id}
@@ -194,7 +196,7 @@ export default function VoucherForm({
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-1">
-                                    Account
+                                    {t("Account")}
                                 </label>
                                 <select
                                     value={data.account_id}
@@ -244,7 +246,7 @@ export default function VoucherForm({
                                 setData("reference", e.target.value)
                             }
                             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Optional"
+                            placeholder={t("Optional")}
                         />
                         <InputError message={errors.reference} />
                     </div>
@@ -252,7 +254,7 @@ export default function VoucherForm({
                     {/* Narration */}
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                            Narration
+                            {t("Narration")}
                         </label>
                         <textarea
                             rows={3}
@@ -261,7 +263,7 @@ export default function VoucherForm({
                                 setData("narration", e.target.value)
                             }
                             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                            placeholder="Brief description…"
+                            placeholder={t("Brief description…")}
                         />
                         <InputError message={errors.narration} />
                     </div>

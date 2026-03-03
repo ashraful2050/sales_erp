@@ -35,19 +35,19 @@ export default function Show({ invoice, company }) {
                                 href={route("sales.invoices.index")}
                                 className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm"
                             >
-                                <ArrowLeft className="w-4 h-4" /> Back
+                                <ArrowLeft className="w-4 h-4" /> {t("Back")}
                             </Link>
                             <button
                                 onClick={() => setShowPrint(true)}
                                 className="inline-flex items-center gap-2 px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-800 text-sm font-medium"
                             >
-                                <Printer className="w-4 h-4" /> Print Invoice
+                                <Printer className="w-4 h-4" /> {t("Print Invoice")}
                             </button>
                             <Link
                                 href={route("sales.invoices.edit", invoice.id)}
                                 className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm"
                             >
-                                <Edit className="w-4 h-4" /> Edit
+                                <Edit className="w-4 h-4" /> {t("Edit")}
                             </Link>
                             {["sent", "partial", "overdue"].includes(
                                 invoice.status,
@@ -70,7 +70,7 @@ export default function Show({ invoice, company }) {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         <div>
-                            <p className="text-xs text-gray-500 mb-1">Status</p>
+                            <p className="text-xs text-gray-500 mb-1">{t("Status")}</p>
                             <Badge
                                 color={statusColors[invoice.status] || "gray"}
                             >
@@ -79,7 +79,7 @@ export default function Show({ invoice, company }) {
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 mb-1">
-                                Invoice Date
+                                {t("Invoice Date")}
                             </p>
                             <p className="text-sm font-medium">
                                 {fmtDate(invoice.invoice_date)}
@@ -87,7 +87,7 @@ export default function Show({ invoice, company }) {
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 mb-1">
-                                Due Date
+                                {t("Due Date")}
                             </p>
                             <p className="text-sm font-medium">
                                 {fmtDate(invoice.due_date)}
@@ -95,7 +95,7 @@ export default function Show({ invoice, company }) {
                         </div>
                         <div>
                             <p className="text-xs text-gray-500 mb-1">
-                                Payment Terms
+                                {t("Payment Terms")}
                             </p>
                             <p className="text-sm font-medium">
                                 {invoice.payment_terms ?? "—"}
@@ -104,7 +104,7 @@ export default function Show({ invoice, company }) {
                     </div>
                     {invoice.notes && (
                         <div className="mt-4 pt-4 border-t border-gray-100">
-                            <p className="text-xs text-gray-500 mb-1">Notes</p>
+                            <p className="text-xs text-gray-500 mb-1">{t("Notes")}</p>
                             <p className="text-sm text-gray-700">
                                 {invoice.notes}
                             </p>
@@ -178,16 +178,16 @@ export default function Show({ invoice, company }) {
                     <div className="px-6 py-4 border-t border-gray-100 flex justify-end">
                         <div className="w-64 space-y-2 text-sm">
                             <div className="flex justify-between">
-                                <span className="text-gray-500">Subtotal</span>
+                                <span className="text-gray-500">{t("Subtotal")}</span>
                                 <span>৳{subtotal.toLocaleString()}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-gray-500">Tax</span>
+                                <span className="text-gray-500">{t("Tax")}</span>
                                 <span>৳{taxTotal.toLocaleString()}</span>
                             </div>
                             {invoice.discount_amount > 0 && (
                                 <div className="flex justify-between text-red-600">
-                                    <span>Discount</span>
+                                    <span>{t("Discount")}</span>
                                     <span>
                                         -৳
                                         {Number(
@@ -197,7 +197,7 @@ export default function Show({ invoice, company }) {
                                 </div>
                             )}
                             <div className="flex justify-between font-bold text-base border-t pt-2">
-                                <span>Total</span>
+                                <span>{t("Total")}</span>
                                 <span>
                                     ৳
                                     {Number(
@@ -206,7 +206,7 @@ export default function Show({ invoice, company }) {
                                 </span>
                             </div>
                             <div className="flex justify-between text-green-600">
-                                <span>Paid</span>
+                                <span>{t("Paid")}</span>
                                 <span>
                                     ৳
                                     {Number(
@@ -215,7 +215,7 @@ export default function Show({ invoice, company }) {
                                 </span>
                             </div>
                             <div className="flex justify-between font-semibold text-red-600 border-t pt-2">
-                                <span>Balance Due</span>
+                                <span>{t("Balance Due")}</span>
                                 <span>
                                     ৳
                                     {(

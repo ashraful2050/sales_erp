@@ -22,6 +22,7 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const StatusBadge = ({ status }) => {
     const cls =
@@ -69,12 +70,13 @@ export default function SuperAdminDashboard({
     expiringSoon,
     monthlySignups,
 }) {
+    const { t } = useTranslation();
     const fmt = (n) => new Intl.NumberFormat().format(n ?? 0);
     const fmtCurrency = (n) => "$" + new Intl.NumberFormat().format(n ?? 0);
 
     return (
         <SuperAdminLayout title="Dashboard">
-            <Head title="Super Admin Dashboard" />
+            <Head title={t("Super Admin Dashboard")} />
 
             {/* Stat Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -166,7 +168,7 @@ export default function SuperAdminDashboard({
                     </h3>
                     {expiringSoon.length === 0 ? (
                         <p className="text-slate-500 text-sm">
-                            No subscriptions expiring soon.
+                            {t("No subscriptions expiring soon.")}
                         </p>
                     ) : (
                         <div className="space-y-2">
@@ -214,19 +216,19 @@ export default function SuperAdminDashboard({
                         <thead>
                             <tr className="border-b border-slate-700">
                                 <th className="text-left text-slate-400 py-2 pr-4 font-medium">
-                                    Company
+                                    {t("Company")}
                                 </th>
                                 <th className="text-left text-slate-400 py-2 pr-4 font-medium">
-                                    Email
+                                    {t("Email")}
                                 </th>
                                 <th className="text-left text-slate-400 py-2 pr-4 font-medium">
-                                    Plan
+                                    {t("Plan")}
                                 </th>
                                 <th className="text-left text-slate-400 py-2 pr-4 font-medium">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="text-left text-slate-400 py-2 font-medium">
-                                    Joined
+                                    {t("Joined")}
                                 </th>
                             </tr>
                         </thead>

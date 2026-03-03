@@ -3,8 +3,10 @@ import { Head, Link, router } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Plus, Pencil, Trash2, ShieldCheck, Users } from "lucide-react";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function RolesIndex({ roles, isAdminMode }) {
+    const { t } = useTranslation();
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id, name) => {
         if (
@@ -12,7 +14,7 @@ export default function RolesIndex({ roles, isAdminMode }) {
                 `Users with role "${name}" will lose their permissions.`,
                 {
                     title: `Delete Role "${name}"?`,
-                    confirmLabel: "Delete",
+                    confirmLabel: t("Delete"),
                     intent: "danger",
                 },
             )
@@ -40,7 +42,7 @@ export default function RolesIndex({ roles, isAdminMode }) {
                         href={route("settings.roles.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={15} /> New Role
+                        <Plus size={15} /> {t("New Role")}
                     </Link>
                 }
             />
@@ -75,7 +77,7 @@ export default function RolesIndex({ roles, isAdminMode }) {
                                         </h3>
                                         {role.is_system && (
                                             <span className="text-xs text-slate-400">
-                                                System role
+                                                {t("System role")}
                                             </span>
                                         )}
                                     </div>

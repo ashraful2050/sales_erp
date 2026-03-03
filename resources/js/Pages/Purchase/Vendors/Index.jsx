@@ -8,8 +8,10 @@ import SearchFilter from "@/Components/SearchFilter";
 import { Plus, Eye, Pencil, Trash2, Mail, Phone } from "lucide-react";
 import ExportButtons from "@/Components/ExportButtons";
 import { useDialog } from "@/hooks/useDialog";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function VendorsIndex({ vendors, filters }) {
+    const { t } = useTranslation();
     const [search, setSearch] = useState(filters?.search ?? "");
     const apply = (s) =>
         router.get(
@@ -20,9 +22,9 @@ export default function VendorsIndex({ vendors, filters }) {
     const { confirm: dlgConfirm } = useDialog();
     const del = async (id) => {
         if (
-            await dlgConfirm("This vendor will be permanently removed.", {
-                title: "Delete Vendor?",
-                confirmLabel: "Delete",
+            await dlgConfirm(t("This vendor will be permanently removed."), {
+                title: t("Delete Vendor?"),
+                confirmLabel: t("Delete"),
                 intent: "danger",
             })
         )
@@ -30,17 +32,17 @@ export default function VendorsIndex({ vendors, filters }) {
     };
 
     return (
-        <AppLayout title="Vendors">
-            <Head title="Vendors" />
+        <AppLayout title={t("Vendors")}>
+            <Head title={t("Vendors")} />
             <PageHeader
-                title="Vendors"
-                subtitle={`${vendors.total} total vendors`}
+                title={t("Vendors")}
+                subtitle={`${vendors.total} ${t("total vendors")}`}
                 actions={
                     <Link
                         href={route("purchase.vendors.create")}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Plus size={16} /> New Vendor
+                        <Plus size={16} /> {t("New Vendor")}
                     </Link>
                 }
             />
@@ -51,7 +53,7 @@ export default function VendorsIndex({ vendors, filters }) {
                         setSearch(v);
                         apply(v);
                     }}
-                    placeholder="Search name, email, phone…"
+                    placeholder={t("Search name, email, phone…")}
                 />
                 <ExportButtons
                     tableId="export-table"
@@ -65,19 +67,19 @@ export default function VendorsIndex({ vendors, filters }) {
                         <thead className="bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Name
+                                    {t("Name")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Contact
+                                    {t("Contact")}
                                 </th>
                                 <th className="text-left px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    TIN / BIN
+                                    {t("TIN / BIN")}
                                 </th>
                                 <th className="text-right px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Credit Limit
+                                    {t("Credit Limit")}
                                 </th>
                                 <th className="text-center px-6 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                    Status
+                                    {t("Status")}
                                 </th>
                                 <th className="px-6 py-3"></th>
                             </tr>
@@ -89,7 +91,7 @@ export default function VendorsIndex({ vendors, filters }) {
                                         colSpan={6}
                                         className="px-6 py-12 text-center text-slate-400"
                                     >
-                                        No vendors found.
+                                        {t("No vendors found.")}
                                     </td>
                                 </tr>
                             )}
