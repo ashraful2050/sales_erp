@@ -171,7 +171,7 @@ export default function TenantShow({ tenant, stats, plans }) {
                 {/* Company Info */}
                 <div className="bg-slate-800 border border-slate-700 rounded-xl p-5">
                     <h3 className="text-white font-semibold mb-4">
-                        Company Info
+                        {t("Company Info")}
                     </h3>
                     <div className="space-y-3 text-sm">
                         {[
@@ -221,7 +221,7 @@ export default function TenantShow({ tenant, stats, plans }) {
                 {/* Subscription History */}
                 <div className="bg-slate-800 border border-slate-700 rounded-xl p-5 lg:col-span-2">
                     <h3 className="text-white font-semibold mb-4">
-                        Subscription History
+                        {t("Subscription History")}
                     </h3>
                     <div className="space-y-2">
                         {tenant.subscriptions?.map((sub) => (
@@ -265,7 +265,7 @@ export default function TenantShow({ tenant, stats, plans }) {
                 {/* Users */}
                 <div className="bg-slate-800 border border-slate-700 rounded-xl p-5 lg:col-span-3">
                     <h3 className="text-white font-semibold mb-4">
-                        Users ({tenant.users?.length})
+                        {t("Users")} ({tenant.users?.length})
                     </h3>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm">
@@ -506,7 +506,7 @@ function SuspendModal({ tenant, onClose }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 w-full max-w-md mx-4">
                 <h3 className="text-white font-semibold text-lg mb-2">
-                    Suspend Tenant
+                    {t("Suspend Tenant")}
                 </h3>
                 <p className="text-slate-400 text-sm mb-4">
                     Suspend{" "}
@@ -547,6 +547,7 @@ function SuspendModal({ tenant, onClose }) {
 function LayoutSwitcher({ tenant }) {
     const currentLayout = tenant.settings?.layout ?? "dark";
     const [saving, setSaving] = useState(false);
+    const { t } = useTranslation();
 
     const setLayout = (layout) => {
         setSaving(true);

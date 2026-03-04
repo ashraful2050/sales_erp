@@ -26,11 +26,21 @@ export default function Form({ group }) {
     const types = ["asset", "liability", "equity", "revenue", "expense"];
 
     return (
-        <AppLayout>
-            <Head title={isEdit ? "Edit Account Group" : "New Account Group"} />
+        <AppLayout
+            title={isEdit ? t("Edit Account Group") : t("New Account Group")}
+        >
+            <Head
+                title={
+                    isEdit ? t("Edit Account Group") : t("New Account Group")
+                }
+            />
             <div className="p-6 max-w-2xl mx-auto space-y-6">
                 <PageHeader
-                    title={isEdit ? "Edit Account Group" : "New Account Group"}
+                    title={
+                        isEdit
+                            ? t("Edit Account Group")
+                            : t("New Account Group")
+                    }
                     actions={
                         <Link
                             href={route("accounting.account-groups.index")}
@@ -41,64 +51,102 @@ export default function Form({ group }) {
                     }
                 />
 
-                <form onSubmit={submit} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 space-y-5">
+                <form
+                    onSubmit={submit}
+                    className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 space-y-5"
+                >
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {/* Name */}
                         <div className="sm:col-span-2">
                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                Group Name <span className="text-red-500">*</span>
+                                {t("Group Name")}{" "}
+                                <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="text"
                                 value={data.name}
-                                onChange={(e) => setData("name", e.target.value)}
+                                onChange={(e) =>
+                                    setData("name", e.target.value)
+                                }
                                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                                placeholder="e.g. Current Assets"
+                                placeholder={t("e.g. Current Assets")}
                             />
-                            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                            {errors.name && (
+                                <p className="text-red-500 text-xs mt-1">
+                                    {errors.name}
+                                </p>
+                            )}
                         </div>
 
                         {/* Code */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">{t("Code")}</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                {t("Code")}
+                            </label>
                             <input
                                 type="text"
                                 value={data.code}
-                                onChange={(e) => setData("code", e.target.value)}
+                                onChange={(e) =>
+                                    setData("code", e.target.value)
+                                }
                                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                                placeholder="e.g. CA"
+                                placeholder={t("e.g. CA")}
                             />
-                            {errors.code && <p className="text-red-500 text-xs mt-1">{errors.code}</p>}
+                            {errors.code && (
+                                <p className="text-red-500 text-xs mt-1">
+                                    {errors.code}
+                                </p>
+                            )}
                         </div>
 
                         {/* Type */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                Type <span className="text-red-500">*</span>
+                                {t("Type")}{" "}
+                                <span className="text-red-500">*</span>
                             </label>
                             <select
                                 value={data.type}
-                                onChange={(e) => setData("type", e.target.value)}
+                                onChange={(e) =>
+                                    setData("type", e.target.value)
+                                }
                                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
                             >
-                                {types.map((t) => (
-                                    <option key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</option>
+                                {types.map((type) => (
+                                    <option key={type} value={type}>
+                                        {t(
+                                            type.charAt(0).toUpperCase() +
+                                                type.slice(1),
+                                        )}
+                                    </option>
                                 ))}
                             </select>
-                            {errors.type && <p className="text-red-500 text-xs mt-1">{errors.type}</p>}
+                            {errors.type && (
+                                <p className="text-red-500 text-xs mt-1">
+                                    {errors.type}
+                                </p>
+                            )}
                         </div>
 
                         {/* Description */}
                         <div className="sm:col-span-2">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">{t("Description")}</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                {t("Description")}
+                            </label>
                             <textarea
                                 value={data.description}
-                                onChange={(e) => setData("description", e.target.value)}
+                                onChange={(e) =>
+                                    setData("description", e.target.value)
+                                }
                                 rows={3}
                                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-indigo-500 focus:border-indigo-500"
                                 placeholder={t("Optional description...")}
                             />
-                            {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
+                            {errors.description && (
+                                <p className="text-red-500 text-xs mt-1">
+                                    {errors.description}
+                                </p>
+                            )}
                         </div>
                     </div>
 
@@ -107,7 +155,7 @@ export default function Form({ group }) {
                             href={route("accounting.account-groups.index")}
                             className="px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </Link>
                         <button
                             type="submit"
@@ -115,7 +163,11 @@ export default function Form({ group }) {
                             className="inline-flex items-center gap-2 px-5 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 disabled:opacity-50"
                         >
                             <Save className="w-4 h-4" />
-                            {processing ? "Saving..." : isEdit ? "Update Group" : "Create Group"}
+                            {processing
+                                ? t("Saving...")
+                                : isEdit
+                                  ? t("Update Group")
+                                  : t("Create Group")}
                         </button>
                     </div>
                 </form>

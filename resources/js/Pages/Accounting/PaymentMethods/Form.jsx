@@ -3,6 +3,7 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import InputError from "@/Components/InputError";
 import { Save, ArrowLeft } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const TYPES = [
     { value: "cash", label: "Cash" },
@@ -12,6 +13,7 @@ const TYPES = [
 ];
 
 export default function PaymentMethodForm({ paymentMethod, accounts }) {
+    const { t } = useTranslation();
     const isEdit = !!paymentMethod;
 
     const { data, setData, post, put, processing, errors } = useForm({
@@ -32,13 +34,17 @@ export default function PaymentMethodForm({ paymentMethod, accounts }) {
 
     return (
         <AppLayout
-            title={isEdit ? "Edit Payment Method" : "New Payment Method"}
+            title={isEdit ? t("Edit Payment Method") : t("New Payment Method")}
         >
             <Head
-                title={isEdit ? "Edit Payment Method" : "New Payment Method"}
+                title={
+                    isEdit ? t("Edit Payment Method") : t("New Payment Method")
+                }
             />
             <PageHeader
-                title={isEdit ? "Edit Payment Method" : "New Payment Method"}
+                title={
+                    isEdit ? t("Edit Payment Method") : t("New Payment Method")
+                }
                 actions={
                     <Link
                         href={route("accounting.payment-methods.index")}
@@ -54,14 +60,14 @@ export default function PaymentMethodForm({ paymentMethod, accounts }) {
                     {/* Name */}
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                            Name <span className="text-red-500">*</span>
+                            {t("Name")} <span className="text-red-500">*</span>
                         </label>
                         <input
                             type="text"
                             value={data.name}
                             onChange={(e) => setData("name", e.target.value)}
                             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="e.g. Cash, Brac Bank"
+                            placeholder={t("e.g. Cash, Brac Bank")}
                         />
                         <InputError message={errors.name} />
                     </div>
@@ -69,16 +75,16 @@ export default function PaymentMethodForm({ paymentMethod, accounts }) {
                     {/* Type */}
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                            Type <span className="text-red-500">*</span>
+                            {t("Type")} <span className="text-red-500">*</span>
                         </label>
                         <select
                             value={data.type}
                             onChange={(e) => setData("type", e.target.value)}
                             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            {TYPES.map((t) => (
-                                <option key={t.value} value={t.value}>
-                                    {t.label}
+                            {TYPES.map((opt) => (
+                                <option key={opt.value} value={opt.value}>
+                                    {t(opt.label)}
                                 </option>
                             ))}
                         </select>
@@ -97,7 +103,7 @@ export default function PaymentMethodForm({ paymentMethod, accounts }) {
                             }
                             className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            <option value="">— Select account —</option>
+                            <option value="">{t("— Select account —")}</option>
                             {accounts.map((a) => (
                                 <option key={a.id} value={a.id}>
                                     {a.code} – {a.name}
@@ -159,7 +165,7 @@ export default function PaymentMethodForm({ paymentMethod, accounts }) {
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium"
                     >
                         <Save size={16} />
-                        {processing ? "Saving…" : "Save Payment Method"}
+                        {processing ? t("Saving…") : t("Save Payment Method")}
                     </button>
                 </div>
             </form>

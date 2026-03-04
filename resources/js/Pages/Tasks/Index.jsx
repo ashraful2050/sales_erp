@@ -145,12 +145,12 @@ export default function TasksIndex({ tasks, users, summary, filters }) {
                     className="bg-white rounded-xl border border-slate-200 p-5 mb-6 max-w-2xl"
                 >
                     <h3 className="font-semibold text-slate-700 mb-3">
-                        Create Task
+                        {t("Create Task")}
                     </h3>
                     <div className="space-y-3">
                         <div>
                             <label className="text-xs text-slate-600">
-                                Title *
+                                {t("Title")} *
                             </label>
                             <input
                                 value={data.title}

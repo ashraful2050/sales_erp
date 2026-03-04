@@ -114,58 +114,58 @@ export default function Dashboard({
     }));
     return (
         <AppLayout header="Dashboard">
-            <Head title={t("Dashboard")} />
+            <Head title={t("dashboard.title")} />
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <StatCard
-                    label="Revenue (This Month)"
+                    label={t("dashboard.revenue_this_month")}
                     value={fmt(stats?.totalRevenue)}
                     icon={DollarSign}
                     color="bg-indigo-500"
-                    sub={`${fmtNum(stats?.totalInvoices)} invoices`}
+                    sub={`${fmtNum(stats?.totalInvoices)} ${t("sales.invoices")}`}
                 />
                 <StatCard
-                    label="Total Receivable"
+                    label={t("dashboard.total_receivable")}
                     value={fmt(stats?.totalReceivable)}
                     icon={TrendingUp}
                     color="bg-blue-500"
-                    sub={`${stats?.overdueCount} overdue`}
+                    sub={`${stats?.overdueCount} ${t("sales.overdue")}`}
                 />
                 <StatCard
-                    label="Total Payable"
+                    label={t("dashboard.total_payable")}
                     value={fmt(stats?.totalPayable)}
                     icon={TrendingDown}
                     color="bg-amber-500"
                 />
                 <StatCard
-                    label="Customers"
+                    label={t("sales.customers")}
                     value={fmtNum(stats?.totalCustomers)}
                     icon={Users}
                     color="bg-emerald-500"
-                    sub={`${fmtNum(stats?.totalVendors)} vendors`}
+                    sub={`${fmtNum(stats?.totalVendors)} ${t("purchase.vendors")}`}
                 />
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <StatCard
-                    label="Products"
+                    label={t("inventory.products")}
                     value={fmtNum(stats?.totalProducts)}
                     icon={Package}
                     color="bg-violet-500"
-                    sub={`${stats?.lowStockCount ?? 0} low stock`}
+                    sub={`${stats?.lowStockCount ?? 0} ${t("dashboard.low_stock")}`}
                 />
                 <StatCard
-                    label="Employees"
+                    label={t("hr.employees")}
                     value={fmtNum(stats?.totalEmployees)}
                     icon={UserCheck}
                     color="bg-pink-500"
                 />
                 <StatCard
-                    label="Overdue Invoices"
+                    label={t("dashboard.overdue_invoices")}
                     value={fmtNum(stats?.overdueCount)}
                     icon={AlertTriangle}
                     color="bg-red-500"
                 />
                 <StatCard
-                    label="Active POs"
+                    label={t("dashboard.active_pos")}
                     value={fmtNum(stats?.activePOs ?? 0)}
                     icon={ShoppingCart}
                     color="bg-orange-500"
@@ -174,7 +174,7 @@ export default function Dashboard({
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-5">
                     <h3 className="font-semibold text-slate-800 mb-4">
-                        Revenue vs Purchase (6 Months)
+                        {t("dashboard.revenue_vs_purchase")}
                     </h3>
                     <ResponsiveContainer width="100%" height={220}>
                         <LineChart data={chartData}>
@@ -212,7 +212,7 @@ export default function Dashboard({
                 </div>
                 <div className="bg-white rounded-xl border border-slate-200 p-5">
                     <h3 className="font-semibold text-slate-800 mb-4">
-                        Monthly Revenue (৳)
+                        {t("dashboard.monthly_revenue")}
                     </h3>
                     <ResponsiveContainer width="100%" height={220}>
                         <BarChart data={monthlyRevenue ?? []}>
@@ -253,11 +253,11 @@ export default function Dashboard({
                             </div>
                             <div>
                                 <h3 className="font-semibold text-rose-800 text-sm">
-                                    Today's Sale Due
+                                    {t("dashboard.todays_sale_due")}
                                 </h3>
                                 <p className="text-xs text-rose-500">
-                                    {(todaySaleDue ?? []).length} invoice(s) due
-                                    today
+                                    {(todaySaleDue ?? []).length}{" "}
+                                    {t("dashboard.invoices_due_today")}
                                 </p>
                             </div>
                         </div>
@@ -265,7 +265,7 @@ export default function Dashboard({
                             href={route("sales.invoices.index")}
                             className="text-rose-600 text-xs flex items-center gap-1 hover:underline font-medium"
                         >
-                            View all <ArrowRight size={13} />
+                            {t("dashboard.view_all")} <ArrowRight size={13} />
                         </Link>
                     </div>
                     <div className="divide-y divide-slate-50">
@@ -303,13 +303,13 @@ export default function Dashboard({
                             ))
                         ) : (
                             <div className="px-5 py-8 text-center text-emerald-600 text-sm">
-                                No sale dues today ✓
+                                {t("dashboard.no_sale_dues_today")} ✓
                             </div>
                         )}
                     </div>
                     {(todaySaleDue ?? []).length > 0 && (
                         <div className="px-5 py-3 bg-rose-50 border-t border-rose-100 flex justify-between text-xs text-rose-700">
-                            <span>{t("Total Due Today")}</span>
+                            <span>{t("dashboard.total_due_today")}</span>
                             <span className="font-bold">
                                 {fmt(
                                     (todaySaleDue ?? []).reduce(
@@ -334,11 +334,11 @@ export default function Dashboard({
                             </div>
                             <div>
                                 <h3 className="font-semibold text-amber-800 text-sm">
-                                    Today's Purchase Due
+                                    {t("dashboard.todays_purchase_due")}
                                 </h3>
                                 <p className="text-xs text-amber-500">
-                                    {(todayPurchaseDue ?? []).length} PO(s) due
-                                    today
+                                    {(todayPurchaseDue ?? []).length}{" "}
+                                    {t("dashboard.pos_due_today")}
                                 </p>
                             </div>
                         </div>
@@ -346,7 +346,7 @@ export default function Dashboard({
                             href={route("purchase.purchase-orders.index")}
                             className="text-amber-600 text-xs flex items-center gap-1 hover:underline font-medium"
                         >
-                            View all <ArrowRight size={13} />
+                            {t("dashboard.view_all")} <ArrowRight size={13} />
                         </Link>
                     </div>
                     <div className="divide-y divide-slate-50">
@@ -383,13 +383,13 @@ export default function Dashboard({
                             ))
                         ) : (
                             <div className="px-5 py-8 text-center text-emerald-600 text-sm">
-                                No purchase dues today ✓
+                                {t("dashboard.no_purchase_dues_today")} ✓
                             </div>
                         )}
                     </div>
                     {(todayPurchaseDue ?? []).length > 0 && (
                         <div className="px-5 py-3 bg-amber-50 border-t border-amber-100 flex justify-between text-xs text-amber-700">
-                            <span>{t("Total Due Today")}</span>
+                            <span>{t("dashboard.total_due_today")}</span>
                             <span className="font-bold">
                                 {fmt(
                                     (todayPurchaseDue ?? []).reduce(
@@ -410,13 +410,13 @@ export default function Dashboard({
                 <div className="bg-white rounded-xl border border-slate-200">
                     <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
                         <h3 className="font-semibold text-slate-800">
-                            Recent Invoices
+                            {t("dashboard.recent_invoices")}
                         </h3>
                         <Link
                             href="/sales/invoices"
                             className="text-indigo-600 text-sm flex items-center gap-1 hover:underline"
                         >
-                            View all <ArrowRight size={14} />
+                            {t("dashboard.view_all")} <ArrowRight size={14} />
                         </Link>
                     </div>
                     <div className="divide-y divide-slate-50">
@@ -448,7 +448,7 @@ export default function Dashboard({
                             ))
                         ) : (
                             <div className="px-5 py-8 text-center text-slate-400 text-sm">
-                                No invoices yet
+                                {t("dashboard.no_invoices_yet")}
                             </div>
                         )}
                     </div>
@@ -456,13 +456,13 @@ export default function Dashboard({
                 <div className="bg-white rounded-xl border border-slate-200">
                     <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
                         <h3 className="font-semibold text-slate-800">
-                            Low Stock Alerts
+                            {t("dashboard.low_stock_alerts")}
                         </h3>
                         <Link
                             href="/inventory/products"
                             className="text-indigo-600 text-sm flex items-center gap-1 hover:underline"
                         >
-                            Manage <ArrowRight size={14} />
+                            {t("ui.Manage")} <ArrowRight size={14} />
                         </Link>
                     </div>
                     <div className="divide-y divide-slate-50">
@@ -488,14 +488,15 @@ export default function Dashboard({
                                             {p.unit?.abbreviation}
                                         </p>
                                         <p className="text-xs text-slate-400">
-                                            Reorder: {p.reorder_level}
+                                            {t("dashboard.reorder")}:{" "}
+                                            {p.reorder_level}
                                         </p>
                                     </div>
                                 </div>
                             ))
                         ) : (
                             <div className="px-5 py-8 text-center text-emerald-600 text-sm">
-                                All stock levels OK ✓
+                                {t("dashboard.all_stock_ok")} ✓
                             </div>
                         )}
                     </div>
@@ -528,13 +529,13 @@ export default function Dashboard({
                                 <circle cx="11" cy="11" r="8" />
                                 <path d="m21 21-4.35-4.35" />
                             </svg>
-                            {t("Filter")}
+                            {t("ui.filter")}
                         </button>
                     </div>
 
                     {/* Chart title */}
                     <h3 className="text-sm font-semibold text-slate-700 text-center mb-3">
-                        Expense Statement
+                        {t("dashboard.expense_statement")}
                     </h3>
 
                     {/* Legend */}
@@ -591,7 +592,7 @@ export default function Dashboard({
                         </ResponsiveContainer>
                     ) : (
                         <div className="flex items-center justify-center h-[280px] text-slate-400 text-sm">
-                            No data for selected month
+                            {t("dashboard.no_data_month")}
                         </div>
                     )}
                 </div>

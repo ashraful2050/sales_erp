@@ -12,6 +12,7 @@ import {
     ChevronDown,
     ChevronRight,
 } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 // ── Action labels ──────────────────────────────────────────────────────────
 const ACTION_LABELS = {
@@ -58,6 +59,7 @@ function ModuleCard({
     onChange,
 }) {
     const [open, setOpen] = useState(true);
+    const { t } = useTranslation();
 
     // Compute counts for this module
     const allKeys = useMemo(() => {
@@ -210,6 +212,7 @@ export default function TenantPermissions({
     hasRole,
 }) {
     const { flash } = usePage().props;
+    const { t } = useTranslation();
     const { data, setData, post, processing, isDirty } = useForm({
         permissions: { ...initialPermissions },
     });
@@ -313,7 +316,8 @@ export default function TenantPermissions({
                             }}
                             className="flex items-center gap-2 bg-green-500/10 hover:bg-green-500/20 border border-green-500/20 text-green-400 px-4 py-2 rounded-xl text-sm font-medium transition-colors"
                         >
-                            <ShieldCheck size={14} /> {t("Grant All Permissions")}
+                            <ShieldCheck size={14} />{" "}
+                            {t("Grant All Permissions")}
                         </button>
                         <button
                             type="button"
@@ -386,7 +390,7 @@ export default function TenantPermissions({
                             ) : (
                                 <Save size={15} />
                             )}
-                            Save Permissions
+                            {t("Save Permissions")}
                         </button>
                     </div>
                 </form>

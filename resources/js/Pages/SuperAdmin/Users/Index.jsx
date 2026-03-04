@@ -39,7 +39,7 @@ export default function UsersIndex({ users, filters, companies }) {
             <div className="flex items-center justify-between mb-6">
                 <div>
                     <h2 className="text-xl font-bold text-white">
-                        All Tenant Users
+                        {t("All Tenant Users")}
                     </h2>
                     <p className="text-slate-400 text-sm mt-0.5">
                         {users.total} users across all tenants
@@ -158,8 +158,8 @@ export default function UsersIndex({ users, filters, companies }) {
                                             className={`px-2 py-0.5 rounded-full text-xs ${user.is_active ? "bg-emerald-500/20 text-emerald-400" : "bg-red-500/20 text-red-400"}`}
                                         >
                                             {user.is_active
-                                                ? "Active"
-                                                : "Inactive"}
+                                                ? t("Active")
+                                                : t("Inactive")}
                                         </span>
                                     </td>
                                     <td className="py-3 px-4 text-right">
@@ -223,6 +223,7 @@ export default function UsersIndex({ users, filters, companies }) {
 }
 
 function CreateSuperAdminModal({ onClose }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors } = useForm({
         name: "",
         email: "",
@@ -240,7 +241,7 @@ function CreateSuperAdminModal({ onClose }) {
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 w-full max-w-md mx-4">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-white font-semibold">
-                        Create Super Admin
+                        {t("Create Super Admin")}
                     </h3>
                     <button
                         onClick={onClose}
@@ -294,7 +295,7 @@ function CreateSuperAdminModal({ onClose }) {
                             disabled={processing}
                             className="px-4 py-2 text-sm text-white bg-violet-600 hover:bg-violet-700 rounded-lg disabled:opacity-60"
                         >
-                            {processing ? "Creating..." : "Create"}
+                            {processing ? t("Creating...") : t("Create")}
                         </button>
                     </div>
                 </form>

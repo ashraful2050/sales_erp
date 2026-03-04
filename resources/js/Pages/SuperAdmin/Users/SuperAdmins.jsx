@@ -24,7 +24,7 @@ export default function SuperAdmins({ admins }) {
                     <div>
                         <h2 className="text-xl font-bold text-white flex items-center gap-2">
                             <Shield size={20} className="text-violet-400" />
-                            Super Admins
+                            {t("Super Admins")}
                         </h2>
                         <p className="text-slate-400 text-sm mt-0.5">
                             {admins.length} super admin
@@ -85,8 +85,8 @@ export default function SuperAdmins({ admins }) {
                                             className={`px-2 py-0.5 rounded-full text-xs ${admin.is_active ? "bg-emerald-500/20 text-emerald-400" : "bg-red-500/20 text-red-400"}`}
                                         >
                                             {admin.is_active
-                                                ? "Active"
-                                                : "Inactive"}
+                                                ? t("Active")
+                                                : t("Inactive")}
                                         </span>
                                     </td>
                                     <td className="py-3 px-4 text-slate-400 text-xs">
@@ -123,6 +123,7 @@ export default function SuperAdmins({ admins }) {
 }
 
 function CreateSuperAdminModal({ onClose }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors } = useForm({
         name: "",
         email: "",
@@ -195,7 +196,7 @@ function CreateSuperAdminModal({ onClose }) {
                             disabled={processing}
                             className="px-4 py-2 text-sm text-white bg-violet-600 hover:bg-violet-700 rounded-lg disabled:opacity-60"
                         >
-                            {processing ? "Creating..." : "Create"}
+                            {processing ? t("Creating...") : t("Create")}
                         </button>
                     </div>
                 </form>

@@ -161,10 +161,13 @@ export default function AffiliatesIndex({ affiliates, stats }) {
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <div>
-                    <h2 className="text-xl font-bold text-white">Affiliates</h2>
+                    <h2 className="text-xl font-bold text-white">
+                        {t("Affiliates")}
+                    </h2>
                     <p className="text-slate-400 text-sm mt-0.5">
-                        Manage your affiliate program and track referral
-                        commissions
+                        {t(
+                            "Manage your affiliate program and track referral commissions",
+                        )}
                     </p>
                 </div>
                 <button
@@ -402,7 +405,7 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-slate-400 text-xs mb-1">
-                                        Name *
+                                        {t("Name")} *
                                     </label>
                                     <input
                                         value={data.name}
@@ -420,7 +423,7 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                                 </div>
                                 <div>
                                     <label className="block text-slate-400 text-xs mb-1">
-                                        Email *
+                                        {t("Email")} *
                                     </label>
                                     <input
                                         type="email"
@@ -455,7 +458,7 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                                 </div>
                                 <div>
                                     <label className="block text-slate-400 text-xs mb-1">
-                                        Commission Rate (%) *
+                                        {t("Commission Rate (%)")} *
                                     </label>
                                     <input
                                         type="number"
@@ -490,8 +493,12 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                                     }
                                     className="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-slate-200 text-sm outline-none focus:border-violet-500"
                                 >
-                                    <option value="active">{t("Active")}</option>
-                                    <option value="inactive">{t("Inactive")}</option>
+                                    <option value="active">
+                                        {t("Active")}
+                                    </option>
+                                    <option value="inactive">
+                                        {t("Inactive")}
+                                    </option>
                                 </select>
                             </div>
 
@@ -506,7 +513,9 @@ export default function AffiliatesIndex({ affiliates, stats }) {
                                     }
                                     rows={2}
                                     className="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-slate-200 text-sm outline-none focus:border-violet-500 resize-none"
-                                    placeholder={t("Optional notes about this affiliate...")}
+                                    placeholder={t(
+                                        "Optional notes about this affiliate...",
+                                    )}
                                 />
                             </div>
 

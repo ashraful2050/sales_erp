@@ -4,6 +4,8 @@ import SubscriptionBanner from "@/Components/SubscriptionBanner";
 import AppLayoutLight from "./AppLayoutLight";
 import AppLayoutTally from "./AppLayoutTally";
 import LanguageSwitcher from "@/Components/LanguageSwitcher";
+import PwaInstallPrompt from "@/Components/PwaInstallPrompt";
+import PushNotificationBell from "@/Components/PushNotificationBell";
 import { getNav } from "./navConfig";
 import { useTranslation } from "@/hooks/useTranslation";
 import {
@@ -21,7 +23,6 @@ import {
     ChevronRight,
     LogOut,
     User,
-    Bell,
     Menu,
     X,
     Building2,
@@ -891,9 +892,7 @@ function AppLayoutDark({ children, title }) {
                     </div>
                     <div className="flex items-center gap-3">
                         <LanguageSwitcher />
-                        <button className="relative text-slate-500 hover:text-slate-700 p-1.5 rounded-lg hover:bg-slate-100">
-                            <Bell size={20} />
-                        </button>
+                        <PushNotificationBell />
                         <div className="relative">
                             <button
                                 onClick={() => setUserMenuOpen((o) => !o)}
@@ -976,6 +975,9 @@ function AppLayoutDark({ children, title }) {
                     {children}
                 </main>
             </div>
+
+            {/* PWA install prompt — shown at bottom of screen */}
+            <PwaInstallPrompt />
         </div>
     );
 }

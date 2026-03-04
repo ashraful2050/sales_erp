@@ -20,49 +20,109 @@ export default function CostCenterForm({ costCenter, parents }) {
     };
 
     return (
-        <AppLayout title={isEdit ? "Edit Cost Center" : "New Cost Center"}>
-            <Head title={isEdit ? "Edit Cost Center" : "New Cost Center"} />
+        <AppLayout
+            title={isEdit ? t("Edit Cost Center") : t("New Cost Center")}
+        >
+            <Head
+                title={isEdit ? t("Edit Cost Center") : t("New Cost Center")}
+            />
             <PageHeader
-                title={isEdit ? "Edit Cost Center" : "New Cost Center"}
+                title={isEdit ? t("Edit Cost Center") : t("New Cost Center")}
                 breadcrumbs={[
-                    { label: "Cost Centers", href: route("accounting.cost-centers.index") },
-                    { label: isEdit ? "Edit" : "New" },
+                    {
+                        label: t("Cost Centers"),
+                        href: route("accounting.cost-centers.index"),
+                    },
+                    { label: isEdit ? t("Edit") : t("New") },
                 ]}
             />
-            <form onSubmit={submit} className="max-w-lg bg-white rounded-xl border border-slate-200 p-6 space-y-5">
+            <form
+                onSubmit={submit}
+                className="max-w-lg bg-white rounded-xl border border-slate-200 p-6 space-y-5"
+            >
                 <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Name <span className="text-red-500">*</span></label>
-                    <input value={data.name} onChange={e => setData("name", e.target.value)}
+                    <label className="block text-sm font-medium text-slate-700 mb-1">
+                        {t("Name")} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                        value={data.name}
+                        onChange={(e) => setData("name", e.target.value)}
                         className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder={t("Cost center name")} />
-                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                        placeholder={t("Cost center name")}
+                    />
+                    {errors.name && (
+                        <p className="text-red-500 text-xs mt-1">
+                            {errors.name}
+                        </p>
+                    )}
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">{t("Code")}</label>
-                    <input value={data.code} onChange={e => setData("code", e.target.value)}
+                    <label className="block text-sm font-medium text-slate-700 mb-1">
+                        {t("Code")}
+                    </label>
+                    <input
+                        value={data.code}
+                        onChange={(e) => setData("code", e.target.value)}
                         className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
-                        placeholder="e.g. CC-001" />
+                        placeholder={t("e.g. CC-001")}
+                    />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">{t("Parent Cost Center")}</label>
-                    <select value={data.parent_id} onChange={e => setData("parent_id", e.target.value)}
-                        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                        <option value="">— None (Top Level) —</option>
-                        {parents.map(p => <option key={p.id} value={p.id}>{p.name}{p.code ? ` (${p.code})` : ""}</option>)}
+                    <label className="block text-sm font-medium text-slate-700 mb-1">
+                        {t("Parent Cost Center")}
+                    </label>
+                    <select
+                        value={data.parent_id}
+                        onChange={(e) => setData("parent_id", e.target.value)}
+                        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
+                    >
+                        <option value="">{t("— None (Top Level) —")}</option>
+                        {parents.map((p) => (
+                            <option key={p.id} value={p.id}>
+                                {p.name}
+                                {p.code ? ` (${p.code})` : ""}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 {isEdit && (
                     <div className="flex items-center gap-3">
-                        <input type="checkbox" id="is_active" checked={data.is_active} onChange={e => setData("is_active", e.target.checked)} className="w-4 h-4 rounded" />
-                        <label htmlFor="is_active" className="text-sm text-slate-700">{t("Active")}</label>
+                        <input
+                            type="checkbox"
+                            id="is_active"
+                            checked={data.is_active}
+                            onChange={(e) =>
+                                setData("is_active", e.target.checked)
+                            }
+                            className="w-4 h-4 rounded"
+                        />
+                        <label
+                            htmlFor="is_active"
+                            className="text-sm text-slate-700"
+                        >
+                            {t("Active")}
+                        </label>
                     </div>
                 )}
                 <div className="flex items-center gap-3 pt-2">
-                    <button type="submit" disabled={processing}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-medium disabled:opacity-50">
-                        {processing ? "Saving..." : (isEdit ? "Update" : "Create")} Cost Center
+                    <button
+                        type="submit"
+                        disabled={processing}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-medium disabled:opacity-50"
+                    >
+                        {processing
+                            ? t("Saving...")
+                            : isEdit
+                              ? t("Update")
+                              : t("Create")}{" "}
+                        {t("Cost Center")}
                     </button>
-                    <Link href={route("accounting.cost-centers.index")} className="text-sm text-slate-500 hover:text-slate-700">Cancel</Link>
+                    <Link
+                        href={route("accounting.cost-centers.index")}
+                        className="text-sm text-slate-500 hover:text-slate-700"
+                    >
+                        {t("Cancel")}
+                    </Link>
                 </div>
             </form>
         </AppLayout>

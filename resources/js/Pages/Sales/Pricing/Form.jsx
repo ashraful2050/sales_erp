@@ -28,10 +28,14 @@ export default function PricingForm({ rule }) {
     };
 
     return (
-        <AppLayout title={isEdit ? "Edit Pricing Rule" : "New Pricing Rule"}>
-            <Head title={isEdit ? "Edit Pricing Rule" : "New Pricing Rule"} />
+        <AppLayout
+            title={isEdit ? t("Edit Pricing Rule") : t("New Pricing Rule")}
+        >
+            <Head
+                title={isEdit ? t("Edit Pricing Rule") : t("New Pricing Rule")}
+            />
             <PageHeader
-                title={isEdit ? "Edit Pricing Rule" : "New Pricing Rule"}
+                title={isEdit ? t("Edit Pricing Rule") : t("New Pricing Rule")}
                 actions={
                     <Link
                         href={route("sales.pricing-rules.index")}
@@ -46,7 +50,7 @@ export default function PricingForm({ rule }) {
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                            Name *
+                            {t("Name *")}
                         </label>
                         <input
                             value={data.name}
@@ -76,9 +80,12 @@ export default function PricingForm({ rule }) {
                                     "percentage",
                                     "tiered",
                                     "dynamic",
-                                ].map((t) => (
-                                    <option key={t} value={t}>
-                                        {t.charAt(0).toUpperCase() + t.slice(1)}
+                                ].map((opt) => (
+                                    <option key={opt} value={opt}>
+                                        {t(
+                                            opt.charAt(0).toUpperCase() +
+                                                opt.slice(1),
+                                        )}
                                     </option>
                                 ))}
                             </select>
@@ -100,9 +107,12 @@ export default function PricingForm({ rule }) {
                                     "product",
                                     "customer",
                                     "segment",
-                                ].map((t) => (
-                                    <option key={t} value={t}>
-                                        {t.charAt(0).toUpperCase() + t.slice(1)}
+                                ].map((opt) => (
+                                    <option key={opt} value={opt}>
+                                        {t(
+                                            opt.charAt(0).toUpperCase() +
+                                                opt.slice(1),
+                                        )}
                                     </option>
                                 ))}
                             </select>
@@ -111,7 +121,7 @@ export default function PricingForm({ rule }) {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Adjustment Value *
+                                {t("Adjustment Value *")}
                             </label>
                             <input
                                 type="number"
@@ -135,9 +145,11 @@ export default function PricingForm({ rule }) {
                                 className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
                             >
                                 <option value="percentage">
-                                    Percentage (%)
+                                    {t("Percentage (%)")}
                                 </option>
-                                <option value="fixed">{t("Fixed Amount")}</option>
+                                <option value="fixed">
+                                    {t("Fixed Amount")}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -171,7 +183,7 @@ export default function PricingForm({ rule }) {
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                            Priority (higher = applied first)
+                            {t("Priority (higher = applied first)")}
                         </label>
                         <input
                             type="number"
@@ -189,7 +201,8 @@ export default function PricingForm({ rule }) {
                         disabled={processing}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm"
                     >
-                        <Save size={16} /> {isEdit ? "Update" : "Create"} Rule
+                        <Save size={16} /> {isEdit ? t("Update") : t("Create")}{" "}
+                        {t("Rule")}
                     </button>
                 </div>
             </form>

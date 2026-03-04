@@ -4,8 +4,10 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { ArrowLeft, Edit, Calendar } from "lucide-react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Show({ leave }) {
+    const { t } = useTranslation();
     const statusColors = {
         pending: "yellow",
         approved: "green",

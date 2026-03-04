@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Offline — AccounTech BD</title>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#2563eb" />
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                background: #f1f5f9;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                padding: 1rem;
+            }
+            .card {
+                background: #fff;
+                border-radius: 1.25rem;
+                padding: 2.5rem 2rem;
+                text-align: center;
+                max-width: 420px;
+                width: 100%;
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            }
+            .icon {
+                width: 80px;
+                height: 80px;
+                background: #eff6ff;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 1.5rem;
+            }
+            .icon svg {
+                width: 40px;
+                height: 40px;
+                color: #2563eb;
+            }
+            h1 {
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: #1e293b;
+                margin-bottom: 0.5rem;
+            }
+            p {
+                font-size: 0.95rem;
+                color: #64748b;
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+            }
+            button {
+                background: #2563eb;
+                color: #fff;
+                border: none;
+                border-radius: 0.75rem;
+                padding: 0.75rem 1.75rem;
+                font-size: 0.95rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+            button:hover {
+                background: #1d4ed8;
+            }
+            .logo {
+                margin-bottom: 1rem;
+            }
+            .logo img {
+                width: 48px;
+                height: 48px;
+                border-radius: 0.5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <div class="logo">
+                <img src="/logo-192.png" alt="AccounTech BD" />
+            </div>
+            <div class="icon">
+                <svg
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z"
+                    />
+                </svg>
+            </div>
+            <h1>You're offline</h1>
+            <p>
+                No internet connection. Pages you've already visited are still
+                available. Connect to the internet and try again.
+            </p>
+            <button onclick="window.location.reload()">Try again</button>
+        </div>
+    </body>
+</html>

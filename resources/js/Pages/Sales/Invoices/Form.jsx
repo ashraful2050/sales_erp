@@ -123,14 +123,14 @@ export default function InvoiceForm({
     };
 
     return (
-        <AppLayout title={isEdit ? "Edit Invoice" : "New Invoice"}>
-            <Head title={isEdit ? "Edit Invoice" : "New Invoice"} />
+        <AppLayout title={isEdit ? t("Edit Invoice") : t("New Invoice")}>
+            <Head title={isEdit ? t("Edit Invoice") : t("New Invoice")} />
             <PageHeader
-                title={isEdit ? "Edit Invoice" : "New Invoice"}
+                title={isEdit ? t("Edit Invoice") : t("New Invoice")}
                 subtitle={
                     isEdit
-                        ? `Invoice #${invoice.invoice_number}`
-                        : "Create a new sales invoice"
+                        ? `${t("Invoice #")}${invoice.invoice_number}`
+                        : t("Create a new sales invoice")
                 }
                 actions={
                     <Link
@@ -147,7 +147,7 @@ export default function InvoiceForm({
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Customer *
+                                {t("Customer")} *
                             </label>
                             <Select
                                 value={data.customer_id}
@@ -156,7 +156,9 @@ export default function InvoiceForm({
                                 }
                                 required
                             >
-                                <option value="">Select customer…</option>
+                                <option value="">
+                                    {t("Select customer…")}
+                                </option>
                                 {customers?.map((c) => (
                                     <option key={c.id} value={c.id}>
                                         {c.name}
@@ -171,7 +173,7 @@ export default function InvoiceForm({
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Invoice Date *
+                                {t("Invoice Date")} *
                             </label>
                             <Input
                                 type="date"
@@ -227,7 +229,7 @@ export default function InvoiceForm({
                 <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
                     <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
                         <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">
-                            Line Items
+                            {t("Line Items")}
                         </h3>
                         <button
                             type="button"
@@ -254,7 +256,7 @@ export default function InvoiceForm({
                                         {t("Unit Price")}
                                     </th>
                                     <th className="text-right px-4 py-2 text-xs font-medium text-slate-500 w-20">
-                                        Disc %
+                                        {t("Disc %")}
                                     </th>
                                     <th className="text-left px-4 py-2 text-xs font-medium text-slate-500 w-32">
                                         {t("Tax")}
@@ -279,7 +281,7 @@ export default function InvoiceForm({
                                                 }
                                             >
                                                 <option value="">
-                                                    — select —
+                                                    {t("— select —")}
                                                 </option>
                                                 {products?.map((p) => (
                                                     <option
@@ -507,7 +509,7 @@ export default function InvoiceForm({
                         href={route("sales.invoices.index")}
                         className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </Link>
                     <button
                         type="submit"
@@ -515,7 +517,7 @@ export default function InvoiceForm({
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium"
                     >
                         <Save size={16} />{" "}
-                        {isEdit ? "Update Invoice" : "Save Invoice"}
+                        {isEdit ? t("Update Invoice") : t("Save Invoice")}
                     </button>
                 </div>
             </form>

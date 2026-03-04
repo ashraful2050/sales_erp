@@ -28,6 +28,16 @@ export function useTranslation() {
     function t(key, options = {}) {
         let value = translations[key];
 
+        // If not found by exact key, try "ui.{key}" (handles plain-text keys like
+        // t("Manage") → ui.Manage) then "ui.{key.toLowerCase()}" (handles generic
+        // UI calls like t("Save") → ui.save, t("Cancel") → ui.cancel).
+        if (!value || value === "") {
+            value = translations[`ui.${key}`];
+        }
+        if (!value || value === "") {
+            value = translations[`ui.${key.toLowerCase()}`];
+        }
+
         if (!value || value === "") {
             value = options.default ?? key;
         }

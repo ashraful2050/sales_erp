@@ -6,8 +6,10 @@ import InvoicePrintModal from "@/Components/InvoicePrintModal";
 import { ArrowLeft, Edit, Printer, CreditCard } from "lucide-react";
 import { useState } from "react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Show({ invoice, company }) {
+    const { t } = useTranslation();
     const [showPrint, setShowPrint] = useState(false);
     const statusColors = {
         draft: "gray",
@@ -41,7 +43,8 @@ export default function Show({ invoice, company }) {
                                 onClick={() => setShowPrint(true)}
                                 className="inline-flex items-center gap-2 px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-800 text-sm font-medium"
                             >
-                                <Printer className="w-4 h-4" /> {t("Print Invoice")}
+                                <Printer className="w-4 h-4" />{" "}
+                                {t("Print Invoice")}
                             </button>
                             <Link
                                 href={route("sales.invoices.edit", invoice.id)}
@@ -70,7 +73,9 @@ export default function Show({ invoice, company }) {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         <div>
-                            <p className="text-xs text-gray-500 mb-1">{t("Status")}</p>
+                            <p className="text-xs text-gray-500 mb-1">
+                                {t("Status")}
+                            </p>
                             <Badge
                                 color={statusColors[invoice.status] || "gray"}
                             >
@@ -104,7 +109,9 @@ export default function Show({ invoice, company }) {
                     </div>
                     {invoice.notes && (
                         <div className="mt-4 pt-4 border-t border-gray-100">
-                            <p className="text-xs text-gray-500 mb-1">{t("Notes")}</p>
+                            <p className="text-xs text-gray-500 mb-1">
+                                {t("Notes")}
+                            </p>
                             <p className="text-sm text-gray-700">
                                 {invoice.notes}
                             </p>
@@ -178,11 +185,15 @@ export default function Show({ invoice, company }) {
                     <div className="px-6 py-4 border-t border-gray-100 flex justify-end">
                         <div className="w-64 space-y-2 text-sm">
                             <div className="flex justify-between">
-                                <span className="text-gray-500">{t("Subtotal")}</span>
+                                <span className="text-gray-500">
+                                    {t("Subtotal")}
+                                </span>
                                 <span>৳{subtotal.toLocaleString()}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-gray-500">{t("Tax")}</span>
+                                <span className="text-gray-500">
+                                    {t("Tax")}
+                                </span>
                                 <span>৳{taxTotal.toLocaleString()}</span>
                             </div>
                             {invoice.discount_amount > 0 && (

@@ -4,8 +4,10 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { ArrowLeft, Edit } from "lucide-react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Show({ payment }) {
+    const { t } = useTranslation();
     const typeColors = { receipt: "green", payment: "blue", refund: "red" };
 
     return (

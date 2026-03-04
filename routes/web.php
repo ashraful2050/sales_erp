@@ -57,6 +57,7 @@ use App\Http\Controllers\SuperAdmin\TenantPermissionsController;
 use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboardController;
 use App\Http\Controllers\SuperAdmin\TenantController;
 use App\Http\Controllers\SuperAdmin\PlanController;
+use App\Http\Controllers\PushSubscriptionController;
 use App\Http\Controllers\SuperAdmin\AffiliateController;
 use App\Http\Controllers\SuperAdmin\UserController as SuperAdminUserController;
 use App\Http\Controllers\CRM\LeadController;
@@ -96,6 +97,12 @@ Route::post('/register/tenant', [TenantRegistrationController::class, 'register'
 // ─── Contact Us (public) ─────────────────────────────────────────────────────
 Route::get('/contact',  [ContactController::class, 'showForm'])->name('contact.show');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.submit');
+
+// ─── PWA Push Subscriptions ─────────────────────────────────────────────────
+Route::middleware('auth')->group(function () {
+    Route::post('/push-subscriptions',   [PushSubscriptionController::class, 'store']);
+    Route::delete('/push-subscriptions', [PushSubscriptionController::class, 'destroy']);
+});
 
 // ─── Super Admin Panel ───────────────────────────────────────────────────────
 Route::middleware(['auth', 'superadmin'])

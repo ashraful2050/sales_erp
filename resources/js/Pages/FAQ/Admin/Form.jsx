@@ -20,16 +20,16 @@ export default function FaqForm({ editFaq, categories }) {
     });
 
     const addTag = () => {
-        const t = tagInput.trim();
-        if (t && !data.tags.includes(t)) {
-            setData("tags", [...data.tags, t]);
+        const tagValue = tagInput.trim();
+        if (tagValue && !data.tags.includes(tagValue)) {
+            setData("tags", [...data.tags, tagValue]);
         }
         setTagInput("");
     };
-    const removeTag = (t) =>
+    const removeTag = (tag) =>
         setData(
             "tags",
-            data.tags.filter((x) => x !== t),
+            data.tags.filter((x) => x !== tag),
         );
 
     const submit = (e) => {
@@ -40,10 +40,10 @@ export default function FaqForm({ editFaq, categories }) {
     };
 
     return (
-        <AppLayout title={isEdit ? "Edit FAQ" : "New FAQ Article"}>
-            <Head title={isEdit ? "Edit FAQ" : "New FAQ Article"} />
+        <AppLayout title={isEdit ? t("Edit FAQ") : t("New FAQ Article")}>
+            <Head title={isEdit ? t("Edit FAQ") : t("New FAQ Article")} />
             <PageHeader
-                title={isEdit ? "Edit FAQ Article" : "Create FAQ Article"}
+                title={isEdit ? t("Edit FAQ Article") : t("Create FAQ Article")}
                 subtitle={t("Add helpful articles to your knowledge base")}
                 actions={
                     <Link
@@ -101,12 +101,12 @@ export default function FaqForm({ editFaq, categories }) {
                 {/* Question */}
                 <div className="bg-white rounded-xl border border-slate-200 p-6">
                     <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                        Question <span className="text-red-400">*</span>
+                        {t("Question")} <span className="text-red-400">*</span>
                     </label>
                     <input
                         value={data.question}
                         onChange={(e) => setData("question", e.target.value)}
-                        placeholder="e.g. How do I record a payment?"
+                        placeholder={t("e.g. How do I record a payment?")}
                         required
                         className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
@@ -121,10 +121,11 @@ export default function FaqForm({ editFaq, categories }) {
                 <div className="bg-white rounded-xl border border-slate-200 p-6">
                     <div className="flex items-center justify-between mb-1.5">
                         <label className="block text-sm font-semibold text-slate-700">
-                            Answer <span className="text-red-400">*</span>
+                            {t("Answer")}{" "}
+                            <span className="text-red-400">*</span>
                         </label>
                         <span className="text-xs text-slate-400">
-                            {data.answer.length} chars
+                            {data.answer.length} {t("chars")}
                         </span>
                     </div>
                     <textarea
@@ -132,7 +133,9 @@ export default function FaqForm({ editFaq, categories }) {
                         onChange={(e) => setData("answer", e.target.value)}
                         rows={12}
                         required
-                        placeholder="Write a clear, detailed answer. You can use plain text with line breaks for formatting."
+                        placeholder={t(
+                            "Write a clear, detailed answer. You can use plain text with line breaks for formatting.",
+                        )}
                         className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y font-mono leading-relaxed"
                     />
                     {errors.answer && (
@@ -145,9 +148,9 @@ export default function FaqForm({ editFaq, categories }) {
                 {/* Tags */}
                 <div className="bg-white rounded-xl border border-slate-200 p-6">
                     <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Tags{" "}
+                        {t("Tags")}{" "}
                         <span className="text-slate-400 font-normal">
-                            (optional)
+                            {t("(optional)")}
                         </span>
                     </label>
                     <div className="flex flex-wrap gap-2 mb-3">
@@ -190,7 +193,7 @@ export default function FaqForm({ editFaq, categories }) {
                         </button>
                     </div>
                     <p className="text-xs text-slate-400 mt-1">
-                        e.g. invoice, payment, setup, VAT
+                        {t("e.g. invoice, payment, setup, VAT")}
                     </p>
                 </div>
 
@@ -202,8 +205,10 @@ export default function FaqForm({ editFaq, categories }) {
                         </p>
                         <p className="text-xs text-slate-400 mt-0.5">
                             {data.is_published
-                                ? "Visible to all users in the Knowledge Base"
-                                : "Draft — only visible to admins"}
+                                ? t(
+                                      "Visible to all users in the Knowledge Base",
+                                  )
+                                : t("Draft — only visible to admins")}
                         </p>
                     </div>
                     <button
@@ -219,11 +224,11 @@ export default function FaqForm({ editFaq, categories }) {
                     >
                         {data.is_published ? (
                             <>
-                                <Eye size={15} /> Published
+                                <Eye size={15} /> {t("Published")}
                             </>
                         ) : (
                             <>
-                                <EyeOff size={15} /> Draft
+                                <EyeOff size={15} /> {t("Draft")}
                             </>
                         )}
                     </button>
@@ -235,7 +240,7 @@ export default function FaqForm({ editFaq, categories }) {
                         href={route("faq.admin.index")}
                         className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </Link>
                     <button
                         type="submit"
@@ -243,7 +248,7 @@ export default function FaqForm({ editFaq, categories }) {
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium"
                     >
                         <Save size={16} />{" "}
-                        {isEdit ? "Update Article" : "Publish Article"}
+                        {isEdit ? t("Update Article") : t("Publish Article")}
                     </button>
                 </div>
             </form>

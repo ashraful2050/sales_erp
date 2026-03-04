@@ -2,6 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft, Info } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const Field = ({ label, error, children }) => (
     <div>
@@ -28,6 +29,7 @@ const Select = ({ children, ...props }) => (
 );
 
 export default function UserForm({ editUser, roles, isAdminMode }) {
+    const { t } = useTranslation();
     const isEdit = !!editUser;
     const { data, setData, post, put, processing, errors } = useForm({
         name: editUser?.name ?? "",
@@ -48,11 +50,11 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
 
     const pageTitle = isAdminMode
         ? isEdit
-            ? "Edit Moderator"
-            : "Add Moderator"
+            ? t("Edit Moderator")
+            : t("Add Moderator")
         : isEdit
-          ? "Edit User"
-          : "Add User";
+          ? t("Edit User")
+          : t("Add User");
 
     return (
         <AppLayout title={pageTitle}>
@@ -61,10 +63,12 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                 title={pageTitle}
                 subtitle={
                     isEdit
-                        ? `Editing: ${editUser.name}`
+                        ? `${t("Editing")}: ${editUser.name}`
                         : isAdminMode
-                          ? "Create a sub-user and assign a custom role limited to your granted permissions"
-                          : "Create a new team member"
+                          ? t(
+                                "Create a sub-user and assign a custom role limited to your granted permissions",
+                            )
+                          : t("Create a new team member")
                 }
                 actions={
                     <Link
@@ -81,9 +85,10 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                     <Info size={16} className="mt-0.5 shrink-0" />
                     <span>
                         As an <strong>{t("Admin")}</strong>, you can create{" "}
-                        <strong>{t("Moderator")}</strong> accounts only. The role
-                        assigned to a moderator can only include permissions
-                        that you yourself have been granted by the SuperAdmin.
+                        <strong>{t("Moderator")}</strong> accounts only. The
+                        role assigned to a moderator can only include
+                        permissions that you yourself have been granted by the
+                        SuperAdmin.
                     </span>
                 </div>
             )}
@@ -91,10 +96,10 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
             <form onSubmit={submit} className="max-w-2xl space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
                     <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">
-                        Account Details
+                        {t("Account Details")}
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Field label="Full Name *" error={errors.name}>
+                        <Field label={t("Full Name *")} error={errors.name}>
                             <Input
                                 value={data.name}
                                 onChange={(e) =>
@@ -103,7 +108,7 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                                 required
                             />
                         </Field>
-                        <Field label="Email *" error={errors.email}>
+                        <Field label={t("Email *")} error={errors.email}>
                             <Input
                                 type="email"
                                 value={data.email}
@@ -116,8 +121,8 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                         <Field
                             label={
                                 isEdit
-                                    ? "New Password (leave blank to keep)"
-                                    : "Password *"
+                                    ? t("New Password (leave blank to keep)")
+                                    : t("Password *")
                             }
                             error={errors.password}
                         >
@@ -132,7 +137,7 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                             />
                         </Field>
                         <Field
-                            label="Confirm Password"
+                            label={t("Confirm Password")}
                             error={errors.password_confirmation}
                         >
                             <Input
@@ -148,7 +153,7 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                                 autoComplete="new-password"
                             />
                         </Field>
-                        <Field label="Phone" error={errors.phone}>
+                        <Field label={t("Phone")} error={errors.phone}>
                             <Input
                                 value={data.phone}
                                 onChange={(e) =>
@@ -156,7 +161,7 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                                 }
                             />
                         </Field>
-                        <Field label="Role *" error={errors.role}>
+                        <Field label={t("Role *")} error={errors.role}>
                             <Select
                                 value={data.role}
                                 onChange={(e) =>
@@ -193,7 +198,7 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                         href={route("settings.users.index")}
                         className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </Link>
                     <button
                         type="submit"
@@ -201,7 +206,7 @@ export default function UserForm({ editUser, roles, isAdminMode }) {
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium"
                     >
                         <Save size={16} />{" "}
-                        {isEdit ? "Update User" : "Create User"}
+                        {isEdit ? t("Update User") : t("Create User")}
                     </button>
                 </div>
             </form>

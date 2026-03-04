@@ -65,10 +65,18 @@ export default function Form({ asset, categories }) {
 
     return (
         <AppLayout>
-            <Head title={isEdit ? `Edit: ${asset.name}` : "New Fixed Asset"} />
+            <Head
+                title={
+                    isEdit
+                        ? `${t("Edit")}: ${asset.name}`
+                        : t("New Fixed Asset")
+                }
+            />
             <div className="p-6 max-w-3xl mx-auto space-y-6">
                 <PageHeader
-                    title={isEdit ? "Edit Fixed Asset" : "New Fixed Asset"}
+                    title={
+                        isEdit ? t("Edit Fixed Asset") : t("New Fixed Asset")
+                    }
                     actions={
                         <Link
                             href={route("assets.fixed-assets.index")}
@@ -86,12 +94,12 @@ export default function Form({ asset, categories }) {
                     {/* Basic Information */}
                     <div>
                         <h3 className="text-sm font-semibold text-gray-700 mb-4">
-                            Asset Information
+                            {t("Asset Information")}
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Asset Name{" "}
+                                    {t("Asset Name")}{" "}
                                     <span className="text-red-500">*</span>
                                 </label>
                                 <input
@@ -132,7 +140,7 @@ export default function Form({ asset, categories }) {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Category{" "}
+                                    {t("Category")}{" "}
                                     <span className="text-red-500">*</span>
                                 </label>
                                 <select
@@ -249,12 +257,12 @@ export default function Form({ asset, categories }) {
                     {/* Financial & Depreciation */}
                     <div className="border-t border-gray-100 pt-5">
                         <h3 className="text-sm font-semibold text-gray-700 mb-4">
-                            Valuation & Depreciation
+                            {t("Valuation & Depreciation")}
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Purchase Date{" "}
+                                    {t("Purchase Date")}{" "}
                                     <span className="text-red-500">*</span>
                                 </label>
                                 <input
@@ -274,7 +282,7 @@ export default function Form({ asset, categories }) {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Purchase Cost (৳){" "}
+                                    {t("Purchase Cost (৳)")}{" "}
                                     <span className="text-red-500">*</span>
                                 </label>
                                 <input
@@ -297,7 +305,7 @@ export default function Form({ asset, categories }) {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Salvage Value (৳)
+                                    {t("Salvage Value (৳)")}
                                 </label>
                                 <input
                                     type="number"
@@ -319,7 +327,7 @@ export default function Form({ asset, categories }) {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Useful Life (Years){" "}
+                                    {t("Useful Life (Years)")}{" "}
                                     <span className="text-red-500">*</span>
                                 </label>
                                 <input
@@ -345,7 +353,7 @@ export default function Form({ asset, categories }) {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Depreciation Rate (% / year){" "}
+                                    {t("Depreciation Rate (% / year)")}{" "}
                                     <span className="text-red-500">*</span>
                                 </label>
                                 <input
@@ -400,7 +408,10 @@ export default function Form({ asset, categories }) {
                         {/* Preview calculation */}
                         {data.purchase_cost && data.useful_life_years && (
                             <div className="mt-4 bg-blue-50 rounded-lg px-4 py-3 text-sm text-blue-700">
-                                <strong>Annual Depreciation Estimate: </strong>৳
+                                <strong>
+                                    {t("Annual Depreciation Estimate")}:
+                                </strong>{" "}
+                                ৳
                                 {(
                                     (Number(data.purchase_cost) -
                                         Number(data.salvage_value || 0)) /
@@ -409,9 +420,9 @@ export default function Form({ asset, categories }) {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                 })}{" "}
-                                / year
+                                {t("/ year")}
                                 <span className="text-xs ml-2 opacity-70">
-                                    (Straight-line basis)
+                                    {t("(Straight-line basis)")}
                                 </span>
                             </div>
                         )}
@@ -422,7 +433,7 @@ export default function Form({ asset, categories }) {
                             href={route("assets.fixed-assets.index")}
                             className="px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </Link>
                         <button
                             type="submit"
@@ -431,10 +442,10 @@ export default function Form({ asset, categories }) {
                         >
                             <Save className="w-4 h-4" />
                             {processing
-                                ? "Saving..."
+                                ? t("Saving...")
                                 : isEdit
-                                  ? "Update Asset"
-                                  : "Add Asset"}
+                                  ? t("Update Asset")
+                                  : t("Add Asset")}
                         </button>
                     </div>
                 </form>

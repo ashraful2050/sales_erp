@@ -118,17 +118,21 @@ export default function PurchaseOrderForm({
 
     return (
         <AppLayout
-            title={isEdit ? "Edit Purchase Order" : "New Purchase Order"}
+            title={isEdit ? t("Edit Purchase Order") : t("New Purchase Order")}
         >
             <Head
-                title={isEdit ? "Edit Purchase Order" : "New Purchase Order"}
+                title={
+                    isEdit ? t("Edit Purchase Order") : t("New Purchase Order")
+                }
             />
             <PageHeader
-                title={isEdit ? "Edit Purchase Order" : "New Purchase Order"}
+                title={
+                    isEdit ? t("Edit Purchase Order") : t("New Purchase Order")
+                }
                 subtitle={
                     isEdit
-                        ? `PO #${order.po_number}`
-                        : "Create a new purchase order"
+                        ? `${t("PO #")}${order.po_number}`
+                        : t("Create a new purchase order")
                 }
                 actions={
                     <Link
@@ -144,7 +148,7 @@ export default function PurchaseOrderForm({
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Vendor *
+                                {t("Vendor")} *
                             </label>
                             <Select
                                 value={data.vendor_id}
@@ -153,7 +157,7 @@ export default function PurchaseOrderForm({
                                 }
                                 required
                             >
-                                <option value="">Select vendor…</option>
+                                <option value="">{t("Select vendor…")}</option>
                                 {vendors?.map((v) => (
                                     <option key={v.id} value={v.id}>
                                         {v.name}
@@ -163,7 +167,7 @@ export default function PurchaseOrderForm({
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Order Date *
+                                {t("Order Date")} *
                             </label>
                             <Input
                                 type="date"
@@ -236,7 +240,7 @@ export default function PurchaseOrderForm({
                 <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
                     <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
                         <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">
-                            Order Items
+                            {t("Order Items")}
                         </h3>
                         <button
                             type="button"
@@ -285,7 +289,7 @@ export default function PurchaseOrderForm({
                                                 }
                                             >
                                                 <option value="">
-                                                    — select —
+                                                    {t("— select —")}
                                                 </option>
                                                 {products?.map((p) => (
                                                     <option
@@ -351,7 +355,9 @@ export default function PurchaseOrderForm({
                                                     )
                                                 }
                                             >
-                                                <option value="">{t("No Tax")}</option>
+                                                <option value="">
+                                                    {t("No Tax")}
+                                                </option>
                                                 {taxRates?.map((t) => (
                                                     <option
                                                         key={t.id}
@@ -427,14 +433,15 @@ export default function PurchaseOrderForm({
                         href={route("purchase.purchase-orders.index")}
                         className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </Link>
                     <button
                         type="submit"
                         disabled={processing}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium"
                     >
-                        <Save size={16} /> {isEdit ? "Update PO" : "Save PO"}
+                        <Save size={16} />{" "}
+                        {isEdit ? t("Update PO") : t("Save PO")}
                     </button>
                 </div>
             </form>

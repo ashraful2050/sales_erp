@@ -107,10 +107,10 @@ export default function PaymentForm({
     };
 
     return (
-        <AppLayout title={isEdit ? "Edit Payment" : "New Payment"}>
-            <Head title={isEdit ? "Edit Payment" : "New Payment"} />
+        <AppLayout title={isEdit ? t("Edit Payment") : t("New Payment")}>
+            <Head title={isEdit ? t("Edit Payment") : t("New Payment")} />
             <PageHeader
-                title={isEdit ? "Edit Payment" : "New Payment"}
+                title={isEdit ? t("Edit Payment") : t("New Payment")}
                 subtitle={t("Record a payment received or made")}
                 actions={
                     <Link
@@ -125,10 +125,11 @@ export default function PaymentForm({
                 {/* Invoice Allocation Section */}
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
                     <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider flex items-center gap-2">
-                        <FileText size={15} /> Invoice Allocation (Optional)
+                        <FileText size={15} />{" "}
+                        {t("Invoice Allocation (Optional)")}
                     </h3>
                     <Field
-                        label="Apply Payment to Invoice"
+                        label={t("Apply Payment to Invoice")}
                         error={errors.invoice_id}
                     >
                         <Select
@@ -138,7 +139,7 @@ export default function PaymentForm({
                             }
                         >
                             <option value="">
-                                — No specific invoice (general payment) —
+                                {t("— No specific invoice (general payment) —")}
                             </option>
                             {preInvoice &&
                                 !pendingInvoices.find(
@@ -223,10 +224,10 @@ export default function PaymentForm({
                 {/* Payment Details */}
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
                     <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">
-                        Payment Details
+                        {t("Payment Details")}
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Field label="Payment Type *" error={errors.type}>
+                        <Field label={t("Payment Type *")} error={errors.type}>
                             <Select
                                 value={data.type}
                                 onChange={(e) =>
@@ -235,15 +236,15 @@ export default function PaymentForm({
                                 required
                             >
                                 <option value="received">
-                                    Payment Received (from Customer)
+                                    {t("Payment Received (from Customer)")}
                                 </option>
                                 <option value="made">
-                                    Payment Made (to Vendor)
+                                    {t("Payment Made (to Vendor)")}
                                 </option>
                             </Select>
                         </Field>
                         <Field
-                            label="Payment Date *"
+                            label={t("Payment Date *")}
                             error={errors.payment_date}
                         >
                             <Input
@@ -255,7 +256,7 @@ export default function PaymentForm({
                                 required
                             />
                         </Field>
-                        <Field label="Amount (৳) *" error={errors.amount}>
+                        <Field label={t("Amount (৳) *")} error={errors.amount}>
                             <Input
                                 type="number"
                                 step="any"
@@ -268,7 +269,7 @@ export default function PaymentForm({
                             />
                         </Field>
                         <Field
-                            label="Payment Method *"
+                            label={t("Payment Method *")}
                             error={errors.payment_method}
                         >
                             <Select
@@ -279,7 +280,9 @@ export default function PaymentForm({
                                 required
                             >
                                 <option value="cash">{t("Cash")}</option>
-                                <option value="bank">{t("Bank Transfer")}</option>
+                                <option value="bank">
+                                    {t("Bank Transfer")}
+                                </option>
                                 <option value="cheque">{t("Cheque")}</option>
                                 <option value="bkash">bKash</option>
                                 <option value="nagad">{t("Nagad")}</option>
@@ -289,7 +292,7 @@ export default function PaymentForm({
                             </Select>
                         </Field>
                         <Field
-                            label="Reference / Cheque No."
+                            label={t("Reference / Cheque No.")}
                             error={errors.reference}
                         >
                             <Input
@@ -301,7 +304,7 @@ export default function PaymentForm({
                             />
                         </Field>
                         <Field
-                            label="Bank Account"
+                            label={t("Bank Account")}
                             error={errors.bank_account_id}
                         >
                             <Select
@@ -310,7 +313,9 @@ export default function PaymentForm({
                                     setData("bank_account_id", e.target.value)
                                 }
                             >
-                                <option value="">Cash / No Bank Account</option>
+                                <option value="">
+                                    {t("Cash / No Bank Account")}
+                                </option>
                                 {bankAccounts?.map((b) => (
                                     <option key={b.id} value={b.id}>
                                         {b.bank_name} – {b.account_number}
@@ -320,7 +325,7 @@ export default function PaymentForm({
                         </Field>
                         {data.type === "received" ? (
                             <Field
-                                label="Received From (Customer)"
+                                label={t("Received From (Customer)")}
                                 error={errors.customer_id}
                             >
                                 <Select
@@ -329,7 +334,9 @@ export default function PaymentForm({
                                         setData("customer_id", e.target.value)
                                     }
                                 >
-                                    <option value="">Select customer…</option>
+                                    <option value="">
+                                        {t("Select customer…")}
+                                    </option>
                                     {customers?.map((c) => (
                                         <option key={c.id} value={c.id}>
                                             {c.name}
@@ -339,7 +346,7 @@ export default function PaymentForm({
                             </Field>
                         ) : (
                             <Field
-                                label="Paid To (Vendor)"
+                                label={t("Paid To (Vendor)")}
                                 error={errors.vendor_id}
                             >
                                 <Select
@@ -348,7 +355,9 @@ export default function PaymentForm({
                                         setData("vendor_id", e.target.value)
                                     }
                                 >
-                                    <option value="">Select vendor…</option>
+                                    <option value="">
+                                        {t("Select vendor…")}
+                                    </option>
                                     {vendors?.map((v) => (
                                         <option key={v.id} value={v.id}>
                                             {v.name}
@@ -358,7 +367,10 @@ export default function PaymentForm({
                             </Field>
                         )}
                     </div>
-                    <Field label="Description / Narration" error={errors.notes}>
+                    <Field
+                        label={t("Description / Narration")}
+                        error={errors.notes}
+                    >
                         <textarea
                             value={data.notes}
                             onChange={(e) => setData("notes", e.target.value)}
@@ -373,7 +385,7 @@ export default function PaymentForm({
                         href={route("finance.payments.index")}
                         className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </Link>
                     <button
                         type="submit"
@@ -381,7 +393,7 @@ export default function PaymentForm({
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium"
                     >
                         <Save size={16} />{" "}
-                        {isEdit ? "Update Payment" : "Record Payment"}
+                        {isEdit ? t("Update Payment") : t("Record Payment")}
                     </button>
                 </div>
             </form>

@@ -203,11 +203,13 @@ export default function TicketShow({ ticket, replies }) {
                 <div className="space-y-4">
                     <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
                         <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                            Ticket Details
+                            {t("Ticket Details")}
                         </h3>
                         <div className="space-y-2 text-sm">
                             <div className="flex justify-between">
-                                <span className="text-slate-500">{t("Status")}</span>
+                                <span className="text-slate-500">
+                                    {t("Status")}
+                                </span>
                                 <Badge
                                     color={
                                         statusColors[ticket.status] || "slate"
@@ -216,7 +218,9 @@ export default function TicketShow({ ticket, replies }) {
                                 />
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-slate-500">{t("Priority")}</span>
+                                <span className="text-slate-500">
+                                    {t("Priority")}
+                                </span>
                                 <Badge
                                     color={
                                         priorityColors[ticket.priority] ||
@@ -226,13 +230,17 @@ export default function TicketShow({ ticket, replies }) {
                                 />
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-slate-500">{t("Channel")}</span>
+                                <span className="text-slate-500">
+                                    {t("Channel")}
+                                </span>
                                 <span className="text-slate-700">
                                     {ticket.channel}
                                 </span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-slate-500">{t("Category")}</span>
+                                <span className="text-slate-500">
+                                    {t("Category")}
+                                </span>
                                 <span className="text-slate-700">
                                     {ticket.category?.replace("_", " ")}
                                 </span>
@@ -248,7 +256,9 @@ export default function TicketShow({ ticket, replies }) {
                                 </div>
                             )}
                             <div className="flex justify-between">
-                                <span className="text-slate-500">{t("Created")}</span>
+                                <span className="text-slate-500">
+                                    {t("Created")}
+                                </span>
                                 <span className="text-slate-700">
                                     {new Date(
                                         ticket.created_at,
@@ -262,7 +272,7 @@ export default function TicketShow({ ticket, replies }) {
                     {ticket.status === "resolved" && (
                         <div className="bg-white rounded-xl border border-slate-200 p-4">
                             <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">
-                                Satisfaction Rating
+                                {t("Satisfaction Rating")}
                             </h3>
                             <div className="flex gap-1">
                                 {[1, 2, 3, 4, 5].map((r) => (
@@ -294,7 +304,7 @@ export default function TicketShow({ ticket, replies }) {
                     {ticket.first_response_at && (
                         <div className="bg-white rounded-xl border border-slate-200 p-4 text-sm space-y-2">
                             <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                                SLA
+                                {t("SLA")}
                             </h3>
                             <div className="flex justify-between">
                                 <span className="text-slate-500">

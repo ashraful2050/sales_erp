@@ -90,12 +90,14 @@ export default function TenantForm({ tenant, plans }) {
                     </div>
                     <div>
                         <h2 className="text-xl font-bold text-white">
-                            {isEdit ? "Edit Tenant" : "Create New Tenant"}
+                            {isEdit ? t("Edit Tenant") : t("Create New Tenant")}
                         </h2>
                         <p className="text-slate-400 text-sm">
                             {isEdit
-                                ? "Update company & status"
-                                : "Set up a new company with admin user and subscription"}
+                                ? t("Update company & status")
+                                : t(
+                                      "Set up a new company with admin user and subscription",
+                                  )}
                         </p>
                     </div>
                 </div>
@@ -104,11 +106,15 @@ export default function TenantForm({ tenant, plans }) {
                     {/* Company Info */}
                     <div className="bg-slate-800 border border-slate-700 rounded-xl p-5">
                         <h3 className="text-white font-semibold mb-4">
-                            Company Information
+                            {t("Company Information")}
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <Field
-                                label={isEdit ? "Company Name" : "Company Name"}
+                                label={
+                                    isEdit
+                                        ? t("Company Name")
+                                        : t("Company Name")
+                                }
                                 required
                                 error={errors.company_name || errors.name}
                             >
@@ -126,7 +132,7 @@ export default function TenantForm({ tenant, plans }) {
                                 />
                             </Field>
                             <Field
-                                label="Email"
+                                label={t("Email")}
                                 required
                                 error={errors.company_email || errors.email}
                             >
@@ -145,7 +151,7 @@ export default function TenantForm({ tenant, plans }) {
                                 />
                             </Field>
                             <Field
-                                label="Phone"
+                                label={t("Phone")}
                                 error={errors.company_phone || errors.phone}
                             >
                                 <Input
@@ -162,7 +168,7 @@ export default function TenantForm({ tenant, plans }) {
                                 />
                             </Field>
                             <Field
-                                label="Country"
+                                label={t("Country")}
                                 error={errors.company_country || errors.country}
                             >
                                 <Input
@@ -187,7 +193,7 @@ export default function TenantForm({ tenant, plans }) {
                         {isEdit && (
                             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <Field
-                                    label="Status"
+                                    label={t("Status")}
                                     required
                                     error={errors.status}
                                 >
@@ -197,18 +203,22 @@ export default function TenantForm({ tenant, plans }) {
                                             setData("status", e.target.value)
                                         }
                                     >
-                                        <option value="active">{t("Active")}</option>
-                                        <option value="suspended">
-                                            Suspended
+                                        <option value="active">
+                                            {t("Active")}
                                         </option>
-                                        <option value="pending">{t("Pending")}</option>
+                                        <option value="suspended">
+                                            {t("Suspended")}
+                                        </option>
+                                        <option value="pending">
+                                            {t("Pending")}
+                                        </option>
                                         <option value="cancelled">
-                                            Cancelled
+                                            {t("Cancelled")}
                                         </option>
                                     </Select>
                                 </Field>
                                 <Field
-                                    label="Suspension Reason"
+                                    label={t("Suspension Reason")}
                                     error={errors.suspension_reason}
                                 >
                                     <Input
@@ -231,11 +241,11 @@ export default function TenantForm({ tenant, plans }) {
                         <>
                             <div className="bg-slate-800 border border-slate-700 rounded-xl p-5">
                                 <h3 className="text-white font-semibold mb-4">
-                                    Admin User
+                                    {t("Admin User")}
                                 </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <Field
-                                        label="Admin Name"
+                                        label={t("Admin Name")}
                                         required
                                         error={errors.admin_name}
                                     >
@@ -251,7 +261,7 @@ export default function TenantForm({ tenant, plans }) {
                                         />
                                     </Field>
                                     <Field
-                                        label="Admin Email"
+                                        label={t("Admin Email")}
                                         required
                                         error={errors.admin_email}
                                     >
@@ -268,7 +278,7 @@ export default function TenantForm({ tenant, plans }) {
                                         />
                                     </Field>
                                     <Field
-                                        label="Password"
+                                        label={t("Password")}
                                         required
                                         error={errors.admin_password}
                                         className="sm:col-span-2"
@@ -290,11 +300,11 @@ export default function TenantForm({ tenant, plans }) {
 
                             <div className="bg-slate-800 border border-slate-700 rounded-xl p-5">
                                 <h3 className="text-white font-semibold mb-4">
-                                    Subscription Plan
+                                    {t("Subscription Plan")}
                                 </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <Field
-                                        label="Plan"
+                                        label={t("Plan")}
                                         required
                                         error={errors.plan_id}
                                     >
@@ -316,7 +326,7 @@ export default function TenantForm({ tenant, plans }) {
                                         </Select>
                                     </Field>
                                     <Field
-                                        label="Billing Cycle"
+                                        label={t("Billing Cycle")}
                                         required
                                         error={errors.billing_cycle}
                                     >
@@ -329,15 +339,17 @@ export default function TenantForm({ tenant, plans }) {
                                                 )
                                             }
                                         >
-                                            <option value="trial">{t("Trial")}</option>
+                                            <option value="trial">
+                                                {t("Trial")}
+                                            </option>
                                             <option value="monthly">
-                                                Monthly
+                                                {t("Monthly")}
                                             </option>
                                             <option value="yearly">
-                                                Yearly
+                                                {t("Yearly")}
                                             </option>
                                             <option value="lifetime">
-                                                Lifetime
+                                                {t("Lifetime")}
                                             </option>
                                         </Select>
                                     </Field>
@@ -353,10 +365,10 @@ export default function TenantForm({ tenant, plans }) {
                             className="bg-violet-600 hover:bg-violet-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-colors disabled:opacity-60"
                         >
                             {processing
-                                ? "Saving..."
+                                ? t("Saving...")
                                 : isEdit
-                                  ? "Update Tenant"
-                                  : "Create Tenant"}
+                                  ? t("Update Tenant")
+                                  : t("Create Tenant")}
                         </button>
                         <Link
                             href={
@@ -369,7 +381,7 @@ export default function TenantForm({ tenant, plans }) {
                             }
                             className="bg-slate-700 hover:bg-slate-600 text-slate-300 px-6 py-2.5 rounded-lg text-sm font-medium transition-colors"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </Link>
                     </div>
                 </form>

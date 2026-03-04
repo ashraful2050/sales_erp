@@ -4,8 +4,10 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { ArrowLeft, Edit } from "lucide-react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Show({ asset }) {
+    const { t } = useTranslation();
     const totalDepreciation =
         asset.depreciations?.reduce(
             (s, d) => s + Number(d.depreciation_amount ?? 0),

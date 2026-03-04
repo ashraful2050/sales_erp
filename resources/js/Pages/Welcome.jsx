@@ -152,7 +152,7 @@ const MODULES = [
 const WHY = [
     {
         icon: "⚡",
-        title: t("Real-Time Dashboard"),
+        title: "Real-Time Dashboard",
         body: "All critical business metrics—sales, collections, payables, stock levels—visible on a single screen the moment data changes.",
         bullets: [
             "Live KPI cards",
@@ -164,7 +164,7 @@ const WHY = [
     },
     {
         icon: "🔐",
-        title: t("Granular Role Permissions"),
+        title: "Granular Role Permissions",
         body: "Build custom roles with per-module, per-action access control. Every feature can be individually toggled for any user.",
         bullets: [
             "Module-level gates",
@@ -176,7 +176,7 @@ const WHY = [
     },
     {
         icon: "📤",
-        title: t("Export Everything"),
+        title: "Export Everything",
         body: "Every table, report and statement in AccounTech BD can be exported to PDF or Excel with a single click.",
         bullets: [
             "PDF & Excel export",
@@ -188,7 +188,7 @@ const WHY = [
     },
     {
         icon: "🌍",
-        title: t("Multi-Currency & Multi-Tax"),
+        title: "Multi-Currency & Multi-Tax",
         body: "Run operations in BDT and foreign currencies. Apply VAT, SD and custom tax rates per product or transaction.",
         bullets: [
             "Live exchange rates",
@@ -203,7 +203,7 @@ const WHY = [
 const MODULE_DETAILS = [
     {
         icon: "🛒",
-        title: t("Sales Management"),
+        title: "Sales Management",
         body: "The Sales module handles the complete sales lifecycle — from quotation to delivery. Manage customers, issue professional invoices, track payments due, apply tax and discounts, and generate credit notes for returns. Every transaction syncs to accounting automatically.",
         tag: "Sales",
         tagColor: "green",
@@ -218,7 +218,7 @@ const MODULE_DETAILS = [
     },
     {
         icon: "🚚",
-        title: t("Purchase Management"),
+        title: "Purchase Management",
         body: "Streamline your procurement—create purchase orders, receive goods against GRN, and manage vendor relationships and payables. Debit notes handle returns to suppliers, keeping your books accurate.",
         tag: "Purchase",
         tagColor: "amber",
@@ -233,7 +233,7 @@ const MODULE_DETAILS = [
     },
     {
         icon: "📒",
-        title: t("Accounting & Finance"),
+        title: "Accounting & Finance",
         body: "A complete double-entry accounting engine. Maintain your chart of accounts, post journal entries, assign cost centers, manage budgets, and produce trial balance, P&L and balance sheet at any time.",
         tag: "Accounting",
         tagColor: "purple",
@@ -248,7 +248,7 @@ const MODULE_DETAILS = [
     },
     {
         icon: "👥",
-        title: t("HR & Payroll"),
+        title: "HR & Payroll",
         body: "Manage your entire workforce — from employee onboarding and department assignment to monthly payroll processing, leave approvals, and salary slip generation. All linked to your chart of accounts.",
         tag: "HR",
         tagColor: "rose",

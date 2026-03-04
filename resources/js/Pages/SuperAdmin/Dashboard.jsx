@@ -203,7 +203,9 @@ export default function SuperAdminDashboard({
             {/* Recent Tenants */}
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-5">
                 <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-white font-semibold">Recent Tenants</h3>
+                    <h3 className="text-white font-semibold">
+                        {t("Recent Tenants")}
+                    </h3>
                     <Link
                         href={route("superadmin.tenants.index")}
                         className="text-violet-400 text-sm hover:text-violet-300 flex items-center gap-1"

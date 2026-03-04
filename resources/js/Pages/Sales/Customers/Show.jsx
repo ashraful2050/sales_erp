@@ -4,8 +4,10 @@ import PageHeader from "@/Components/PageHeader";
 import Badge from "@/Components/Badge";
 import { ArrowLeft, Edit, Mail, Phone, CreditCard, Hash } from "lucide-react";
 import { fmtDate } from "@/utils/date";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function Show({ customer, summary }) {
+    const { t } = useTranslation();
     const statusColors = { active: "green", inactive: "red" };
 
     return (

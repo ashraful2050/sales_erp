@@ -133,7 +133,9 @@ export default function DirectSaleForm({
             <Head title={t("New Direct Sale")} />
             <PageHeader
                 title={t("New Direct Sale")}
-                subtitle={t("Immediate cash/card sale — invoice + payment recorded at once")}
+                subtitle={t(
+                    "Immediate cash/card sale — invoice + payment recorded at once",
+                )}
                 actions={
                     <Link
                         href={route("sales.direct-sales.index")}
@@ -148,7 +150,7 @@ export default function DirectSaleForm({
                 {/* Header */}
                 <div className="bg-white rounded-xl border border-slate-200 p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
-                        <Label>Customer</Label>
+                        <Label>{t("Customer")}</Label>
                         <Select
                             value={data.customer_id}
                             onChange={(e) =>
@@ -156,7 +158,7 @@ export default function DirectSaleForm({
                             }
                             error={errors.customer_id}
                         >
-                            <option value="">Walk-in Customer</option>
+                            <option value="">{t("Walk-in Customer")}</option>
                             {customers?.map((c) => (
                                 <option key={c.id} value={c.id}>
                                     {c.name}
@@ -170,7 +172,7 @@ export default function DirectSaleForm({
                         )}
                     </div>
                     <div>
-                        <Label required>Sale Date</Label>
+                        <Label required>{t("Sale Date")}</Label>
                         <Input
                             type="date"
                             value={data.sale_date}
@@ -186,7 +188,7 @@ export default function DirectSaleForm({
                         )}
                     </div>
                     <div>
-                        <Label required>Payment Method</Label>
+                        <Label required>{t("Payment Method")}</Label>
                         <Select
                             value={data.payment_method}
                             onChange={(e) =>
@@ -196,13 +198,13 @@ export default function DirectSaleForm({
                         >
                             {PAYMENT_METHODS.map((m) => (
                                 <option key={m} value={m}>
-                                    {m}
+                                    {t(m)}
                                 </option>
                             ))}
                         </Select>
                     </div>
                     <div>
-                        <Label required>Currency</Label>
+                        <Label required>{t("Currency")}</Label>
                         <Select
                             value={data.currency_code}
                             onChange={(e) =>
@@ -222,7 +224,7 @@ export default function DirectSaleForm({
                 <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
                     <div className="px-5 py-3 border-b border-slate-200 flex items-center justify-between">
                         <h3 className="font-semibold text-slate-700 text-sm">
-                            Items
+                            {t("Items")}
                         </h3>
                         <button
                             type="button"
@@ -376,7 +378,9 @@ export default function DirectSaleForm({
                                                 }
                                                 className="w-full border border-slate-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-400"
                                             >
-                                                <option value="">{t("No Tax")}</option>
+                                                <option value="">
+                                                    {t("No Tax")}
+                                                </option>
                                                 {taxRates?.map((t) => (
                                                     <option
                                                         key={t.id}
@@ -462,8 +466,8 @@ export default function DirectSaleForm({
                         </div>
                         <div className="pt-2">
                             <div className="flex items-center justify-center gap-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg py-2 text-xs font-semibold">
-                                ✓ Payment will be recorded as{" "}
-                                <strong>{data.payment_method}</strong>
+                                ✓ {t("Payment will be recorded as")}{" "}
+                                <strong>{t(data.payment_method)}</strong>
                             </div>
                         </div>
                     </div>
@@ -474,7 +478,7 @@ export default function DirectSaleForm({
                         href={route("sales.direct-sales.index")}
                         className="px-5 py-2 border border-slate-200 rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition-colors"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </Link>
                     <button
                         type="submit"
@@ -482,7 +486,7 @@ export default function DirectSaleForm({
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg text-sm font-medium disabled:opacity-60 transition-colors"
                     >
                         <Save size={15} />
-                        {processing ? "Saving..." : "Record Sale"}
+                        {processing ? t("Saving...") : t("Record Sale")}
                     </button>
                 </div>
             </form>

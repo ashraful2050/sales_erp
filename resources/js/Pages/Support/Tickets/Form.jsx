@@ -2,8 +2,10 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 import { useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function TicketForm({ customers, users, ticket }) {
+    const { t } = useTranslation();
     const isEdit = !!ticket;
     const { data, setData, post, put, processing, errors } = useForm({
         subject: ticket?.subject ?? "",
@@ -24,13 +26,13 @@ export default function TicketForm({ customers, users, ticket }) {
     };
 
     return (
-        <AppLayout title={isEdit ? "Edit Ticket" : "New Ticket"}>
-            <Head title={isEdit ? "Edit Ticket" : "New Ticket"} />
+        <AppLayout title={isEdit ? t("Edit Ticket") : t("New Ticket")}>
+            <Head title={isEdit ? t("Edit Ticket") : t("New Ticket")} />
             <PageHeader
                 title={
                     isEdit
-                        ? `Edit Ticket ${ticket.ticket_number}`
-                        : "Create Support Ticket"
+                        ? `${t("Edit Ticket")} ${ticket.ticket_number}`
+                        : t("Create Support Ticket")
                 }
                 subtitle={t("Log a new customer support request")}
                 actions={
@@ -50,7 +52,7 @@ export default function TicketForm({ customers, users, ticket }) {
                 >
                     <div>
                         <label className="text-xs font-medium text-slate-600">
-                            Subject *
+                            {t("Subject")} *
                         </label>
                         <input
                             value={data.subject}
@@ -66,7 +68,7 @@ export default function TicketForm({ customers, users, ticket }) {
 
                     <div>
                         <label className="text-xs font-medium text-slate-600">
-                            Description *
+                            {t("Description")} *
                         </label>
                         <textarea
                             rows={4}
@@ -105,7 +107,9 @@ export default function TicketForm({ customers, users, ticket }) {
                                 }}
                                 className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm mt-1"
                             >
-                                <option value="">-- Select customer --</option>
+                                <option value="">
+                                    {t("-- Select customer --")}
+                                </option>
                                 {customers?.map((c) => (
                                     <option key={c.id} value={c.id}>
                                         {c.name}
@@ -115,7 +119,7 @@ export default function TicketForm({ customers, users, ticket }) {
                         </div>
                         <div>
                             <label className="text-xs font-medium text-slate-600">
-                                Customer Name *
+                                {t("Customer Name")} *
                             </label>
                             <input
                                 value={data.customer_name}
@@ -164,15 +168,19 @@ export default function TicketForm({ customers, users, ticket }) {
                                     "social_media",
                                     "in_person",
                                     "portal",
-                                ].map((c) => (
-                                    <option key={c} value={c}>
-                                        {c
+                                ].map((c) => {
+                                    const label =
+                                        c
                                             .replace("_", " ")
                                             .charAt(0)
                                             .toUpperCase() +
-                                            c.replace("_", " ").slice(1)}
-                                    </option>
-                                ))}
+                                        c.replace("_", " ").slice(1);
+                                    return (
+                                        <option key={c} value={c}>
+                                            {t(label)}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
                     </div>
@@ -197,7 +205,10 @@ export default function TicketForm({ customers, users, ticket }) {
                                     "critical",
                                 ].map((p) => (
                                     <option key={p} value={p}>
-                                        {p.charAt(0).toUpperCase() + p.slice(1)}
+                                        {t(
+                                            p.charAt(0).toUpperCase() +
+                                                p.slice(1),
+                                        )}
                                     </option>
                                 ))}
                             </select>
@@ -221,15 +232,19 @@ export default function TicketForm({ customers, users, ticket }) {
                                     "feature_request",
                                     "returns",
                                     "other",
-                                ].map((c) => (
-                                    <option key={c} value={c}>
-                                        {c
+                                ].map((c) => {
+                                    const label =
+                                        c
                                             .replace("_", " ")
                                             .charAt(0)
                                             .toUpperCase() +
-                                            c.replace("_", " ").slice(1)}
-                                    </option>
-                                ))}
+                                        c.replace("_", " ").slice(1);
+                                    return (
+                                        <option key={c} value={c}>
+                                            {t(label)}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
                         <div>
@@ -243,7 +258,9 @@ export default function TicketForm({ customers, users, ticket }) {
                                 }
                                 className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm mt-1"
                             >
-                                <option value="">-- Unassigned --</option>
+                                <option value="">
+                                    {t("-- Unassigned --")}
+                                </option>
                                 {users?.map((u) => (
                                     <option key={u.id} value={u.id}>
                                         {u.name}
@@ -259,13 +276,13 @@ export default function TicketForm({ customers, users, ticket }) {
                             disabled={processing}
                             className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm"
                         >
-                            {isEdit ? "Update Ticket" : "Create Ticket"}
+                            {isEdit ? t("Update Ticket") : t("Create Ticket")}
                         </button>
                         <Link
                             href={route("support.tickets.index")}
                             className="text-slate-500 text-sm py-2"
                         >
-                            Cancel
+                            {t("Cancel")}
                         </Link>
                     </div>
                 </form>

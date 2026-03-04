@@ -137,7 +137,9 @@ export default function DirectPurchaseForm({
             <Head title={t("New Direct Purchase")} />
             <PageHeader
                 title={t("New Direct Purchase")}
-                subtitle={t("Immediate cash purchase — bill + payment recorded at once")}
+                subtitle={t(
+                    "Immediate cash purchase — bill + payment recorded at once",
+                )}
                 actions={
                     <Link
                         href={route("purchase.direct-purchases.index")}
@@ -152,7 +154,7 @@ export default function DirectPurchaseForm({
                 {/* Header */}
                 <div className="bg-white rounded-xl border border-slate-200 p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
-                        <Label>Vendor</Label>
+                        <Label>{t("Vendor")}</Label>
                         <Select
                             value={data.vendor_id}
                             onChange={(e) =>
@@ -160,7 +162,9 @@ export default function DirectPurchaseForm({
                             }
                             error={errors.vendor_id}
                         >
-                            <option value="">Cash Purchase (No Vendor)</option>
+                            <option value="">
+                                {t("Cash Purchase (No Vendor)")}
+                            </option>
                             {vendors?.map((v) => (
                                 <option key={v.id} value={v.id}>
                                     {v.name}
@@ -174,7 +178,7 @@ export default function DirectPurchaseForm({
                         )}
                     </div>
                     <div>
-                        <Label required>Purchase Date</Label>
+                        <Label required>{t("Purchase Date")}</Label>
                         <Input
                             type="date"
                             value={data.purchase_date}
@@ -190,7 +194,7 @@ export default function DirectPurchaseForm({
                         )}
                     </div>
                     <div>
-                        <Label required>Payment Method</Label>
+                        <Label required>{t("Payment Method")}</Label>
                         <Select
                             value={data.payment_method}
                             onChange={(e) =>
@@ -199,13 +203,13 @@ export default function DirectPurchaseForm({
                         >
                             {PAYMENT_METHODS.map((m) => (
                                 <option key={m} value={m}>
-                                    {m}
+                                    {t(m)}
                                 </option>
                             ))}
                         </Select>
                     </div>
                     <div>
-                        <Label required>Currency</Label>
+                        <Label required>{t("Currency")}</Label>
                         <Select
                             value={data.currency_code}
                             onChange={(e) =>
@@ -225,7 +229,7 @@ export default function DirectPurchaseForm({
                 <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
                     <div className="px-5 py-3 border-b border-slate-200 flex items-center justify-between">
                         <h3 className="font-semibold text-slate-700 text-sm">
-                            Items
+                            {t("Items")}
                         </h3>
                         <button
                             type="button"
@@ -379,7 +383,9 @@ export default function DirectPurchaseForm({
                                                 }
                                                 className="w-full border border-slate-200 rounded-lg px-2 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-teal-400"
                                             >
-                                                <option value="">{t("No Tax")}</option>
+                                                <option value="">
+                                                    {t("No Tax")}
+                                                </option>
                                                 {taxRates?.map((t) => (
                                                     <option
                                                         key={t.id}
@@ -465,8 +471,8 @@ export default function DirectPurchaseForm({
                         </div>
                         <div className="pt-2">
                             <div className="flex items-center justify-center gap-2 bg-teal-50 text-teal-700 border border-teal-200 rounded-lg py-2 text-xs font-semibold">
-                                ✓ Payment will be recorded as{" "}
-                                <strong>{data.payment_method}</strong>
+                                ✓ {t("Payment will be recorded as")}{" "}
+                                <strong>{t(data.payment_method)}</strong>
                             </div>
                         </div>
                     </div>
@@ -477,7 +483,7 @@ export default function DirectPurchaseForm({
                         href={route("purchase.direct-purchases.index")}
                         className="px-5 py-2 border border-slate-200 rounded-lg text-sm text-slate-600 hover:bg-slate-50 transition-colors"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </Link>
                     <button
                         type="submit"
@@ -485,7 +491,7 @@ export default function DirectPurchaseForm({
                         className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-6 py-2 rounded-lg text-sm font-medium disabled:opacity-60 transition-colors"
                     >
                         <Save size={15} />
-                        {processing ? "Saving..." : "Record Purchase"}
+                        {processing ? t("Saving...") : t("Record Purchase")}
                     </button>
                 </div>
             </form>

@@ -143,7 +143,7 @@ export default function AffiliateShow({ affiliate, conversions }) {
             <div className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden">
                 <div className="px-5 py-3 border-b border-slate-700 flex items-center justify-between">
                     <h3 className="text-white font-semibold text-sm">
-                        Conversion History
+                        {t("Conversion History")}
                     </h3>
                     <span className="text-slate-400 text-xs">
                         {conversions.length} total
@@ -239,7 +239,9 @@ export default function AffiliateShow({ affiliate, conversions }) {
                                         colSpan={7}
                                         className="px-4 py-12 text-center text-slate-500"
                                     >
-                                        {t("No conversions yet for this affiliate.")}
+                                        {t(
+                                            "No conversions yet for this affiliate.",
+                                        )}
                                     </td>
                                 </tr>
                             )}

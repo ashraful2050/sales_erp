@@ -2,8 +2,10 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import PageHeader from "@/Components/PageHeader";
 import { Save, ArrowLeft } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function LeadForm({ lead, users }) {
+    const { t } = useTranslation();
     const isEdit = !!lead;
     const { data, setData, post, put, processing, errors } = useForm({
         title: lead?.title ?? "",
@@ -67,10 +69,10 @@ export default function LeadForm({ lead, users }) {
     );
 
     return (
-        <AppLayout title={isEdit ? "Edit Lead" : "New Lead"}>
-            <Head title={isEdit ? "Edit Lead" : "New Lead"} />
+        <AppLayout title={isEdit ? t("Edit Lead") : t("New Lead")}>
+            <Head title={isEdit ? t("Edit Lead") : t("New Lead")} />
             <PageHeader
-                title={isEdit ? "Edit Lead" : "Create Lead"}
+                title={isEdit ? t("Edit Lead") : t("Create Lead")}
                 actions={
                     <Link
                         href={route("crm.leads.index")}
@@ -85,24 +87,27 @@ export default function LeadForm({ lead, users }) {
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-6">
                     <div>
                         <h3 className="text-sm font-semibold text-slate-700 mb-4">
-                            Lead Information
+                            {t("Lead Information")}
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {field("Title *", "title")}
-                            {field("Source", "source", "select", {
+                            {field(t("Title *"), "title")}
+                            {field(t("Source"), "source", "select", {
                                 options: [
-                                    { value: "", label: "Select source" },
-                                    { value: "website", label: "Website" },
+                                    { value: "", label: t("Select source") },
+                                    { value: "website", label: t("Website") },
                                     {
                                         value: "social_media",
-                                        label: "Social Media",
+                                        label: t("Social Media"),
                                     },
-                                    { value: "referral", label: "Referral" },
-                                    { value: "cold_call", label: "Cold Call" },
-                                    { value: "email", label: "Email" },
+                                    { value: "referral", label: t("Referral") },
+                                    {
+                                        value: "cold_call",
+                                        label: t("Cold Call"),
+                                    },
+                                    { value: "email", label: t("Email") },
                                 ],
                             })}
-                            {field("Status *", "status", "select", {
+                            {field(t("Status *"), "status", "select", {
                                 options: [
                                     "new",
                                     "contacted",
@@ -113,31 +118,33 @@ export default function LeadForm({ lead, users }) {
                                     "lost",
                                 ].map((s) => ({
                                     value: s,
-                                    label:
+                                    label: t(
                                         s.charAt(0).toUpperCase() + s.slice(1),
+                                    ),
                                 })),
                             })}
-                            {field("Priority *", "priority", "select", {
+                            {field(t("Priority *"), "priority", "select", {
                                 options: ["low", "medium", "high"].map((p) => ({
                                     value: p,
-                                    label:
+                                    label: t(
                                         p.charAt(0).toUpperCase() + p.slice(1),
+                                    ),
                                 })),
                             })}
                             {field(
-                                "Estimated Value",
+                                t("Estimated Value"),
                                 "estimated_value",
                                 "number",
                             )}
                             {field(
-                                "Expected Close Date",
+                                t("Expected Close Date"),
                                 "expected_close_date",
                                 "date",
                             )}
-                            {field("Industry", "industry")}
-                            {field("Assigned To", "assigned_to", "select", {
+                            {field(t("Industry"), "industry")}
+                            {field(t("Assigned To"), "assigned_to", "select", {
                                 options: [
-                                    { value: "", label: "Unassigned" },
+                                    { value: "", label: t("Unassigned") },
                                     ...(users || []).map((u) => ({
                                         value: u.id,
                                         label: u.name,
@@ -149,17 +156,17 @@ export default function LeadForm({ lead, users }) {
 
                     <div>
                         <h3 className="text-sm font-semibold text-slate-700 mb-4">
-                            Contact Details
+                            {t("Contact Details")}
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {field("Contact Name", "contact_name")}
-                            {field("Company Name", "company_name")}
-                            {field("Email", "contact_email", "email")}
-                            {field("Phone", "contact_phone", "tel")}
+                            {field(t("Contact Name"), "contact_name")}
+                            {field(t("Company Name"), "company_name")}
+                            {field(t("Email"), "contact_email", "email")}
+                            {field(t("Phone"), "contact_phone", "tel")}
                         </div>
                     </div>
 
-                    <div>{field("Notes", "notes", "textarea")}</div>
+                    <div>{field(t("Notes"), "notes", "textarea")}</div>
                 </div>
 
                 <div className="mt-4 flex justify-end">
@@ -168,7 +175,8 @@ export default function LeadForm({ lead, users }) {
                         disabled={processing}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-medium disabled:opacity-50"
                     >
-                        <Save size={16} /> {isEdit ? "Update" : "Create"} Lead
+                        <Save size={16} /> {isEdit ? t("Update") : t("Create")}{" "}
+                        {t("Lead")}
                     </button>
                 </div>
             </form>

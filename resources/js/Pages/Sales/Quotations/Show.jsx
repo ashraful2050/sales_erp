@@ -99,7 +99,9 @@ export default function QuotationShow({ quote }) {
                 </div>
                 <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
                     <div className="px-6 py-4 border-b border-slate-200">
-                        <h3 className="font-semibold text-slate-700">Items</h3>
+                        <h3 className="font-semibold text-slate-700">
+                            {t("Items")}
+                        </h3>
                     </div>
                     <table className="w-full text-sm">
                         <thead className="bg-slate-50 border-b border-slate-200">

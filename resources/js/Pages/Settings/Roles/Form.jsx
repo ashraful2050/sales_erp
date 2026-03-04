@@ -241,13 +241,17 @@ export default function RoleForm({
     );
 
     return (
-        <AppLayout title={isEdit ? "Edit Role" : "Create Role"}>
-            <Head title={isEdit ? "Edit Role" : "Create Role"} />
+        <AppLayout title={isEdit ? t("Edit Role") : t("Create Role")}>
+            <Head title={isEdit ? t("Edit Role") : t("Create Role")} />
             <PageHeader
                 title={
-                    isEdit ? `Edit Role: ${editRole.name}` : "Create New Role"
+                    isEdit
+                        ? `${t("Edit Role")}: ${editRole.name}`
+                        : t("Create New Role")
                 }
-                subtitle={t("Define a name and assign permissions for each module and feature")}
+                subtitle={t(
+                    "Define a name and assign permissions for each module and feature",
+                )}
                 actions={
                     <Link
                         href={route("settings.roles.index")}
@@ -275,12 +279,14 @@ export default function RoleForm({
                 {/* Role Name */}
                 <div className="bg-white rounded-xl border border-slate-200 p-6">
                     <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                        Role Name <span className="text-red-400">*</span>
+                        {t("Role Name")} <span className="text-red-400">*</span>
                     </label>
                     <input
                         value={data.name}
                         onChange={(e) => setData("name", e.target.value)}
-                        placeholder="e.g. Sales Manager, Accountant, Report Viewer…"
+                        placeholder={t(
+                            "e.g. Sales Manager, Accountant, Report Viewer…",
+                        )}
                         required
                         className="w-full max-w-sm border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
@@ -296,7 +302,7 @@ export default function RoleForm({
                     <div className="flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-xl px-4 py-2.5 text-sm text-blue-700">
                         <ShieldCheck size={15} />
                         <span>
-                            Module access:{" "}
+                            {t("Module access:")}{" "}
                             <strong>
                                 {modulePermCount}/{totalModuleCount}
                             </strong>
@@ -305,7 +311,7 @@ export default function RoleForm({
                     <div className="flex items-center gap-2 bg-purple-50 border border-purple-100 rounded-xl px-4 py-2.5 text-sm text-purple-700">
                         <ShieldCheck size={15} />
                         <span>
-                            Feature access:{" "}
+                            {t("Feature access:")}{" "}
                             <strong>
                                 {featurePermCount}/{totalFeatureCount}
                             </strong>
@@ -319,12 +325,12 @@ export default function RoleForm({
                         {[
                             {
                                 id: "module",
-                                label: "Module Permissions",
+                                label: t("Module Permissions"),
                                 desc: `${modulePermCount}/${totalModuleCount} enabled`,
                             },
                             {
                                 id: "feature",
-                                label: "Feature Permissions",
+                                label: t("Feature Permissions"),
                                 desc: `${featurePermCount}/${totalFeatureCount} enabled`,
                             },
                         ].map((tab) => (
@@ -370,10 +376,12 @@ export default function RoleForm({
                                                         toggleAction(action)
                                                     }
                                                     className={`px-3 py-1 rounded-md border text-xs font-medium transition-colors ${actionColors[action] ?? "bg-slate-50 text-slate-600 border-slate-200"} hover:opacity-80`}
-                                                    title={`Toggle all "${actionLabels[action] ?? action}"`}
+                                                    title={`Toggle all "${t(actionLabels[action] ?? action)}"`}
                                                 >
-                                                    {actionLabels[action] ??
-                                                        action}
+                                                    {t(
+                                                        actionLabels[action] ??
+                                                            action,
+                                                    )}
                                                 </button>
                                             </th>
                                         ))}
@@ -528,10 +536,10 @@ export default function RoleForm({
                                                             }`}
                                                         >
                                                             {modAllOn
-                                                                ? "All ✓"
+                                                                ? t("All ✓")
                                                                 : modSomeOn
-                                                                  ? "Some"
-                                                                  : "None"}
+                                                                  ? t("Some")
+                                                                  : t("None")}
                                                         </button>
                                                     </td>
                                                 </tr>
@@ -549,7 +557,7 @@ export default function RoleForm({
                             {/* Global toggles */}
                             <div className="flex items-center gap-2 justify-end">
                                 <span className="text-xs text-slate-400 mr-2">
-                                    Quick set:
+                                    {t("Quick set:")}
                                 </span>
                                 <button
                                     type="button"
@@ -603,9 +611,11 @@ export default function RoleForm({
                                                             ] ?? mod}
                                                         </p>
                                                         <p className="text-xs text-slate-400">
-                                                            {enabled} of{" "}
+                                                            {enabled} {t("of")}{" "}
                                                             {featKeys.length}{" "}
-                                                            features enabled
+                                                            {t(
+                                                                "features enabled",
+                                                            )}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -624,10 +634,10 @@ export default function RoleForm({
                                                         }`}
                                                     >
                                                         {allOn
-                                                            ? "All On ✓"
+                                                            ? t("All On ✓")
                                                             : enabled > 0
                                                               ? `${enabled}/${featKeys.length}`
-                                                              : "All Off"}
+                                                              : t("All Off")}
                                                     </button>
                                                     <button
                                                         type="button"
@@ -739,7 +749,7 @@ export default function RoleForm({
                         href={route("settings.roles.index")}
                         className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </Link>
                     <button
                         type="submit"
@@ -747,7 +757,7 @@ export default function RoleForm({
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium"
                     >
                         <Save size={16} />{" "}
-                        {isEdit ? "Update Role" : "Create Role"}
+                        {isEdit ? t("Update Role") : t("Create Role")}
                     </button>
                 </div>
             </form>

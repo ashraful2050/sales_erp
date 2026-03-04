@@ -63,14 +63,14 @@ export default function ProductForm({
     };
 
     return (
-        <AppLayout title={isEdit ? "Edit Product" : "New Product"}>
-            <Head title={isEdit ? "Edit Product" : "New Product"} />
+        <AppLayout title={isEdit ? t("Edit Product") : t("New Product")}>
+            <Head title={isEdit ? t("Edit Product") : t("New Product")} />
             <PageHeader
-                title={isEdit ? "Edit Product" : "New Product"}
+                title={isEdit ? t("Edit Product") : t("New Product")}
                 subtitle={
                     isEdit
-                        ? `Editing: ${product.name}`
-                        : "Add a new product or service"
+                        ? `${t("Editing")}: ${product.name}`
+                        : t("Add a new product or service")
                 }
                 actions={
                     <Link
@@ -84,10 +84,10 @@ export default function ProductForm({
             <form onSubmit={submit} className="max-w-4xl space-y-6">
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
                     <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">
-                        Product Info
+                        {t("Product Info")}
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Field label="Product Name *" error={errors.name}>
+                        <Field label={t("Product Name *")} error={errors.name}>
                             <Input
                                 value={data.name}
                                 onChange={(e) =>
@@ -97,7 +97,7 @@ export default function ProductForm({
                             />
                         </Field>
                         <Field
-                            label="Product Name (Bangla)"
+                            label={t("Product Name (Bangla)")}
                             error={errors.name_bn}
                         >
                             <Input
@@ -107,7 +107,7 @@ export default function ProductForm({
                                 }
                             />
                         </Field>
-                        <Field label="Type *" error={errors.type}>
+                        <Field label={t("Type *")} error={errors.type}>
                             <Select
                                 value={data.type}
                                 onChange={(e) =>
@@ -120,14 +120,16 @@ export default function ProductForm({
                                 <option value="combo">{t("Combo")}</option>
                             </Select>
                         </Field>
-                        <Field label="Category" error={errors.category_id}>
+                        <Field label={t("Category")} error={errors.category_id}>
                             <Select
                                 value={data.category_id}
                                 onChange={(e) =>
                                     setData("category_id", e.target.value)
                                 }
                             >
-                                <option value="">Select category…</option>
+                                <option value="">
+                                    {t("Select category…")}
+                                </option>
                                 {categories?.map((c) => (
                                     <option key={c.id} value={c.id}>
                                         {c.name}
@@ -135,7 +137,7 @@ export default function ProductForm({
                                 ))}
                             </Select>
                         </Field>
-                        <Field label="Code / SKU" error={errors.code}>
+                        <Field label={t("Code / SKU")} error={errors.code}>
                             <Input
                                 value={data.code}
                                 onChange={(e) =>
@@ -144,7 +146,7 @@ export default function ProductForm({
                                 placeholder={t("Auto-generate if blank")}
                             />
                         </Field>
-                        <Field label="Barcode" error={errors.barcode}>
+                        <Field label={t("Barcode")} error={errors.barcode}>
                             <Input
                                 value={data.barcode}
                                 onChange={(e) =>
@@ -152,14 +154,17 @@ export default function ProductForm({
                                 }
                             />
                         </Field>
-                        <Field label="Unit of Measure" error={errors.unit_id}>
+                        <Field
+                            label={t("Unit of Measure")}
+                            error={errors.unit_id}
+                        >
                             <Select
                                 value={data.unit_id}
                                 onChange={(e) =>
                                     setData("unit_id", e.target.value)
                                 }
                             >
-                                <option value="">— Select unit —</option>
+                                <option value="">{t("— Select unit —")}</option>
                                 {units?.map((u) => (
                                     <option key={u.id} value={u.id}>
                                         {u.name} ({u.abbreviation})
@@ -182,10 +187,13 @@ export default function ProductForm({
 
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
                     <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">
-                        Pricing &amp; Tax
+                        {t("Pricing & Tax")}
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <Field label="Cost Price (৳)" error={errors.cost_price}>
+                        <Field
+                            label={t("Cost Price (৳)")}
+                            error={errors.cost_price}
+                        >
                             <Input
                                 type="number"
                                 step="0.01"
@@ -196,7 +204,7 @@ export default function ProductForm({
                             />
                         </Field>
                         <Field
-                            label="Sale Price (৳) *"
+                            label={t("Sale Price (৳) *")}
                             error={errors.sale_price}
                         >
                             <Input
@@ -209,7 +217,7 @@ export default function ProductForm({
                                 required
                             />
                         </Field>
-                        <Field label="Tax Rate" error={errors.tax_rate_id}>
+                        <Field label={t("Tax Rate")} error={errors.tax_rate_id}>
                             <Select
                                 value={data.tax_rate_id}
                                 onChange={(e) =>
@@ -217,9 +225,9 @@ export default function ProductForm({
                                 }
                             >
                                 <option value="">{t("No Tax")}</option>
-                                {taxRates?.map((t) => (
-                                    <option key={t.id} value={t.id}>
-                                        {t.name} ({t.rate}%)
+                                {taxRates?.map((tr) => (
+                                    <option key={tr.id} value={tr.id}>
+                                        {tr.name} ({tr.rate}%)
                                     </option>
                                 ))}
                             </Select>
@@ -229,11 +237,11 @@ export default function ProductForm({
 
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
                     <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">
-                        Inventory
+                        {t("Inventory")}
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <Field
-                            label="Reorder Level"
+                            label={t("Reorder Level")}
                             error={errors.reorder_level}
                         >
                             <Input
@@ -247,7 +255,7 @@ export default function ProductForm({
                         {!isEdit && (
                             <>
                                 <Field
-                                    label="Opening Stock"
+                                    label={t("Opening Stock")}
                                     error={errors.opening_stock}
                                 >
                                     <Input
@@ -263,7 +271,7 @@ export default function ProductForm({
                                     />
                                 </Field>
                                 <Field
-                                    label="Warehouse"
+                                    label={t("Warehouse")}
                                     error={errors.warehouse_id}
                                 >
                                     <Select
@@ -276,7 +284,7 @@ export default function ProductForm({
                                         }
                                     >
                                         <option value="">
-                                            Select warehouse…
+                                            {t("Select warehouse…")}
                                         </option>
                                         {warehouses?.map((w) => (
                                             <option key={w.id} value={w.id}>
@@ -308,7 +316,7 @@ export default function ProductForm({
                         href={route("inventory.products.index")}
                         className="px-4 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50"
                     >
-                        Cancel
+                        {t("Cancel")}
                     </Link>
                     <button
                         type="submit"
@@ -316,7 +324,7 @@ export default function ProductForm({
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium"
                     >
                         <Save size={16} />{" "}
-                        {isEdit ? "Update Product" : "Create Product"}
+                        {isEdit ? t("Update Product") : t("Create Product")}
                     </button>
                 </div>
             </form>

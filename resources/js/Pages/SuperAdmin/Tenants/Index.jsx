@@ -76,7 +76,7 @@ export default function TenantsIndex({ tenants, filters, plans }) {
             <div className="flex items-center justify-between mb-6">
                 <div>
                     <h2 className="text-xl font-bold text-white">
-                        All Tenants
+                        {t("All Tenants")}
                     </h2>
                     <p className="text-slate-400 text-sm mt-0.5">
                         {tenants.total} total companies
@@ -324,12 +324,13 @@ export default function TenantsIndex({ tenants, filters, plans }) {
 }
 
 function SuspendModal({ tenant, onConfirm, onClose }) {
+    const { t } = useTranslation();
     const [reason, setReason] = useState("");
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 w-full max-w-md mx-4">
                 <h3 className="text-white font-semibold text-lg mb-2">
-                    Suspend Tenant
+                    {t("Suspend Tenant")}
                 </h3>
                 <p className="text-slate-400 text-sm mb-4">
                     Are you sure you want to suspend{" "}

@@ -56,10 +56,14 @@ export default function DiscountForm({ rule }) {
     );
 
     return (
-        <AppLayout title={isEdit ? "Edit Discount" : "New Discount Rule"}>
-            <Head title={isEdit ? "Edit Discount" : "New Discount Rule"} />
+        <AppLayout title={isEdit ? t("Edit Discount") : t("New Discount Rule")}>
+            <Head
+                title={isEdit ? t("Edit Discount") : t("New Discount Rule")}
+            />
             <PageHeader
-                title={isEdit ? "Edit Discount Rule" : "New Discount Rule"}
+                title={
+                    isEdit ? t("Edit Discount Rule") : t("New Discount Rule")
+                }
                 actions={
                     <Link
                         href={route("sales.discount-rules.index")}
@@ -74,7 +78,7 @@ export default function DiscountForm({ rule }) {
                 <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            {lbl("Name *")}
+                            {lbl(t("Name *"))}
                             {inp("name")}
                             {errors.name && (
                                 <p className="text-red-500 text-xs">
@@ -83,13 +87,13 @@ export default function DiscountForm({ rule }) {
                             )}
                         </div>
                         <div>
-                            {lbl("Coupon Code")}
+                            {lbl(t("Coupon Code"))}
                             {inp("code")}
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            {lbl("Type")}
+                            {lbl(t("Type"))}
                             <select
                                 value={data.type}
                                 onChange={(e) =>
@@ -98,27 +102,31 @@ export default function DiscountForm({ rule }) {
                                 className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
                             >
                                 <option value="percentage">
-                                    Percentage (%)
+                                    {t("Percentage (%)")}
                                 </option>
-                                <option value="fixed">{t("Fixed Amount")}</option>
-                                <option value="buy_x_get_y">{t("Buy X Get Y")}</option>
+                                <option value="fixed">
+                                    {t("Fixed Amount")}
+                                </option>
+                                <option value="buy_x_get_y">
+                                    {t("Buy X Get Y")}
+                                </option>
                             </select>
                         </div>
                         <div>
-                            {lbl("Value *")}
+                            {lbl(t("Value *"))}
                             {inp("value", "number", { step: "0.01", min: "0" })}
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            {lbl("Max Discount Amount")}
+                            {lbl(t("Max Discount Amount"))}
                             {inp("max_discount_amount", "number", {
                                 step: "0.01",
                                 min: "0",
                             })}
                         </div>
                         <div>
-                            {lbl("Min Order Amount")}
+                            {lbl(t("Min Order Amount"))}
                             {inp("min_order_amount", "number", {
                                 step: "0.01",
                                 min: "0",
@@ -127,11 +135,11 @@ export default function DiscountForm({ rule }) {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            {lbl("Usage Limit")}
+                            {lbl(t("Usage Limit"))}
                             {inp("usage_limit", "number", { min: "1" })}
                         </div>
                         <div>
-                            {lbl("Applies To")}
+                            {lbl(t("Applies To"))}
                             <select
                                 value={data.applies_to}
                                 onChange={(e) =>
@@ -145,9 +153,12 @@ export default function DiscountForm({ rule }) {
                                     "product",
                                     "customer",
                                     "segment",
-                                ].map((t) => (
-                                    <option key={t} value={t}>
-                                        {t.charAt(0).toUpperCase() + t.slice(1)}
+                                ].map((opt) => (
+                                    <option key={opt} value={opt}>
+                                        {t(
+                                            opt.charAt(0).toUpperCase() +
+                                                opt.slice(1),
+                                        )}
                                     </option>
                                 ))}
                             </select>
@@ -155,11 +166,11 @@ export default function DiscountForm({ rule }) {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            {lbl("Start Date")}
+                            {lbl(t("Start Date"))}
                             {inp("start_date", "date")}
                         </div>
                         <div>
-                            {lbl("End Date")}
+                            {lbl(t("End Date"))}
                             {inp("end_date", "date")}
                         </div>
                     </div>
@@ -176,8 +187,8 @@ export default function DiscountForm({ rule }) {
                         disabled={processing}
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm"
                     >
-                        <Save size={16} /> {isEdit ? "Update" : "Create"}{" "}
-                        Discount
+                        <Save size={16} /> {isEdit ? t("Update") : t("Create")}{" "}
+                        {t("Discount")}
                     </button>
                 </div>
             </form>

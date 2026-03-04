@@ -46,7 +46,8 @@ export default function VoucherForm({
     });
 
     const isContra = data.voucher_type === "contra";
-    const title = TYPE_LABELS[voucherType] ?? "Voucher";
+    const typeLabel = TYPE_LABELS[voucherType] ?? "Voucher";
+    const title = t(typeLabel);
     const backRoute =
         TYPE_BACK_ROUTE[voucherType] ?? "accounting.vouchers.debit";
 
@@ -58,10 +59,18 @@ export default function VoucherForm({
     };
 
     return (
-        <AppLayout title={isEdit ? `Edit ${title}` : `New ${title}`}>
-            <Head title={isEdit ? `Edit ${title}` : `New ${title}`} />
+        <AppLayout
+            title={isEdit ? `${t("Edit")} ${title}` : `${t("New")} ${title}`}
+        >
+            <Head
+                title={
+                    isEdit ? `${t("Edit")} ${title}` : `${t("New")} ${title}`
+                }
+            />
             <PageHeader
-                title={isEdit ? `Edit ${title}` : `New ${title}`}
+                title={
+                    isEdit ? `${t("Edit")} ${title}` : `${t("New")} ${title}`
+                }
                 actions={
                     <Link
                         href={route(backRoute)}
@@ -78,7 +87,7 @@ export default function VoucherForm({
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">
-                                Voucher Date{" "}
+                                {t("Voucher Date")}{" "}
                                 <span className="text-red-500">*</span>
                             </label>
                             <input
@@ -104,7 +113,7 @@ export default function VoucherForm({
                             >
                                 <option value="draft">{t("Draft")}</option>
                                 <option value="pending">
-                                    Submit for Approval
+                                    {t("Submit for Approval")}
                                 </option>
                             </select>
                             <InputError message={errors.status} />
@@ -116,7 +125,7 @@ export default function VoucherForm({
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-1">
-                                    Transfer From{" "}
+                                    {t("Transfer From")}{" "}
                                     <span className="text-red-500">*</span>
                                 </label>
                                 <select
@@ -129,7 +138,7 @@ export default function VoucherForm({
                                     }
                                     className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 >
-                                    <option value="">— Select —</option>
+                                    <option value="">{t("— Select —")}</option>
                                     {paymentMethods.map((pm) => (
                                         <option key={pm.id} value={pm.id}>
                                             {pm.name}
@@ -142,7 +151,7 @@ export default function VoucherForm({
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-1">
-                                    Transfer To{" "}
+                                    {t("Transfer To")}{" "}
                                     <span className="text-red-500">*</span>
                                 </label>
                                 <select
@@ -155,7 +164,7 @@ export default function VoucherForm({
                                     }
                                     className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 >
-                                    <option value="">— Select —</option>
+                                    <option value="">{t("— Select —")}</option>
                                     {paymentMethods.map((pm) => (
                                         <option key={pm.id} value={pm.id}>
                                             {pm.name}
@@ -183,7 +192,7 @@ export default function VoucherForm({
                                     }
                                     className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 >
-                                    <option value="">— Select —</option>
+                                    <option value="">{t("— Select —")}</option>
                                     {paymentMethods.map((pm) => (
                                         <option key={pm.id} value={pm.id}>
                                             {pm.name}
@@ -205,7 +214,9 @@ export default function VoucherForm({
                                     }
                                     className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 >
-                                    <option value="">— Select account —</option>
+                                    <option value="">
+                                        {t("— Select account —")}
+                                    </option>
                                     {accounts.map((a) => (
                                         <option key={a.id} value={a.id}>
                                             {a.code} – {a.name}
@@ -220,7 +231,8 @@ export default function VoucherForm({
                     {/* Amount */}
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                            Amount <span className="text-red-500">*</span>
+                            {t("Amount")}{" "}
+                            <span className="text-red-500">*</span>
                         </label>
                         <input
                             type="number"
@@ -237,7 +249,7 @@ export default function VoucherForm({
                     {/* Reference */}
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                            Reference / Cheque No.
+                            {t("Reference / Cheque No.")}
                         </label>
                         <input
                             type="text"
@@ -276,7 +288,7 @@ export default function VoucherForm({
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-5 py-2 rounded-lg text-sm font-medium"
                     >
                         <Save size={16} />
-                        {processing ? "Saving…" : `Save ${title}`}
+                        {processing ? t("Saving…") : `${t("Save")} ${title}`}
                     </button>
                 </div>
             </form>
