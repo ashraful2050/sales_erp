@@ -10,7 +10,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('company_id');
             $table->string('name');                          // e.g. "Main Cash", "BRAC Bank"
-            $table->enum('type', ['cash', 'bank', 'mobile_banking', 'other'])->default('cash');
+            $table->enum('type', ['cash', 'bank', 'cheque', 'mobile_banking', 'card', 'online', 'lc', 'other'])->default('cash');
             $table->unsignedBigInteger('account_id')->nullable(); // linked GL account
             $table->boolean('is_default')->default(false);
             $table->boolean('is_active')->default(true);

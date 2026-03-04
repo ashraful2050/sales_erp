@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->foreignId('parent_id')->nullable()->constrained('cost_centers')->nullOnDelete();
             $table->string('name');
             $table->string('code', 20)->nullable();
+            $table->string('description')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

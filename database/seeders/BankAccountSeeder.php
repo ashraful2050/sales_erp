@@ -17,7 +17,7 @@ class BankAccountSeeder extends Seeder
     {
         $now    = now();
         $seeded = 0;
-        $companies = Company::all(['id', 'currency_id']);
+        $companies = Company::all(['id', 'currency_code']);
 
         foreach ($companies as $company) {
             $existing = DB::table('bank_accounts')
@@ -34,10 +34,8 @@ class BankAccountSeeder extends Seeder
                 ->where('code', '1020')
                 ->value('id');
 
-            // Determine default currency for the company
-            $currencyCode = DB::table('currencies')
-                ->where('id', $company->currency_id ?? 0)
-                ->value('code') ?? 'BDT';
+            // Use the company's currency_code directly
+            $currencyCode = $company->currency_code ?? 'BDT';
 
             DB::table('bank_accounts')->insert([
                 'company_id'      => $company->id,
@@ -50,7 +48,7 @@ class BankAccountSeeder extends Seeder
                 'swift_code'      => null,
                 'currency_code'   => $currencyCode,
                 'opening_balance' => 0,
-                'payment_method'  => 'bank_transfer',
+                'payment_method'  => 'bank',
                 'is_active'       => true,
                 'created_at'      => $now,
                 'updated_at'      => $now,
