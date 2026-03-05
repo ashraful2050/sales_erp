@@ -42,6 +42,7 @@ class PurchaseOrderController extends Controller {
             $subtotal+=$lineTotal;$taxAmount+=$taxAmt;
         }
         $order->update(["subtotal"=>$subtotal,"tax_amount"=>$taxAmount,"total_amount"=>$subtotal+$taxAmount]);
+        \App\Support\Notify::admins($cid, 'New Purchase Order', "PO {$num} has been created.", "/purchase/purchase-orders/{$order->id}");
         return redirect()->route("purchase.purchase-orders.show",$order)->with("success","Purchase order created.");
     }
     public function show(PurchaseOrder $purchaseOrder) {

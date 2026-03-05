@@ -45,6 +45,7 @@ class InvoiceController extends Controller {
         }
         $disc=(float)($v["discount_amount"]??0);
         $invoice->update(["subtotal"=>$subtotal,"tax_amount"=>$taxAmount,"total_amount"=>$subtotal+$taxAmount-$disc]);
+        \App\Support\Notify::admins($cid, 'New Invoice Created', "Invoice {$num} has been created.", "/sales/invoices/{$invoice->id}");
         return redirect()->route("sales.invoices.show",$invoice)->with("success","Invoice created.");
     }
     public function show(Invoice $invoice) {
@@ -94,6 +95,7 @@ class InvoiceController extends Controller {
     public function send(Invoice $invoice) {
         abort_if($invoice->company_id!==auth()->user()->company_id,403);
         $invoice->update(["status"=>"sent"]);
+        \App\Support\Notify::admins($invoice->company_id, 'Invoice Sent', "Invoice {$invoice->invoice_number} has been marked as sent.", "/sales/invoices/{$invoice->id}");
         return back()->with("success","Invoice marked as sent.");
     }
     public function cancel(Invoice $invoice) {

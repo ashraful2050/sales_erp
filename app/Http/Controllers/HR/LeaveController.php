@@ -33,14 +33,25 @@ class LeaveController extends Controller {
             "reason"        => $v["reason"] ?? null,
             "status"        => "pending",
         ]);
+        \App\Support\Notify::admins($cid, 'Leave Request Submitted', 'A new leave request requires your approval.', '/hr/leaves');
         return redirect()->route("hr.leaves.index")->with("success","Leave request submitted.");
     }
     public function show(LeaveRequest $leave) { abort_if($leave->company_id!==auth()->user()->company_id,403); return Inertia::render("HR/Leaves/Show",["leave"=>$leave->load(["employee","leaveType"])]); }
     public function edit(LeaveRequest $leave) { abort_if($leave->company_id!==auth()->user()->company_id,403); $cid=auth()->user()->company_id; return Inertia::render("HR/Leaves/Form",["leave"=>$leave,"employees"=>Employee::where("company_id",$cid)->where("status","active")->get(["id","name"]),"leaveTypes"=>LeaveType::where("company_id",$cid)->where("is_active",true)->get(["id","name"])]); }
     public function update(Request $request,LeaveRequest $leave) {
         abort_if($leave->company_id!==auth()->user()->company_id,403);
-        if($request->action==="approve") { $leave->update(["status"=>"approved","approved_by"=>auth()->id()]); return back()->with("success","Leave approved."); }
-        if($request->action==="reject") { $leave->update(["status"=>"rejected","approved_by"=>auth()->id()]); return back()->with("success","Leave rejected."); }
+        if($request->action==="approve") {
+            $leave->update(["status"=>"approved","approved_by"=>auth()->id()]);
+            $leave->loadMissing('employee');
+            if ($leave->employee?->user_id) \App\Support\Notify::user($leave->employee->user_id, 'Leave Approved', 'Your leave request has been approved.', '/hr/leaves');
+            return back()->with("success","Leave approved.");
+        }
+        if($request->action==="reject") {
+            $leave->update(["status"=>"rejected","approved_by"=>auth()->id()]);
+            $leave->loadMissing('employee');
+            if ($leave->employee?->user_id) \App\Support\Notify::user($leave->employee->user_id, 'Leave Rejected', 'Your leave request has been rejected.', '/hr/leaves');
+            return back()->with("success","Leave rejected.");
+        }
         $v=$request->validate(["employee_id"=>"required|exists:employees,id","leave_type_id"=>"required|exists:leave_types,id","start_date"=>"required|date","end_date"=>"required|date|after_or_equal:start_date","reason"=>"nullable"]);
         $start=\Carbon\Carbon::parse($v["start_date"]);$end=\Carbon\Carbon::parse($v["end_date"]);
         $leave->update([

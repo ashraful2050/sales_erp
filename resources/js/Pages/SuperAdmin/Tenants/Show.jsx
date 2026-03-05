@@ -637,6 +637,38 @@ function LayoutSwitcher({ tenant }) {
             accent: "border-emerald-500 bg-emerald-500/10",
             badge: "bg-emerald-600",
         },
+        {
+            id: "odoo",
+            label: "Odoo",
+            desc: "Odoo 18 style — purple top bar, app switcher",
+            icon: LayoutGrid,
+            preview: (
+                <div className="w-full h-16 rounded overflow-hidden flex flex-col">
+                    <div className="h-4 bg-[#714B67] flex items-center px-1.5 gap-1">
+                        <div className="w-2.5 h-2.5 rounded bg-white/30" />
+                        <div className="h-1 w-10 bg-white/30 rounded" />
+                        <div className="flex-1" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-white/40" />
+                    </div>
+                    <div className="flex flex-1 bg-[#F0EEEB]">
+                        <div className="w-10 bg-white border-r border-slate-200 flex flex-col gap-0.5 p-0.5 pt-1">
+                            {[1, 2, 3, 4].map((i) => (
+                                <div
+                                    key={i}
+                                    className="bg-[#714B67]/20 rounded h-1.5 w-full"
+                                />
+                            ))}
+                        </div>
+                        <div className="flex-1 p-1">
+                            <div className="bg-white h-1.5 w-3/4 rounded mb-1 shadow-sm" />
+                            <div className="bg-white h-1 w-1/2 rounded shadow-sm" />
+                        </div>
+                    </div>
+                </div>
+            ),
+            accent: "border-[#714B67] bg-[#714B67]/10",
+            badge: "bg-[#714B67]",
+        },
     ];
 
     return (

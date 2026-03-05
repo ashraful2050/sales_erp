@@ -58,7 +58,11 @@ class TaskController extends Controller
         $v['company_id'] = auth()->user()->company_id;
         $v['created_by'] = auth()->id();
         $v['status']     = 'pending';
-        Task::create($v);
+        $newTask = Task::create($v);
+        // Notify assignee (if different from creator)
+        if (!empty($v['assigned_to']) && $v['assigned_to'] !== auth()->id()) {
+            \App\Support\Notify::user($v['assigned_to'], 'Task Assigned to You', $newTask->title, '/tasks');
+        }
         return back()->with('success', 'Task created.');
     }
 
@@ -74,10 +78,20 @@ class TaskController extends Controller
             'assigned_to' => 'nullable|exists:users,id',
             'due_date'    => 'nullable|date',
         ]);
-        if ($v['status'] === 'completed' && $task->status !== 'completed') {
+        $wasCompleted = $task->status === 'completed';
+        if ($v['status'] === 'completed' && !$wasCompleted) {
             $v['completed_at'] = now();
         }
+        // If assigned_to changed, notify new assignee
+        $prevAssignee = $task->assigned_to;
         $task->update($v);
+        if (!empty($v['assigned_to']) && $v['assigned_to'] !== $prevAssignee && $v['assigned_to'] !== auth()->id()) {
+            \App\Support\Notify::user($v['assigned_to'], 'Task Assigned to You', $task->title, '/tasks');
+        }
+        // Notify creator on completion
+        if ($v['status'] === 'completed' && !$wasCompleted && $task->created_by && $task->created_by !== auth()->id()) {
+            \App\Support\Notify::user($task->created_by, 'Task Completed', "{$task->title} has been completed.", '/tasks');
+        }
         return back()->with('success', 'Task updated.');
     }
 
@@ -92,6 +106,9 @@ class TaskController extends Controller
     {
         abort_if($task->company_id !== auth()->user()->company_id, 403);
         $task->update(['status' => 'completed', 'completed_at' => now()]);
+        if ($task->created_by && $task->created_by !== auth()->id()) {
+            \App\Support\Notify::user($task->created_by, 'Task Completed', "{$task->title} has been completed.", '/tasks');
+        }
         return back()->with('success', 'Task marked as complete.');
     }
 

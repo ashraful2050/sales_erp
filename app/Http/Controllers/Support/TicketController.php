@@ -67,7 +67,12 @@ class TicketController extends Controller
         $v['company_id'] = auth()->user()->company_id;
         $v['created_by'] = auth()->id();
         $v['status']     = 'open';
-        SupportTicket::create($v);
+        $newTicket = SupportTicket::create($v);
+        if (!empty($v['assigned_to'])) {
+            \App\Support\Notify::user($v['assigned_to'], 'Ticket Assigned to You', "#{$newTicket->ticket_number}: {$newTicket->subject}", "/support/tickets/{$newTicket->id}");
+        } else {
+            \App\Support\Notify::admins($v['company_id'], 'New Support Ticket', "#{$newTicket->ticket_number}: {$newTicket->subject}", "/support/tickets/{$newTicket->id}");
+        }
         return redirect()->route('support.tickets.index')->with('success', 'Ticket created.');
     }
 
@@ -91,7 +96,16 @@ class TicketController extends Controller
         if (in_array($v['status'], ['resolved', 'closed']) && !$ticket->resolved_at) {
             $v['resolved_at'] = now();
         }
+        $prevAssigned = $ticket->assigned_to;
         $ticket->update($v);
+        // Notify newly assigned agent if assignment changed
+        if (!empty($v['assigned_to']) && $v['assigned_to'] !== $prevAssigned) {
+            \App\Support\Notify::user($v['assigned_to'], 'Ticket Assigned to You', "#{$ticket->ticket_number}: {$ticket->subject}", "/support/tickets/{$ticket->id}");
+        }
+        // Notify creator when ticket is resolved
+        if (in_array($v['status'], ['resolved', 'closed']) && $ticket->created_by !== auth()->id()) {
+            \App\Support\Notify::user($ticket->created_by, 'Ticket Resolved', "Your ticket #{$ticket->ticket_number} has been {$v['status']}.", "/support/tickets/{$ticket->id}");
+        }
         return back()->with('success', 'Ticket updated.');
     }
 
@@ -107,6 +121,11 @@ class TicketController extends Controller
             'message' => $v['message'],
             'type'    => $v['type'],
         ]);
+        // Notify the other party (assignee or creator) about the new reply
+        $notifyId = (auth()->id() === $ticket->assigned_to)
+            ? $ticket->created_by
+            : $ticket->assigned_to;
+        \App\Support\Notify::user($notifyId, 'New Reply on Ticket', "#{$ticket->ticket_number}: {$ticket->subject}", "/support/tickets/{$ticket->id}");
         return back()->with('success', 'Reply sent.');
     }
 

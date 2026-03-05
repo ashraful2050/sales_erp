@@ -3,6 +3,7 @@ import { Link, usePage } from "@inertiajs/react";
 import SubscriptionBanner from "@/Components/SubscriptionBanner";
 import AppLayoutLight from "./AppLayoutLight";
 import AppLayoutTally from "./AppLayoutTally";
+import AppLayoutOdoo from "./AppLayoutOdoo";
 import LanguageSwitcher from "@/Components/LanguageSwitcher";
 import PwaInstallPrompt from "@/Components/PwaInstallPrompt";
 import PushNotificationBell from "@/Components/PushNotificationBell";
@@ -988,5 +989,7 @@ export default function AppLayout({ children, title }) {
         return <AppLayoutLight title={title}>{children}</AppLayoutLight>;
     if (appLayout === "tally")
         return <AppLayoutTally title={title}>{children}</AppLayoutTally>;
-    return <AppLayoutDark title={title}>{children}</AppLayoutDark>;
+    if (appLayout === "dark")
+        return <AppLayoutDark title={title}>{children}</AppLayoutDark>;
+    return <AppLayoutOdoo title={title}>{children}</AppLayoutOdoo>;
 }

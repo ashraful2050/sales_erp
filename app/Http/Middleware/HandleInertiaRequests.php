@@ -87,7 +87,7 @@ class HandleInertiaRequests extends Middleware
             'permissions'       => $user ? $user->allPermissions() : [],
             'isSuperAdmin'             => $user?->isSuperAdmin() ?? false,
             'isAdmin'                  => ($user?->isAdmin() && !$user?->isSuperAdmin()) ?? false,
-            'appLayout'                => ($company ? ($company->settings['layout'] ?? 'dark') : 'dark'),
+            'appLayout'                => ($company ? ($company->settings['layout'] ?? 'odoo') : 'odoo'),
             'subscription'             => $subscriptionInfo,
             'isImpersonating'          => $isImpersonating,
             'pendingContactRequests'   => ($user?->isSuperAdmin() ? ContactRequest::where('status', 'pending')->count() : 0),

@@ -270,7 +270,7 @@ class TenantController extends Controller
     public function setLayout(Request $request, Company $company)
     {
         $request->validate([
-            'layout' => 'required|in:dark,light,tally',
+            'layout' => 'required|in:dark,light,tally,odoo',
         ]);
 
         $settings = $company->settings ?? [];

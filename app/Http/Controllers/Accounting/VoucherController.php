@@ -123,6 +123,11 @@ class VoucherController extends Controller
             'cash_adjustment'=> 'accounting.vouchers.adjustment',
         ];
 
+        // Notify admins when a voucher is submitted for approval
+        if ($v['status'] === 'pending') {
+            \App\Support\Notify::admins($cid, 'Voucher Pending Approval', ucfirst($v['voucher_type']) . ' voucher submitted for approval.', '/accounting/vouchers/approval');
+        }
+
         return redirect()->route($typeRoutes[$v['voucher_type']])
             ->with('success', 'Voucher saved.');
     }
@@ -186,6 +191,7 @@ class VoucherController extends Controller
             $this->postJournalEntry($voucher);
         });
 
+        \App\Support\Notify::user($voucher->created_by, 'Voucher Approved', "Voucher {$voucher->voucher_number} has been approved and posted.", '/accounting/vouchers/approval');
         return back()->with('success', 'Voucher approved and posted to journal.');
     }
 
@@ -197,6 +203,7 @@ class VoucherController extends Controller
 
         $v = $request->validate(['rejection_reason' => 'nullable|string|max:500']);
         $voucher->update(array_merge($v, ['status' => 'rejected']));
+        \App\Support\Notify::user($voucher->created_by, 'Voucher Rejected', "Voucher {$voucher->voucher_number} has been rejected.", '/accounting/vouchers/approval');
         return back()->with('success', 'Voucher rejected.');
     }
 

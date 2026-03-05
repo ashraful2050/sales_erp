@@ -95,8 +95,12 @@ export default function CreditNoteForm({
     };
 
     return (
-        <AppLayout title={isEdit ? t("Edit Credit Note") : t("New Credit Note")}>
-            <Head title={isEdit ? t("Edit Credit Note") : t("New Credit Note")} />
+        <AppLayout
+            title={isEdit ? t("Edit Credit Note") : t("New Credit Note")}
+        >
+            <Head
+                title={isEdit ? t("Edit Credit Note") : t("New Credit Note")}
+            />
             <PageHeader
                 title={isEdit ? t("Edit Credit Note") : t("New Credit Note")}
                 subtitle={t("Sales Return / Credit Note")}
@@ -127,7 +131,9 @@ export default function CreditNoteForm({
                                 }
                                 className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"
                             >
-                                <option value="">{t("— Select Customer —")}</option>
+                                <option value="">
+                                    {t("— Select Customer —")}
+                                </option>
                                 {customers.map((c) => (
                                     <option key={c.id} value={c.id}>
                                         {c.name}
@@ -387,6 +393,7 @@ export default function CreditNoteForm({
                         {t("Cancel")}
                     </Link>
                 </div>
+            </form>
         </AppLayout>
     );
 }
